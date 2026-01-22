@@ -1,0 +1,168 @@
+test_signed_tags 1 0.0267174
+ascii_tag 1 0.0272568
+long_tag 1 0.0279541
+short_tag 1 0.0284746
+strip_rw 1 0.0286947
+rewrite 1 0.0291432
+custom_dir 1 0.0292835
+rational_precision2double 1 0.0292867
+test_write_read_tags 1 0.0294
+test_transferfunction_write_read 1 0.0294036
+custom_dir_EXIF_231 1 0.029818
+defer_strile_loading 1 0.160338
+defer_strile_writing 1 0.0293607
+test_directory 1 0.0367767
+test_IFD_enlargement 1 0.0643343
+testtypes 1 0.0277782
+test_open_options 1 0.0280917
+test_append_to_strip 1 0.0283159
+test_ifd_loop_detection 1 0.0283288
+test_RGBAImage 0 0
+ppm2tiff-miniswhite-miniswhite-1c-1b 1 0.0272905
+ppm2tiff-minisblack-minisblack-1c-8b 1 0.0277104
+ppm2tiff-rgb-rgb-3c-16b 1 0.0304383
+ppm2tiff-rgb-rgb-3c-8b 1 0.0308907
+tiffcp-TIFFIMG-custom_dir_EXIF_GPS 1 0.0308717
+tiffcp-TIFFIMG-logluv-3c-16b 1 0.0308263
+tiffcp-TIFFIMG-minisblack-1c-16b 1 0.0304715
+tiffcp-TIFFIMG-minisblack-1c-8b 1 0.0303166
+tiffcp-TIFFIMG-minisblack-2c-8b-alpha 1 0.0284518
+tiffcp-TIFFIMG-miniswhite-1c-1b 1 0.0283754
+tiffcp-TIFFIMG-palette-1c-1b 1 0.0279255
+tiffcp-TIFFIMG-palette-1c-4b 1 0.0280769
+tiffcp-TIFFIMG-palette-1c-8b 1 0.0284003
+tiffcp-TIFFIMG-rgb-3c-16b 1 0.0283778
+tiffcp-TIFFIMG-rgb-3c-8b 1 0.0289463
+tiffcp-TIFFIMG-quad-lzw-compat 1 0.029524
+tiffcp-TIFFIMG-lzw-single-strip 1 0.0355638
+tiffcp-TIFFIMG-testfax4 1 0.0286852
+tiffcp-TIFFIMG-testfax3_bug_513 1 0.0283743
+tiffcp-TIFFIMG-32bpp-None 1 0.0284009
+tiffcp-g3-miniswhite-1c-1b 1 0.0282876
+tiffcp-g31d-miniswhite-1c-1b 1 0.0282877
+tiffcp-g31dfill-miniswhite-1c-1b 1 0.0294934
+tiffcp-g32d-miniswhite-1c-1b 1 0.029256
+tiffcp-g32dfill-miniswhite-1c-1b 1 0.0290338
+tiffcp-g4-miniswhite-1c-1b 1 0.0285631
+tiffcp-logluv-logluv-3c-16b 1 0.0289884
+tiffcp-thumbnail-miniswhite-1c-1b 1 0.0291793
+tiffcp-none-quad-lzw-compat 1 0.0295308
+tiffcp-noner1-lzw-single-strip 1 0.0295392
+tiffcp-float64_lzw_2_le-test_float64_predictor2_le_lzw 1 0.0296256
+tiffcp-float64_lzw_2_be-test_float64_predictor2_be_lzw 1 0.0301026
+tiffcp-testfax3_bug54_1dnoEOL-testfax3_bug54_1dnoEOL 1 0.03047
+tiff2rgba-32BPP-32bpp-None 0 0
+tiffdump-miniswhite-1c-1b 1 0.0310158
+tiffinfo-custom_dir_EXIF_GPS 1 0.0316894
+tiffinfo-minisblack-1c-16b 1 0.0571598
+tiffinfo-tiff_with_subifd_chain 1 0.031188
+tiffcp-split 1 0.0313706
+tiffcp-split-join 1 0.0315493
+tiff2pdf-miniswhite-1c-1b 0 0
+tiff2ps-miniswhite-1c-1b-ps-1 1 0.0308693
+tiff2ps-miniswhite-1c-1b-ps-2 1 0.0304577
+tiff2ps-miniswhite-1c-1b-ps-3 1 0.0306906
+tiff2ps-miniswhite-1c-1b-eps-1 1 0.0325611
+tiff2bw-default-palette-1c-8b 1 0.0323139
+tiff2bw-default-rgb-3c-8b 1 0.032678
+tiff2bw-default-quad-lzw-compat 1 0.0326779
+tiff2rgba-default-custom_dir_EXIF_GPS 0 0
+tiff2rgba-default-logluv-3c-16b 0 0
+tiff2rgba-default-minisblack-1c-16b 0 0
+tiff2rgba-default-minisblack-1c-8b 0 0
+tiff2rgba-default-minisblack-2c-8b-alpha 0 0
+tiff2rgba-default-miniswhite-1c-1b 0 0
+tiff2rgba-default-palette-1c-1b 0 0
+tiff2rgba-default-palette-1c-4b 0 0
+tiff2rgba-default-palette-1c-8b 0 0
+tiff2rgba-default-rgb-3c-16b 0 0
+tiff2rgba-default-rgb-3c-8b 0 0
+tiff2rgba-default-quad-lzw-compat 0 0
+tiff2rgba-default-lzw-single-strip 0 0
+tiff2rgba-default-testfax4 0 0
+tiff2rgba-default-testfax3_bug_513 0 0
+tiff2rgba-default-32bpp-None 0 0
+tiffcrop-R90-custom_dir_EXIF_GPS 1 0.020422
+tiffcrop-R90-logluv-3c-16b 1 0.0202193
+tiffcrop-R90-minisblack-1c-16b 1 0.0259661
+tiffcrop-R90-minisblack-1c-8b 1 0.0263126
+tiffcrop-R90-minisblack-2c-8b-alpha 1 0.0268008
+tiffcrop-R90-miniswhite-1c-1b 1 0.0265102
+tiffcrop-R90-palette-1c-1b 1 0.0248509
+tiffcrop-R90-palette-1c-4b 1 0.0248355
+tiffcrop-R90-palette-1c-8b 1 0.0245194
+tiffcrop-R90-rgb-3c-16b 1 0.0239404
+tiffcrop-R90-rgb-3c-8b 1 0.0239359
+tiffcrop-R90-quad-lzw-compat 1 0.0245657
+tiffcrop-R90-lzw-single-strip 1 0.0615228
+tiffcrop-R90-testfax4 1 0.0229115
+tiffcrop-R90-testfax3_bug_513 1 0.0230347
+tiffcrop-R90-32bpp-None 1 0.0228567
+tiffcrop-doubleflip-custom_dir_EXIF_GPS 1 0.0240601
+tiffcrop-doubleflip-logluv-3c-16b 1 0.0263234
+tiffcrop-doubleflip-minisblack-1c-16b 1 0.0263592
+tiffcrop-doubleflip-minisblack-1c-8b 1 0.0259198
+tiffcrop-doubleflip-minisblack-2c-8b-alpha 1 0.0258114
+tiffcrop-doubleflip-miniswhite-1c-1b 1 0.0258324
+tiffcrop-doubleflip-palette-1c-1b 1 0.0257376
+tiffcrop-doubleflip-palette-1c-4b 1 0.0253444
+tiffcrop-doubleflip-palette-1c-8b 1 0.0253475
+tiffcrop-doubleflip-rgb-3c-16b 1 0.0255636
+tiffcrop-doubleflip-rgb-3c-8b 1 0.0253904
+tiffcrop-doubleflip-quad-lzw-compat 1 0.0254329
+tiffcrop-doubleflip-lzw-single-strip 1 0.0593462
+tiffcrop-doubleflip-testfax4 1 0.0407265
+tiffcrop-doubleflip-testfax3_bug_513 1 0.0239437
+tiffcrop-doubleflip-32bpp-None 1 0.0237067
+tiffcrop-extract-custom_dir_EXIF_GPS 1 0.0238205
+tiffcrop-extract-logluv-3c-16b 1 0.0238844
+tiffcrop-extract-minisblack-1c-16b 1 0.0238567
+tiffcrop-extract-minisblack-1c-8b 1 0.0239287
+tiffcrop-extract-minisblack-2c-8b-alpha 1 0.0236299
+tiffcrop-extract-miniswhite-1c-1b 1 0.0233331
+tiffcrop-extract-palette-1c-1b 1 0.0228856
+tiffcrop-extract-palette-1c-4b 1 0.0228971
+tiffcrop-extract-palette-1c-8b 1 0.0227414
+tiffcrop-extract-rgb-3c-16b 1 0.022316
+tiffcrop-extract-rgb-3c-8b 1 0.0244942
+tiffcrop-extract-quad-lzw-compat 1 0.0236046
+tiffcrop-extract-lzw-single-strip 1 0.0226473
+tiffcrop-extract-testfax4 1 0.0212957
+tiffcrop-extract-testfax3_bug_513 1 0.020232
+tiffcrop-extract-32bpp-None 1 0.0191431
+tiffcrop-extractz14-custom_dir_EXIF_GPS 1 0.018255
+tiffcrop-extractz14-logluv-3c-16b 1 0.0166641
+tiffcrop-extractz14-minisblack-1c-16b 1 0.015571
+tiffcrop-extractz14-minisblack-1c-8b 1 0.0146977
+tiffcrop-extractz14-minisblack-2c-8b-alpha 1 0.0135788
+tiffcrop-extractz14-miniswhite-1c-1b 1 0.0125764
+tiffcrop-extractz14-palette-1c-1b 1 0.0113554
+tiffcrop-extractz14-palette-1c-4b 1 0.00996501
+tiffcrop-extractz14-palette-1c-8b 1 0.00883791
+tiffcrop-extractz14-rgb-3c-16b 1 0.00800243
+tiffcrop-extractz14-rgb-3c-8b 1 0.00701768
+tiffcrop-extractz14-quad-lzw-compat 1 0.00843589
+tiffcrop-extractz14-lzw-single-strip 1 0.0286415
+tiffcrop-extractz14-testfax4 1 0.011389
+tiffcrop-extractz14-testfax3_bug_513 1 0.00477256
+tiffcrop-extractz14-32bpp-None 1 0.00521829
+---
+test_RGBAImage
+tiff2rgba-32BPP-32bpp-None
+tiff2pdf-miniswhite-1c-1b
+tiff2rgba-default-custom_dir_EXIF_GPS
+tiff2rgba-default-logluv-3c-16b
+tiff2rgba-default-minisblack-1c-16b
+tiff2rgba-default-minisblack-1c-8b
+tiff2rgba-default-minisblack-2c-8b-alpha
+tiff2rgba-default-miniswhite-1c-1b
+tiff2rgba-default-palette-1c-1b
+tiff2rgba-default-palette-1c-4b
+tiff2rgba-default-palette-1c-8b
+tiff2rgba-default-rgb-3c-16b
+tiff2rgba-default-rgb-3c-8b
+tiff2rgba-default-quad-lzw-compat
+tiff2rgba-default-lzw-single-strip
+tiff2rgba-default-testfax3_bug_513
+tiff2rgba-default-testfax4
+tiff2rgba-default-32bpp-None

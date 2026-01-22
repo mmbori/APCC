@@ -1,0 +1,1 @@
+int _TIFFNoPreCode(TIFF *tif , uint16_t s);

@@ -1,0 +1,1 @@
+int PredictorEncodeTile(TIFF *tif , uint8_t *bp0 , tmsize_t cc0 , uint16_t s);

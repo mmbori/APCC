@@ -1,0 +1,1 @@
+void Luv24fromXYZ(LogLuvState *sp , uint8_t *op , tmsize_t n);

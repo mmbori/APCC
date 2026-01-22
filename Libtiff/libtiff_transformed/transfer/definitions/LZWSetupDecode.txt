@@ -1,0 +1,1 @@
+int LZWSetupDecode(TIFF *tif);

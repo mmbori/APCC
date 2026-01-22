@@ -1,0 +1,1 @@
+void Luv24toRGB(LogLuvState *sp , uint8_t *op , tmsize_t n);

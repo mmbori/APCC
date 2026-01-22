@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/fax2ps.dir/fax2ps.c.o -o fax2ps  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

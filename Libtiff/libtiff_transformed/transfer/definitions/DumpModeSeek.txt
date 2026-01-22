@@ -1,0 +1,1 @@
+int DumpModeSeek(TIFF *tif , uint32_t nrows);

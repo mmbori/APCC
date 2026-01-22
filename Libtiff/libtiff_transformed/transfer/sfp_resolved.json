@@ -1,0 +1,912 @@
+[
+  {
+    "fp_name": "contig",
+    "struct_name": "_TIFFRGBAImage",
+    "struct_aliases": [
+      "_TIFFRGBAImage",
+      "TIFFRGBAImage"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "NULL",
+      "put16bitbwtile",
+      "put1bitbwtile",
+      "put1bitcmaptile",
+      "put2bitbwtile",
+      "put2bitcmaptile",
+      "put4bitbwtile",
+      "put4bitcmaptile",
+      "put8bitcmaptile",
+      "putRGBAAcontig16bittile",
+      "putRGBAAcontig8bittile",
+      "putRGBUAcontig16bittile",
+      "putRGBUAcontig8bittile",
+      "putRGBcontig16bittile",
+      "putRGBcontig8bitCMYKMaptile",
+      "putRGBcontig8bitCMYKtile",
+      "putRGBcontig8bittile",
+      "putagreytile",
+      "putcontig8bitYCbCr11tile",
+      "putcontig8bitYCbCr12tile",
+      "putcontig8bitYCbCr21tile",
+      "putcontig8bitYCbCr22tile",
+      "putcontig8bitYCbCr41tile",
+      "putcontig8bitYCbCr42tile",
+      "putcontig8bitYCbCr44tile",
+      "putgreytile"
+    ]
+  },
+  {
+    "fp_name": "dec_decode",
+    "struct_name": "LZWCodecState",
+    "struct_aliases": [
+      "LZWCodecState"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "decodepfunc",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "NULL",
+      "fpAcc",
+      "horAcc16",
+      "horAcc32",
+      "horAcc64",
+      "horAcc8",
+      "swabHorAcc16",
+      "swabHorAcc32",
+      "swabHorAcc64"
+    ]
+  },
+  {
+    "fp_name": "decoderow",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "decodestrip",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "decodetile",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "defsparent",
+    "struct_name": "JPEGOtherSettings",
+    "struct_aliases": [
+      "JPEGOtherSettings"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "deftparent",
+    "struct_name": "JPEGOtherSettings",
+    "struct_aliases": [
+      "JPEGOtherSettings"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "encodepfunc",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "NULL",
+      "fpDiff",
+      "horDiff16",
+      "horDiff32",
+      "horDiff64",
+      "horDiff8",
+      "swabHorDiff16",
+      "swabHorDiff32",
+      "swabHorDiff64"
+    ]
+  },
+  {
+    "fp_name": "encoderow",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "encodestrip",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "encodetile",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "errorhandler",
+    "struct_name": "TIFFOpenOptions",
+    "struct_aliases": [
+      "TIFFOpenOptions"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "handler"
+    ]
+  },
+  {
+    "fp_name": "fill",
+    "struct_name": "Fax3CodecState",
+    "struct_aliases": [
+      "Fax3CodecState"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "fnEqualFunc",
+    "struct_name": "_TIFFHashSet",
+    "struct_aliases": [
+      "_TIFFHashSet",
+      "TIFFHashSet"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "fnFreeEltFunc",
+    "struct_name": "_TIFFHashSet",
+    "struct_aliases": [
+      "_TIFFHashSet",
+      "TIFFHashSet"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "fnHashFunc",
+    "struct_name": "_TIFFHashSet",
+    "struct_aliases": [
+      "_TIFFHashSet",
+      "TIFFHashSet"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "get",
+    "struct_name": "_TIFFRGBAImage",
+    "struct_aliases": [
+      "_TIFFRGBAImage",
+      "TIFFRGBAImage"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init",
+    "struct_name": "TIFFCodec",
+    "struct_aliases": [
+      "TIFFCodec"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "printdir",
+    "struct_name": "sos_end",
+    "struct_aliases": [
+      "sos_end"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "Fax3PrintDir",
+      "JPEGPrintDir",
+      "NULL",
+      "OJPEGPrintDir",
+      "PredictorPrintDir"
+    ]
+  },
+  {
+    "fp_name": "separate",
+    "struct_name": "_TIFFRGBAImage",
+    "struct_aliases": [
+      "_TIFFRGBAImage",
+      "TIFFRGBAImage"
+    ],
+    "fp_index": 16,
+    "assigned_fn": [
+      "NULL",
+      "putCMYKseparate8bittile",
+      "putRGBAAseparate16bittile",
+      "putRGBAAseparate8bittile",
+      "putRGBUAseparate16bittile",
+      "putRGBUAseparate8bittile",
+      "putRGBseparate16bittile",
+      "putRGBseparate8bittile",
+      "putseparate8bitYCbCr11tile"
+    ]
+  },
+  {
+    "fp_name": "setupdecode",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "setupencode",
+    "struct_name": "TIFFPredictorState",
+    "struct_aliases": [
+      "TIFFPredictorState"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tfunc",
+    "struct_name": "logLuvState",
+    "struct_aliases": [
+      "logLuvState",
+      "LogLuvState"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "L16fromY",
+      "L16toGry",
+      "L16toY",
+      "Luv24fromLuv48",
+      "Luv24fromXYZ",
+      "Luv24toLuv48",
+      "Luv24toRGB",
+      "Luv24toXYZ",
+      "Luv32fromLuv48",
+      "Luv32fromXYZ",
+      "Luv32toLuv48",
+      "Luv32toRGB",
+      "Luv32toXYZ",
+      "_logLuvNop"
+    ]
+  },
+  {
+    "fp_name": "tif_cleanup",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 41,
+    "assigned_fn": [
+      "Fax3Cleanup",
+      "JPEGCleanup",
+      "LERCCleanup",
+      "LZMACleanup",
+      "LZWCleanup",
+      "LogLuvCleanup",
+      "OJPEGCleanup",
+      "PixarLogCleanup",
+      "TWebPCleanup",
+      "ZIPCleanup",
+      "ZSTDCleanup",
+      "_TIFFvoid"
+    ]
+  },
+  {
+    "fp_name": "tif_close",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 39,
+    "assigned_fn": [
+      "Fax3Close",
+      "LogLuvClose",
+      "PixarLogClose",
+      "_TIFFvoid"
+    ]
+  },
+  {
+    "fp_name": "tif_closeproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 61,
+    "assigned_fn": [
+      "closeproc"
+    ]
+  },
+  {
+    "fp_name": "tif_decoderow",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 33,
+    "assigned_fn": [
+      "DecodeRowError",
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "JPEGDecode",
+      "LERCDecode",
+      "LZMADecode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogL16Decode",
+      "LogLuvDecode24",
+      "LogLuvDecode32",
+      "NeXTDecode",
+      "OJPEGDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeRow",
+      "TWebPDecode",
+      "ThunderDecodeRow",
+      "ZIPDecode",
+      "ZSTDDecode",
+      "_TIFFNoRowDecode"
+    ]
+  },
+  {
+    "fp_name": "tif_decodestrip",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 35,
+    "assigned_fn": [
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "JBIGDecode",
+      "JPEGDecode",
+      "JPEGDecodeRaw",
+      "LERCDecode",
+      "LZMADecode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogLuvDecodeStrip",
+      "NeXTDecode",
+      "OJPEGDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeTile",
+      "TWebPDecode",
+      "ThunderDecodeRow",
+      "ZIPDecode",
+      "ZSTDDecode",
+      "_TIFFNoStripDecode"
+    ]
+  },
+  {
+    "fp_name": "tif_decodetile",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 37,
+    "assigned_fn": [
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "JPEGDecode",
+      "JPEGDecodeRaw",
+      "LERCDecode",
+      "LZMADecode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogLuvDecodeTile",
+      "NeXTDecode",
+      "OJPEGDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeTile",
+      "TWebPDecode",
+      "ZIPDecode",
+      "ZSTDDecode",
+      "_TIFFNoTileDecode"
+    ]
+  },
+  {
+    "fp_name": "tif_defstripsize",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 42,
+    "assigned_fn": [
+      "JPEGDefaultStripSize",
+      "_TIFFDefaultStripSize"
+    ]
+  },
+  {
+    "fp_name": "tif_deftilesize",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 43,
+    "assigned_fn": [
+      "JPEGDefaultTileSize",
+      "_TIFFDefaultTileSize"
+    ]
+  },
+  {
+    "fp_name": "tif_encoderow",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 34,
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "JPEGEncode",
+      "JPEGEncodeRaw",
+      "LERCEncode",
+      "LZMAEncode",
+      "LZWEncode",
+      "LogL16Encode",
+      "LogLuvEncode24",
+      "LogLuvEncode32",
+      "OJPEGEncode",
+      "PackBitsEncode",
+      "PixarLogEncode",
+      "PredictorEncodeRow",
+      "TWebPEncode",
+      "ZIPEncode",
+      "ZSTDEncode",
+      "_TIFFNoRowEncode"
+    ]
+  },
+  {
+    "fp_name": "tif_encodestrip",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 36,
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "JBIGEncode",
+      "JPEGEncode",
+      "JPEGEncodeRaw",
+      "LERCEncode",
+      "LZMAEncode",
+      "LZWEncode",
+      "LogLuvEncodeStrip",
+      "OJPEGEncode",
+      "PackBitsEncodeChunk",
+      "PixarLogEncode",
+      "PredictorEncodeTile",
+      "TWebPEncode",
+      "ZIPEncode",
+      "ZSTDEncode",
+      "_TIFFNoStripEncode"
+    ]
+  },
+  {
+    "fp_name": "tif_encodetile",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 38,
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "JPEGEncode",
+      "JPEGEncodeRaw",
+      "LERCEncode",
+      "LZMAEncode",
+      "LZWEncode",
+      "LogLuvEncodeTile",
+      "OJPEGEncode",
+      "PackBitsEncodeChunk",
+      "PixarLogEncode",
+      "PredictorEncodeTile",
+      "TWebPEncode",
+      "ZIPEncode",
+      "ZSTDEncode",
+      "_TIFFNoTileEncode"
+    ]
+  },
+  {
+    "fp_name": "tif_errorhandler",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 71,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tif_fixuptags",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 26,
+    "assigned_fn": [
+      "DumpFixupTags",
+      "Fax3FixupTags",
+      "JPEGFixupTags",
+      "LERCFixupTags",
+      "LZMAFixupTags",
+      "LZWFixupTags",
+      "LogLuvFixupTags",
+      "OJPEGFixupTags",
+      "PixarLogFixupTags",
+      "TWebPFixupTags",
+      "ZIPFixupTags",
+      "ZSTDFixupTags",
+      "_TIFFNoFixupTags",
+      "_notConfigured"
+    ]
+  },
+  {
+    "fp_name": "tif_mapproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 55,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tif_postdecode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 63,
+    "assigned_fn": [
+      "OJPEGPostDecode",
+      "_TIFFNoPostDecode",
+      "_TIFFSwab16BitData",
+      "_TIFFSwab24BitData",
+      "_TIFFSwab32BitData",
+      "_TIFFSwab64BitData"
+    ]
+  },
+  {
+    "fp_name": "tif_postencode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 32,
+    "assigned_fn": [
+      "Fax3PostEncode",
+      "Fax4PostEncode",
+      "JPEGPostEncode",
+      "LERCPostEncode",
+      "LZMAPostEncode",
+      "LZWPostEncode",
+      "OJPEGPostEncode",
+      "PackBitsPostEncode",
+      "PixarLogPostEncode",
+      "TWebPPostEncode",
+      "ZIPPostEncode",
+      "ZSTDPostEncode",
+      "_TIFFtrue"
+    ]
+  },
+  {
+    "fp_name": "tif_predecode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 28,
+    "assigned_fn": [
+      "Fax3PreDecode",
+      "JPEGPreDecode",
+      "LERCPreDecode",
+      "LZMAPreDecode",
+      "LZWPreDecode",
+      "NeXTPreDecode",
+      "OJPEGPreDecode",
+      "PixarLogPreDecode",
+      "TWebPPreDecode",
+      "ZIPPreDecode",
+      "ZSTDPreDecode",
+      "_TIFFNoPreCode"
+    ]
+  },
+  {
+    "fp_name": "tif_preencode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 31,
+    "assigned_fn": [
+      "Fax3PreEncode",
+      "JPEGPreEncode",
+      "LERCPreEncode",
+      "LZMAPreEncode",
+      "LZWPreEncode",
+      "OJPEGPreEncode",
+      "PackBitsPreEncode",
+      "PixarLogPreEncode",
+      "TWebPPreEncode",
+      "ZIPPreEncode",
+      "ZSTDPreEncode",
+      "_TIFFNoPreCode"
+    ]
+  },
+  {
+    "fp_name": "tif_readproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 58,
+    "assigned_fn": [
+      "readproc"
+    ]
+  },
+  {
+    "fp_name": "tif_seek",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 40,
+    "assigned_fn": [
+      "DumpModeSeek",
+      "_TIFFNoSeek"
+    ]
+  },
+  {
+    "fp_name": "tif_seekproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 60,
+    "assigned_fn": [
+      "seekproc"
+    ]
+  },
+  {
+    "fp_name": "tif_setupdecode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 27,
+    "assigned_fn": [
+      "Fax3SetupState",
+      "JBIGSetupDecode",
+      "JPEGSetupDecode",
+      "LERCSetupDecode",
+      "LZMASetupDecode",
+      "LZWSetupDecode",
+      "LogLuvSetupDecode",
+      "OJPEGSetupDecode",
+      "PixarLogSetupDecode",
+      "PredictorSetupDecode",
+      "TWebPSetupDecode",
+      "ThunderSetupDecode",
+      "ZIPSetupDecode",
+      "ZSTDSetupDecode",
+      "_TIFFtrue",
+      "_notConfigured"
+    ]
+  },
+  {
+    "fp_name": "tif_setupencode",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 29,
+    "assigned_fn": [
+      "Fax3SetupState",
+      "JBIGSetupEncode",
+      "JPEGSetupEncode",
+      "LERCSetupEncode",
+      "LZMASetupEncode",
+      "LZWSetupEncode",
+      "LogLuvSetupEncode",
+      "OJPEGSetupEncode",
+      "PixarLogSetupEncode",
+      "PredictorSetupEncode",
+      "TWebPSetupEncode",
+      "ZIPSetupEncode",
+      "ZSTDSetupEncode",
+      "_TIFFtrue",
+      "_notConfigured"
+    ]
+  },
+  {
+    "fp_name": "tif_sizeproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 62,
+    "assigned_fn": [
+      "sizeproc"
+    ]
+  },
+  {
+    "fp_name": "tif_unmapproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 56,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tif_warnhandler",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 73,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tif_writeproc",
+    "struct_name": "tiff",
+    "struct_aliases": [
+      "tiff",
+      "TIFF"
+    ],
+    "fp_index": 59,
+    "assigned_fn": [
+      "writeproc"
+    ]
+  },
+  {
+    "fp_name": "vgetfield",
+    "struct_name": "TIFFTagMethods",
+    "struct_aliases": [
+      "TIFFTagMethods"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "Fax3VGetField",
+      "JPEGVGetField",
+      "LERCVGetField",
+      "LZMAVGetField",
+      "LogLuvVGetField",
+      "OJPEGVGetField",
+      "PixarLogVGetField",
+      "PredictorVGetField",
+      "TWebPVGetField",
+      "ZIPVGetField",
+      "ZSTDVGetField",
+      "_TIFFVGetField"
+    ]
+  },
+  {
+    "fp_name": "vgetparent",
+    "struct_name": "WebPState",
+    "struct_aliases": [
+      "WebPState"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "vsetfield",
+    "struct_name": "TIFFTagMethods",
+    "struct_aliases": [
+      "TIFFTagMethods"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "Fax3VSetField",
+      "JPEGVSetField",
+      "LERCVSetField",
+      "LZMAVSetField",
+      "LogLuvVSetField",
+      "OJPEGVSetField",
+      "PixarLogVSetField",
+      "PredictorVSetField",
+      "TWebPVSetField",
+      "ZIPVSetField",
+      "ZSTDVSetField",
+      "_TIFFVSetField"
+    ]
+  },
+  {
+    "fp_name": "vsetparent",
+    "struct_name": "sos_end",
+    "struct_aliases": [
+      "sos_end"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "warnhandler",
+    "struct_name": "TIFFOpenOptions",
+    "struct_aliases": [
+      "TIFFOpenOptions"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "handler"
+    ]
+  }
+]

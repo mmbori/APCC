@@ -1,0 +1,1 @@
+void PredictorPrintDir(TIFF *tif , FILE *fd , long flags);

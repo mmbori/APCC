@@ -1,0 +1,1 @@
+int TWebPFixupTags(TIFF *tif);

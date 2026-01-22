@@ -1,0 +1,1 @@
+int Fax3SetupState(TIFF *tif);

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/defer_strile_writing.dir/defer_strile_writing.c.o -o defer_strile_writing  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

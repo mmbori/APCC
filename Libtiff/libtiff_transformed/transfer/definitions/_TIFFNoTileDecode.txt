@@ -1,0 +1,1 @@
+int _TIFFNoTileDecode(TIFF *tif , uint8_t *pp , tmsize_t cc , uint16_t s);

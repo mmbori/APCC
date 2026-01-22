@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/tiffcmp.dir/tiffcmp.c.o -o tiffcmp  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

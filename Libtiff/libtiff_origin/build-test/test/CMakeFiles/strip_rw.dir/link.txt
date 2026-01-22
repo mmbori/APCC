@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/strip_rw.dir/strip_rw.c.o CMakeFiles/strip_rw.dir/strip.c.o CMakeFiles/strip_rw.dir/test_arrays.c.o -o strip_rw  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

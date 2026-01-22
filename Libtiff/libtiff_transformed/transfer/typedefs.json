@@ -1,0 +1,46 @@
+{
+  "function_pointer_templates": {
+    "ImageIterTileContigRoutine": "void (*ImageIterTileContigRoutine)(TIFFImageIter *, void *, uint32_t,\n                                           uint32_t, uint32_t, uint32_t,\n                                           int32_t, unsigned char *)",
+    "ImageIterTileSeparateRoutine": "void (*ImageIterTileSeparateRoutine)(TIFFImageIter *, void *, uint32_t,\n                                             uint32_t, uint32_t, uint32_t,\n                                             int32_t, unsigned char *,\n                                             unsigned char *, unsigned char *,\n                                             unsigned char *)",
+    "copyFunc": "int (*copyFunc)(TIFF *in, TIFF *out, uint32_t l, uint32_t w,\n                        uint16_t samplesperpixel)",
+    "readFunc": "int (*readFunc)(TIFF *, uint8_t *, uint32_t, uint32_t, tsample_t)",
+    "writeFunc": "int (*writeFunc)(TIFF *, uint8_t *, uint32_t, uint32_t, tsample_t)",
+    "TIFFEncodeDecodeMethod": "int (*TIFFEncodeDecodeMethod)(TIFF *tif, uint8_t *buf, tmsize_t size)",
+    "tileContigRoutine": "void (*tileContigRoutine)(TIFFRGBAImage *, uint32_t *, uint32_t,\n                                  uint32_t, uint32_t, uint32_t, int32_t,\n                                  int32_t, unsigned char *)",
+    "tileSeparateRoutine": "void (*tileSeparateRoutine)(TIFFRGBAImage *, uint32_t *, uint32_t,\n                                    uint32_t, uint32_t, uint32_t, int32_t,\n                                    int32_t, unsigned char *, unsigned char *,\n                                    unsigned char *, unsigned char *)",
+    "TIFFInitMethod": "int (*TIFFInitMethod)(TIFF *, int)",
+    "TIFFErrorHandler": "void (*TIFFErrorHandler)(const char *, const char *, va_list)",
+    "TIFFErrorHandlerExt": "void (*TIFFErrorHandlerExt)(thandle_t, const char *, const char *,\n                                        va_list)",
+    "TIFFErrorHandlerExtR": "int (*TIFFErrorHandlerExtR)(TIFF *, void *user_data, const char *,\n                                        const char *, va_list)",
+    "TIFFReadWriteProc": "tmsize_t (*TIFFReadWriteProc)(thandle_t, void *, tmsize_t)",
+    "TIFFSeekProc": "toff_t (*TIFFSeekProc)(thandle_t, toff_t, int)",
+    "TIFFCloseProc": "int (*TIFFCloseProc)(thandle_t)",
+    "TIFFSizeProc": "toff_t (*TIFFSizeProc)(thandle_t)",
+    "TIFFMapFileProc": "int (*TIFFMapFileProc)(thandle_t, void **base, toff_t *size)",
+    "TIFFUnmapFileProc": "void (*TIFFUnmapFileProc)(thandle_t, void *base, toff_t size)",
+    "TIFFExtendProc": "void (*TIFFExtendProc)(TIFF *)",
+    "TIFFVSetMethod": "int (*TIFFVSetMethod)(TIFF *, uint32_t, va_list)",
+    "TIFFVGetMethod": "int (*TIFFVGetMethod)(TIFF *, uint32_t, va_list)",
+    "TIFFPrintMethod": "void (*TIFFPrintMethod)(TIFF *, FILE *, long)",
+    "TIFFVoidMethod": "void (*TIFFVoidMethod)(TIFF *)",
+    "TIFFBoolMethod": "int (*TIFFBoolMethod)(TIFF *)",
+    "TIFFPreMethod": "int (*TIFFPreMethod)(TIFF *, uint16_t)",
+    "TIFFCodeMethod": "int (*TIFFCodeMethod)(TIFF *tif, uint8_t *buf, tmsize_t size,\n                              uint16_t sample)",
+    "TIFFSeekMethod": "int (*TIFFSeekMethod)(TIFF *, uint32_t)",
+    "TIFFPostMethod": "void (*TIFFPostMethod)(TIFF *tif, uint8_t *buf, tmsize_t size)",
+    "TIFFStripMethod": "uint32_t (*TIFFStripMethod)(TIFF *, uint32_t)",
+    "TIFFTileMethod": "void (*TIFFTileMethod)(TIFF *, uint32_t *, uint32_t *)",
+    "TIFFFaxFillFunc": "void (*TIFFFaxFillFunc)(unsigned char *, uint32_t *, uint32_t *,\n                                uint32_t)",
+    "TIFFHashSetHashFunc": "unsigned long (*TIFFHashSetHashFunc)(const void *elt)",
+    "TIFFHashSetEqualFunc": "bool (*TIFFHashSetEqualFunc)(const void *elt1, const void *elt2)",
+    "TIFFHashSetFreeEltFunc": "void (*TIFFHashSetFreeEltFunc)(void *elt)",
+    "TIFFHashSetIterEltFunc": "int (*TIFFHashSetIterEltFunc)(void *elt, void *user_data)",
+    "decodeFunc": "int (*decodeFunc)(TIFF *, uint8_t *, tmsize_t, uint16_t)"
+  },
+  "function_type_templates": {
+    "biasFn": {
+      "return_type": "void",
+      "params": "void *image, void *bias, uint32_t pixels"
+    }
+  }
+}

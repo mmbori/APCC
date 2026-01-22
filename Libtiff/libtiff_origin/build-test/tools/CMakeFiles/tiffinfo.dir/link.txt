@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/tiffinfo.dir/tiffinfo.c.o -o tiffinfo  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

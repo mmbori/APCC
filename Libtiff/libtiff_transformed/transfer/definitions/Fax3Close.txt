@@ -1,0 +1,1 @@
+void Fax3Close(TIFF *tif);

@@ -1,0 +1,1 @@
+void Fax3PrintDir(TIFF *tif , FILE *fd , long flags);

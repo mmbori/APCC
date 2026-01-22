@@ -1,0 +1,1 @@
+int Fax3Decode2D(TIFF *tif , uint8_t *buf , tmsize_t occ , uint16_t s);

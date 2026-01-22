@@ -1,0 +1,1 @@
+void JPEGPrintDir(TIFF *tif , FILE *fd , long flags);

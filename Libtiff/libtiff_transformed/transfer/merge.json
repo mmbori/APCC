@@ -1,0 +1,1237 @@
+[
+  {
+    "fp_name": "contig",
+    "assigned_fn": [
+      "NULL",
+      "put16bitbwtile",
+      "put1bitbwtile",
+      "put1bitcmaptile",
+      "put2bitbwtile",
+      "put2bitcmaptile",
+      "put4bitbwtile",
+      "put4bitcmaptile",
+      "put8bitcmaptile",
+      "putRGBAAcontig16bittile",
+      "putRGBAAcontig8bittile",
+      "putRGBUAcontig16bittile",
+      "putRGBUAcontig8bittile",
+      "putRGBcontig16bittile",
+      "putRGBcontig8bitCMYKMaptile",
+      "putRGBcontig8bitCMYKtile",
+      "putRGBcontig8bittile",
+      "putagreytile",
+      "putcontig8bitYCbCr11tile",
+      "putcontig8bitYCbCr12tile",
+      "putcontig8bitYCbCr21tile",
+      "putcontig8bitYCbCr22tile",
+      "putcontig8bitYCbCr41tile",
+      "putcontig8bitYCbCr42tile",
+      "putcontig8bitYCbCr44tile",
+      "putgreytile"
+    ],
+    "func_signature": {
+      "unknown": [
+        "put16bitbwtile",
+        "put1bitbwtile",
+        "put1bitcmaptile",
+        "put2bitbwtile",
+        "put2bitcmaptile",
+        "put4bitbwtile",
+        "put4bitcmaptile",
+        "put8bitcmaptile",
+        "putRGBAAcontig16bittile",
+        "putRGBAAcontig8bittile",
+        "putRGBUAcontig16bittile",
+        "putRGBUAcontig8bittile",
+        "putRGBcontig16bittile",
+        "putRGBcontig8bitCMYKMaptile",
+        "putRGBcontig8bitCMYKtile",
+        "putRGBcontig8bittile",
+        "putagreytile",
+        "putcontig8bitYCbCr11tile",
+        "putcontig8bitYCbCr12tile",
+        "putcontig8bitYCbCr21tile",
+        "putcontig8bitYCbCr22tile",
+        "putcontig8bitYCbCr41tile",
+        "putcontig8bitYCbCr42tile",
+        "putcontig8bitYCbCr44tile",
+        "putgreytile"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "dec_decode",
+    "assigned_fn": [
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "NULL"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "LZWDecode",
+        "LZWDecodeCompat"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "decodepfunc",
+    "assigned_fn": [
+      "NULL",
+      "fpAcc",
+      "horAcc16",
+      "horAcc32",
+      "horAcc64",
+      "horAcc8",
+      "swabHorAcc16",
+      "swabHorAcc32",
+      "swabHorAcc64"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t)": [
+        "fpAcc",
+        "horAcc16",
+        "horAcc32",
+        "horAcc64",
+        "horAcc8",
+        "swabHorAcc16",
+        "swabHorAcc32",
+        "swabHorAcc64"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "decoderow",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "decodestrip",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "decodetile",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "defsparent",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "deftparent",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "encodepfunc",
+    "assigned_fn": [
+      "NULL",
+      "fpDiff",
+      "horDiff16",
+      "horDiff32",
+      "horDiff64",
+      "horDiff8",
+      "swabHorDiff16",
+      "swabHorDiff32",
+      "swabHorDiff64"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t)": [
+        "fpDiff",
+        "horDiff16",
+        "horDiff32",
+        "horDiff64",
+        "horDiff8",
+        "swabHorDiff16",
+        "swabHorDiff32",
+        "swabHorDiff64"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "encoderow",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "encodestrip",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "encodetile",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "errorhandler",
+    "assigned_fn": [
+      "handler"
+    ],
+    "func_signature": {
+      "unknown": [
+        "handler"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "fill",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "fnEqualFunc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "fnFreeEltFunc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "fnHashFunc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "get",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "init",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "printdir",
+    "assigned_fn": [
+      "Fax3PrintDir",
+      "JPEGPrintDir",
+      "NULL",
+      "OJPEGPrintDir",
+      "PredictorPrintDir"
+    ],
+    "func_signature": {
+      "void (TIFF *, FILE *, long)": [
+        "Fax3PrintDir",
+        "JPEGPrintDir",
+        "OJPEGPrintDir",
+        "PredictorPrintDir"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "separate",
+    "assigned_fn": [
+      "NULL",
+      "putCMYKseparate8bittile",
+      "putRGBAAseparate16bittile",
+      "putRGBAAseparate8bittile",
+      "putRGBUAseparate16bittile",
+      "putRGBUAseparate8bittile",
+      "putRGBseparate16bittile",
+      "putRGBseparate8bittile",
+      "putseparate8bitYCbCr11tile"
+    ],
+    "func_signature": {
+      "unknown": [
+        "putCMYKseparate8bittile",
+        "putRGBAAseparate16bittile",
+        "putRGBAAseparate8bittile",
+        "putRGBUAseparate16bittile",
+        "putRGBUAseparate8bittile",
+        "putRGBseparate16bittile",
+        "putRGBseparate8bittile",
+        "putseparate8bitYCbCr11tile"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "setupdecode",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "setupencode",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tfunc",
+    "assigned_fn": [
+      "L16fromY",
+      "L16toGry",
+      "L16toY",
+      "Luv24fromLuv48",
+      "Luv24fromXYZ",
+      "Luv24toLuv48",
+      "Luv24toRGB",
+      "Luv24toXYZ",
+      "Luv32fromLuv48",
+      "Luv32fromXYZ",
+      "Luv32toLuv48",
+      "Luv32toRGB",
+      "Luv32toXYZ",
+      "_logLuvNop"
+    ],
+    "func_signature": {
+      "void (LogLuvState *, uint8_t *, tmsize_t)": [
+        "L16fromY",
+        "L16toGry",
+        "L16toY",
+        "Luv24fromLuv48",
+        "Luv24fromXYZ",
+        "Luv24toLuv48",
+        "Luv24toRGB",
+        "Luv24toXYZ",
+        "Luv32fromLuv48",
+        "Luv32fromXYZ",
+        "Luv32toLuv48",
+        "Luv32toRGB",
+        "Luv32toXYZ",
+        "_logLuvNop"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_cleanup",
+    "assigned_fn": [
+      "Fax3Cleanup",
+      "LZWCleanup",
+      "LogLuvCleanup",
+      "PixarLogCleanup",
+      "ZIPCleanup",
+      "_TIFFvoid"
+    ],
+    "func_signature": {
+      "void (TIFF *)": [
+        "Fax3Cleanup",
+        "LZWCleanup",
+        "LogLuvCleanup",
+        "PixarLogCleanup",
+        "ZIPCleanup",
+        "_TIFFvoid"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_close",
+    "assigned_fn": [
+      "Fax3Close",
+      "LogLuvClose",
+      "PixarLogClose",
+      "_TIFFvoid"
+    ],
+    "func_signature": {
+      "void (TIFF *)": [
+        "Fax3Close",
+        "LogLuvClose",
+        "PixarLogClose",
+        "_TIFFvoid"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_closeproc",
+    "assigned_fn": [
+      "closeproc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "closeproc"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_decoderow",
+    "assigned_fn": [
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogL16Decode",
+      "LogLuvDecode24",
+      "LogLuvDecode32",
+      "NeXTDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeRow",
+      "ThunderDecodeRow",
+      "ZIPDecode",
+      "_TIFFNoRowDecode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeDecode",
+        "Fax3Decode1D",
+        "Fax3Decode2D",
+        "Fax3DecodeRLE",
+        "Fax4Decode",
+        "LZWDecode",
+        "LZWDecodeCompat",
+        "LogL16Decode",
+        "LogLuvDecode24",
+        "LogLuvDecode32",
+        "NeXTDecode",
+        "PackBitsDecode",
+        "PixarLogDecode",
+        "PredictorDecodeRow",
+        "ThunderDecodeRow",
+        "ZIPDecode",
+        "_TIFFNoRowDecode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_decodestrip",
+    "assigned_fn": [
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogLuvDecodeStrip",
+      "NeXTDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeTile",
+      "ThunderDecodeRow",
+      "ZIPDecode",
+      "_TIFFNoStripDecode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeDecode",
+        "Fax3Decode1D",
+        "Fax3Decode2D",
+        "Fax3DecodeRLE",
+        "Fax4Decode",
+        "LZWDecode",
+        "LZWDecodeCompat",
+        "LogLuvDecodeStrip",
+        "NeXTDecode",
+        "PackBitsDecode",
+        "PixarLogDecode",
+        "PredictorDecodeTile",
+        "ThunderDecodeRow",
+        "ZIPDecode",
+        "_TIFFNoStripDecode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_decodetile",
+    "assigned_fn": [
+      "DumpModeDecode",
+      "Fax3Decode1D",
+      "Fax3Decode2D",
+      "Fax3DecodeRLE",
+      "Fax4Decode",
+      "LZWDecode",
+      "LZWDecodeCompat",
+      "LogLuvDecodeTile",
+      "NeXTDecode",
+      "PackBitsDecode",
+      "PixarLogDecode",
+      "PredictorDecodeTile",
+      "ZIPDecode",
+      "_TIFFNoTileDecode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeDecode",
+        "Fax3Decode1D",
+        "Fax3Decode2D",
+        "Fax3DecodeRLE",
+        "Fax4Decode",
+        "LZWDecode",
+        "LZWDecodeCompat",
+        "LogLuvDecodeTile",
+        "NeXTDecode",
+        "PackBitsDecode",
+        "PixarLogDecode",
+        "PredictorDecodeTile",
+        "ZIPDecode",
+        "_TIFFNoTileDecode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_defstripsize",
+    "assigned_fn": [
+      "JPEGDefaultStripSize",
+      "_TIFFDefaultStripSize"
+    ],
+    "func_signature": {
+      "uint32_t (TIFF *, uint32_t)": [
+        "JPEGDefaultStripSize",
+        "_TIFFDefaultStripSize"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_deftilesize",
+    "assigned_fn": [
+      "JPEGDefaultTileSize",
+      "_TIFFDefaultTileSize"
+    ],
+    "func_signature": {
+      "void (TIFF *, uint32_t *, uint32_t *)": [
+        "JPEGDefaultTileSize",
+        "_TIFFDefaultTileSize"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_encoderow",
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "LZWEncode",
+      "LogL16Encode",
+      "LogLuvEncode24",
+      "LogLuvEncode32",
+      "PackBitsEncode",
+      "PixarLogEncode",
+      "PredictorEncodeRow",
+      "ZIPEncode",
+      "_TIFFNoRowEncode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeEncode",
+        "Fax3Encode",
+        "Fax4Encode",
+        "LZWEncode",
+        "LogL16Encode",
+        "LogLuvEncode24",
+        "LogLuvEncode32",
+        "PackBitsEncode",
+        "PixarLogEncode",
+        "PredictorEncodeRow",
+        "ZIPEncode",
+        "_TIFFNoRowEncode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_encodestrip",
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "JBIGEncode",
+      "LZWEncode",
+      "LogLuvEncodeStrip",
+      "PackBitsEncodeChunk",
+      "PixarLogEncode",
+      "PredictorEncodeTile",
+      "ZIPEncode",
+      "_TIFFNoStripEncode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeEncode",
+        "Fax3Encode",
+        "Fax4Encode",
+        "JBIGEncode",
+        "LZWEncode",
+        "LogLuvEncodeStrip",
+        "PackBitsEncodeChunk",
+        "PixarLogEncode",
+        "PredictorEncodeTile",
+        "ZIPEncode",
+        "_TIFFNoStripEncode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_encodetile",
+    "assigned_fn": [
+      "DumpModeEncode",
+      "Fax3Encode",
+      "Fax4Encode",
+      "LZWEncode",
+      "LogLuvEncodeTile",
+      "PackBitsEncodeChunk",
+      "PixarLogEncode",
+      "PredictorEncodeTile",
+      "ZIPEncode",
+      "_TIFFNoTileEncode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint8_t *, tmsize_t, uint16_t)": [
+        "DumpModeEncode",
+        "Fax3Encode",
+        "Fax4Encode",
+        "LZWEncode",
+        "LogLuvEncodeTile",
+        "PackBitsEncodeChunk",
+        "PixarLogEncode",
+        "PredictorEncodeTile",
+        "ZIPEncode",
+        "_TIFFNoTileEncode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_errorhandler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_fixuptags",
+    "assigned_fn": [
+      "DumpFixupTags",
+      "Fax3FixupTags",
+      "LZWFixupTags",
+      "LogLuvFixupTags",
+      "PixarLogFixupTags",
+      "ZIPFixupTags",
+      "_TIFFNoFixupTags",
+      "_notConfigured"
+    ],
+    "func_signature": {
+      "int (TIFF *)": [
+        "DumpFixupTags",
+        "Fax3FixupTags",
+        "LZWFixupTags",
+        "LogLuvFixupTags",
+        "PixarLogFixupTags",
+        "ZIPFixupTags",
+        "_TIFFNoFixupTags",
+        "_notConfigured"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_mapproc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_postdecode",
+    "assigned_fn": [
+      "_TIFFNoPostDecode",
+      "_TIFFSwab16BitData",
+      "_TIFFSwab24BitData",
+      "_TIFFSwab32BitData",
+      "_TIFFSwab64BitData"
+    ],
+    "func_signature": {
+      "void (TIFF *, uint8_t *, tmsize_t)": [
+        "_TIFFNoPostDecode",
+        "_TIFFSwab16BitData",
+        "_TIFFSwab24BitData",
+        "_TIFFSwab32BitData",
+        "_TIFFSwab64BitData"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_postencode",
+    "assigned_fn": [
+      "Fax3PostEncode",
+      "Fax4PostEncode",
+      "LZWPostEncode",
+      "PackBitsPostEncode",
+      "PixarLogPostEncode",
+      "ZIPPostEncode",
+      "_TIFFtrue"
+    ],
+    "func_signature": {
+      "int (TIFF *)": [
+        "Fax3PostEncode",
+        "Fax4PostEncode",
+        "LZWPostEncode",
+        "PackBitsPostEncode",
+        "PixarLogPostEncode",
+        "ZIPPostEncode",
+        "_TIFFtrue"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_predecode",
+    "assigned_fn": [
+      "Fax3PreDecode",
+      "LZWPreDecode",
+      "NeXTPreDecode",
+      "PixarLogPreDecode",
+      "ZIPPreDecode",
+      "_TIFFNoPreCode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint16_t)": [
+        "Fax3PreDecode",
+        "LZWPreDecode",
+        "NeXTPreDecode",
+        "PixarLogPreDecode",
+        "ZIPPreDecode",
+        "_TIFFNoPreCode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_preencode",
+    "assigned_fn": [
+      "Fax3PreEncode",
+      "LZWPreEncode",
+      "PackBitsPreEncode",
+      "PixarLogPreEncode",
+      "ZIPPreEncode",
+      "_TIFFNoPreCode"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint16_t)": [
+        "Fax3PreEncode",
+        "LZWPreEncode",
+        "PackBitsPreEncode",
+        "PixarLogPreEncode",
+        "ZIPPreEncode",
+        "_TIFFNoPreCode"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_readproc",
+    "assigned_fn": [
+      "readproc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "readproc"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_seek",
+    "assigned_fn": [
+      "DumpModeSeek",
+      "_TIFFNoSeek"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint32_t)": [
+        "DumpModeSeek",
+        "_TIFFNoSeek"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_seekproc",
+    "assigned_fn": [
+      "seekproc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "seekproc"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_setupdecode",
+    "assigned_fn": [
+      "Fax3SetupState",
+      "LZWSetupDecode",
+      "LogLuvSetupDecode",
+      "PixarLogSetupDecode",
+      "PredictorSetupDecode",
+      "ThunderSetupDecode",
+      "ZIPSetupDecode",
+      "_TIFFtrue",
+      "_notConfigured"
+    ],
+    "func_signature": {
+      "int (TIFF *)": [
+        "Fax3SetupState",
+        "LZWSetupDecode",
+        "LogLuvSetupDecode",
+        "PixarLogSetupDecode",
+        "PredictorSetupDecode",
+        "ThunderSetupDecode",
+        "ZIPSetupDecode",
+        "_TIFFtrue",
+        "_notConfigured"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_setupencode",
+    "assigned_fn": [
+      "Fax3SetupState",
+      "LZWSetupEncode",
+      "LogLuvSetupEncode",
+      "PixarLogSetupEncode",
+      "PredictorSetupEncode",
+      "ZIPSetupEncode",
+      "_TIFFtrue",
+      "_notConfigured"
+    ],
+    "func_signature": {
+      "int (TIFF *)": [
+        "Fax3SetupState",
+        "LZWSetupEncode",
+        "LogLuvSetupEncode",
+        "PixarLogSetupEncode",
+        "PredictorSetupEncode",
+        "ZIPSetupEncode",
+        "_TIFFtrue",
+        "_notConfigured"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_sizeproc",
+    "assigned_fn": [
+      "sizeproc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "sizeproc"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_unmapproc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_warnhandler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "tif_writeproc",
+    "assigned_fn": [
+      "writeproc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "writeproc"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "vgetfield",
+    "assigned_fn": [
+      "Fax3VGetField",
+      "LogLuvVGetField",
+      "PixarLogVGetField",
+      "PredictorVGetField",
+      "ZIPVGetField",
+      "_TIFFVGetField"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint32_t, va_list)": [
+        "Fax3VGetField",
+        "LogLuvVGetField",
+        "PixarLogVGetField",
+        "PredictorVGetField",
+        "ZIPVGetField",
+        "_TIFFVGetField"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "vgetparent",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "vsetfield",
+    "assigned_fn": [
+      "Fax3VSetField",
+      "JPEGVSetField",
+      "LERCVSetField",
+      "LZMAVSetField",
+      "LogLuvVSetField",
+      "OJPEGVSetField",
+      "PixarLogVSetField",
+      "PredictorVSetField",
+      "TWebPVSetField",
+      "ZIPVSetField",
+      "ZSTDVSetField",
+      "_TIFFVSetField"
+    ],
+    "func_signature": {
+      "int (TIFF *, uint32_t, va_list)": [
+        "Fax3VSetField",
+        "JPEGVSetField",
+        "LERCVSetField",
+        "LZMAVSetField",
+        "LogLuvVSetField",
+        "OJPEGVSetField",
+        "PixarLogVSetField",
+        "PredictorVSetField",
+        "TWebPVSetField",
+        "ZIPVSetField",
+        "ZSTDVSetField",
+        "_TIFFVSetField"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "vsetparent",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "warnhandler",
+    "assigned_fn": [
+      "handler"
+    ],
+    "func_signature": {
+      "unknown": [
+        "handler"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "readproc",
+    "assigned_fn": [
+      "TIFFReadWriteProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFReadWriteProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "writeproc",
+    "assigned_fn": [
+      "TIFFReadWriteProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFReadWriteProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "seekproc",
+    "assigned_fn": [
+      "TIFFSeekProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFSeekProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "closeproc",
+    "assigned_fn": [
+      "TIFFCloseProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFCloseProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "sizeproc",
+    "assigned_fn": [
+      "TIFFSizeProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFSizeProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "mapproc",
+    "assigned_fn": [
+      "TIFFMapFileProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFMapFileProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "unmapproc",
+    "assigned_fn": [
+      "TIFFUnmapFileProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFUnmapFileProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "readproc",
+    "assigned_fn": [
+      "_tiffReadProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffReadProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "writeproc",
+    "assigned_fn": [
+      "_tiffWriteProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffWriteProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "seekproc",
+    "assigned_fn": [
+      "_tiffSeekProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffSeekProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "closeproc",
+    "assigned_fn": [
+      "_tiffCloseProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffCloseProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "sizeproc",
+    "assigned_fn": [
+      "_tiffSizeProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffSizeProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "mapproc",
+    "assigned_fn": [
+      "_tiffMapProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffMapProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "unmapproc",
+    "assigned_fn": [
+      "_tiffUnmapProc"
+    ],
+    "func_signature": {
+      "unknown": [
+        "_tiffUnmapProc"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "fnIterFunc",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "fnHashFunc",
+    "assigned_fn": [
+      "hashFuncNumberToOffset",
+      "hashFuncOffsetToNumber"
+    ],
+    "func_signature": {
+      "unknown": [
+        "hashFuncNumberToOffset",
+        "hashFuncOffsetToNumber"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "fnEqualFunc",
+    "assigned_fn": [
+      "equalFuncNumberToOffset",
+      "equalFuncOffsetToNumber"
+    ],
+    "func_signature": {
+      "unknown": [
+        "equalFuncNumberToOffset",
+        "equalFuncOffsetToNumber"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "fnFreeEltFunc",
+    "assigned_fn": [
+      "NULL",
+      "free"
+    ],
+    "func_signature": {
+      "unknown": [
+        "free"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "init",
+    "assigned_fn": [
+      "TIFFInitMethod"
+    ],
+    "func_signature": {
+      "unknown": [
+        "TIFFInitMethod"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "extender",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "compar",
+    "assigned_fn": [
+      "tagNameCompare"
+    ],
+    "func_signature": {
+      "unknown": [
+        "tagNameCompare"
+      ]
+    },
+    "fp_type": "parameter"
+  }
+]

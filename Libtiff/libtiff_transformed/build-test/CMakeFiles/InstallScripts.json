@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/bhsu/libtiff_tmp/build-test/cmake_install.cmake",
+		"/home/bhsu/libtiff_tmp/build-test/port/cmake_install.cmake",
+		"/home/bhsu/libtiff_tmp/build-test/libtiff/cmake_install.cmake",
+		"/home/bhsu/libtiff_tmp/build-test/tools/cmake_install.cmake",
+		"/home/bhsu/libtiff_tmp/build-test/test/cmake_install.cmake",
+		"/home/bhsu/libtiff_tmp/build-test/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

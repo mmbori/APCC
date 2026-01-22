@@ -1,0 +1,1 @@
+int LZMAPreDecode(TIFF *tif , uint16_t s);

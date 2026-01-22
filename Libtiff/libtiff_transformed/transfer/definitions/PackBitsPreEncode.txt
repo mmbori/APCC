@@ -1,0 +1,1 @@
+int PackBitsPreEncode(TIFF *tif , uint16_t s);

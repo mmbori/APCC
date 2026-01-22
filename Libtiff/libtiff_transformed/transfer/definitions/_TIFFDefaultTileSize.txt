@@ -1,0 +1,1 @@
+void _TIFFDefaultTileSize(TIFF *tif , uint32_t *tw , uint32_t *th);

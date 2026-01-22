@@ -1,0 +1,1 @@
+int JBIGEncode(TIFF *tif , uint8_t *buffer , tmsize_t size , uint16_t s);

@@ -1,0 +1,1 @@
+int JPEGDecode(TIFF *tif , uint8_t *buf , tmsize_t cc , uint16_t s);

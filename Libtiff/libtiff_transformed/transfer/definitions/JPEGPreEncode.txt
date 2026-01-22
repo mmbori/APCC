@@ -1,0 +1,1 @@
+int JPEGPreEncode(TIFF *tif , uint16_t s);

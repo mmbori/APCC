@@ -1,0 +1,523 @@
+[
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "readproc",
+    "fp_sequence": 4,
+    "assigned_fn": [
+      "TIFFReadWriteProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFReadWriteProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "writeproc",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "TIFFReadWriteProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFReadWriteProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "seekproc",
+    "fp_sequence": 6,
+    "assigned_fn": [
+      "TIFFSeekProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFSeekProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "closeproc",
+    "fp_sequence": 7,
+    "assigned_fn": [
+      "TIFFCloseProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFCloseProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "sizeproc",
+    "fp_sequence": 8,
+    "assigned_fn": [
+      "TIFFSizeProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFSizeProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "mapproc",
+    "fp_sequence": 9,
+    "assigned_fn": [
+      "TIFFMapFileProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFMapFileProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpen",
+    "fp_name": "unmapproc",
+    "fp_sequence": 10,
+    "assigned_fn": [
+      "TIFFUnmapFileProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpen(const char *name, const char *mode, thandle_t clientdata,",
+      "tmsize_t (*readproc)(thandle_t, void *, tmsize_t), tmsize_t (*writeproc)(thandle_t, void *, tmsize_t),",
+      "toff_t (*seekproc)(thandle_t, toff_t, int), int (*closeproc)(thandle_t),",
+      "toff_t (*sizeproc)(thandle_t), int (*mapproc)(thandle_t, void **base, toff_t *size),",
+      "void (*unmapproc)(thandle_t, void *base, toff_t size))",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFUnmapFileProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "readproc",
+    "fp_sequence": 4,
+    "assigned_fn": [
+      "_tiffReadProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffReadProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "writeproc",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "_tiffWriteProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffWriteProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "seekproc",
+    "fp_sequence": 6,
+    "assigned_fn": [
+      "_tiffSeekProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffSeekProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "closeproc",
+    "fp_sequence": 7,
+    "assigned_fn": [
+      "_tiffCloseProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffCloseProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "sizeproc",
+    "fp_sequence": 8,
+    "assigned_fn": [
+      "_tiffSizeProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffSizeProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "mapproc",
+    "fp_sequence": 9,
+    "assigned_fn": [
+      "_tiffMapProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffMapProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFClientOpenExt",
+    "fp_name": "unmapproc",
+    "fp_sequence": 10,
+    "assigned_fn": [
+      "_tiffUnmapProc"
+    ],
+    "line": [
+      "TIFF *TIFFClientOpenExt(const char *name, const char *mode,",
+      "thandle_t clientdata, tmsize_t (*readproc)(thandle_t, void *, tmsize_t),",
+      "tmsize_t (*writeproc)(thandle_t, void *, tmsize_t), toff_t (*seekproc)(thandle_t, toff_t, int),",
+      "int (*closeproc)(thandle_t), toff_t (*sizeproc)(thandle_t),",
+      "int (*mapproc)(thandle_t, void **base, toff_t *size), void (*unmapproc)(thandle_t, void *base, toff_t size),",
+      "TIFFOpenOptions *opts)",
+      "{"
+    ],
+    "file": "tif_open.c",
+    "func_signature": {
+      "unknown": [
+        "_tiffUnmapProc"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFHashSetForeach",
+    "fp_name": "fnIterFunc",
+    "fp_sequence": 2,
+    "assigned_fn": [],
+    "line": [
+      "void TIFFHashSetForeach(TIFFHashSet *set, int (*fnIterFunc)(void *elt, void *user_data),",
+      "void *user_data)",
+      "{"
+    ],
+    "file": "tif_hash_set.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFHashSetNew",
+    "fp_name": "fnHashFunc",
+    "fp_sequence": 1,
+    "assigned_fn": [
+      "hashFuncNumberToOffset",
+      "hashFuncOffsetToNumber"
+    ],
+    "line": [
+      "TIFFHashSet *TIFFHashSetNew(unsigned long (*fnHashFunc)(const void *elt),",
+      "bool (*fnEqualFunc)(const void *elt1, const void *elt2),",
+      "void (*fnFreeEltFunc)(void *elt))",
+      "{"
+    ],
+    "file": "tif_hash_set.c",
+    "func_signature": {
+      "unknown": [
+        "hashFuncNumberToOffset",
+        "hashFuncOffsetToNumber"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFHashSetNew",
+    "fp_name": "fnEqualFunc",
+    "fp_sequence": 2,
+    "assigned_fn": [
+      "equalFuncNumberToOffset",
+      "equalFuncOffsetToNumber"
+    ],
+    "line": [
+      "TIFFHashSet *TIFFHashSetNew(unsigned long (*fnHashFunc)(const void *elt),",
+      "bool (*fnEqualFunc)(const void *elt1, const void *elt2),",
+      "void (*fnFreeEltFunc)(void *elt))",
+      "{"
+    ],
+    "file": "tif_hash_set.c",
+    "func_signature": {
+      "unknown": [
+        "equalFuncNumberToOffset",
+        "equalFuncOffsetToNumber"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFHashSetNew",
+    "fp_name": "fnFreeEltFunc",
+    "fp_sequence": 3,
+    "assigned_fn": [
+      "NULL",
+      "free"
+    ],
+    "line": [
+      "TIFFHashSet *TIFFHashSetNew(unsigned long (*fnHashFunc)(const void *elt),",
+      "bool (*fnEqualFunc)(const void *elt1, const void *elt2),",
+      "void (*fnFreeEltFunc)(void *elt))",
+      "{"
+    ],
+    "file": "tif_hash_set.c",
+    "func_signature": {
+      "unknown": [
+        "free"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFOpenOptionsSetErrorHandlerExtR",
+    "fp_name": "handler",
+    "fp_sequence": 2,
+    "assigned_fn": [],
+    "line": [
+      "TIFFOpenOptionsSetErrorHandlerExtR(TIFFOpenOptions *opts,",
+      "int (*handler)(TIFF *, void *user_data, const char *,",
+      "const char *, va_list),",
+      "void *errorhandler_user_data);"
+    ],
+    "file": "tiffio.h",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFOpenOptionsSetWarningHandlerExtR",
+    "fp_name": "handler",
+    "fp_sequence": 2,
+    "assigned_fn": [],
+    "line": [
+      "TIFFOpenOptionsSetWarningHandlerExtR(TIFFOpenOptions *opts,",
+      "int (*handler)(TIFF *, void *user_data, const char *,",
+      "const char *, va_list),",
+      "void *warnhandler_user_data);"
+    ],
+    "file": "tiffio.h",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFRegisterCODEC",
+    "fp_name": "init",
+    "fp_sequence": 3,
+    "assigned_fn": [
+      "TIFFInitMethod"
+    ],
+    "line": [
+      "TIFFCodec *TIFFRegisterCODEC(uint16_t scheme, const char *name,",
+      "int (*init)(TIFF *, int))",
+      "{"
+    ],
+    "file": "tif_compress.c",
+    "func_signature": {
+      "unknown": [
+        "TIFFInitMethod"
+      ]
+    }
+  },
+  {
+    "fn_name": "TIFFSetErrorHandler",
+    "fp_name": "handler",
+    "fp_sequence": 1,
+    "assigned_fn": [],
+    "line": [
+      "TIFFErrorHandler TIFFSetErrorHandler(void (*handler)(const char *, const char *, va_list))",
+      "{"
+    ],
+    "file": "tif_error.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFSetErrorHandlerExt",
+    "fp_name": "handler",
+    "fp_sequence": 1,
+    "assigned_fn": [],
+    "line": [
+      "TIFFErrorHandlerExt TIFFSetErrorHandlerExt(void (*handler)(thandle_t, const char *, const char *,",
+      "va_list))",
+      "{"
+    ],
+    "file": "tif_error.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFSetTagExtender",
+    "fp_name": "extender",
+    "fp_sequence": 1,
+    "assigned_fn": [],
+    "line": [
+      "TIFFExtendProc TIFFSetTagExtender(void (*extender)(TIFF *))",
+      "{"
+    ],
+    "file": "tif_dir.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFSetWarningHandler",
+    "fp_name": "handler",
+    "fp_sequence": 1,
+    "assigned_fn": [],
+    "line": [
+      "TIFFErrorHandler TIFFSetWarningHandler(void (*handler)(const char *, const char *, va_list))",
+      "{"
+    ],
+    "file": "tif_warning.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "TIFFSetWarningHandlerExt",
+    "fp_name": "handler",
+    "fp_sequence": 1,
+    "assigned_fn": [],
+    "line": [
+      "TIFFErrorHandlerExt TIFFSetWarningHandlerExt(void (*handler)(thandle_t, const char *, const char *,",
+      "va_list))",
+      "{"
+    ],
+    "file": "tif_warning.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "td_lfind",
+    "fp_name": "compar",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "tagNameCompare"
+    ],
+    "line": [
+      "static void *td_lfind(const void *key, const void *base, size_t *nmemb,",
+      "size_t size, int (*compar)(const void *, const void *))",
+      "{"
+    ],
+    "file": "tif_dirinfo.c",
+    "func_signature": {
+      "unknown": [
+        "tagNameCompare"
+      ]
+    }
+  }
+]

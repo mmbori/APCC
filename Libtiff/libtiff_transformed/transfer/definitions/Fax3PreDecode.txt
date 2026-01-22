@@ -1,0 +1,1 @@
+int Fax3PreDecode(TIFF *tif , uint16_t s);

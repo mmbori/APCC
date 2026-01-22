@@ -1,0 +1,1 @@
+int _TIFFNoSeek(TIFF *tif , uint32_t off);

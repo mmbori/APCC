@@ -1,0 +1,1 @@
+int ZIPPreDecode(TIFF *tif , uint16_t s);

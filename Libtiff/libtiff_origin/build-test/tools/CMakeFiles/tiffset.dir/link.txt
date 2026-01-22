@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/tiffset.dir/tiffset.c.o -o tiffset  ../libtiff/libtiff.a /usr/lib/x86_64-linux-gnu/libz.so -lm

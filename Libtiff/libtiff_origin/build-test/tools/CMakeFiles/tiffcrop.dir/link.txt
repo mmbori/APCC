@@ -1,0 +1,1 @@
+/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/tiffcrop.dir/tiffcrop.c.o -o tiffcrop  ../libtiff/libtiff.a -lm /usr/lib/x86_64-linux-gnu/libz.so

@@ -1,0 +1,1 @@
+int PredictorVSetField(TIFF *tif , uint32_t tag , va_list ap);

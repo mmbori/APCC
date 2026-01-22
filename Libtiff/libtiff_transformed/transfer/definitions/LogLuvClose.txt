@@ -1,0 +1,1 @@
+void LogLuvClose(TIFF *tif);

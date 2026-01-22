@@ -1,0 +1,1572 @@
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /usr/bin/ld: /usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+../libtiff/libtiff.a(tif_write.c.o)/usr/bin/ld: : in function `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: TIFFWriteScanline/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:':
+296: undefined reference to `ZSTDSetupDecode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+175: undefined reference to `OJPEGPostDecode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode/usr/bin/ld'
+: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:../libtiff/libtiff.a(tif_write.c.o)287: in function `: undefined reference to `TIFFWriteEncodedTileTWebPSetupDecode':
+'
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `/usr/bin/ldOJPEGPostDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `/usr/bin/ldJBIGSetupDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o)/usr/bin/ld: in function `: LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:../libtiff/libtiff.a(tif_write.c.o)1147: in function `: undefined reference to `TIFFWriteEncodedStripTWebPSetupEncode':
+'
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:/usr/bin/ld352: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:OJPEGPostDecode1153'
+: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `1129OJPEGPostDecode: undefined reference to `'
+LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+../libtiff/libtiff.a(tif_lzw.c.o)/usr/bin/ld: in function `: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:LZWPreDecode1120':
+: undefined reference to `JBIGSetupEncode'
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld266: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:LERCSetupDecode1138'
+: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+../libtiff/libtiff.a(tif_write.c.o)/usr/bin/ld: in function `: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `TIFFWriteScanlineLZMASetupDecode':
+'
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:/usr/bin/ld175: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:OJPEGPostDecode287'
+: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /usr/bin/ld../libtiff/libtiff.a(tif_write.c.o): : in function `../libtiff/libtiff.a(tif_lzw.c.o)TIFFWriteEncodedTile: in function `':
+LZWPreEncode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:':
+597/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `1147: undefined reference to `OJPEGPostDecodeTWebPSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `560ZSTDSetupEncode: undefined reference to `'
+OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `/usr/bin/ldLZMASetupEncode: '
+../libtiff/libtiff.a(tif_write.c.o): in function `/usr/bin/ldTIFFWriteEncodedStrip: ':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `352JPEGSetupEncode: undefined reference to `'
+OJPEGPostDecode/usr/bin/ld: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_write.c:1120314: undefined reference to `: undefined reference to `JBIGSetupEncodeOJPEGPostDecode'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `../libtiff/libtiff.a(tif_lzw.c.o)LZWPreDecode: in function `':
+LZWPreDecode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:':
+266: undefined reference to `LERCSetupDecode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278278: undefined reference to `: undefined reference to `OJPEGSetupDecodeOJPEGSetupDecode'
+'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263263: undefined reference to `: undefined reference to `JPEGSetupDecodeJPEGSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296296: undefined reference to `: undefined reference to `ZSTDSetupDecodeZSTDSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269269: undefined reference to `: undefined reference to `LZMASetupDecodeLZMASetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287287: undefined reference to `: undefined reference to `TWebPSetupDecodeTWebPSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260260: undefined reference to `: undefined reference to `JBIGSetupDecodeJBIGSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : ../libtiff/libtiff.a(tif_lzw.c.o)../libtiff/libtiff.a(tif_lzw.c.o): in function `: in function `LZWPreEncodeLZWPreEncode':
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11471147: undefined reference to `: undefined reference to `TWebPSetupEncodeTWebPSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11531153: undefined reference to `: undefined reference to `ZSTDSetupEncodeZSTDSetupEncode'
+'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11291129: undefined reference to `: undefined reference to `LZMASetupEncodeLZMASetupEncode'
+'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 1123/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `1123JPEGSetupEncode: undefined reference to `'
+JPEGSetupEncode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11261126: undefined reference to `: undefined reference to `LERCSetupEncodeLERCSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11201120: undefined reference to `: undefined reference to `JBIGSetupEncodeJBIGSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:11381138: undefined reference to `: undefined reference to `OJPEGSetupEncodeOJPEGSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: in function `263: undefined reference to `JPEGSetupDecodeLZWPreDecode'
+':
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266296: undefined reference to `: undefined reference to `LERCSetupDecodeZSTDSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld278: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:OJPEGSetupDecode287'
+: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `/usr/bin/ldJPEGSetupDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld260: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:JBIGSetupDecode296'
+: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 269../libtiff/libtiff.a(tif_lzw.c.o): undefined reference to `: in function `LZMASetupDecodeLZWPreEncode'
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld1147: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:TWebPSetupEncode287'
+: undefined reference to `TWebPSetupDecode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153/usr/bin/ld: undefined reference to `: ZSTDSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+260: undefined reference to `/usr/bin/ldJBIGSetupDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:../libtiff/libtiff.a(tif_lzw.c.o)1123: in function `: undefined reference to `LZWPreEncodeJPEGSetupEncode':
+'
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147/usr/bin/ld: undefined reference to `: TWebPSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+1126: undefined reference to `/usr/bin/ldLERCSetupEncode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153/usr/bin/ld: undefined reference to `: ZSTDSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+1120: undefined reference to `/usr/bin/ldJBIGSetupEncode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld1129: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:LZMASetupEncode1138'
+: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `collect2: error: ld returned 1 exit status
+LZMASetupEncode'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 436../libtiff/libtiff.a(tif_write.c.o): undefined reference to `: in function `OJPEGSetupEncodeTIFFWriteScanline'
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175/usr/bin/ld: undefined reference to `: OJPEGPostDecode'
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424/usr/bin/ld: undefined reference to `: LERCSetupEncode'
+/usr/bin/ld../libtiff/libtiff.a(tif_write.c.o): : in function `TIFFWriteEncodedTile/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:':
+421/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `597JPEGSetupEncode: undefined reference to `'
+OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_zip.c.o): in function `/usr/bin/ld: ZIPPreDecode../libtiff/libtiff.a(tif_write.c.o)':
+: in function `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o)/usr/bin/ld: in function `: ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: in function `163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecodeTIFFWriteScanline'
+':
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_write.c:160: undefined reference to `175JBIGSetupDecode: undefined reference to `'
+OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169../libtiff/libtiff.a(tif_write.c.o): undefined reference to `: in function `LZMASetupDecodeTIFFWriteEncodedTile'
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:/usr/bin/ld597: : undefined reference to `../libtiff/libtiff.a(tif_zip.c.o)OJPEGPostDecode: in function `'
+ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445/usr/bin/ld: undefined reference to `: TWebPSetupEncode'
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:/usr/bin/ld560: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:OJPEGPostDecode451'
+: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `/usr/bin/ldLZMASetupEncode: '
+../libtiff/libtiff.a(tif_write.c.o)/usr/bin/ld: in function `: TIFFWriteEncodedStrip/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:':
+436/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `352OJPEGSetupEncode: undefined reference to `'
+OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/usr/bin/ld418: : undefined reference to `JBIGSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+314: undefined reference to `/usr/bin/ldOJPEGPostDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+gmake[2]: *** [tools/CMakeFiles/tiffsplit.dir/build.make:103: tools/tiffsplit] Error 1
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+gmake[1]: *** [CMakeFiles/Makefile2:1024: tools/CMakeFiles/tiffsplit.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+/usr/bin/ld: /usr/bin/ld: [ 56%] Linking CXX executable rewrite
+../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+gmake[2]: *** [tools/CMakeFiles/ppm2tiff.dir/build.make:103: tools/ppm2tiff] Error 1
+[ 57%] Building C object test/CMakeFiles/custom_dir.dir/custom_dir.c.o
+gmake[1]: *** [CMakeFiles/Makefile2:512: tools/CMakeFiles/ppm2tiff.dir/all] Error 2
+/usr/bin/ld: /usr/bin/ld/usr/bin/ld: : collect2: error: ld returned 1 exit status
+../libtiff/libtiff.a(tif_lzw.c.o)../libtiff/libtiff.a(tif_lzw.c.o): in function `: in function `LZWPreDecodeLZWPreDecode':
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266266: undefined reference to `: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278LERCSetupDecode: undefined reference to `'
+OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `/usr/bin/ldJPEGSetupDecode: '
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278296: undefined reference to `: undefined reference to `OJPEGSetupDecodeZSTDSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : ../libtiff/libtiff.a(tif_write.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `: in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:LZMASetupDecode'
+263/usr/bin/ld/usr/bin/ld: undefined reference to `: : JPEGSetupDecode../libtiff/libtiff.a(tif_write.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+287: in function `: undefined reference to `TIFFWriteEncodedTileTWebPSetupDecode/usr/bin/ld'
+: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 296/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `260ZSTDSetupDecode: undefined reference to `'
+JBIGSetupDecode/usr/bin/ld'
+':
+/usr/bin/ld: : ../libtiff/libtiff.a(tif_lzw.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: in function `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:597LZWPreEncode/usr/bin/ld269: undefined reference to `':
+OJPEGPostDecode: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+LZMASetupDecode1147'
+: undefined reference to `/usr/bin/ldTWebPSetupEncode: /usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:/usr/bin/ld560/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: : undefined reference to `287/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:OJPEGPostDecode: undefined reference to `1153'
+TWebPSetupDecode: undefined reference to `'
+ZSTDSetupEncode'
+/usr/bin/ld/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129260../libtiff/libtiff.a(tif_write.c.o): undefined reference to `: undefined reference to `: in function `LZMASetupEncodeJBIGSetupDecodeTIFFWriteEncodedStrip'
+'
+':
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_write.c:JPEGSetupEncode352'
+: undefined reference to `OJPEGPostDecode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld1126: : undefined reference to `LERCSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+314: undefined reference to `/usr/bin/ldOJPEGPostDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+collect2: error: ld returned 1 exit status
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ldcollect2: error: ld returned 1 exit status
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: gmake[2]: *** [tools/CMakeFiles/thumbnail.dir/build.make:103: tools/thumbnail] Error 1
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncodegmake[2]: *** [test/CMakeFiles/ascii_tag.dir/build.make:103: test/ascii_tag] Error 1
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+gmake[1]: *** [CMakeFiles/Makefile2:608: tools/CMakeFiles/thumbnail.dir/all] Error 2
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: gmake[1]: *** [CMakeFiles/Makefile2:1152: test/CMakeFiles/ascii_tag.dir/all] Error 2
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+gmake[2]: *** [tools/CMakeFiles/tiffcp.dir/build.make:103: tools/tiffcp] Error 1
+/usr/bin/ld: gmake[1]: *** [CMakeFiles/Makefile2:800: tools/CMakeFiles/tiffcp.dir/all] Error 2
+/usr/bin/ld: gmake[2]: *** [test/CMakeFiles/test_signed_tags.dir/build.make:103: test/test_signed_tags] Error 1
+gmake[2]: *** [test/CMakeFiles/strip_rw.dir/build.make:135: test/strip_rw] Error 1
+../libtiff/libtiff.a(tif_zip.c.o)gmake[1]: *** [CMakeFiles/Makefile2:1248: test/CMakeFiles/strip_rw.dir/all] Error 2
+: in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:gmake[1]: *** [CMakeFiles/Makefile2:1120: test/CMakeFiles/test_signed_tags.dir/all] Error 2
+166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `../libtiff/libtiff.a(tif_lzw.c.o)JPEGSetupEncode: in function `'
+LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: gmake[2]: *** [tools/CMakeFiles/tiffset.dir/build.make:103: tools/tiffset] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:992: tools/CMakeFiles/tiffset.dir/all] Error 2
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+[ 58%] Linking CXX executable fax2tiff
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `gmake[2]: *** [tools/CMakeFiles/pal2rgb.dir/build.make:103: tools/pal2rgb] Error 1
+ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+gmake[1]: *** [CMakeFiles/Makefile2:480: tools/CMakeFiles/pal2rgb.dir/all] Error 2
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffmedian.dir/build.make:103: tools/tiffmedian] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:960: tools/CMakeFiles/tiffmedian.dir/all] Error 2
+gmake[2]: *** [test/CMakeFiles/long_tag.dir/build.make:119: test/long_tag] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:1184: test/CMakeFiles/long_tag.dir/all] Error 2
+collect2: error: ld returned 1 exit status
+[ 58%] Linking CXX executable tiffdither
+gmake[2]: *** [test/CMakeFiles/short_tag.dir/build.make:119: test/short_tag] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:1216: test/CMakeFiles/short_tag.dir/all] Error 2
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o)../libtiff/libtiff.a(tif_write.c.o): in function `: in function `TIFFWriteScanline':
+TIFFWriteScanline/home/bhsu/libtiff_tmp/libtiff/tif_write.c:':
+175/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `175OJPEGPostDecode'
+: undefined reference to `OJPEGPostDecode/usr/bin/ld'
+: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560/usr/bin/ld: undefined reference to `: OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o)../libtiff/libtiff.a(tif_write.c.o): in function `: in function `TIFFWriteEncodedStripTIFFWriteEncodedTile':
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `597OJPEGPostDecode: undefined reference to `'
+OJPEGPostDecode/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+314: undefined reference to `/usr/bin/ldOJPEGPostDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld../libtiff/libtiff.a(tif_lzw.c.o): : in function `../libtiff/libtiff.a(tif_zip.c.o)LZWPreDecode: in function `':
+ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:266445: undefined reference to `: undefined reference to `LERCSetupDecodeTWebPSetupEncode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `278ZSTDSetupEncode: undefined reference to `'
+OJPEGSetupDecode'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 427/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `263LZMASetupEncode: undefined reference to `'
+JPEGSetupDecode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:436296: undefined reference to `: undefined reference to `OJPEGSetupEncodeZSTDSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:418269: undefined reference to `: undefined reference to `JBIGSetupEncodeLZMASetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:424287: undefined reference to `: undefined reference to `LERCSetupEncodeTWebPSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:421260: undefined reference to `: undefined reference to `JPEGSetupEncodeJBIGSetupDecode'
+'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiff2ps.dir/build.make:103: tools/tiff2ps] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:704: tools/CMakeFiles/tiff2ps.dir/all] Error 2
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffcmp.dir/build.make:103: tools/tiffcmp] Error 1
+[ 59%] Linking CXX executable fax2ps
+gmake[1]: *** [CMakeFiles/Makefile2:768: tools/CMakeFiles/tiffcmp.dir/all] Error 2
+[ 59%] Linking CXX executable rgb2ycbcr
+[ 60%] Linking CXX executable tiff2bw
+[ 61%] Linking CXX executable tiff2rgba
+[ 62%] Linking CXX executable custom_dir
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode/usr/bin/ld'
+: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode/usr/bin/ld'
+: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:'
+166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 427: undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:LZMASetupEncode178: undefined reference to `OJPEGSetupDecode'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 196: undefined reference to `ZSTDSetupDecode/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:'
+436/usr/bin/ld: undefined reference to `: OJPEGSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:'
+160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418187: undefined reference to `: undefined reference to `TWebPSetupDecodeJBIGSetupEncode'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/usr/bin/ld169: : undefined reference to `LZMASetupDecode'
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/usr/bin/ld424: : undefined reference to `../libtiff/libtiff.a(tif_zip.c.o)LERCSetupEncode: in function `'
+ZIPPreEncode/usr/bin/ld':
+: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: undefined reference to `421TWebPSetupEncode: undefined reference to `'
+JPEGSetupEncode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/fax2tiff.dir/build.make:103: tools/fax2tiff] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:448: tools/CMakeFiles/fax2tiff.dir/all] Error 2
+gmake[2]: *** [test/CMakeFiles/rewrite.dir/build.make:103: test/rewrite] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:1280: test/CMakeFiles/rewrite.dir/all] Error 2
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld[ 62%] Linking CXX executable raw2tiff
+: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffdither.dir/build.make:103: tools/tiffdither] Error 1
+[ 62%] Linking CXX executable tiffinfo
+gmake[1]: *** [CMakeFiles/Makefile2:864: tools/CMakeFiles/tiffdither.dir/all] Error 2
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode/usr/bin/ld':
+: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166../libtiff/libtiff.a(tif_lzw.c.o): undefined reference to `: in function `LERCSetupDecodeLZWPreEncode'
+':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld1147: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:TWebPSetupEncode178'
+: undefined reference to `OJPEGSetupDecode/usr/bin/ld'
+: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 1153/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: undefined reference to `163ZSTDSetupEncode: undefined reference to `'
+JPEGSetupDecode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:1129196: undefined reference to `: undefined reference to `LZMASetupEncodeZSTDSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:1123160: undefined reference to `: undefined reference to `JPEGSetupEncodeJBIGSetupDecode'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/usr/bin/ld1126: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:LERCSetupEncode187'
+: undefined reference to `/usr/bin/ldTWebPSetupDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode/usr/bin/ld'
+: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 169/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `1138LZMASetupDecode: undefined reference to `'
+OJPEGSetupEncode/usr/bin/ld'
+: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/rgb2ycbcr.dir/build.make:103: tools/rgb2ycbcr] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:576: tools/CMakeFiles/rgb2ycbcr.dir/all] Error 2
+gmake[2]: *** [tools/CMakeFiles/fax2ps.dir/build.make:103: tools/fax2ps] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:416: tools/CMakeFiles/fax2ps.dir/all] Error 2
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiff2bw.dir/build.make:103: tools/tiff2bw] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:640: tools/CMakeFiles/tiff2bw.dir/all] Error 2
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /usr/bin/ld../libtiff/libtiff.a(tif_zip.c.o): : in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiff2rgba.dir/build.make:103: tools/tiff2rgba] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:736: tools/CMakeFiles/tiff2rgba.dir/all] Error 2
+gmake[2]: *** [test/CMakeFiles/custom_dir.dir/build.make:103: test/custom_dir] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:1312: test/CMakeFiles/custom_dir.dir/all] Error 2
+[ 63%] Linking CXX executable tiffdump
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o)../libtiff/libtiff.a(tif_write.c.o): in function `: in function `LZWPreEncode':
+TIFFWriteScanline/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:':
+1147/home/bhsu/libtiff_tmp/libtiff/tif_write.c:: undefined reference to `175TWebPSetupEncode: undefined reference to `'
+OJPEGPostDecode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153../libtiff/libtiff.a(tif_write.c.o): undefined reference to `: in function `ZSTDSetupEncodeTIFFWriteEncodedTile'
+':
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:5971129: undefined reference to `: undefined reference to `OJPEGPostDecode'
+LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `/usr/bin/ldOJPEGPostDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o)/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: in function `1126TIFFWriteEncodedStrip: undefined reference to `':
+LERCSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+352/usr/bin/ld: undefined reference to `: OJPEGPostDecode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+1120: undefined reference to `/usr/bin/ld: JBIGSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_write.c:'
+314: undefined reference to `OJPEGPostDecode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld../libtiff/libtiff.a(tif_lzw.c.o): : in function `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:LZWPreDecode':
+196/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `266ZSTDSetupDecode: undefined reference to `'
+LERCSetupDecode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:160278: undefined reference to `: undefined reference to `JBIGSetupDecodeOJPEGSetupDecode'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:187263: undefined reference to `: undefined reference to `TWebPSetupDecodeJPEGSetupDecode'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296/usr/bin/ld: undefined reference to `: ZSTDSetupDecode/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:'
+169: undefined reference to `/usr/bin/ldLZMASetupDecode: '
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode/usr/bin/ld'
+: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:../libtiff/libtiff.a(tif_zip.c.o)287: in function `: undefined reference to `ZIPPreEncodeTWebPSetupDecode':
+'
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445/usr/bin/ld: undefined reference to `: TWebPSetupEncode/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:'
+260: undefined reference to `JBIGSetupDecode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/usr/bin/ld451: : undefined reference to `ZSTDSetupEncode../libtiff/libtiff.a(tif_lzw.c.o)'
+: in function `LZWPreEncode':
+/usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 1147/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: undefined reference to `427TWebPSetupEncode: undefined reference to `'
+LZMASetupEncode/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153/usr/bin/ld: undefined reference to `: ZSTDSetupEncode'
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:/usr/bin/ld436: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:OJPEGSetupEncode1129'
+: undefined reference to `LZMASetupEncode/usr/bin/ld'
+: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:: 418/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: undefined reference to `1123JBIGSetupEncode: undefined reference to `'
+JPEGSetupEncode'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:1120424: undefined reference to `: undefined reference to `JBIGSetupEncodeLERCSetupEncode'
+'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:: 1138: undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:OJPEGSetupEncode421'
+: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/raw2tiff.dir/build.make:103: tools/raw2tiff] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:544: tools/CMakeFiles/raw2tiff.dir/all] Error 2
+gmake[2]: *** [tools/CMakeFiles/tiffinfo.dir/build.make:103: tools/tiffinfo] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:928: tools/CMakeFiles/tiffinfo.dir/all] Error 2
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffdump.dir/build.make:103: tools/tiffdump] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:896: tools/CMakeFiles/tiffdump.dir/all] Error 2
+[ 64%] Linking CXX static library libtiffxx.a
+[ 64%] Built target tiffxx
+[ 65%] Linking CXX executable tiff2pdf
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiff2pdf.dir/build.make:103: tools/tiff2pdf] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:672: tools/CMakeFiles/tiff2pdf.dir/all] Error 2
+[ 66%] Linking CXX executable tiffcrop
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteScanline':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:175: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedTile':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:597: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:560: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_write.c.o): in function `TIFFWriteEncodedStrip':
+/home/bhsu/libtiff_tmp/libtiff/tif_write.c:352: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_write.c:314: undefined reference to `OJPEGPostDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:266: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:278: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:263: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:296: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:269: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:287: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:260: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_lzw.c.o): in function `LZWPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1147: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1153: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1129: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1123: undefined reference to `JPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1126: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1120: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_lzw.c:1138: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreDecode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:166: undefined reference to `LERCSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:178: undefined reference to `OJPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:163: undefined reference to `JPEGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:196: undefined reference to `ZSTDSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:160: undefined reference to `JBIGSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:187: undefined reference to `TWebPSetupDecode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:169: undefined reference to `LZMASetupDecode'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_zip.c.o): in function `ZIPPreEncode':
+/home/bhsu/libtiff_tmp/libtiff/tif_zip.c:445: undefined reference to `TWebPSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:451: undefined reference to `ZSTDSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:427: undefined reference to `LZMASetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:436: undefined reference to `OJPEGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:418: undefined reference to `JBIGSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:424: undefined reference to `LERCSetupEncode'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_zip.c:421: undefined reference to `JPEGSetupEncode'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffcrop.dir/build.make:103: tools/tiffcrop] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:832: tools/CMakeFiles/tiffcrop.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
+
+/usr/bin/ld: /usr/bin/ld: /usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup../libtiff/libtiff.a(tif_dir.c.o)'
+: in function `/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+_TIFFVSetField/usr/bin/ld':
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `312OJPEGCleanup: undefined reference to `'
+LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+../libtiff/libtiff.a(tif_dir.c.o)/usr/bin/ld: : in function `/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:_TIFFVSetField330':
+: undefined reference to `TWebPCleanup'
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+../libtiff/libtiff.a(tif_dir.c.o)/usr/bin/ld: : in function `../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+_TIFFVSetField/usr/bin/ld':
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: : undefined reference to `312JPEGCleanup: undefined reference to `'
+LERCCleanup/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:3091714: undefined reference to `: undefined reference to `JPEGCleanupZSTDCleanup'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:3361702: undefined reference to `: undefined reference to `ZSTDCleanupOJPEGCleanup'
+'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/usr/bin/ld3241693: : undefined reference to `: undefined reference to `OJPEGCleanupLZMACleanup'
+'
+/usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: 309/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: undefined reference to `1708JPEGCleanup: undefined reference to `/usr/bin/ld'
+TWebPCleanup: '
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: undefined reference to `336LZMACleanup: undefined reference to `'
+ZSTDCleanup/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/usr/bin/ld330: : undefined reference to `TWebPCleanup/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:'
+324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:../libtiff/libtiff.a(tif_dir.c.o)315: in function `: undefined reference to `TIFFFreeDirectory':
+LZMACleanup/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:'
+1690: undefined reference to `/usr/bin/ldLERCCleanup: '
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330/usr/bin/ld: undefined reference to `: TWebPCleanup'
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: 1693: undefined reference to `LZMACleanup../libtiff/libtiff.a(tif_dir.c.o)'
+: in function `/usr/bin/ldTIFFFreeDirectory: ':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:17081690: undefined reference to `: undefined reference to `TWebPCleanupLERCCleanup'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `/usr/bin/ld: /usr/bin/ld: _TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `/usr/bin/ld_TIFFVSetField':
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: 324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `../libtiff/libtiff.a(tif_dir.c.o)ZSTDCleanup: in function `'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `_TIFFVSetFieldOJPEGCleanup'
+':
+/usr/bin/ld/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:3121693: undefined reference to `: undefined reference to `LERCCleanupLZMACleanup'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330../libtiff/libtiff.a(tif_dir.c.o): undefined reference to `: in function `TWebPCleanup'
+_TIFFVSetField/usr/bin/ld':
+: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714312: undefined reference to `: undefined reference to `ZSTDCleanup'
+LERCCleanup/usr/bin/ld'
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708/usr/bin/ld: undefined reference to `: TWebPCleanup'
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336../libtiff/libtiff.a(tif_dir.c.o): undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+: in function `_TIFFVSetField':
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315/usr/bin/ld: : undefined reference to `LERCCleanup'
+: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld/usr/bin/ld: : /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702309: undefined reference to `: undefined reference to `OJPEGCleanupJPEGCleanup'
+'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:/usr/bin/ld336: : undefined reference to `/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:ZSTDCleanup1693'
+: undefined reference to `/usr/bin/ldLZMACleanup: '
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324/usr/bin/ld: undefined reference to `: OJPEGCleanup'
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: /usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `/usr/bin/ld_TIFFVSetField: ':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+collect2: error: ld returned 1 exit status
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+../libtiff/libtiff.a(tif_dir.c.o): in function `collect2: error: ld returned 1 exit status
+_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+/usr/bin/ld: collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [tools/CMakeFiles/tiffsplit.dir/build.make:103: tools/tiffsplit] Error 1
+../libtiff/libtiff.a(tif_dir.c.o): in function `_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+gmake[2]: *** [tools/CMakeFiles/tiffdither.dir/build.make:103: tools/tiffdither] Error 1
+/usr/bin/ld: gmake[2]: *** [tools/CMakeFiles/tiffdump.dir/build.make:103: tools/tiffdump] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:864: tools/CMakeFiles/tiffdither.dir/all] Error 2
+gmake[2]: *** [tools/CMakeFiles/tiff2rgba.dir/build.make:103: tools/tiff2rgba] Error 1
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:896: tools/CMakeFiles/tiffdump.dir/all] Error 2
+../libtiff/libtiff.a(tif_dir.c.o): in function `gmake[1]: *** [CMakeFiles/Makefile2:1024: tools/CMakeFiles/tiffsplit.dir/all] Error 2
+_TIFFVSetField':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:312: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:309: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:336: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:324: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:315: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:330: undefined reference to `TWebPCleanup'
+/usr/bin/ld: ../libtiff/libtiff.a(tif_dir.c.o): in function `TIFFFreeDirectory':
+/home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1690: undefined reference to `LERCCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1687: undefined reference to `JPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1714: undefined reference to `ZSTDCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1702: undefined reference to `OJPEGCleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1693: undefined reference to `LZMACleanup'
+/usr/bin/ld: /home/bhsu/libtiff_tmp/libtiff/tif_dir.c:1708: undefined reference to `TWebPCleanup'
+gmake[1]: *** [CMakeFiles/Makefile2:736: tools/CMakeFiles/tiff2rgba.dir/all] Error 2

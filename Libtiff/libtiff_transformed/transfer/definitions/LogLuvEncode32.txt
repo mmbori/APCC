@@ -1,0 +1,1 @@
+int LogLuvEncode32(TIFF *tif , uint8_t *bp , tmsize_t cc , uint16_t s);

@@ -1,0 +1,1 @@
+int TWebPPreEncode(TIFF *tif , uint16_t s);

@@ -1,0 +1,1 @@
+int LogLuvFixupTags(TIFF *tif);

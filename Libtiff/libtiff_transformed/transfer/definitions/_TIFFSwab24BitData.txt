@@ -1,0 +1,1 @@
+void _TIFFSwab24BitData(TIFF *tif , uint8_t *buf , tmsize_t cc);

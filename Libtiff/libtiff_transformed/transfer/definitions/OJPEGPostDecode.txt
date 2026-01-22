@@ -1,0 +1,1 @@
+void OJPEGPostDecode(TIFF *tif , uint8_t *buf , tmsize_t cc);
