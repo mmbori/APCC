@@ -1,0 +1,14 @@
+*.o
+*.a
+*.so
+*.out
+*.exe
+*.dll
+*.dylib
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+build/
+cmake-build-*/
