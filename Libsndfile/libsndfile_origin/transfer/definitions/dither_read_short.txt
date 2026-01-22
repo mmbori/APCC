@@ -1,0 +1,1 @@
+sf_count_t dither_read_short(SF_PRIVATE *UNUSED ( psf ) , short *UNUSED ( ptr ) , sf_count_t len);

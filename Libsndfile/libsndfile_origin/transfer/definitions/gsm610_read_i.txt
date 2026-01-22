@@ -1,0 +1,1 @@
+sf_count_t gsm610_read_i(SF_PRIVATE *psf , int *ptr , sf_count_t len);

@@ -1,0 +1,1 @@
+SF_CHUNK_ITERATOR *rf64_next_chunk_iterator(SF_PRIVATE *psf , SF_CHUNK_ITERATOR *iterator);

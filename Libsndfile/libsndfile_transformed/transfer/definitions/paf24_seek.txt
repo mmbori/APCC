@@ -1,0 +1,1 @@
+sf_count_t paf24_seek(SF_PRIVATE *psf , int mode , sf_count_t offset);

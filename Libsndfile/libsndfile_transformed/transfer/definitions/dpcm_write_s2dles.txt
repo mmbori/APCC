@@ -1,0 +1,1 @@
+sf_count_t dpcm_write_s2dles(SF_PRIVATE *psf , const short *ptr , sf_count_t len);

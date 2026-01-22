@@ -1,0 +1,1 @@
+int aiff_ima_decode_block(SF_PRIVATE *psf , IMA_ADPCM_PRIVATE *pima);

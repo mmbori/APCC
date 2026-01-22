@@ -1,0 +1,1 @@
+sf_count_t gsm610_write_f(SF_PRIVATE *psf , const float *ptr , sf_count_t len);

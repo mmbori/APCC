@@ -1,0 +1,1 @@
+int ircam_close(SF_PRIVATE *psf);

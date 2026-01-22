@@ -1,0 +1,1 @@
+sf_count_t pcm_read_let2s(SF_PRIVATE *psf , short *ptr , sf_count_t len);

@@ -1,0 +1,1 @@
+sf_count_t interleave_read_float(SF_PRIVATE *psf , float *ptr , sf_count_t len);

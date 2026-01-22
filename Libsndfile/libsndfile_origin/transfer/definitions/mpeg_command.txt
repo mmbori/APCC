@@ -1,0 +1,1 @@
+int mpeg_command(SF_PRIVATE *psf , int command , void *data , int datasize);

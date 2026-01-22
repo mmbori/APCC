@@ -1,0 +1,1 @@
+sf_count_t dpcm_seek(SF_PRIVATE *psf , int mode , sf_count_t offset);

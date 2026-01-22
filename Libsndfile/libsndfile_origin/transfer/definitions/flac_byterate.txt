@@ -1,0 +1,1 @@
+int flac_byterate(SF_PRIVATE *psf);

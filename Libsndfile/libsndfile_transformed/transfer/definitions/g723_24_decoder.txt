@@ -1,0 +1,1 @@
+int g723_24_decoder(int i , G72x_STATE *state_ptr);

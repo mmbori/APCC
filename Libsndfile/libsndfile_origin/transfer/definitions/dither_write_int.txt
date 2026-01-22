@@ -1,0 +1,1 @@
+sf_count_t dither_write_int(SF_PRIVATE *psf , const int *ptr , sf_count_t len);

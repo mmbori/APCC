@@ -1,0 +1,1 @@
+sf_count_t pcm_write_d2bei(SF_PRIVATE *psf , const double *ptr , sf_count_t len);

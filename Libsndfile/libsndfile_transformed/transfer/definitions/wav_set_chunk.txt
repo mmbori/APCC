@@ -1,0 +1,1 @@
+int wav_set_chunk(SF_PRIVATE *psf , const SF_CHUNK_INFO *chunk_info);

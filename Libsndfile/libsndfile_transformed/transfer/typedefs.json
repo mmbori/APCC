@@ -1,0 +1,15 @@
+{
+  "function_pointer_templates": {
+    "sf_vio_get_filelen": "sf_count_t\t\t(*sf_vio_get_filelen)\t(void *user_data)",
+    "sf_vio_seek": "sf_count_t\t\t(*sf_vio_seek)\t\t(sf_count_t offset, int whence, void *user_data)",
+    "sf_vio_read": "sf_count_t\t\t(*sf_vio_read)\t\t(void *ptr, sf_count_t count, void *user_data)",
+    "sf_vio_write": "sf_count_t\t\t(*sf_vio_write)\t\t(const void *ptr, sf_count_t count, void *user_data)",
+    "sf_vio_tell": "sf_count_t\t\t(*sf_vio_tell)\t\t(void *user_data)"
+  },
+  "function_type_templates": {
+    "convert_func": {
+      "return_type": "int",
+      "params": "SF_PRIVATE *psf, int, void *, int, int, float **"
+    }
+  }
+}

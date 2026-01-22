@@ -1,0 +1,1 @@
+sf_count_t ulaw_write_i2ulaw(SF_PRIVATE *psf , const int *ptr , sf_count_t len);

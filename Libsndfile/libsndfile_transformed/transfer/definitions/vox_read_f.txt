@@ -1,0 +1,1 @@
+sf_count_t vox_read_f(SF_PRIVATE *psf , float *ptr , sf_count_t len);

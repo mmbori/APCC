@@ -1,0 +1,1 @@
+int mpc2k_close(SF_PRIVATE *psf);

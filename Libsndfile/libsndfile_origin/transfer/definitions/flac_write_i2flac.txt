@@ -1,0 +1,1 @@
+sf_count_t flac_write_i2flac(SF_PRIVATE *psf , const int *ptr , sf_count_t len);

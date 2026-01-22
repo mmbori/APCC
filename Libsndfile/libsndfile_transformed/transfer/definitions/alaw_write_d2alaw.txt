@@ -1,0 +1,1 @@
+sf_count_t alaw_write_d2alaw(SF_PRIVATE *psf , const double *ptr , sf_count_t len);

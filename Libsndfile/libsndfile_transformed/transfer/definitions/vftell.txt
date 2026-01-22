@@ -1,0 +1,1 @@
+sf_count_t vftell(void *user_data);

@@ -1,0 +1,1 @@
+sf_count_t mpeg_dec_seek(SF_PRIVATE *psf , int mode , sf_count_t count);

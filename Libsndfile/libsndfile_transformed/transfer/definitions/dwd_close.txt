@@ -1,0 +1,1 @@
+int dwd_close(SF_PRIVATE *UNUSED ( psf ));

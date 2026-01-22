@@ -1,0 +1,1 @@
+sf_count_t dpcm_read_dles2i(SF_PRIVATE *psf , int *ptr , sf_count_t len);

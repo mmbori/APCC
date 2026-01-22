@@ -1,0 +1,1 @@
+sf_count_t mpeg_l3_encode_write_short_mono(SF_PRIVATE *psf , const short *ptr , sf_count_t len);

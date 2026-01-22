@@ -1,0 +1,1 @@
+int caf_get_chunk_data(SF_PRIVATE *psf , const SF_CHUNK_ITERATOR *iterator , SF_CHUNK_INFO *chunk_info);

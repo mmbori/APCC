@@ -1,0 +1,1 @@
+sf_count_t nms_adpcm_write_f(SF_PRIVATE *psf , const float *ptr , sf_count_t len);

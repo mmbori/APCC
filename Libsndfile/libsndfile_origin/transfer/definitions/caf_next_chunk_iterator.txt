@@ -1,0 +1,1 @@
+SF_CHUNK_ITERATOR *caf_next_chunk_iterator(SF_PRIVATE *psf , SF_CHUNK_ITERATOR *iterator);

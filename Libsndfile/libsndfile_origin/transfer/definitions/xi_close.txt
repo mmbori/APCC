@@ -1,0 +1,1 @@
+int xi_close(SF_PRIVATE *UNUSED ( psf ));

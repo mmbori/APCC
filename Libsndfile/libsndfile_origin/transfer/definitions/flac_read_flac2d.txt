@@ -1,0 +1,1 @@
+sf_count_t flac_read_flac2d(SF_PRIVATE *psf , double *ptr , sf_count_t len);

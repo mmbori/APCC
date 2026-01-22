@@ -1,0 +1,1 @@
+sf_count_t g72x_read_d(SF_PRIVATE *psf , double *ptr , sf_count_t len);

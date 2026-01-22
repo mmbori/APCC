@@ -1,0 +1,1 @@
+sf_count_t replace_read_f2d(SF_PRIVATE *psf , double *ptr , sf_count_t len);

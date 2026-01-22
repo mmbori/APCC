@@ -1,0 +1,1 @@
+sf_count_t vfwrite(const void *ptr , sf_count_t count , void *user_data);

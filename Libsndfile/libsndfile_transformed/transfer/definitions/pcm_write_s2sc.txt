@@ -1,0 +1,1 @@
+sf_count_t pcm_write_s2sc(SF_PRIVATE *psf , const short *ptr , sf_count_t len);

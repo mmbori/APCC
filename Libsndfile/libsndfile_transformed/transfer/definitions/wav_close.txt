@@ -1,0 +1,1 @@
+int wav_close(SF_PRIVATE *psf);

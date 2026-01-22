@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/bhsu/libsndfile_origin/build-prog/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

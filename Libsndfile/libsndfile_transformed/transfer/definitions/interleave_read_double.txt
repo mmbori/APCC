@@ -1,0 +1,1 @@
+sf_count_t interleave_read_double(SF_PRIVATE *psf , double *ptr , sf_count_t len);

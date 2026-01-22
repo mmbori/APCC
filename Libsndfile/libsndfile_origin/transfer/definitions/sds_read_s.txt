@@ -1,0 +1,1 @@
+sf_count_t sds_read_s(SF_PRIVATE *psf , short *ptr , sf_count_t len);

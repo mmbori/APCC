@@ -1,0 +1,1 @@
+sf_count_t ulaw_read_ulaw2i(SF_PRIVATE *psf , int *ptr , sf_count_t len);

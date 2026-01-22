@@ -1,0 +1,1 @@
+int nms_adpcm_close(SF_PRIVATE *psf);

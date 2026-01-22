@@ -1,0 +1,18 @@
+[
+  {
+    "fn_name": "vorbis_read_sample",
+    "fp_name": "transfn",
+    "fp_sequence": 4,
+    "assigned_fn": [
+      "vorbis_rdouble",
+      "vorbis_rfloat",
+      "vorbis_rint",
+      "vorbis_rnull",
+      "vorbis_rshort"
+    ],
+    "line": [
+      "static sf_count_t\tvorbis_read_sample (SF_PRIVATE *psf, void *ptr, sf_count_t lens, int (*transfn)(SF_PRIVATE *psf, int, void *, int, int, float **)) ;"
+    ],
+    "file": "ogg_vorbis.c"
+  }
+]

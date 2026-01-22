@@ -1,0 +1,1 @@
+sf_count_t sds_seek(SF_PRIVATE *psf , int mode , sf_count_t seek_from_start);

@@ -1,0 +1,1253 @@
+[
+  {
+    "fp_name": "byterate",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 61,
+    "assigned_fn": [
+      "alac_byterate",
+      "dwvw_byterate",
+      "flac_byterate",
+      "mpeg_dec_byterate",
+      "mpeg_l3_encoder_byterate",
+      "ogg_opus_byterate",
+      "sds_byterate",
+      "vorbis_byterate"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *)": [
+        "alac_byterate",
+        "dwvw_byterate",
+        "flac_byterate",
+        "mpeg_dec_byterate",
+        "mpeg_l3_encoder_byterate",
+        "ogg_opus_byterate",
+        "sds_byterate",
+        "vorbis_byterate"
+      ]
+    }
+  },
+  {
+    "fp_name": "codec_close",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 62,
+    "assigned_fn": [
+      "NULL",
+      "alac_close",
+      "dwvw_close",
+      "g72x_close",
+      "gsm610_close",
+      "ima_close",
+      "mpeg_dec_close",
+      "mpeg_l3_encoder_close",
+      "msadpcm_close",
+      "nms_adpcm_close",
+      "ogg_opus_close",
+      "opcm_close",
+      "spx_close",
+      "vorbis_close"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *)": [
+        "alac_close",
+        "dwvw_close",
+        "g72x_close",
+        "gsm610_close",
+        "ima_close",
+        "mpeg_dec_close",
+        "mpeg_l3_encoder_close",
+        "msadpcm_close",
+        "nms_adpcm_close",
+        "ogg_opus_close",
+        "opcm_close",
+        "spx_close",
+        "vorbis_close"
+      ]
+    }
+  },
+  {
+    "fp_name": "command",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 60,
+    "assigned_fn": [
+      "aiff_command",
+      "caf_command",
+      "flac_command",
+      "mpeg_command",
+      "ogg_opus_command",
+      "opcm_command",
+      "rf64_command",
+      "spx_command",
+      "vorbis_command",
+      "wav_command"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, int, void *, int)": [
+        "aiff_command",
+        "caf_command",
+        "flac_command",
+        "mpeg_command",
+        "ogg_opus_command",
+        "rf64_command",
+        "vorbis_command",
+        "wav_command"
+      ]
+    }
+  },
+  {
+    "fp_name": "container_close",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 63,
+    "assigned_fn": [
+      "NULL",
+      "aiff_close",
+      "au_close",
+      "avr_close",
+      "caf_close",
+      "dwd_close",
+      "flac_close",
+      "htk_close",
+      "ircam_close",
+      "mat4_close",
+      "mat5_close",
+      "mpc2k_close",
+      "nist_close",
+      "ogg_close",
+      "paf24_close",
+      "pvf_close",
+      "rf64_close",
+      "rx2_close",
+      "sd2_close",
+      "sds_close",
+      "svx_close",
+      "voc_close",
+      "w64_close",
+      "wav_close",
+      "wve_close",
+      "xi_close"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *)": [
+        "aiff_close",
+        "au_close",
+        "avr_close",
+        "caf_close",
+        "dwd_close",
+        "flac_close",
+        "htk_close",
+        "ircam_close",
+        "mat4_close",
+        "mat5_close",
+        "mpc2k_close",
+        "nist_close",
+        "ogg_close",
+        "paf24_close",
+        "pvf_close",
+        "rf64_close",
+        "rx2_close",
+        "sd2_close",
+        "sds_close",
+        "svx_close",
+        "voc_close",
+        "w64_close",
+        "wav_close",
+        "wve_close",
+        "xi_close"
+      ]
+    }
+  },
+  {
+    "fp_name": "decode_block",
+    "struct_name": "gsm610_tag",
+    "struct_aliases": [
+      "gsm610_tag",
+      "GSM610_PRIVATE"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "aiff_ima_decode_block",
+      "gsm610_decode_block",
+      "gsm610_wav_decode_block",
+      "wavlike_ima_decode_block"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, GSM610_PRIVATE *)": [
+        "gsm610_decode_block",
+        "gsm610_wav_decode_block"
+      ],
+      "int (SF_PRIVATE *, IMA_ADPCM_PRIVATE *)": [
+        "aiff_ima_decode_block",
+        "wavlike_ima_decode_block"
+      ]
+    }
+  },
+  {
+    "fp_name": "decoder",
+    "struct_name": "g72x_state",
+    "struct_aliases": [
+      "g72x_state",
+      "G72x_STATE"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "NULL",
+      "g721_decoder",
+      "g723_16_decoder",
+      "g723_24_decoder",
+      "g723_40_decoder"
+    ],
+    "func_signature": {
+      "int (int, G72x_STATE *)": [
+        "g721_decoder",
+        "g723_16_decoder",
+        "g723_24_decoder",
+        "g723_40_decoder"
+      ]
+    }
+  },
+  {
+    "fp_name": "encode_block",
+    "struct_name": "gsm610_tag",
+    "struct_aliases": [
+      "gsm610_tag",
+      "GSM610_PRIVATE"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "aiff_ima_encode_block",
+      "gsm610_encode_block",
+      "gsm610_wav_encode_block",
+      "wavlike_ima_encode_block"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, GSM610_PRIVATE *)": [
+        "gsm610_encode_block",
+        "gsm610_wav_encode_block"
+      ],
+      "int (SF_PRIVATE *, IMA_ADPCM_PRIVATE *)": [
+        "aiff_ima_encode_block",
+        "wavlike_ima_encode_block"
+      ]
+    }
+  },
+  {
+    "fp_name": "encoder",
+    "struct_name": "g72x_state",
+    "struct_aliases": [
+      "g72x_state",
+      "G72x_STATE"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "NULL",
+      "g721_encoder",
+      "g723_16_encoder",
+      "g723_24_encoder",
+      "g723_40_encoder"
+    ],
+    "func_signature": {
+      "int (int, G72x_STATE *)": [
+        "g721_encoder",
+        "g723_16_encoder",
+        "g723_24_encoder",
+        "g723_40_encoder"
+      ]
+    }
+  },
+  {
+    "fp_name": "get_chunk_data",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 74,
+    "assigned_fn": [
+      "aiff_get_chunk_data",
+      "caf_get_chunk_data",
+      "rf64_get_chunk_data",
+      "wav_get_chunk_data"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, const SF_CHUNK_ITERATOR *, SF_CHUNK_INFO *)": [
+        "aiff_get_chunk_data",
+        "caf_get_chunk_data",
+        "rf64_get_chunk_data",
+        "wav_get_chunk_data"
+      ]
+    }
+  },
+  {
+    "fp_name": "get_chunk_size",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 73,
+    "assigned_fn": [
+      "aiff_get_chunk_size",
+      "caf_get_chunk_size",
+      "rf64_get_chunk_size",
+      "wav_get_chunk_size"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, const SF_CHUNK_ITERATOR *, SF_CHUNK_INFO *)": [
+        "aiff_get_chunk_size",
+        "caf_get_chunk_size",
+        "rf64_get_chunk_size",
+        "wav_get_chunk_size"
+      ]
+    }
+  },
+  {
+    "fp_name": "get_filelen",
+    "struct_name": "SF_VIRTUAL_IO",
+    "struct_aliases": [
+      "SF_VIRTUAL_IO"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "vfget_filelen"
+    ],
+    "func_signature": {
+      "sf_count_t (void *)": [
+        "vfget_filelen"
+      ]
+    }
+  },
+  {
+    "fp_name": "next_chunk_iterator",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 72,
+    "assigned_fn": [
+      "aiff_next_chunk_iterator",
+      "caf_next_chunk_iterator",
+      "rf64_next_chunk_iterator",
+      "wav_next_chunk_iterator"
+    ],
+    "func_signature": {
+      "SF_CHUNK_ITERATOR * (SF_PRIVATE *, SF_CHUNK_ITERATOR *)": [
+        "aiff_next_chunk_iterator",
+        "caf_next_chunk_iterator",
+        "rf64_next_chunk_iterator",
+        "wav_next_chunk_iterator"
+      ]
+    }
+  },
+  {
+    "fp_name": "read",
+    "struct_name": "SF_VIRTUAL_IO",
+    "struct_aliases": [
+      "SF_VIRTUAL_IO"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "vfread"
+    ],
+    "func_signature": {
+      "sf_count_t (void *, sf_count_t, void *)": [
+        "vfread"
+      ]
+    }
+  },
+  {
+    "fp_name": "read_double",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "alac_read_d",
+      "alaw_read_alaw2d",
+      "dpcm_read_dles2d",
+      "dpcm_read_dsc2d",
+      "dwvw_read_d",
+      "flac_read_flac2d",
+      "g72x_read_d",
+      "gsm610_read_d",
+      "host_read_d",
+      "host_read_f2d",
+      "ima_read_d",
+      "interleave_read_double",
+      "mpeg_dec_read_d",
+      "msadpcm_read_d",
+      "nms_adpcm_read_d",
+      "ogg_opus_read_d",
+      "opcm_read_d",
+      "paf24_read_d",
+      "pcm_read_bei2d",
+      "pcm_read_bes2d",
+      "pcm_read_bet2d",
+      "pcm_read_lei2d",
+      "pcm_read_les2d",
+      "pcm_read_let2d",
+      "pcm_read_sc2d",
+      "pcm_read_uc2d",
+      "replace_read_d",
+      "replace_read_f2d",
+      "sds_read_d",
+      "spx_read_d",
+      "txw_read_d",
+      "ulaw_read_ulaw2d",
+      "voc_multi_read_les2d",
+      "voc_multi_read_uc2d",
+      "vorbis_read_d",
+      "vox_read_d"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, double *, sf_count_t)": [
+        "alac_read_d",
+        "alaw_read_alaw2d",
+        "dpcm_read_dles2d",
+        "dpcm_read_dsc2d",
+        "dwvw_read_d",
+        "flac_read_flac2d",
+        "g72x_read_d",
+        "gsm610_read_d",
+        "host_read_d",
+        "host_read_f2d",
+        "ima_read_d",
+        "interleave_read_double",
+        "mpeg_dec_read_d",
+        "msadpcm_read_d",
+        "nms_adpcm_read_d",
+        "ogg_opus_read_d",
+        "paf24_read_d",
+        "pcm_read_bei2d",
+        "pcm_read_bes2d",
+        "pcm_read_bet2d",
+        "pcm_read_lei2d",
+        "pcm_read_les2d",
+        "pcm_read_let2d",
+        "pcm_read_sc2d",
+        "pcm_read_uc2d",
+        "replace_read_d",
+        "replace_read_f2d",
+        "sds_read_d",
+        "txw_read_d",
+        "ulaw_read_ulaw2d",
+        "vorbis_read_d",
+        "vox_read_d"
+      ]
+    }
+  },
+  {
+    "fp_name": "read_float",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "alac_read_f",
+      "alaw_read_alaw2f",
+      "dpcm_read_dles2f",
+      "dpcm_read_dsc2f",
+      "dwvw_read_f",
+      "flac_read_flac2f",
+      "g72x_read_f",
+      "gsm610_read_f",
+      "host_read_d2f",
+      "host_read_f",
+      "ima_read_f",
+      "interleave_read_float",
+      "mpeg_dec_read_f",
+      "msadpcm_read_f",
+      "nms_adpcm_read_f",
+      "ogg_opus_read_f",
+      "opcm_read_f",
+      "paf24_read_f",
+      "pcm_read_bei2f",
+      "pcm_read_bes2f",
+      "pcm_read_bet2f",
+      "pcm_read_lei2f",
+      "pcm_read_les2f",
+      "pcm_read_let2f",
+      "pcm_read_sc2f",
+      "pcm_read_uc2f",
+      "replace_read_d2f",
+      "replace_read_f",
+      "sds_read_f",
+      "spx_read_f",
+      "txw_read_f",
+      "ulaw_read_ulaw2f",
+      "voc_multi_read_les2f",
+      "voc_multi_read_uc2f",
+      "vorbis_read_f",
+      "vox_read_f"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, float *, sf_count_t)": [
+        "alac_read_f",
+        "alaw_read_alaw2f",
+        "dpcm_read_dles2f",
+        "dpcm_read_dsc2f",
+        "dwvw_read_f",
+        "flac_read_flac2f",
+        "g72x_read_f",
+        "gsm610_read_f",
+        "host_read_d2f",
+        "host_read_f",
+        "ima_read_f",
+        "interleave_read_float",
+        "mpeg_dec_read_f",
+        "msadpcm_read_f",
+        "nms_adpcm_read_f",
+        "ogg_opus_read_f",
+        "paf24_read_f",
+        "pcm_read_bei2f",
+        "pcm_read_bes2f",
+        "pcm_read_bet2f",
+        "pcm_read_lei2f",
+        "pcm_read_les2f",
+        "pcm_read_let2f",
+        "pcm_read_sc2f",
+        "pcm_read_uc2f",
+        "replace_read_d2f",
+        "replace_read_f",
+        "sds_read_f",
+        "txw_read_f",
+        "ulaw_read_ulaw2f",
+        "vorbis_read_f",
+        "vox_read_f"
+      ]
+    }
+  },
+  {
+    "fp_name": "read_int",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "alac_read_i",
+      "alaw_read_alaw2i",
+      "dither_read_int",
+      "dpcm_read_dles2i",
+      "dpcm_read_dsc2i",
+      "dwvw_read_i",
+      "flac_read_flac2i",
+      "g72x_read_i",
+      "gsm610_read_i",
+      "host_read_d2i",
+      "host_read_f2i",
+      "ima_read_i",
+      "interleave_read_int",
+      "mpeg_dec_read_i",
+      "msadpcm_read_i",
+      "nms_adpcm_read_i",
+      "ogg_opus_read_i",
+      "opcm_read_i",
+      "paf24_read_i",
+      "pcm_read_bei2i",
+      "pcm_read_bes2i",
+      "pcm_read_bet2i",
+      "pcm_read_lei2i",
+      "pcm_read_les2i",
+      "pcm_read_let2i",
+      "pcm_read_sc2i",
+      "pcm_read_uc2i",
+      "replace_read_d2i",
+      "replace_read_f2i",
+      "sds_read_i",
+      "spx_read_i",
+      "txw_read_i",
+      "ulaw_read_ulaw2i",
+      "voc_multi_read_les2i",
+      "voc_multi_read_uc2i",
+      "vorbis_read_i",
+      "vox_read_i"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, int *, sf_count_t)": [
+        "alac_read_i",
+        "alaw_read_alaw2i",
+        "dither_read_int",
+        "dpcm_read_dles2i",
+        "dpcm_read_dsc2i",
+        "dwvw_read_i",
+        "flac_read_flac2i",
+        "g72x_read_i",
+        "gsm610_read_i",
+        "host_read_d2i",
+        "host_read_f2i",
+        "ima_read_i",
+        "interleave_read_int",
+        "mpeg_dec_read_i",
+        "msadpcm_read_i",
+        "nms_adpcm_read_i",
+        "ogg_opus_read_i",
+        "paf24_read_i",
+        "pcm_read_bei2i",
+        "pcm_read_bes2i",
+        "pcm_read_bet2i",
+        "pcm_read_lei2i",
+        "pcm_read_les2i",
+        "pcm_read_let2i",
+        "pcm_read_sc2i",
+        "pcm_read_uc2i",
+        "replace_read_d2i",
+        "replace_read_f2i",
+        "sds_read_i",
+        "txw_read_i",
+        "ulaw_read_ulaw2i",
+        "vorbis_read_i",
+        "vox_read_i"
+      ]
+    }
+  },
+  {
+    "fp_name": "read_short",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "alac_read_s",
+      "alaw_read_alaw2s",
+      "dither_read_short",
+      "dpcm_read_dles2s",
+      "dpcm_read_dsc2s",
+      "dwvw_read_s",
+      "flac_read_flac2s",
+      "g72x_read_s",
+      "gsm610_read_s",
+      "host_read_d2s",
+      "host_read_f2s",
+      "ima_read_s",
+      "interleave_read_short",
+      "mpeg_dec_read_s",
+      "msadpcm_read_s",
+      "nms_adpcm_read_s",
+      "ogg_opus_read_s",
+      "opcm_read_s",
+      "paf24_read_s",
+      "pcm_read_bei2s",
+      "pcm_read_bes2s",
+      "pcm_read_bet2s",
+      "pcm_read_lei2s",
+      "pcm_read_les2s",
+      "pcm_read_let2s",
+      "pcm_read_sc2s",
+      "pcm_read_uc2s",
+      "replace_read_d2s",
+      "replace_read_f2s",
+      "sds_read_s",
+      "spx_read_s",
+      "txw_read_s",
+      "ulaw_read_ulaw2s",
+      "voc_multi_read_les2s",
+      "voc_multi_read_uc2s",
+      "vorbis_read_s",
+      "vox_read_s"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, short *, sf_count_t)": [
+        "alac_read_s",
+        "alaw_read_alaw2s",
+        "dither_read_short",
+        "dpcm_read_dles2s",
+        "dpcm_read_dsc2s",
+        "dwvw_read_s",
+        "flac_read_flac2s",
+        "g72x_read_s",
+        "gsm610_read_s",
+        "host_read_d2s",
+        "host_read_f2s",
+        "ima_read_s",
+        "interleave_read_short",
+        "mpeg_dec_read_s",
+        "msadpcm_read_s",
+        "nms_adpcm_read_s",
+        "ogg_opus_read_s",
+        "paf24_read_s",
+        "pcm_read_bei2s",
+        "pcm_read_bes2s",
+        "pcm_read_bet2s",
+        "pcm_read_lei2s",
+        "pcm_read_les2s",
+        "pcm_read_let2s",
+        "pcm_read_sc2s",
+        "pcm_read_uc2s",
+        "replace_read_d2s",
+        "replace_read_f2s",
+        "sds_read_s",
+        "txw_read_s",
+        "ulaw_read_ulaw2s",
+        "vorbis_read_s",
+        "vox_read_s"
+      ]
+    }
+  },
+  {
+    "fp_name": "reader",
+    "struct_name": "tag_SDS_PRIVATE",
+    "struct_aliases": [
+      "tag_SDS_PRIVATE",
+      "SDS_PRIVATE"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "sds_2byte_read",
+      "sds_3byte_read",
+      "sds_4byte_read"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, SDS_PRIVATE *)": [
+        "sds_2byte_read",
+        "sds_3byte_read",
+        "sds_4byte_read"
+      ]
+    }
+  },
+  {
+    "fp_name": "seek",
+    "struct_name": "SF_VIRTUAL_IO",
+    "struct_aliases": [
+      "SF_VIRTUAL_IO"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "aiff_ima_seek",
+      "alac_seek",
+      "dpcm_seek",
+      "dwvw_seek",
+      "flac_seek",
+      "g72x_seek",
+      "gsm610_seek",
+      "interleave_seek",
+      "mpeg_dec_seek",
+      "msadpcm_seek",
+      "nms_adpcm_seek",
+      "ogg_opus_seek",
+      "opcm_seek",
+      "paf24_seek",
+      "psf_default_seek",
+      "sds_seek",
+      "spx_seek",
+      "txw_seek",
+      "vfseek",
+      "vorbis_seek",
+      "wavlike_ima_seek"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, int, sf_count_t)": [
+        "aiff_ima_seek",
+        "alac_seek",
+        "dpcm_seek",
+        "dwvw_seek",
+        "flac_seek",
+        "g72x_seek",
+        "gsm610_seek",
+        "interleave_seek",
+        "mpeg_dec_seek",
+        "msadpcm_seek",
+        "nms_adpcm_seek",
+        "ogg_opus_seek",
+        "paf24_seek",
+        "psf_default_seek",
+        "sds_seek",
+        "txw_seek",
+        "vorbis_seek",
+        "wavlike_ima_seek"
+      ],
+      "sf_count_t (sf_count_t, int, void *)": [
+        "vfseek"
+      ]
+    }
+  },
+  {
+    "fp_name": "set_chunk",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 71,
+    "assigned_fn": [
+      "aiff_set_chunk",
+      "caf_set_chunk",
+      "rf64_set_chunk",
+      "wav_set_chunk"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, const SF_CHUNK_INFO *)": [
+        "aiff_set_chunk",
+        "caf_set_chunk",
+        "rf64_set_chunk",
+        "wav_set_chunk"
+      ]
+    }
+  },
+  {
+    "fp_name": "tell",
+    "struct_name": "SF_VIRTUAL_IO",
+    "struct_aliases": [
+      "SF_VIRTUAL_IO"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "vftell"
+    ],
+    "func_signature": {
+      "sf_count_t (void *)": [
+        "vftell"
+      ]
+    }
+  },
+  {
+    "fp_name": "write",
+    "struct_name": "SF_VIRTUAL_IO",
+    "struct_aliases": [
+      "SF_VIRTUAL_IO"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "vfwrite"
+    ],
+    "func_signature": {
+      "sf_count_t (const void *, sf_count_t, void *)": [
+        "vfwrite"
+      ]
+    }
+  },
+  {
+    "fp_name": "write_double",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "alac_write_d",
+      "alaw_write_d2alaw",
+      "dither_write_double",
+      "dpcm_write_d2dles",
+      "dpcm_write_d2dsc",
+      "dwvw_write_d",
+      "flac_write_d2flac",
+      "g72x_write_d",
+      "gsm610_write_d",
+      "host_write_d",
+      "host_write_d2f",
+      "ima_write_d",
+      "mpeg_l3_encode_write_double_mono",
+      "mpeg_l3_encode_write_double_stereo",
+      "msadpcm_write_d",
+      "nms_adpcm_write_d",
+      "ogg_opus_write_d",
+      "opcm_write_d",
+      "paf24_write_d",
+      "pcm_write_d2bei",
+      "pcm_write_d2bes",
+      "pcm_write_d2bet",
+      "pcm_write_d2lei",
+      "pcm_write_d2les",
+      "pcm_write_d2let",
+      "pcm_write_d2sc",
+      "pcm_write_d2uc",
+      "replace_write_d",
+      "replace_write_d2f",
+      "sds_write_d",
+      "spx_write_d",
+      "ulaw_write_d2ulaw",
+      "vorbis_write_d",
+      "vox_write_d"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, const double *, sf_count_t)": [
+        "alac_write_d",
+        "alaw_write_d2alaw",
+        "dither_write_double",
+        "dpcm_write_d2dles",
+        "dpcm_write_d2dsc",
+        "dwvw_write_d",
+        "flac_write_d2flac",
+        "g72x_write_d",
+        "gsm610_write_d",
+        "host_write_d",
+        "host_write_d2f",
+        "ima_write_d",
+        "mpeg_l3_encode_write_double_mono",
+        "mpeg_l3_encode_write_double_stereo",
+        "msadpcm_write_d",
+        "nms_adpcm_write_d",
+        "ogg_opus_write_d",
+        "paf24_write_d",
+        "pcm_write_d2bei",
+        "pcm_write_d2bes",
+        "pcm_write_d2bet",
+        "pcm_write_d2lei",
+        "pcm_write_d2les",
+        "pcm_write_d2let",
+        "pcm_write_d2sc",
+        "pcm_write_d2uc",
+        "replace_write_d",
+        "replace_write_d2f",
+        "sds_write_d",
+        "ulaw_write_d2ulaw",
+        "vorbis_write_d",
+        "vox_write_d"
+      ]
+    }
+  },
+  {
+    "fp_name": "write_float",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "alac_write_f",
+      "alaw_write_f2alaw",
+      "dither_write_float",
+      "dpcm_write_f2dles",
+      "dpcm_write_f2dsc",
+      "dwvw_write_f",
+      "flac_write_f2flac",
+      "g72x_write_f",
+      "gsm610_write_f",
+      "host_write_f",
+      "host_write_f2d",
+      "ima_write_f",
+      "mpeg_l3_encode_write_float_mono",
+      "mpeg_l3_encode_write_float_stereo",
+      "msadpcm_write_f",
+      "nms_adpcm_write_f",
+      "ogg_opus_write_f",
+      "opcm_write_f",
+      "paf24_write_f",
+      "pcm_write_f2bei",
+      "pcm_write_f2bes",
+      "pcm_write_f2bet",
+      "pcm_write_f2lei",
+      "pcm_write_f2les",
+      "pcm_write_f2let",
+      "pcm_write_f2sc",
+      "pcm_write_f2uc",
+      "replace_write_f",
+      "replace_write_f2d",
+      "sds_write_f",
+      "spx_write_f",
+      "ulaw_write_f2ulaw",
+      "vorbis_write_f",
+      "vox_write_f"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, const float *, sf_count_t)": [
+        "alac_write_f",
+        "alaw_write_f2alaw",
+        "dither_write_float",
+        "dpcm_write_f2dles",
+        "dpcm_write_f2dsc",
+        "dwvw_write_f",
+        "flac_write_f2flac",
+        "g72x_write_f",
+        "gsm610_write_f",
+        "host_write_f",
+        "host_write_f2d",
+        "ima_write_f",
+        "mpeg_l3_encode_write_float_mono",
+        "mpeg_l3_encode_write_float_stereo",
+        "msadpcm_write_f",
+        "nms_adpcm_write_f",
+        "ogg_opus_write_f",
+        "paf24_write_f",
+        "pcm_write_f2bei",
+        "pcm_write_f2bes",
+        "pcm_write_f2bet",
+        "pcm_write_f2lei",
+        "pcm_write_f2les",
+        "pcm_write_f2let",
+        "pcm_write_f2sc",
+        "pcm_write_f2uc",
+        "replace_write_f",
+        "replace_write_f2d",
+        "sds_write_f",
+        "ulaw_write_f2ulaw",
+        "vorbis_write_f",
+        "vox_write_f"
+      ]
+    }
+  },
+  {
+    "fp_name": "write_header",
+    "struct_name": "sf_private_tag",
+    "struct_aliases": [
+      "sf_private_tag",
+      "parselog",
+      "SNDFILE"
+    ],
+    "fp_index": 59,
+    "assigned_fn": [
+      "NULL",
+      "aiff_write_header",
+      "au_write_header",
+      "avr_write_header",
+      "caf_write_header",
+      "flac_write_header",
+      "htk_write_header",
+      "ircam_write_header",
+      "mat4_write_header",
+      "mat5_write_header",
+      "mpc2k_write_header",
+      "mpeg_write_header",
+      "nist_write_header",
+      "ogg_opus_write_header",
+      "opcm_write_header",
+      "paf_write_header",
+      "pvf_write_header",
+      "rf64_write_header",
+      "sds_write_header",
+      "spx_write_header",
+      "svx_write_header",
+      "voc_write_header",
+      "vorbis_write_header",
+      "w64_write_header",
+      "wav_write_header",
+      "wve_write_header",
+      "xi_write_header"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, int)": [
+        "aiff_write_header",
+        "au_write_header",
+        "avr_write_header",
+        "caf_write_header",
+        "flac_write_header",
+        "htk_write_header",
+        "ircam_write_header",
+        "mat4_write_header",
+        "mat5_write_header",
+        "mpc2k_write_header",
+        "mpeg_write_header",
+        "nist_write_header",
+        "ogg_opus_write_header",
+        "paf_write_header",
+        "pvf_write_header",
+        "rf64_write_header",
+        "sds_write_header",
+        "svx_write_header",
+        "voc_write_header",
+        "vorbis_write_header",
+        "w64_write_header",
+        "wav_write_header",
+        "wve_write_header",
+        "xi_write_header"
+      ]
+    }
+  },
+  {
+    "fp_name": "write_int",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "alac_write_i",
+      "alaw_write_i2alaw",
+      "dither_write_int",
+      "dpcm_write_i2dles",
+      "dpcm_write_i2dsc",
+      "dwvw_write_i",
+      "flac_write_i2flac",
+      "g72x_write_i",
+      "gsm610_write_i",
+      "host_write_i2d",
+      "host_write_i2f",
+      "ima_write_i",
+      "mpeg_l3_encode_write_int_mono",
+      "mpeg_l3_encode_write_int_stereo",
+      "msadpcm_write_i",
+      "nms_adpcm_write_i",
+      "ogg_opus_write_i",
+      "opcm_write_i",
+      "paf24_write_i",
+      "pcm_write_i2bei",
+      "pcm_write_i2bes",
+      "pcm_write_i2bet",
+      "pcm_write_i2lei",
+      "pcm_write_i2les",
+      "pcm_write_i2let",
+      "pcm_write_i2sc",
+      "pcm_write_i2uc",
+      "replace_write_i2d",
+      "replace_write_i2f",
+      "sds_write_i",
+      "spx_write_i",
+      "ulaw_write_i2ulaw",
+      "vorbis_write_i",
+      "vox_write_i"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, const int *, sf_count_t)": [
+        "alac_write_i",
+        "alaw_write_i2alaw",
+        "dither_write_int",
+        "dpcm_write_i2dles",
+        "dpcm_write_i2dsc",
+        "dwvw_write_i",
+        "flac_write_i2flac",
+        "g72x_write_i",
+        "gsm610_write_i",
+        "host_write_i2d",
+        "host_write_i2f",
+        "ima_write_i",
+        "mpeg_l3_encode_write_int_mono",
+        "mpeg_l3_encode_write_int_stereo",
+        "msadpcm_write_i",
+        "nms_adpcm_write_i",
+        "ogg_opus_write_i",
+        "paf24_write_i",
+        "pcm_write_i2bei",
+        "pcm_write_i2bes",
+        "pcm_write_i2bet",
+        "pcm_write_i2lei",
+        "pcm_write_i2les",
+        "pcm_write_i2let",
+        "pcm_write_i2sc",
+        "pcm_write_i2uc",
+        "replace_write_i2d",
+        "replace_write_i2f",
+        "sds_write_i",
+        "ulaw_write_i2ulaw",
+        "vorbis_write_i",
+        "vox_write_i"
+      ]
+    }
+  },
+  {
+    "fp_name": "write_short",
+    "struct_name": "DITHER_DATA",
+    "struct_aliases": [
+      "DITHER_DATA"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "alac_write_s",
+      "alaw_write_s2alaw",
+      "dither_write_short",
+      "dpcm_write_s2dles",
+      "dpcm_write_s2dsc",
+      "dwvw_write_s",
+      "flac_write_s2flac",
+      "g72x_write_s",
+      "gsm610_write_s",
+      "host_write_s2d",
+      "host_write_s2f",
+      "ima_write_s",
+      "mpeg_l3_encode_write_short_mono",
+      "mpeg_l3_encode_write_short_stereo",
+      "msadpcm_write_s",
+      "nms_adpcm_write_s",
+      "ogg_opus_write_s",
+      "opcm_write_s",
+      "paf24_write_s",
+      "pcm_write_s2bei",
+      "pcm_write_s2bes",
+      "pcm_write_s2bet",
+      "pcm_write_s2lei",
+      "pcm_write_s2les",
+      "pcm_write_s2let",
+      "pcm_write_s2sc",
+      "pcm_write_s2uc",
+      "replace_write_s2d",
+      "replace_write_s2f",
+      "sds_write_s",
+      "spx_write_s",
+      "ulaw_write_s2ulaw",
+      "vorbis_write_s",
+      "vox_write_s"
+    ],
+    "func_signature": {
+      "sf_count_t (SF_PRIVATE *, const short *, sf_count_t)": [
+        "alac_write_s",
+        "alaw_write_s2alaw",
+        "dither_write_short",
+        "dpcm_write_s2dles",
+        "dpcm_write_s2dsc",
+        "dwvw_write_s",
+        "flac_write_s2flac",
+        "g72x_write_s",
+        "gsm610_write_s",
+        "host_write_s2d",
+        "host_write_s2f",
+        "ima_write_s",
+        "mpeg_l3_encode_write_short_mono",
+        "mpeg_l3_encode_write_short_stereo",
+        "msadpcm_write_s",
+        "nms_adpcm_write_s",
+        "ogg_opus_write_s",
+        "paf24_write_s",
+        "pcm_write_s2bei",
+        "pcm_write_s2bes",
+        "pcm_write_s2bet",
+        "pcm_write_s2lei",
+        "pcm_write_s2les",
+        "pcm_write_s2let",
+        "pcm_write_s2sc",
+        "pcm_write_s2uc",
+        "replace_write_s2d",
+        "replace_write_s2f",
+        "sds_write_s",
+        "ulaw_write_s2ulaw",
+        "vorbis_write_s",
+        "vox_write_s"
+      ]
+    }
+  },
+  {
+    "fp_name": "writer",
+    "struct_name": "tag_SDS_PRIVATE",
+    "struct_aliases": [
+      "tag_SDS_PRIVATE",
+      "SDS_PRIVATE"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "sds_2byte_write",
+      "sds_3byte_write",
+      "sds_4byte_write"
+    ],
+    "func_signature": {
+      "int (SF_PRIVATE *, SDS_PRIVATE *)": [
+        "sds_2byte_write",
+        "sds_3byte_write",
+        "sds_4byte_write"
+      ]
+    }
+  }
+]

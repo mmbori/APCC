@@ -1,0 +1,1 @@
+int wavlike_ima_encode_block(SF_PRIVATE *psf , IMA_ADPCM_PRIVATE *pima);

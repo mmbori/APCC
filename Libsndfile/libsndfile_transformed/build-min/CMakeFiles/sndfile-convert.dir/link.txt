@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG "CMakeFiles/sndfile-convert.dir/programs/sndfile-convert.c.o" "CMakeFiles/sndfile-convert.dir/programs/common.c.o" -o sndfile-convert  libsndfile.a -lm

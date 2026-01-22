@@ -1,0 +1,1 @@
+int g721_encoder(int sl , G72x_STATE *state_ptr);

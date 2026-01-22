@@ -1,0 +1,1 @@
+int mat4_close(SF_PRIVATE *psf);

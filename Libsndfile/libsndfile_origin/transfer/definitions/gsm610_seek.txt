@@ -1,0 +1,1 @@
+sf_count_t gsm610_seek(SF_PRIVATE *psf , int UNUSED ( mode ) , sf_count_t offset);

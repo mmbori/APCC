@@ -1,0 +1,1 @@
+int htk_write_header(SF_PRIVATE *psf , int calc_length);

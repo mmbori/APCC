@@ -1,0 +1,1 @@
+int mpeg_l3_encoder_byterate(SF_PRIVATE *psf);

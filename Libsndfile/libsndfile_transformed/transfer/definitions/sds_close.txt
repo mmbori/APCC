@@ -1,0 +1,1 @@
+int sds_close(SF_PRIVATE *psf);

@@ -1,0 +1,1 @@
+int gsm610_encode_block(SF_PRIVATE *psf , GSM610_PRIVATE *pgsm610);

@@ -1,0 +1,1 @@
+int avr_close(SF_PRIVATE *psf);

@@ -1,0 +1,1 @@
+int gsm610_close(SF_PRIVATE *psf);

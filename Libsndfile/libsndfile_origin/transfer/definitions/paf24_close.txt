@@ -1,0 +1,1 @@
+int paf24_close(SF_PRIVATE *psf);

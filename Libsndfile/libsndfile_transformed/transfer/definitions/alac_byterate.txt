@@ -1,0 +1,1 @@
+int alac_byterate(SF_PRIVATE *psf);

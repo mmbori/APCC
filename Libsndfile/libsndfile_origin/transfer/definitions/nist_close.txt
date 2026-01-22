@@ -1,0 +1,1 @@
+int nist_close(SF_PRIVATE *psf);

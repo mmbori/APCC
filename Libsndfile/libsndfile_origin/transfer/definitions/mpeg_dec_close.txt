@@ -1,0 +1,1 @@
+int mpeg_dec_close(SF_PRIVATE *psf);

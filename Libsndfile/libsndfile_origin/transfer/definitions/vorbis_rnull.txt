@@ -1,0 +1,1 @@
+int vorbis_rnull(SF_PRIVATE *UNUSED ( psf ) , int samples , void *UNUSED ( vptr ) , int UNUSED ( off ) , int channels , float **UNUSED ( pcm ));

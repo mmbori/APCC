@@ -1,0 +1,1 @@
+int gsm610_wav_decode_block(SF_PRIVATE *psf , GSM610_PRIVATE *pgsm610);

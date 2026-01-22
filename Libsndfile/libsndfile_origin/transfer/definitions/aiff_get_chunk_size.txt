@@ -1,0 +1,1 @@
+int aiff_get_chunk_size(SF_PRIVATE *psf , const SF_CHUNK_ITERATOR *iterator , SF_CHUNK_INFO *chunk_info);

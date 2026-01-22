@@ -1,0 +1,1 @@
+sf_count_t host_write_s2d(SF_PRIVATE *psf , const short *ptr , sf_count_t len);

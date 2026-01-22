@@ -1,0 +1,1 @@
+sf_count_t dpcm_read_dsc2d(SF_PRIVATE *psf , double *ptr , sf_count_t len);

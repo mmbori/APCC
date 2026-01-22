@@ -1,0 +1,1 @@
+int voc_close(SF_PRIVATE *psf);

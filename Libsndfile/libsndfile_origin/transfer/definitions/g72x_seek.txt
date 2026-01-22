@@ -1,0 +1,1 @@
+sf_count_t g72x_seek(SF_PRIVATE *psf , int UNUSED ( mode ) , sf_count_t UNUSED ( offset ));

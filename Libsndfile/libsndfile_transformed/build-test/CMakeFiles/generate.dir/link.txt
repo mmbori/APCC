@@ -1,0 +1,1 @@
+/usr/bin/cc -O2 -g -DNDEBUG CMakeFiles/generate.dir/examples/generate.c.o -o generate  libsndfile.a -lm

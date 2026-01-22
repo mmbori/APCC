@@ -1,0 +1,1 @@
+int pvf_close(SF_PRIVATE *UNUSED ( psf ));

@@ -1,0 +1,1 @@
+int mpeg_dec_byterate(SF_PRIVATE *psf);
