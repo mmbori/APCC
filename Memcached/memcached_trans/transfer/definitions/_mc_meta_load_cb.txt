@@ -1,0 +1,1 @@
+int _mc_meta_load_cb(const char *tag , void *ctx , void *data);

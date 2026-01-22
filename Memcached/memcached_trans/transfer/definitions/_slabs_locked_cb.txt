@@ -1,0 +1,1 @@
+int _slabs_locked_cb(void *arg);

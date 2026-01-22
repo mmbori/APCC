@@ -1,0 +1,1 @@
+void slab_automove_run(void *arg , int *src , int *dst);

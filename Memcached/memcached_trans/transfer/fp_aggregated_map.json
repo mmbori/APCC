@@ -1,0 +1,38 @@
+{
+  "f_hl128": [
+    "XXH3_hashLong_128b_default",
+    "XXH3_hashLong_128b_withSecret",
+    "XXH3_hashLong_128b_withSeed"
+  ],
+  "f_hashLong": [
+    "XXH3_hashLong_64b_default",
+    "XXH3_hashLong_64b_withSecret",
+    "XXH3_hashLong_64b_withSeed"
+  ],
+  "f_acc512": [
+    "XXH3_accumulate_512"
+  ],
+  "f_scramble": [
+    "XXH3_scrambleAcc"
+  ],
+  "f_initSec": [
+    "XXH3_initCustomSecret"
+  ],
+  "add_stats": [
+    "append_stats"
+  ],
+  "ccb": [
+    "_mc_meta_load_cb"
+  ],
+  "scb": [
+    "_mc_meta_save_cb"
+  ],
+  "cb": [
+    "NULL",
+    "_slabs_locked_cb",
+    "proxy_submit_cb",
+    "storage_submit_cb",
+    "thread_libevent_ionotify",
+    "thread_libevent_process"
+  ]
+}

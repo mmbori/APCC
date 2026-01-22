@@ -1,0 +1,818 @@
+[
+  {
+    "fp_name": "f_hl128",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_128bits_internal",
+    "assigned_fn": [
+      "XXH3_hashLong_128b_default",
+      "XXH3_hashLong_128b_withSecret",
+      "XXH3_hashLong_128b_withSeed"
+    ],
+    "line": [
+      "XXH3_128bits_internal(const void* input, size_t len,",
+      "XXH64_hash_t seed64, const void* XXH_RESTRICT secret, size_t secretLen,",
+      "XXH128_hash_t (*f_hl128)(const void* XXH_RESTRICT, size_t,",
+      "XXH64_hash_t, const void* XXH_RESTRICT, size_t))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_hashLong_128b_default",
+        "XXH3_hashLong_128b_withSecret",
+        "XXH3_hashLong_128b_withSeed"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_hashLong",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_64bits_internal",
+    "assigned_fn": [
+      "XXH3_hashLong_64b_default",
+      "XXH3_hashLong_64b_withSecret",
+      "XXH3_hashLong_64b_withSeed"
+    ],
+    "line": [
+      "XXH3_64bits_internal(const void* XXH_RESTRICT input, size_t len,",
+      "XXH64_hash_t seed64, const void* XXH_RESTRICT secret, size_t secretLen,",
+      "XXH64_hash_t (*f_hashLong)(const void* XXH_RESTRICT, size_t,",
+      "XXH64_hash_t, const xxh_u8* XXH_RESTRICT, size_t))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_hashLong_64b_default",
+        "XXH3_hashLong_64b_withSecret",
+        "XXH3_hashLong_64b_withSeed"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_accumulate",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_accumulate(     xxh_u64* XXH_RESTRICT acc,",
+      "const xxh_u8* XXH_RESTRICT input,",
+      "const xxh_u8* XXH_RESTRICT secret,",
+      "size_t nbStripes,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 8,
+    "fn_name": "XXH3_consumeStripes",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_consumeStripes(xxh_u64* XXH_RESTRICT acc,",
+      "size_t* XXH_RESTRICT nbStripesSoFarPtr, size_t nbStripesPerBlock,",
+      "const xxh_u8* XXH_RESTRICT input, size_t nbStripes,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretLimit,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 9,
+    "fn_name": "XXH3_consumeStripes",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_consumeStripes(xxh_u64* XXH_RESTRICT acc,",
+      "size_t* XXH_RESTRICT nbStripesSoFarPtr, size_t nbStripesPerBlock,",
+      "const xxh_u8* XXH_RESTRICT input, size_t nbStripes,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretLimit,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_hashLong_128b_internal",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_hashLong_128b_internal(const void* XXH_RESTRICT input, size_t len,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_hashLong_128b_internal",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_hashLong_128b_internal(const void* XXH_RESTRICT input, size_t len,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 4,
+    "fn_name": "XXH3_hashLong_128b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_hashLong_128b_withSeed_internal(const void* XXH_RESTRICT input, size_t len,",
+      "XXH64_hash_t seed64,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_hashLong_128b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_hashLong_128b_withSeed_internal(const void* XXH_RESTRICT input, size_t len,",
+      "XXH64_hash_t seed64,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_initSec",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_hashLong_128b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_initCustomSecret"
+    ],
+    "line": [
+      "XXH3_hashLong_128b_withSeed_internal(const void* XXH_RESTRICT input, size_t len,",
+      "XXH64_hash_t seed64,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_initCustomSecret"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_hashLong_64b_internal",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_hashLong_64b_internal(const void* XXH_RESTRICT input, size_t len,",
+      "const void* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_hashLong_64b_internal",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_hashLong_64b_internal(const void* XXH_RESTRICT input, size_t len,",
+      "const void* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 4,
+    "fn_name": "XXH3_hashLong_64b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_hashLong_64b_withSeed_internal(const void* input, size_t len,",
+      "XXH64_hash_t seed,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_hashLong_64b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_hashLong_64b_withSeed_internal(const void* input, size_t len,",
+      "XXH64_hash_t seed,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_initSec",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_hashLong_64b_withSeed_internal",
+    "assigned_fn": [
+      "XXH3_initCustomSecret"
+    ],
+    "line": [
+      "XXH3_hashLong_64b_withSeed_internal(const void* input, size_t len,",
+      "XXH64_hash_t seed,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*),",
+      "void (*f_initSec)(void* XXH_RESTRICT, xxh_u64))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_initCustomSecret"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 6,
+    "fn_name": "XXH3_hashLong_internal_loop",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_hashLong_internal_loop(xxh_u64* XXH_RESTRICT acc,",
+      "const xxh_u8* XXH_RESTRICT input, size_t len,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 7,
+    "fn_name": "XXH3_hashLong_internal_loop",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_hashLong_internal_loop(xxh_u64* XXH_RESTRICT acc,",
+      "const xxh_u8* XXH_RESTRICT input, size_t len,",
+      "const xxh_u8* XXH_RESTRICT secret, size_t secretSize,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_acc512",
+    "fp_sequence": 4,
+    "fn_name": "XXH3_update",
+    "assigned_fn": [
+      "XXH3_accumulate_512"
+    ],
+    "line": [
+      "XXH3_update(XXH3_state_t* state,",
+      "const xxh_u8* input, size_t len,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_accumulate_512"
+      ]
+    }
+  },
+  {
+    "fp_name": "f_scramble",
+    "fp_sequence": 5,
+    "fn_name": "XXH3_update",
+    "assigned_fn": [
+      "XXH3_scrambleAcc"
+    ],
+    "line": [
+      "XXH3_update(XXH3_state_t* state,",
+      "const xxh_u8* input, size_t len,",
+      "void (*f_acc512)(void* XXH_RESTRICT, const void*, const void*),",
+      "void (*f_scramble)(void* XXH_RESTRICT, const void*))",
+      "{"
+    ],
+    "file": "xxhash.h",
+    "func_signature": {
+      "unknown": [
+        "XXH3_scrambleAcc"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 2,
+    "fn_name": "append_stat",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void append_stat(const char *name, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), conn *c,",
+      "const char *fmt, ...) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "do_slabs_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "static void do_slabs_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "slabs.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 3,
+    "fn_name": "get_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "bool get_stats(const char *stat_type, int nkey, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "item_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void item_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "items.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "item_stats_sizes",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void item_stats_sizes(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "items.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "item_stats_totals",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void item_stats_totals(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "items.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "process_extstore_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_extstore_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "storage.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 2,
+    "fn_name": "process_proxy_bestats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_proxy_bestats(void *arg, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "proto_proxy.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 2,
+    "fn_name": "process_proxy_funcstats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_proxy_funcstats(void *arg, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "proto_proxy.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 2,
+    "fn_name": "process_proxy_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_proxy_stats(void *arg, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "proto_proxy.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "process_stat_settings",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_stat_settings(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "process_stats_conns",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void process_stats_conns(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 2,
+    "fn_name": "proxy_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void proxy_stats(void *arg, void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "proto_proxy.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "ccb",
+    "fp_sequence": 2,
+    "fn_name": "restart_register",
+    "assigned_fn": [
+      "_mc_meta_load_cb"
+    ],
+    "line": [
+      "void restart_register(const char *tag, int (*ccb)(const char *tag, void *ctx, void *data), int (*scb)(const char *tag, void *ctx, void *data), void *data) {"
+    ],
+    "file": "restart.c",
+    "func_signature": {
+      "int (const char *, void *, void *)": [
+        "_mc_meta_load_cb"
+      ]
+    }
+  },
+  {
+    "fp_name": "scb",
+    "fp_sequence": 3,
+    "fn_name": "restart_register",
+    "assigned_fn": [
+      "_mc_meta_save_cb"
+    ],
+    "line": [
+      "void restart_register(const char *tag, int (*ccb)(const char *tag, void *ctx, void *data), int (*scb)(const char *tag, void *ctx, void *data), void *data) {"
+    ],
+    "file": "restart.c",
+    "func_signature": {
+      "int (const char *, void *, void *)": [
+        "_mc_meta_save_cb"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "server_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void server_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "cb",
+    "fp_sequence": 3,
+    "fn_name": "setup_thread_notify",
+    "assigned_fn": [
+      "thread_libevent_ionotify",
+      "thread_libevent_process"
+    ],
+    "line": [
+      "static void setup_thread_notify(LIBEVENT_THREAD *me, struct thread_notify *tn,",
+      "void(*cb)(int, short, void *)) {"
+    ],
+    "file": "thread.c",
+    "func_signature": {
+      "void (evutil_socket_t, short, void *)": [
+        "thread_libevent_ionotify",
+        "thread_libevent_process"
+      ]
+    }
+  },
+  {
+    "fp_name": "cb",
+    "fp_sequence": 1,
+    "fn_name": "slabs_locked_callback",
+    "assigned_fn": [
+      "_slabs_locked_cb"
+    ],
+    "line": [
+      "int slabs_locked_callback(int (*cb)(void *arg), void *arg) {"
+    ],
+    "file": "slabs.c",
+    "func_signature": {
+      "int (void *)": [
+        "_slabs_locked_cb"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "slabs_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void slabs_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c) {"
+    ],
+    "file": "slabs.c",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "add_stats",
+    "fp_sequence": 1,
+    "fn_name": "storage_stats",
+    "assigned_fn": [
+      "append_stats"
+    ],
+    "line": [
+      "void storage_stats(void (*add_stats)(const char *key, const uint16_t klen,",
+      "const char *val, const uint32_t vlen,",
+      "const void *cookie), void *c);"
+    ],
+    "file": "storage.h",
+    "func_signature": {
+      "void (const char *, const uint16_t, const char *, const uint32_t, const void *)": [
+        "append_stats"
+      ]
+    }
+  },
+  {
+    "fp_name": "cb",
+    "fp_sequence": 4,
+    "fn_name": "thread_io_queue_add",
+    "assigned_fn": [
+      "NULL",
+      "proxy_submit_cb",
+      "storage_submit_cb"
+    ],
+    "line": [
+      "void thread_io_queue_add(LIBEVENT_THREAD *t, int type, void *ctx, void (*cb)(io_queue_t *q)) {"
+    ],
+    "file": "memcached.c",
+    "func_signature": {
+      "unknown": [
+        "proxy_submit_cb",
+        "storage_submit_cb"
+      ]
+    }
+  }
+]

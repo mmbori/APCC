@@ -1,0 +1,1 @@
+void append_stats(const char *key , const uint16_t klen , const char *val , const uint32_t vlen , const void *cookie);

@@ -1,0 +1,293 @@
+[
+  {
+    "fp_name": "ccb",
+    "struct_name": "_restart_data_cb",
+    "struct_aliases": [
+      "_restart_data_cb",
+      "restart_data_cb"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "doneclass",
+    "struct_name": "crawler_module_reg_t",
+    "struct_aliases": [
+      "crawler_module_reg_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "crawler_expired_doneclass"
+    ],
+    "func_signature": {
+      "void (crawler_module_t *, int)": [
+        "crawler_expired_doneclass"
+      ]
+    }
+  },
+  {
+    "fp_name": "eval",
+    "struct_name": "crawler_module_reg_t",
+    "struct_aliases": [
+      "crawler_module_reg_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "crawler_expired_eval",
+      "crawler_metadump_eval",
+      "crawler_mgdump_eval"
+    ],
+    "func_signature": {
+      "void (crawler_module_t *, item *, uint32_t, int)": [
+        "crawler_expired_eval",
+        "crawler_metadump_eval",
+        "crawler_mgdump_eval"
+      ]
+    }
+  },
+  {
+    "fp_name": "finalize",
+    "struct_name": "crawler_module_reg_t",
+    "struct_aliases": [
+      "crawler_module_reg_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "crawler_expired_finalize",
+      "crawler_metadump_finalize",
+      "crawler_mgdump_finalize"
+    ],
+    "func_signature": {
+      "void (crawler_module_t *)": [
+        "crawler_expired_finalize",
+        "crawler_metadump_finalize",
+        "crawler_mgdump_finalize"
+      ]
+    }
+  },
+  {
+    "fp_name": "finalize_cb",
+    "struct_name": "_io_pending_t",
+    "struct_aliases": [
+      "_io_pending_t",
+      "io_pending_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "proxy_finalize_rctx_cb",
+      "storage_finalize_cb"
+    ],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "free",
+    "struct_name": "slab_automove_reg_t",
+    "struct_aliases": [
+      "slab_automove_reg_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "slab_automove_free"
+    ],
+    "func_signature": {
+      "void (void *)": [
+        "slab_automove_free"
+      ]
+    }
+  },
+  {
+    "fp_name": "function",
+    "struct_name": "testcase",
+    "struct_aliases": [
+      "testcase"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "init",
+    "struct_name": "crawler_module_reg_t",
+    "struct_aliases": [
+      "crawler_module_reg_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "crawler_expired_init",
+      "crawler_metadump_init",
+      "crawler_mgdump_init",
+      "slab_automove_init"
+    ],
+    "func_signature": {
+      "int (crawler_module_t *, void *)": [
+        "crawler_expired_init",
+        "crawler_metadump_init",
+        "crawler_mgdump_init"
+      ],
+      "void * (struct settings *)": [
+        "slab_automove_init"
+      ]
+    }
+  },
+  {
+    "fp_name": "log_cb",
+    "struct_name": "_entry_details",
+    "struct_aliases": [
+      "_entry_details",
+      "entry_details"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "parse_cb",
+    "struct_name": "_entry_details",
+    "struct_aliases": [
+      "_entry_details",
+      "entry_details"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "read",
+    "struct_name": "conn",
+    "struct_aliases": [
+      "conn"
+    ],
+    "fp_index": 44,
+    "assigned_fn": [
+      "NULL",
+      "tcp_read"
+    ],
+    "func_signature": {
+      "ssize_t (struct conn *, void *, size_t)": [
+        "tcp_read"
+      ]
+    }
+  },
+  {
+    "fp_name": "return_cb",
+    "struct_name": "_io_pending_t",
+    "struct_aliases": [
+      "_io_pending_t",
+      "io_pending_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "run",
+    "struct_name": "slab_automove_reg_t",
+    "struct_aliases": [
+      "slab_automove_reg_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "slab_automove_run"
+    ],
+    "func_signature": {
+      "void (void *, int *, int *)": [
+        "slab_automove_run"
+      ]
+    }
+  },
+  {
+    "fp_name": "scb",
+    "struct_name": "_restart_data_cb",
+    "struct_aliases": [
+      "_restart_data_cb",
+      "restart_data_cb"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [],
+    "func_signature": {}
+  },
+  {
+    "fp_name": "sendmsg",
+    "struct_name": "conn",
+    "struct_aliases": [
+      "conn"
+    ],
+    "fp_index": 45,
+    "assigned_fn": [
+      "NULL",
+      "tcp_sendmsg"
+    ],
+    "func_signature": {
+      "ssize_t (conn *, struct msghdr *, int)": [
+        "tcp_sendmsg"
+      ]
+    }
+  },
+  {
+    "fp_name": "submit_cb",
+    "struct_name": "io_queue_t",
+    "struct_aliases": [
+      "io_queue_t",
+      "io_queue_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "_slabs_locked_cb",
+      "thread_libevent_ionotify",
+      "thread_libevent_process"
+    ],
+    "func_signature": {
+      "int (void *)": [
+        "_slabs_locked_cb"
+      ],
+      "void (evutil_socket_t, short, void *)": [
+        "thread_libevent_ionotify",
+        "thread_libevent_process"
+      ]
+    }
+  },
+  {
+    "fp_name": "try_read_command",
+    "struct_name": "conn",
+    "struct_aliases": [
+      "conn"
+    ],
+    "fp_index": 43,
+    "assigned_fn": [
+      "try_read_command_ascii",
+      "try_read_command_asciiauth",
+      "try_read_command_binary",
+      "try_read_command_negotiate",
+      "try_read_command_udp"
+    ],
+    "func_signature": {
+      "int (conn *)": [
+        "try_read_command_ascii",
+        "try_read_command_asciiauth",
+        "try_read_command_binary",
+        "try_read_command_negotiate",
+        "try_read_command_udp"
+      ]
+    }
+  },
+  {
+    "fp_name": "write",
+    "struct_name": "conn",
+    "struct_aliases": [
+      "conn"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "tcp_write"
+    ],
+    "func_signature": {
+      "ssize_t (struct conn *, const void *, size_t)": [
+        "tcp_write"
+      ]
+    }
+  }
+]

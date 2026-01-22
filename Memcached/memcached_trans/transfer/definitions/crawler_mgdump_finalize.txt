@@ -1,0 +1,1 @@
+void crawler_mgdump_finalize(crawler_module_t *cm);

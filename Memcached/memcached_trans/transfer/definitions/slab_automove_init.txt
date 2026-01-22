@@ -1,0 +1,1 @@
+void *slab_automove_init(struct settings *settings);

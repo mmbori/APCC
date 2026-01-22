@@ -1,0 +1,50 @@
+int _mc_meta_load_cb(const char *tag , void *ctx , void *data);
+int _mc_meta_save_cb(const char *tag , void *ctx , void *data);
+int _slabs_locked_cb(void *arg);
+void append_stats(const char *key , const uint16_t klen , const char *val , const uint32_t vlen , const void *cookie);
+void crawler_expired_doneclass(crawler_module_t *cm , int slab_cls);
+void crawler_expired_eval(crawler_module_t *cm , item *search , uint32_t hv , int i);
+void crawler_expired_finalize(crawler_module_t *cm);
+int crawler_expired_init(crawler_module_t *cm , void *data);
+void crawler_metadump_eval(crawler_module_t *cm , item *it , uint32_t hv , int i);
+void crawler_metadump_finalize(crawler_module_t *cm);
+int crawler_metadump_init(crawler_module_t *cm , void *data);
+void crawler_mgdump_eval(crawler_module_t *cm , item *it , uint32_t hv , int i);
+void crawler_mgdump_finalize(crawler_module_t *cm);
+int crawler_mgdump_init(crawler_module_t *cm , void *data);
+void slab_automove_free(void *arg);
+void *slab_automove_init(struct settings *settings);
+void slab_automove_run(void *arg , int *src , int *dst);
+ssize_t ssl_read(struct conn *c , void *buf , size_t count);
+ssize_t ssl_write(struct conn *c , const void *buf , size_t count);
+ssize_t tcp_read(struct conn *c , void *buf , size_t count);
+ssize_t tcp_sendmsg(conn *arg , struct msghdr *msg , int flags);
+ssize_t tcp_write(struct conn *c , const void *buf , size_t count);
+void thread_libevent_ionotify(evutil_socket_t fd , short which , void *arg);
+void thread_libevent_process(evutil_socket_t fd , short which , void *arg);
+int try_read_command_ascii(conn *c);
+int try_read_command_asciiauth(conn *c);
+int try_read_command_binary(conn *c);
+int try_read_command_negotiate(conn *c);
+int try_read_command_udp(conn *c);
+void slab_automove_extstore_free(void *arg);
+void slab_automove_extstore_run(void *arg, int *src, int *dst);
+void proxy_submit_cb(io_queue_t *q);
+void storage_submit_cb(io_queue_t *q);
+int try_read_command_proxy(conn *c);
+void *slab_automove_extstore_init(struct settings *settings);
+void _logger_log_text(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_evictions(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_ext_write(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_item_get(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_item_store(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_item_deleted(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_conn_event(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_proxy_req(logentry *e, const entry_details *d, const void *entry, va_list ap);
+void _logger_log_proxy_errbe(logentry *e, const entry_details *d, const void *entry, va_list ap);
+ssize_t tcp_read(conn *arg, void *buf, size_t count);
+ssize_t tcp_write(conn *arg, void *buf, size_t count);
+
+
+
+

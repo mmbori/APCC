@@ -1,0 +1,1 @@
+void slab_automove_free(void *arg);
