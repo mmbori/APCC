@@ -1,0 +1,95 @@
+[
+  {
+    "fp_name": "addr_string",
+    "struct_name": "lladdr_info",
+    "struct_aliases": [
+      "lladdr_info"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "eui64_string",
+      "mac48_string"
+    ]
+  },
+  {
+    "fp_name": "decoder",
+    "struct_name": "of_msgtypeinfo",
+    "struct_aliases": [
+      "of_msgtypeinfo"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "fn",
+    "struct_name": "smbdescript",
+    "struct_aliases": [
+      "smbdescript"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ndo_default_print",
+    "struct_name": "netdissect_options",
+    "struct_aliases": [
+      "netdissect_options"
+    ],
+    "fp_index": 36,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ndo_error",
+    "struct_name": "netdissect_options",
+    "struct_aliases": [
+      "netdissect_options"
+    ],
+    "fp_index": 38,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ndo_printf",
+    "struct_name": "netdissect_options",
+    "struct_aliases": [
+      "netdissect_options"
+    ],
+    "fp_index": 37,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ndo_warning",
+    "struct_name": "netdissect_options",
+    "struct_aliases": [
+      "netdissect_options"
+    ],
+    "fp_index": 39,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "print",
+    "struct_name": "tom_h",
+    "struct_aliases": [
+      "tom_h"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "print_func",
+    "struct_name": "attrtype",
+    "struct_aliases": [
+      "attrtype"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "printer",
+    "struct_name": "cdp_tlvinfo",
+    "struct_aliases": [
+      "cdp_tlvinfo"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  }
+]

@@ -1,0 +1,8 @@
+void brcm_tag_print(netdissect_options *ndo , const u_char *bp);
+void dsa_tag_print(netdissect_options *ndo , const u_char *bp);
+void edsa_tag_print(netdissect_options *ndo , const u_char *bp);
+const char *eui64_string(netdissect_options *ndo , const uint8_t *ep);
+void isis_clear_checksum_lifetime(void *header);
+void lane_hdr_print(netdissect_options *ndo , const u_char *bp);
+const char *mac48_string(netdissect_options *ndo , const uint8_t *ep);
+void rsvp_clear_checksum(void *header);

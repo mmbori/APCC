@@ -1,0 +1,6 @@
+{
+  "function_pointer_templates": {
+    "codeset_pr_func_t": "int (*codeset_pr_func_t)(netdissect_options *, u_int iecode,\n    u_int ielength, const u_char *p)"
+  },
+  "function_type_templates": {}
+}

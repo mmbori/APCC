@@ -1,0 +1,138 @@
+[
+  {
+    "fn_name": "ether_common_print",
+    "fp_name": "print_switch_tag",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "NULL",
+      "brcm_tag_print",
+      "dsa_tag_print",
+      "edsa_tag_print"
+    ],
+    "line": [
+      "ether_common_print(netdissect_options *ndo, const u_char *p, u_int length,",
+      "u_int caplen,",
+      "void (*print_switch_tag)(netdissect_options *ndo, const u_char *),",
+      "u_int switch_tag_len,",
+      "void (*print_encap_header)(netdissect_options *ndo, const u_char *),",
+      "const u_char *encap_header_arg)",
+      "{"
+    ],
+    "file": "print-ether.c",
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "brcm_tag_print",
+        "dsa_tag_print",
+        "edsa_tag_print"
+      ]
+    }
+  },
+  {
+    "fn_name": "ether_common_print",
+    "fp_name": "print_encap_header",
+    "fp_sequence": 7,
+    "assigned_fn": [
+      "NULL",
+      "lane_hdr_print"
+    ],
+    "line": [
+      "ether_common_print(netdissect_options *ndo, const u_char *p, u_int length,",
+      "u_int caplen,",
+      "void (*print_switch_tag)(netdissect_options *ndo, const u_char *),",
+      "u_int switch_tag_len,",
+      "void (*print_encap_header)(netdissect_options *ndo, const u_char *),",
+      "const u_char *encap_header_arg)",
+      "{"
+    ],
+    "file": "print-ether.c",
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "lane_hdr_print"
+      ]
+    }
+  },
+  {
+    "fn_name": "ether_print",
+    "fp_name": "print_encap_header",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "NULL",
+      "lane_hdr_print"
+    ],
+    "line": [
+      "ether_print(netdissect_options *ndo,",
+      "const u_char *p, u_int length, u_int caplen,",
+      "void (*print_encap_header)(netdissect_options *ndo, const u_char *),",
+      "const u_char *encap_header_arg)",
+      "{"
+    ],
+    "file": "print-ether.c",
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "lane_hdr_print"
+      ]
+    }
+  },
+  {
+    "fn_name": "ether_switch_tag_print",
+    "fp_name": "print_switch_tag",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "brcm_tag_print",
+      "dsa_tag_print",
+      "edsa_tag_print"
+    ],
+    "line": [
+      "ether_switch_tag_print(netdissect_options *ndo, const u_char *p, u_int length,",
+      "u_int caplen,",
+      "void (*print_switch_tag)(netdissect_options *, const u_char *),",
+      "u_int switch_tag_len)",
+      "{"
+    ],
+    "file": "print-ether.c",
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "brcm_tag_print",
+        "dsa_tag_print",
+        "edsa_tag_print"
+      ]
+    }
+  },
+  {
+    "fn_name": "ipoib_print",
+    "fp_name": "print_encap_header",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "NULL"
+    ],
+    "line": [
+      "ipoib_print(netdissect_options *ndo, const u_char *p, u_int length, u_int caplen,",
+      "void (*print_encap_header)(const u_char *), const u_char *encap_header_arg)",
+      "{"
+    ],
+    "file": "print-ipoib.c",
+    "func_signature": {}
+  },
+  {
+    "fn_name": "signature_verify",
+    "fp_name": "clear_rtn",
+    "fp_sequence": 5,
+    "assigned_fn": [
+      "isis_clear_checksum_lifetime",
+      "rsvp_clear_checksum"
+    ],
+    "line": [
+      "signature_verify(netdissect_options *ndo, const u_char *pptr, u_int plen,",
+      "const u_char *sig_ptr, void (*clear_rtn)(void *),",
+      "const void *clear_arg)",
+      "{"
+    ],
+    "file": "signature.c",
+    "func_signature": {
+      "void (void *)": [
+        "isis_clear_checksum_lifetime",
+        "rsvp_clear_checksum"
+      ]
+    }
+  }
+]

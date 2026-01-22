@@ -1,0 +1,1 @@
+const char *eui64_string(netdissect_options *ndo , const uint8_t *ep);

@@ -1,0 +1,151 @@
+[
+  {
+    "fp_name": "addr_string",
+    "assigned_fn": [
+      "eui64_string",
+      "mac48_string"
+    ],
+    "func_signature": {
+      "const char * (netdissect_options *, const uint8_t *)": [
+        "eui64_string",
+        "mac48_string"
+      ]
+    },
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "decoder",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "fn",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "ndo_default_print",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "ndo_error",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "ndo_printf",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "ndo_warning",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "print",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "print_func",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "printer",
+    "assigned_fn": [],
+    "func_signature": {},
+    "fp_type": "structure"
+  },
+  {
+    "fp_name": "print_switch_tag",
+    "assigned_fn": [
+      "NULL",
+      "brcm_tag_print",
+      "dsa_tag_print",
+      "edsa_tag_print"
+    ],
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "brcm_tag_print",
+        "dsa_tag_print",
+        "edsa_tag_print"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "print_encap_header",
+    "assigned_fn": [
+      "NULL",
+      "lane_hdr_print"
+    ],
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "lane_hdr_print"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "print_encap_header",
+    "assigned_fn": [
+      "NULL",
+      "lane_hdr_print"
+    ],
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "lane_hdr_print"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "print_switch_tag",
+    "assigned_fn": [
+      "brcm_tag_print",
+      "dsa_tag_print",
+      "edsa_tag_print"
+    ],
+    "func_signature": {
+      "void (netdissect_options *, const u_char *)": [
+        "brcm_tag_print",
+        "dsa_tag_print",
+        "edsa_tag_print"
+      ]
+    },
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "print_encap_header",
+    "assigned_fn": [
+      "NULL"
+    ],
+    "func_signature": {},
+    "fp_type": "parameter"
+  },
+  {
+    "fp_name": "clear_rtn",
+    "assigned_fn": [
+      "isis_clear_checksum_lifetime",
+      "rsvp_clear_checksum"
+    ],
+    "func_signature": {
+      "void (void *)": [
+        "isis_clear_checksum_lifetime",
+        "rsvp_clear_checksum"
+      ]
+    },
+    "fp_type": "parameter"
+  }
+]

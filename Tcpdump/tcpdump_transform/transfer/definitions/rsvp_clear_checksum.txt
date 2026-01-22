@@ -1,0 +1,1 @@
+void rsvp_clear_checksum(void *header);
