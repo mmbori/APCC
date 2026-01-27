@@ -125,7 +125,7 @@ static malloc_zone_t* _sqliteZone_;
 ** cases of nByte<=0 will be intercepted and dealt with by higher level
 ** routines.
 */
-void * sqlite3MemMalloc(int nByte){
+void *sqlite3MemMalloc(int nByte){
 #ifdef SQLITE_MALLOCSIZE
   void *p;
   testcase( ROUND8(nByte)==nByte );
@@ -197,7 +197,7 @@ int sqlite3MemSize(void *pPrior){
 ** cases where nByte<=0 will have been intercepted by higher-level
 ** routines and redirected to xFree.
 */
-void * sqlite3MemRealloc(void *pPrior, int nByte){
+void *sqlite3MemRealloc(void *pPrior, int nByte){
 #ifdef SQLITE_MALLOCSIZE
   void *p = SQLITE_REALLOC(pPrior, nByte);
   if( p==0 ){
@@ -285,13 +285,13 @@ void sqlite3MemSetDefault(void){
      sqlite3MemShutdown,
      0
   ,
-  .xMalloc_signature = xMalloc_sqlite3MemMalloc,
-  .xFree_signature = xFree_sqlite3MemFree,
-  .xRealloc_signature = xRealloc_sqlite3MemRealloc,
-  .xSize_signature = xSize_sqlite3MemSize,
-  .xRoundup_signature = xRoundup_sqlite3MemRoundup,
-  .xInit_signature = xInit_sqlite3MemInit,
-  .xShutdown_signature = xShutdown_sqlite3MemShutdown
+  .xMalloc_signature = xMalloc_signatures[xMalloc_sqlite3MemMalloc_enum],
+  .xFree_signature = xFree_signatures[xFree_sqlite3MemFree_enum],
+  .xRealloc_signature = xRealloc_signatures[xRealloc_sqlite3MemRealloc_enum],
+  .xSize_signature = xSize_signatures[xSize_sqlite3MemSize_enum],
+  .xRoundup_signature = xRoundup_signatures[xRoundup_sqlite3MemRoundup_enum],
+  .xInit_signature = xInit_signatures[xInit_sqlite3MemInit_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_sqlite3MemShutdown_enum]
 };
   sqlite3_config(SQLITE_CONFIG_MALLOC, &defaultMethods);
 }

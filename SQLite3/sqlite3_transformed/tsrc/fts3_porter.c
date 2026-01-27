@@ -56,8 +56,10 @@ typedef struct porter_tokenizer_cursor {
 /*
 ** Create a new tokenizer instance.
 */
-int porterCreate(int argc, const char * const *argv,
-                 sqlite3_tokenizer **ppTokenizer){
+int porterCreate(
+  int argc, const char * const *argv,
+  sqlite3_tokenizer **ppTokenizer
+){
   porter_tokenizer *t;
 
   UNUSED_PARAMETER(argc);
@@ -84,8 +86,11 @@ int porterDestroy(sqlite3_tokenizer *pTokenizer){
 ** used to incrementally tokenize this string is returned in 
 ** *ppCursor.
 */
-int porterOpen(sqlite3_tokenizer *pTokenizer, const char *zInput, int nInput,
-               sqlite3_tokenizer_cursor **ppCursor){
+int porterOpen(
+  sqlite3_tokenizer *pTokenizer,         /* The tokenizer */
+  const char *zInput, int nInput,        /* String to be tokenized */
+  sqlite3_tokenizer_cursor **ppCursor    /* OUT: Tokenization cursor */
+){
   porter_tokenizer_cursor *c;
 
   UNUSED_PARAMETER(pTokenizer);
@@ -114,7 +119,7 @@ int porterOpen(sqlite3_tokenizer *pTokenizer, const char *zInput, int nInput,
 ** Close a tokenization cursor previously opened by a call to
 ** porterOpen() above.
 */
-static int porterClose(sqlite3_tokenizer_cursor *pCursor){
+int porterClose(sqlite3_tokenizer_cursor *pCursor){
   porter_tokenizer_cursor *c = (porter_tokenizer_cursor *) pCursor;
   sqlite3_free(c->zToken);
   sqlite3_free(c);
@@ -180,7 +185,7 @@ static int isVowel(const char *z){
 ** In this routine z[] is in reverse order.  So we are really looking
 ** for an instance of a consonant followed by a vowel.
 */
-int m_gt_0(const char *z){
+static int m_gt_0(const char *z){
   while( isVowel(z) ){ z++; }
   if( *z==0 ) return 0;
   while( isConsonant(z) ){ z++; }
@@ -204,7 +209,7 @@ static int m_eq_1(const char *z){
 /* Like mgt0 above except we are looking for a value of m>1 instead
 ** or m>0
 */
-int m_gt_1(const char *z){
+static int m_gt_1(const char *z){
   while( isVowel(z) ){ z++; }
   if( *z==0 ) return 0;
   while( isConsonant(z) ){ z++; }
@@ -218,7 +223,7 @@ int m_gt_1(const char *z){
 /*
 ** Return TRUE if there is a vowel anywhere within z[0..n-1]
 */
-int hasVowel(const char *z){
+static int hasVowel(const char *z){
   while( isConsonant(z) ){ z++; }
   return *z!=0;
 }
@@ -265,7 +270,8 @@ static int stem(
   char **pz,             /* The word being stemmed (Reversed) */
   const char *zFrom,     /* If the ending matches this... (Reversed) */
   const char *zTo,       /* ... change the ending to this (not reversed) */
-  int (*xCond)(const char*)   /* Condition that must be true */
+  int (*xCond)(const char*),
+  int *xCond_signature   /* Condition that must be true */
 ){
   char *z = *pz;
   while( *zFrom && *zFrom==*z ){ z++; zFrom++; }
@@ -363,9 +369,9 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
   /* Step 1a */
   if( z[0]=='s' ){
     if(
-     !stem(&z, "sess", "ss", 0) &&
-     !stem(&z, "sei", "i", 0)  &&
-     !stem(&z, "ss", "ss", 0)
+     !stem(&z, "sess", "ss", 0, xCond_signatures[xCond_0_enum]) &&
+     !stem(&z, "sei", "i", 0, xCond_signatures[xCond_0_enum])  &&
+     !stem(&z, "ss", "ss", 0, xCond_signatures[xCond_0_enum])
     ){
       z++;
     }
@@ -373,15 +379,15 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
 
   /* Step 1b */  
   z2 = z;
-  if( stem(&z, "dee", "ee", m_gt_0) ){
+  if( stem(&z, "dee", "ee", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]) ){
     /* Do nothing.  The work was all in the test */
   }else if( 
-     (stem(&z, "gni", "", hasVowel) || stem(&z, "de", "", hasVowel))
+     (stem(&z, "gni", "", hasVowel, xCond_signatures[xCond_hasVowel_enum]) || stem(&z, "de", "", hasVowel, xCond_signatures[xCond_hasVowel_enum]))
       && z!=z2
   ){
-     if( stem(&z, "ta", "ate", 0) ||
-         stem(&z, "lb", "ble", 0) ||
-         stem(&z, "zi", "ize", 0) ){
+     if( stem(&z, "ta", "ate", 0, xCond_signatures[xCond_0_enum]) ||
+         stem(&z, "lb", "ble", 0, xCond_signatures[xCond_0_enum]) ||
+         stem(&z, "zi", "ize", 0, xCond_signatures[xCond_0_enum]) ){
        /* Do nothing.  The work was all in the test */
      }else if( doubleConsonant(z) && (*z!='l' && *z!='s' && *z!='z') ){
        z++;
@@ -398,50 +404,50 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
   /* Step 2 */
   switch( z[1] ){
    case 'a':
-     if( !stem(&z, "lanoita", "ate", m_gt_0) ){
-       stem(&z, "lanoit", "tion", m_gt_0);
+     if( !stem(&z, "lanoita", "ate", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]) ){
+       stem(&z, "lanoit", "tion", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 'c':
-     if( !stem(&z, "icne", "ence", m_gt_0) ){
-       stem(&z, "icna", "ance", m_gt_0);
+     if( !stem(&z, "icne", "ence", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]) ){
+       stem(&z, "icna", "ance", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 'e':
-     stem(&z, "rezi", "ize", m_gt_0);
+     stem(&z, "rezi", "ize", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      break;
    case 'g':
-     stem(&z, "igol", "log", m_gt_0);
+     stem(&z, "igol", "log", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      break;
    case 'l':
-     if( !stem(&z, "ilb", "ble", m_gt_0) 
-      && !stem(&z, "illa", "al", m_gt_0)
-      && !stem(&z, "iltne", "ent", m_gt_0)
-      && !stem(&z, "ile", "e", m_gt_0)
+     if( !stem(&z, "ilb", "ble", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]) 
+      && !stem(&z, "illa", "al", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "iltne", "ent", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "ile", "e", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
      ){
-       stem(&z, "ilsuo", "ous", m_gt_0);
+       stem(&z, "ilsuo", "ous", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 'o':
-     if( !stem(&z, "noitazi", "ize", m_gt_0)
-      && !stem(&z, "noita", "ate", m_gt_0)
+     if( !stem(&z, "noitazi", "ize", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "noita", "ate", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
      ){
-       stem(&z, "rota", "ate", m_gt_0);
+       stem(&z, "rota", "ate", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 's':
-     if( !stem(&z, "msila", "al", m_gt_0)
-      && !stem(&z, "ssenevi", "ive", m_gt_0)
-      && !stem(&z, "ssenluf", "ful", m_gt_0)
+     if( !stem(&z, "msila", "al", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "ssenevi", "ive", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "ssenluf", "ful", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
      ){
-       stem(&z, "ssensuo", "ous", m_gt_0);
+       stem(&z, "ssensuo", "ous", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 't':
-     if( !stem(&z, "itila", "al", m_gt_0)
-      && !stem(&z, "itivi", "ive", m_gt_0)
+     if( !stem(&z, "itila", "al", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "itivi", "ive", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
      ){
-       stem(&z, "itilib", "ble", m_gt_0);
+       stem(&z, "itilib", "ble", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
   }
@@ -449,22 +455,22 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
   /* Step 3 */
   switch( z[0] ){
    case 'e':
-     if( !stem(&z, "etaci", "ic", m_gt_0)
-      && !stem(&z, "evita", "", m_gt_0)
+     if( !stem(&z, "etaci", "ic", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
+      && !stem(&z, "evita", "", m_gt_0, xCond_signatures[xCond_m_gt_0_enum])
      ){
-       stem(&z, "ezila", "al", m_gt_0);
+       stem(&z, "ezila", "al", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 'i':
-     stem(&z, "itici", "ic", m_gt_0);
+     stem(&z, "itici", "ic", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      break;
    case 'l':
-     if( !stem(&z, "laci", "ic", m_gt_0) ){
-       stem(&z, "luf", "", m_gt_0);
+     if( !stem(&z, "laci", "ic", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]) ){
+       stem(&z, "luf", "", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      }
      break;
    case 's':
-     stem(&z, "ssen", "", m_gt_0);
+     stem(&z, "ssen", "", m_gt_0, xCond_signatures[xCond_m_gt_0_enum]);
      break;
   }
 
@@ -502,10 +508,10 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
            z += 3;
          }
        }else if( z[2]=='e' ){
-         if( !stem(&z, "tneme", "", m_gt_1)
-          && !stem(&z, "tnem", "", m_gt_1)
+         if( !stem(&z, "tneme", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum])
+          && !stem(&z, "tnem", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum])
          ){
-           stem(&z, "tne", "", m_gt_1);
+           stem(&z, "tne", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum]);
          }
        }
      }
@@ -516,7 +522,7 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
          z += 2;
        }
      }else if( z[3]=='s' || z[3]=='t' ){
-       stem(&z, "noi", "", m_gt_1);
+       stem(&z, "noi", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum]);
      }
      break;
    case 's':
@@ -525,8 +531,8 @@ static void porter_stemmer(const char *zIn, int nIn, char *zOut, int *pnOut){
      }
      break;
    case 't':
-     if( !stem(&z, "eta", "", m_gt_1) ){
-       stem(&z, "iti", "", m_gt_1);
+     if( !stem(&z, "eta", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum]) ){
+       stem(&z, "iti", "", m_gt_1, xCond_signatures[xCond_m_gt_1_enum]);
      }
      break;
    case 'u':
@@ -586,7 +592,7 @@ static const char porterIdChar[] = {
 ** Extract the next token from a tokenization cursor.  The cursor must
 ** have been opened by a prior call to porterOpen().
 */
-static int porterNext(
+int porterNext(
   sqlite3_tokenizer_cursor *pCursor,  /* Cursor returned by porterOpen */
   const char **pzToken,               /* OUT: *pzToken is the token text */
   int *pnBytes,                       /* OUT: Number of bytes in token */
@@ -642,6 +648,12 @@ static const sqlite3_tokenizer_module porterTokenizerModule = {
   porterClose,
   porterNext,
   0
+,
+  .xCreate_signature = xCreate_signatures[xCreate_porterCreate_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_porterDestroy_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_porterOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_porterClose_enum],
+  .xNext_signature = xNext_signatures[xNext_porterNext_enum]
 };
 
 /*

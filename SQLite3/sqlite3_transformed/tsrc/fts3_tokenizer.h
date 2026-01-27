@@ -142,12 +142,13 @@ struct sqlite3_tokenizer_module {
   ** Configure the language id of a tokenizer cursor.
   */
   int (*xLanguageid)(sqlite3_tokenizer_cursor *pCsr, int iLangid);
+  int *xCreate_signature;
+  int *xDestroy_signature;
+  int *xOpen_signature;
+  int *xClose_signature;
+  int *xNext_signature;
+  int *xLanguageid_signature;
 
-  int xCreate_signature;
-  int xDestroy_signature;
-  int xOpen_signature;
-  int xClose_signature;
-  int xNext_signature;
 };
 
 struct sqlite3_tokenizer {

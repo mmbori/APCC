@@ -251,7 +251,8 @@ int sqlite3session_attach(
 void sqlite3session_table_filter(
   sqlite3_session *pSession,      /* Session object */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of third arg to _filter_table() */
+    void *pCtx,                   /* Copy of third arg to _filter_table(),
+    int *xFilter_signature, */
     const char *zTab              /* Table name */
   ),
   void *pCtx                      /* First argument passed to xFilter */
@@ -1282,11 +1283,13 @@ int sqlite3changeset_apply(
   int nChangeset,                 /* Size of changeset in bytes */
   void *pChangeset,               /* Changeset blob */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     const char *zTab              /* Table name */
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1297,11 +1300,13 @@ int sqlite3changeset_apply_v2(
   int nChangeset,                 /* Size of changeset in bytes */
   void *pChangeset,               /* Changeset blob */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     const char *zTab              /* Table name */
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1314,11 +1319,13 @@ int sqlite3changeset_apply_v3(
   int nChangeset,                 /* Size of changeset in bytes */
   void *pChangeset,               /* Changeset blob */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     sqlite3_changeset_iter *p     /* Handle describing change */
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1715,14 +1722,17 @@ void sqlite3rebaser_delete(sqlite3_rebaser *p);
 */
 int sqlite3changeset_apply_strm(
   sqlite3 *db,                    /* Apply change to "main" db of this handle */
-  int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature, /* Input function */
   void *pIn,                                          /* First arg for xInput */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     const char *zTab              /* Table name */
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1730,14 +1740,17 @@ int sqlite3changeset_apply_strm(
 );
 int sqlite3changeset_apply_v2_strm(
   sqlite3 *db,                    /* Apply change to "main" db of this handle */
-  int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature, /* Input function */
   void *pIn,                                          /* First arg for xInput */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     const char *zTab              /* Table name */
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1747,14 +1760,17 @@ int sqlite3changeset_apply_v2_strm(
 );
 int sqlite3changeset_apply_v3_strm(
   sqlite3 *db,                    /* Apply change to "main" db of this handle */
-  int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature, /* Input function */
   void *pIn,                                          /* First arg for xInput */
   int(*xFilter)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xFilter_signature, */
     sqlite3_changeset_iter *p
   ),
   int(*xConflict)(
-    void *pCtx,                   /* Copy of sixth arg to _apply() */
+    void *pCtx,                   /* Copy of sixth arg to _apply(),
+    int *xConflict_signature, */
     int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */
     sqlite3_changeset_iter *p     /* Handle describing change and conflict */
   ),
@@ -1763,53 +1779,66 @@ int sqlite3changeset_apply_v3_strm(
   int flags
 );
 int sqlite3changeset_concat_strm(
-  int (*xInputA)(void *pIn, void *pData, int *pnData),
+  int (*xInputA)(void *pIn, void *pData, int *pnData)
+  int *xInputA_signature,
   void *pInA,
-  int (*xInputB)(void *pIn, void *pData, int *pnData),
+  int (*xInputB)(void *pIn, void *pData, int *pnData)
+  int *xInputB_signature,
   void *pInB,
-  int (*xOutput)(void *pOut, const void *pData, int nData),
+  int (*xOutput)(void *pOut, const void *pData, int nData)
+  int *xOutput_signature,
   void *pOut
 );
 int sqlite3changeset_invert_strm(
-  int (*xInput)(void *pIn, void *pData, int *pnData),
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature,
   void *pIn,
-  int (*xOutput)(void *pOut, const void *pData, int nData),
+  int (*xOutput)(void *pOut, const void *pData, int nData)
+  int *xOutput_signature,
   void *pOut
 );
 int sqlite3changeset_start_strm(
   sqlite3_changeset_iter **pp,
-  int (*xInput)(void *pIn, void *pData, int *pnData),
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature,
   void *pIn
 );
 int sqlite3changeset_start_v2_strm(
   sqlite3_changeset_iter **pp,
-  int (*xInput)(void *pIn, void *pData, int *pnData),
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature,
   void *pIn,
   int flags
 );
 int sqlite3session_changeset_strm(
   sqlite3_session *pSession,
-  int (*xOutput)(void *pOut, const void *pData, int nData),
+  int (*xOutput)(void *pOut, const void *pData, int nData)
+  int *xOutput_signature,
   void *pOut
 );
 int sqlite3session_patchset_strm(
   sqlite3_session *pSession,
-  int (*xOutput)(void *pOut, const void *pData, int nData),
+  int (*xOutput)(void *pOut, const void *pData, int nData)
+  int *xOutput_signature,
   void *pOut
 );
 int sqlite3changegroup_add_strm(sqlite3_changegroup*, 
-    int (*xInput)(void *pIn, void *pData, int *pnData),
+    int (*xInput)(void *pIn, void *pData, int *pnData)
+    int *xInput_signature,
     void *pIn
 );
 int sqlite3changegroup_output_strm(sqlite3_changegroup*,
-    int (*xOutput)(void *pOut, const void *pData, int nData), 
+    int (*xOutput)(void *pOut, const void *pData, int nData)
+    int *xOutput_signature, 
     void *pOut
 );
 int sqlite3rebaser_rebase_strm(
   sqlite3_rebaser *pRebaser,
-  int (*xInput)(void *pIn, void *pData, int *pnData),
+  int (*xInput)(void *pIn, void *pData, int *pnData)
+  int *xInput_signature,
   void *pIn,
-  int (*xOutput)(void *pOut, const void *pData, int nData),
+  int (*xOutput)(void *pOut, const void *pData, int nData)
+  int *xOutput_signature,
   void *pOut
 );
 

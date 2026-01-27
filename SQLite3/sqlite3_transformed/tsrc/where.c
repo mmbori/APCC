@@ -1676,7 +1676,69 @@ static int vtabBestIndex(Parse *pParse, Table *pTab, sqlite3_index_info *p){
   pVtab = sqlite3GetVTable(pParse->db, pTab)->pVtab;
   whereTraceIndexInfoInputs(p, pTab);
   pParse->db->nSchemaLock++;
-  rc = pVtab->pModule->xBestIndex(pVtab, p);
+  if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_bytecodevtabBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+    rc = bytecodevtabBestIndex(pVtab, p);
+  }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_completionBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = completionBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_dbdataBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = dbdataBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_dbpageBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = dbpageBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_expertBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = expertBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_fsdirBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = fsdirBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_fts3BestIndexMethod_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = fts3BestIndexMethod(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_fts3auxBestIndexMethod_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = fts3auxBestIndexMethod(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_fts3tokBestIndexMethod_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = fts3tokBestIndexMethod(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_jsonEachBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = jsonEachBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_pragmaVtabBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = pragmaVtabBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_rtreeBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = rtreeBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_seriesBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = seriesBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_statBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = statBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_stmtBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = stmtBestIndex(pVtab, p);
+    }
+  else
+    if (memcmp(pVtab->pModule->xBestIndex_signature, xBestIndex_signatures[xBestIndex_zipfileBestIndex_enum], sizeof(pVtab->pModule->xBestIndex_signature)) == 0) {
+      rc = zipfileBestIndex(pVtab, p);
+    }
   pParse->db->nSchemaLock--;
   whereTraceIndexInfoOutputs(p, pTab);
 
@@ -3762,7 +3824,9 @@ static SQLITE_NOINLINE u32 whereIsCoveringIndex(
   ck.bUnidx = 0;
   memset(&w, 0, sizeof(w));
   w.xExprCallback = whereIsCoveringIndexWalkCallback;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_whereIsCoveringIndexWalkCallback_enum];
   w.xSelectCallback = sqlite3SelectWalkNoop;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
   w.u.pCovIdxCk = &ck;
   sqlite3WalkSelect(&w, pWInfo->pSelect);
   if( ck.bUnidx ){
@@ -3858,7 +3922,9 @@ static void wherePartIdxExpr(
           pParse->pIdxPartExpr = p;
           if( p->pIENext==0 ){
             void *pArg = (void*)&pParse->pIdxPartExpr;
-            sqlite3ParserAddCleanup(pParse, whereIndexedExprCleanup, pArg);
+            sqlite3ParserAddCleanup(pParse, whereIndexedExprCleanup,
+                                    xCleanup_signatures[xCleanup_whereIndexedExprCleanup_enum],
+                                    pArg);
           }
         }
       }else if( pLeft->iColumn<(BMS-1) ){
@@ -6315,7 +6381,9 @@ static int exprIsDeterministic(Expr *p){
   memset(&w, 0, sizeof(w));
   w.eCode = 1;
   w.xExprCallback = exprNodeIsDeterministic;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprNodeIsDeterministic_enum];
   w.xSelectCallback = sqlite3SelectWalkFail;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkFail_enum];
   sqlite3WalkExpr(&w, p);
   return w.eCode;
 }
@@ -6564,7 +6632,9 @@ static SQLITE_NOINLINE void whereAddIndexedExpr(
     pParse->pIdxEpr = p;
     if( p->pIENext==0 ){
       void *pArg = (void*)&pParse->pIdxEpr;
-      sqlite3ParserAddCleanup(pParse, whereIndexedExprCleanup, pArg);
+      sqlite3ParserAddCleanup(pParse, whereIndexedExprCleanup,
+                              xCleanup_signatures[xCleanup_whereIndexedExprCleanup_enum],
+                              pArg);
     }
   }
 }

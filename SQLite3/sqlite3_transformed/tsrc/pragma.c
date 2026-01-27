@@ -202,11 +202,13 @@ static void setPragmaResultColumnNames(
   u8 n = pPragma->nPragCName;
   sqlite3VdbeSetNumCols(v, n==0 ? 1 : n);
   if( n==0 ){
-    sqlite3VdbeSetColName(v, 0, COLNAME_NAME, pPragma->zName, SQLITE_STATIC);
+    sqlite3VdbeSetColName(v, 0, COLNAME_NAME, pPragma->zName, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
   }else{
     int i, j;
     for(i=0, j=pPragma->iPragCName; i<n; i++, j++){
-      sqlite3VdbeSetColName(v, i, COLNAME_NAME, pragCName[j], SQLITE_STATIC);
+      sqlite3VdbeSetColName(v, i, COLNAME_NAME, pragCName[j], SQLITE_STATIC,
+                            xDel_signatures[xDel_SQLITE_STATIC_enum]);
     }
   }
 }
@@ -495,7 +497,8 @@ void sqlite3Pragma(
   rc = sqlite3_file_control(db, zDb, SQLITE_FCNTL_PRAGMA, (void*)aFcntl);
   if( rc==SQLITE_OK ){
     sqlite3VdbeSetNumCols(v, 1);
-    sqlite3VdbeSetColName(v, 0, COLNAME_NAME, aFcntl[0], SQLITE_TRANSIENT);
+    sqlite3VdbeSetColName(v, 0, COLNAME_NAME, aFcntl[0], SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     returnSingleText(v, aFcntl[0]);
     sqlite3_free(aFcntl[0]);
     goto pragma_out;
@@ -2800,9 +2803,13 @@ struct PragmaVtabCursor {
 /*
 ** Pragma virtual table module xConnect method.
 */
-int pragmaVtabConnect(sqlite3 *db, void *pAux, int argc,
-                      const char * const *argv, sqlite3_vtab **ppVtab,
-                      char **pzErr){
+int pragmaVtabConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   const PragmaName *pPragma = (const PragmaName*)pAux;
   PragmaVtab *pTab = 0;
   int rc;
@@ -2958,8 +2965,11 @@ int pragmaVtabNext(sqlite3_vtab_cursor *pVtabCursor){
 /*
 ** Pragma virtual table module xFilter method.
 */
-int pragmaVtabFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
-                     const char *idxStr, int argc, sqlite3_value **argv){
+int pragmaVtabFilter(
+  sqlite3_vtab_cursor *pVtabCursor,
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   PragmaVtabCursor *pCsr = (PragmaVtabCursor*)pVtabCursor;
   PragmaVtab *pTab = (PragmaVtab*)(pVtabCursor->pVtab);
   int rc;
@@ -3013,14 +3023,19 @@ int pragmaVtabEof(sqlite3_vtab_cursor *pVtabCursor){
 /* The xColumn method simply returns the corresponding column from
 ** the PRAGMA. 
 */
-int pragmaVtabColumn(sqlite3_vtab_cursor *pVtabCursor, sqlite3_context *ctx,
-                     int i){
+int pragmaVtabColumn(
+  sqlite3_vtab_cursor *pVtabCursor,
+  sqlite3_context *ctx,
+  int i
+){
   PragmaVtabCursor *pCsr = (PragmaVtabCursor*)pVtabCursor;
   PragmaVtab *pTab = (PragmaVtab*)(pVtabCursor->pVtab);
   if( i<pTab->iHidden ){
     sqlite3_result_value(ctx, sqlite3_column_value(pCsr->pPragma, i));
   }else{
-    sqlite3_result_text(ctx, pCsr->azArg[i-pTab->iHidden],-1,SQLITE_TRANSIENT);
+    sqlite3_result_text(ctx, pCsr->azArg[i - pTab->iHidden], -1,
+                        SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
   return SQLITE_OK;
 }
@@ -3062,30 +3077,16 @@ static const sqlite3_module pragmaVtabModule = {
   0,                           /* xShadowName */
   0                            /* xIntegrity */
 ,
-  .xCreate_signature = xCreate_0,
-  .xConnect_signature = xConnect_pragmaVtabConnect,
-  .xBestIndex_signature = xBestIndex_pragmaVtabBestIndex,
-  .xDisconnect_signature = xDisconnect_pragmaVtabDisconnect,
-  .xDestroy_signature = xDestroy_0,
-  .xOpen_signature = xOpen_pragmaVtabOpen,
-  .xClose_signature = xClose_pragmaVtabClose,
-  .xFilter_signature = xFilter_pragmaVtabFilter,
-  .xNext_signature = xNext_pragmaVtabNext,
-  .xEof_signature = xEof_pragmaVtabEof,
-  .xColumn_signature = xColumn_pragmaVtabColumn,
-  .xRowid_signature = xRowid_pragmaVtabRowid,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xConnect_signature = xConnect_signatures[xConnect_pragmaVtabConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_pragmaVtabBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_pragmaVtabDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_pragmaVtabOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_pragmaVtabClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_pragmaVtabFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_pragmaVtabNext_enum],
+  .xEof_signature = xEof_signatures[xEof_pragmaVtabEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_pragmaVtabColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_pragmaVtabRowid_enum]
 };
 
 /*
@@ -3100,7 +3101,8 @@ Module *sqlite3PragmaVtabRegister(sqlite3 *db, const char *zName){
   if( pName==0 ) return 0;
   if( (pName->mPragFlg & (PragFlg_Result0|PragFlg_Result1))==0 ) return 0;
   assert( sqlite3HashFind(&db->aModule, zName)==0 );
-  return sqlite3VtabCreateModule(db, zName, &pragmaVtabModule, (void*)pName, 0);
+  return sqlite3VtabCreateModule(db, zName, &pragmaVtabModule, (void *)pName,
+                                 0, xDestroy_signatures[xDestroy_0_enum]);
 }
 
 #endif /* SQLITE_OMIT_VIRTUALTABLE */

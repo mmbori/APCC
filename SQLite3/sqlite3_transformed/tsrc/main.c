@@ -26,6 +26,8 @@
 # include "sqliteicu.h"
 #endif
 
+#include "sqlite_fp_signature_impl.c"
+
 /*
 ** This is an extension initializer that is a no-op and always
 ** succeeds, except that it fails if the fault-simulation is set
@@ -187,7 +189,10 @@ char *sqlite3_data_directory = 0;
 **    *  Recursive calls to this routine from thread X return immediately
 **       without blocking.
 */
+
 int sqlite3_initialize(void){
+  init_all_fp_signatures();
+
   MUTEX_LOGIC( sqlite3_mutex *pMainMtx; )      /* The main static mutex */
   int rc;                                      /* Result code */
 #ifdef SQLITE_EXTRA_INIT
@@ -318,7 +323,7 @@ int sqlite3_initialize(void){
   }
   sqlite3_mutex_leave(sqlite3GlobalConfig.pInitMutex);
 
-  /* Go back under the static mutex and clean up the recursive
+  /* Go back under the mutex and clean up the recursive
   ** mutex to prevent a resource leak.
   */
   sqlite3_mutex_enter(pMainMtx);
@@ -1033,8 +1038,11 @@ int sqlite3_db_config(sqlite3 *db, int op, ...){
 ** This is the default collating function named "BINARY" which is always
 ** available.
 */
-int binCollFunc(void *NotUsed, int nKey1, const void *pKey1, int nKey2,
-                const void *pKey2){
+int binCollFunc(
+  void *NotUsed,
+  int nKey1, const void *pKey1,
+  int nKey2, const void *pKey2
+){
   int rc, n;
   UNUSED_PARAMETER(NotUsed);
   n = nKey1<nKey2 ? nKey1 : nKey2;
@@ -1053,8 +1061,11 @@ int binCollFunc(void *NotUsed, int nKey1, const void *pKey1, int nKey2,
 ** This is the collating function named "RTRIM" which is always
 ** available.  Ignore trailing spaces.
 */
-int rtrimCollFunc(void *pUser, int nKey1, const void *pKey1, int nKey2,
-                  const void *pKey2){
+int rtrimCollFunc(
+  void *pUser,
+  int nKey1, const void *pKey1,
+  int nKey2, const void *pKey2
+){
   const u8 *pK1 = (const u8*)pKey1;
   const u8 *pK2 = (const u8*)pKey2;
   while( nKey1 && pK1[nKey1-1]==' ' ) nKey1--;
@@ -1079,8 +1090,11 @@ int sqlite3IsBinary(const CollSeq *p){
 **
 ** At the moment there is only a UTF-8 implementation.
 */
-int nocaseCollatingFunc(void *NotUsed, int nKey1, const void *pKey1,
-                        int nKey2, const void *pKey2){
+int nocaseCollatingFunc(
+  void *NotUsed,
+  int nKey1, const void *pKey1,
+  int nKey2, const void *pKey2
+){
   int r = sqlite3StrNICmp(
       (const char *)pKey1, (const char *)pKey2, (nKey1<nKey2)?nKey1:nKey2);
   UNUSED_PARAMETER(NotUsed);
@@ -1179,7 +1193,65 @@ static void functionDestroy(sqlite3 *db, FuncDef *p){
   if( pDestructor ){
     pDestructor->nRef--;
     if( pDestructor->nRef==0 ){
-      pDestructor->xDestroy(pDestructor->pUserData);
+      if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          dbpageDisconnect(pDestructor->pUserData);
+        }
+      // else
+      //   if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_expertDisconnect_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+      //     expertDisconnect(pDestructor->pUserData);
+      //   }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          fsdirDisconnect(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_fts3DestroyMethod_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          fts3DestroyMethod(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_fts3auxDisconnectMethod_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          fts3auxDisconnectMethod(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          fts3tokDisconnectMethod(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          pcache1Destroy(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_pcachetraceDestroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          pcachetraceDestroy(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_porterDestroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          porterDestroy(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          rtreeDestroy(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          simpleDestroy(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          statDisconnect(pDestructor->pUserData);
+        }
+      else
+        if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+          unicodeDestroy(pDestructor->pUserData);
+        }
+      // else
+      //   if (memcmp(pDestructor->xDestroy_signature, xDestroy_signatures[xDestroy_zipfileDisconnect_enum], sizeof(pDestructor->xDestroy_signature)) == 0) {
+      //     zipfileDisconnect(pDestructor->pUserData);
+      //   }
       sqlite3DbFree(db, pDestructor);
     }
   }
@@ -1281,7 +1353,21 @@ static int sqlite3Close(sqlite3 *db, int forceZombie){
     DbClientData *p = db->pDbData;
     db->pDbData = p->pNext;
     assert( p->pData!=0 );
-    if( p->xDestructor ) p->xDestructor(p->pData);
+    if( p->xDestructor ) {
+      // p->xDestructor(p->pData);
+      if (memcmp(p->xDestructor_signature, xDestructor_signatures[xDestructor_0_enum], sizeof(int[4])) == 0) {
+        ;
+      }
+      else if (memcmp(p->xDestructor_signature, xDestructor_signatures[xDestructor_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+          rtreeMatchArgFree(p->pData);
+      }
+      else if (memcmp(p->xDestructor_signature, xDestructor_signatures[xDestructor_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+          sqlite3VdbeValueListFree(p->pData);
+      }
+      else if (memcmp(p->xDestructor_signature, xDestructor_signatures[xDestructor_sqlite3NoopDestructor_enum], sizeof(int[4])) == 0) {
+          sqlite3NoopDestructor(p->pData);
+      }
+    } 
     sqlite3_free(p);
   }
 
@@ -1414,7 +1500,21 @@ void sqlite3LeaveMutexAndCloseZombie(sqlite3 *db){
     /* Invoke any destructors registered for collation sequence user data. */
     for(j=0; j<3; j++){
       if( pColl[j].xDel ){
-        pColl[j].xDel(pColl[j].pUser);
+        if (memcmp(pColl->xDel_signature, xDel_signatures[xDel_0_enum], sizeof(pColl->xDel_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(pColl->xDel_signature, xDel_signatures[xDel_sqlite3RowSetDelete_enum], sizeof(pColl->xDel_signature)) == 0) {
+            sqlite3RowSetDelete(pColl[j].pUser);
+          }
+        else
+          if (memcmp(pColl->xDel_signature, xDel_signatures[xDel_sqlite3VdbeFrameMemDel_enum], sizeof(pColl->xDel_signature)) == 0) {
+            sqlite3VdbeFrameMemDel(pColl[j].pUser);
+          }
+        else
+          if (memcmp(pColl->xDel_signature, xDel_signatures[xDel_sqlite3_free_enum], sizeof(pColl->xDel_signature)) == 0) {
+            sqlite3_free(pColl[j].pUser);
+          }
       }
     }
     sqlite3DbFree(db, pColl);
@@ -1443,7 +1543,16 @@ void sqlite3LeaveMutexAndCloseZombie(sqlite3 *db){
   */
   sqlite3DbFree(db, db->aDb[1].pSchema);
   if( db->xAutovacDestr ){
-    db->xAutovacDestr(db->pAutovacPagesArg);
+    // db->xAutovacDestr(db->pAutovacPagesArg);
+    if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    else if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+        rtreeMatchArgFree(db->pAutovacPagesArg);
+    }
+    else if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeValueListFree(db->pAutovacPagesArg);
+    }
   }
   sqlite3_mutex_leave(db->mutex);
   db->eOpenState = SQLITE_STATE_CLOSED;
@@ -1697,7 +1806,10 @@ const char *sqlite3ErrStr(int rc){
 ** Return non-zero to retry the lock.  Return zero to stop trying
 ** and cause SQLite to return SQLITE_BUSY.
 */
-int sqliteDefaultBusyCallback(void *ptr, int count){
+int sqliteDefaultBusyCallback(
+  void *ptr,               /* Database connection */
+  int count                /* Number of times table has been busy */
+){
 #if SQLITE_OS_WIN || !defined(HAVE_NANOSLEEP) || HAVE_NANOSLEEP
   /* This case is for systems that have support for sleeping for fractions of
   ** a second.  Examples:  All windows systems, unix systems with nanosleep() */
@@ -1749,7 +1861,13 @@ int sqliteDefaultBusyCallback(void *ptr, int count){
 int sqlite3InvokeBusyHandler(BusyHandler *p){
   int rc;
   if( p->xBusyHandler==0 || p->nBusy<0 ) return 0;
-  rc = p->xBusyHandler(p->pBusyArg, p->nBusy);
+  // rc = p->xBusyHandler(p->pBusyArg, p->nBusy);
+  if (memcmp(p->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_0_enum], sizeof(int[4])) == 0) {
+      ;
+  }
+  else if (memcmp(p->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_sqliteDefaultBusyCallback_enum], sizeof(int[4])) == 0) {
+      rc = sqliteDefaultBusyCallback(p->pBusyArg, p->nBusy);
+  }
   if( rc==0 ){
     p->nBusy = -1;
   }else{
@@ -1765,6 +1883,7 @@ int sqlite3InvokeBusyHandler(BusyHandler *p){
 int sqlite3_busy_handler(
   sqlite3 *db,
   int (*xBusy)(void*,int),
+  int *xBusy_signature,
   void *pArg
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
@@ -1792,6 +1911,7 @@ void sqlite3_progress_handler(
   sqlite3 *db,
   int nOps,
   int (*xProgress)(void*),
+  int *xProgress_signature,
   void *pArg
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
@@ -1803,6 +1923,7 @@ void sqlite3_progress_handler(
   sqlite3_mutex_enter(db->mutex);
   if( nOps>0 ){
     db->xProgress = xProgress;
+    db->xProgress_signature = xProgress_signature;
     db->nProgressOps = (unsigned)nOps;
     db->pProgressArg = pArg;
   }else{
@@ -1824,14 +1945,14 @@ int sqlite3_busy_timeout(sqlite3 *db, int ms){
   if( !sqlite3SafetyCheckOk(db) ) return SQLITE_MISUSE_BKPT;
 #endif
   if( ms>0 ){
-    sqlite3_busy_handler(db, (int(*)(void*,int))sqliteDefaultBusyCallback,
+    sqlite3_busy_handler(db, (int(*)(void*,int))sqliteDefaultBusyCallback, xBusy_signatures[xBusy_sqliteDefaultBusyCallback_enum], 
                              (void*)db);
     db->busyTimeout = ms;
 #ifdef SQLITE_ENABLE_SETLK_TIMEOUT
     db->setlkTimeout = ms;
 #endif
   }else{
-    sqlite3_busy_handler(db, 0, 0);
+    sqlite3_busy_handler(db, 0, xBusy_signatures[xBusy_0_enum], 0);
   }
   return SQLITE_OK;
 }
@@ -1914,10 +2035,15 @@ int sqlite3CreateFunc(
   int enc,
   void *pUserData,
   void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),
+  int *xSFunc_signature,
   void (*xStep)(sqlite3_context*,int,sqlite3_value **),
+  int *xStep_signature,
   void (*xFinal)(sqlite3_context*),
+  int *xFinal_signature,
   void (*xValue)(sqlite3_context*),
+  int *xValue_signature,
   void (*xInverse)(sqlite3_context*,int,sqlite3_value **),
+  int *xInverse_signature,
   FuncDestructor *pDestructor
 ){
   FuncDef *p;
@@ -1964,11 +2090,15 @@ int sqlite3CreateFunc(
       int rc;
       rc = sqlite3CreateFunc(db, zFunctionName, nArg,
            (SQLITE_UTF8|extraFlags)^SQLITE_FUNC_UNSAFE, /* tag-20230109-1 */
-           pUserData, xSFunc, xStep, xFinal, xValue, xInverse, pDestructor);
+           pUserData, xSFunc, xSFunc_signature, xStep, xStep_signature,
+           xFinal, xFinal_signature, xValue, xValue_signature, 
+           xInverse, xInverse_signature, pDestructor);
       if( rc==SQLITE_OK ){
         rc = sqlite3CreateFunc(db, zFunctionName, nArg,
              (SQLITE_UTF16LE|extraFlags)^SQLITE_FUNC_UNSAFE, /* tag-20230109-1*/
-             pUserData, xSFunc, xStep, xFinal, xValue, xInverse, pDestructor);
+             pUserData, xSFunc, xSFunc_signature, xStep, xStep_signature,
+             xFinal, xFinal_signature, xValue, xValue_signature, 
+             xInverse, xInverse_signature, pDestructor);
       }
       if( rc!=SQLITE_OK ){
         return rc;
@@ -2029,7 +2159,9 @@ int sqlite3CreateFunc(
   p->xSFunc = xSFunc ? xSFunc : xStep;
   p->xFinalize = xFinal;
   p->xValue = xValue;
+  p->xValue_signature = xValue_signature;
   p->xInverse = xInverse;
+  p->xInverse_signature = xInverse_signature;
   p->pUserData = pUserData;
   p->nArg = (u16)nArg;
   return SQLITE_OK;
@@ -2049,11 +2181,17 @@ static int createFunctionApi(
   int enc,
   void *p,
   void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),
+  int *xSFunc_signature,
   void (*xStep)(sqlite3_context*,int,sqlite3_value**),
+  int *xStep_signature,
   void (*xFinal)(sqlite3_context*),
+  int *xFinal_signature,
   void (*xValue)(sqlite3_context*),
+  int *xValue_signature,
   void (*xInverse)(sqlite3_context*,int,sqlite3_value**),
-  void(*xDestroy)(void*)
+  int *xInverse_signature,
+  void(*xDestroy)(void*),
+  int *xDestroy_signature
 ){
   int rc = SQLITE_ERROR;
   FuncDestructor *pArg = 0;
@@ -2068,19 +2206,48 @@ static int createFunctionApi(
     pArg = (FuncDestructor *)sqlite3Malloc(sizeof(FuncDestructor));
     if( !pArg ){
       sqlite3OomFault(db);
-      xDestroy(p);
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_hashDestroy_enum], sizeof(xDestroy_signature)) == 0) {
+          hashDestroy(p);
+        }
+      else
+        if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum], sizeof(xDestroy_signature)) == 0) {
+          rtreeFreeCallback(p);
+        }
+      else
+        if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_sqlite3_free_enum], sizeof(xDestroy_signature)) == 0) {
+          sqlite3_free(p);
+        }
       goto out;
     }
     pArg->nRef = 0;
     pArg->xDestroy = xDestroy;
+    pArg->xDestroy_signature = xDestroy_signature;
     pArg->pUserData = p;
   }
   rc = sqlite3CreateFunc(db, zFunc, nArg, enc, p,
-      xSFunc, xStep, xFinal, xValue, xInverse, pArg
+      xSFunc, xSFunc_signature, xStep, xStep_signature, xFinal, xFinal_signature, xValue, xValue_signature, xInverse, xInverse_signature, pArg
   );
   if( pArg && pArg->nRef==0 ){
     assert( rc!=SQLITE_OK || (xStep==0 && xFinal==0) );
-    xDestroy(p);
+    if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(xDestroy_signature)) == 0) {
+      0;
+    }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_hashDestroy_enum], sizeof(xDestroy_signature)) == 0) {
+        hashDestroy(p);
+      }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum], sizeof(xDestroy_signature)) == 0) {
+        rtreeFreeCallback(p);
+      }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_sqlite3_free_enum], sizeof(xDestroy_signature)) == 0) {
+        sqlite3_free(p);
+      }
     sqlite3_free(pArg);
   }
 
@@ -2100,11 +2267,14 @@ int sqlite3_create_function(
   int enc,
   void *p,
   void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),
+  int *xSFunc_signature,
   void (*xStep)(sqlite3_context*,int,sqlite3_value **),
-  void (*xFinal)(sqlite3_context*)
+  int *xStep_signature,
+  void (*xFinal)(sqlite3_context*),
+  int *xFinal_signature
 ){
-  return createFunctionApi(db, zFunc, nArg, enc, p, xSFunc, xStep,
-                                    xFinal, 0, 0, 0);
+  return createFunctionApi(db, zFunc, nArg, enc, p, xSFunc, xSFunc_signature, xStep, xStep_signature, 
+                                    xFinal, xFinal_signature, 0, xValue_signatures[xValue_0_enum], 0, xInverse_signatures[xInverse_0_enum], 0, xDestroy_signatures[xDestroy_0_enum]);
 }
 int sqlite3_create_function_v2(
   sqlite3 *db,
@@ -2113,12 +2283,17 @@ int sqlite3_create_function_v2(
   int enc,
   void *p,
   void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),
+  int *xSFunc_signature,
   void (*xStep)(sqlite3_context*,int,sqlite3_value **),
+  int *xStep_signature,
   void (*xFinal)(sqlite3_context*),
-  void (*xDestroy)(void *)
+  int *xFinal_signature,
+  void (*xDestroy)(void *),
+  int *xDestroy_signature
 ){
-  return createFunctionApi(db, zFunc, nArg, enc, p, xSFunc, xStep,
-                                    xFinal, 0, 0, xDestroy);
+  return createFunctionApi(db, zFunc, nArg, enc, p, xSFunc, xSFunc_signature, xStep, xStep_signature,
+                                    xFinal, xFinal_signature, 0, xValue_signatures[xValue_0_enum], 
+                                    0, xInverse_signatures[xInverse_0_enum], xDestroy, xDestroy_signature);
 }
 int sqlite3_create_window_function(
   sqlite3 *db,
@@ -2127,13 +2302,18 @@ int sqlite3_create_window_function(
   int enc,
   void *p,
   void (*xStep)(sqlite3_context*,int,sqlite3_value **),
+  int *xStep_signature,
   void (*xFinal)(sqlite3_context*),
+  int *xFinal_signature,
   void (*xValue)(sqlite3_context*),
+  int *xValue_signature,
   void (*xInverse)(sqlite3_context*,int,sqlite3_value **),
-  void (*xDestroy)(void *)
+  int *xInverse_signature,
+  void (*xDestroy)(void *),
+  int *xDestroy_signature
 ){
-  return createFunctionApi(db, zFunc, nArg, enc, p, 0, xStep,
-                                    xFinal, xValue, xInverse, xDestroy);
+  return createFunctionApi(db, zFunc, nArg, enc, p, 0, xSFunc_signatures[xSFunc_0_enum], xStep, xStep_signature, 
+                                    xFinal, xFinal_signature, xValue, xValue_signature, xInverse, xInverse_signature, xDestroy, xDestroy_signature);
 }
 
 #ifndef SQLITE_OMIT_UTF16
@@ -2144,8 +2324,11 @@ int sqlite3_create_function16(
   int eTextRep,
   void *p,
   void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),
+  int *xSFunc_signature,
   void (*xStep)(sqlite3_context*,int,sqlite3_value**),
-  void (*xFinal)(sqlite3_context*)
+  int *xStep_signature,
+  void (*xFinal)(sqlite3_context*),
+  int *xFinal_signature
 ){
   int rc;
   char *zFunc8;
@@ -2156,7 +2339,7 @@ int sqlite3_create_function16(
   sqlite3_mutex_enter(db->mutex);
   assert( !db->mallocFailed );
   zFunc8 = sqlite3Utf16to8(db, zFunctionName, -1, SQLITE_UTF16NATIVE);
-  rc = sqlite3CreateFunc(db, zFunc8, nArg, eTextRep, p, xSFunc,xStep,xFinal,0,0,0);
+  rc = sqlite3CreateFunc(db, zFunc8, nArg, eTextRep, p, xSFunc,xSFunc_signature,xStep,xStep_signature,xFinal,xFinal_signature, 0,xValue_signatures[xValue_0_enum], 0,xInverse_signatures[xInverse_0_enum], 0);
   sqlite3DbFree(db, zFunc8);
   rc = sqlite3ApiExit(db, rc);
   sqlite3_mutex_leave(db->mutex);
@@ -2173,8 +2356,11 @@ int sqlite3_create_function16(
 ** for name resolution but are actually overloaded by the xFindFunction
 ** method of virtual tables.
 */
-void sqlite3InvalidFunction(sqlite3_context *context, int NotUsed,
-                            sqlite3_value **NotUsed2){
+static void sqlite3InvalidFunction(
+  sqlite3_context *context,  /* The function calling context */
+  int NotUsed,               /* Number of arguments to the function */
+  sqlite3_value **NotUsed2   /* Value of each argument */
+){
   const char *zName = (const char*)sqlite3_user_data(context);
   char *zErr;
   UNUSED_PARAMETER2(NotUsed, NotUsed2);
@@ -2216,7 +2402,7 @@ int sqlite3_overload_function(
   zCopy = sqlite3_mprintf("%s", zName);
   if( zCopy==0 ) return SQLITE_NOMEM;
   return sqlite3_create_function_v2(db, zName, nArg, SQLITE_UTF8,
-                           zCopy, sqlite3InvalidFunction, 0, 0, sqlite3_free);
+                           zCopy, sqlite3InvalidFunction, xSFunc_signatures[xSFunc_sqlite3InvalidFunction_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum], sqlite3_free, xDestroy_signatures[xDestroy_sqlite3_free_enum]);
 }
 
 #ifndef SQLITE_OMIT_TRACE
@@ -2253,7 +2439,8 @@ void *sqlite3_trace(sqlite3 *db, void(*xTrace)(void*,const char*), void *pArg){
 int sqlite3_trace_v2(
   sqlite3 *db,                               /* Trace this connection */
   unsigned mTrace,                           /* Mask of events to be traced */
-  int(*xTrace)(unsigned,void*,void*,void*),  /* Callback to invoke */
+  int(*xTrace)(unsigned,void*,void*,void*),
+  int *xTrace_signature,  /* Callback to invoke */
   void *pArg                                 /* Context */
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
@@ -2283,6 +2470,7 @@ int sqlite3_trace_v2(
 void *sqlite3_profile(
   sqlite3 *db,
   void (*xProfile)(void*,const char*,sqlite_uint64),
+  int *xProfile_signature,
   void *pArg
 ){
   void *pOld;
@@ -2296,6 +2484,7 @@ void *sqlite3_profile(
   sqlite3_mutex_enter(db->mutex);
   pOld = db->pProfileArg;
   db->xProfile = xProfile;
+  db->xProfile_signature = xProfile_signature;
   db->pProfileArg = pArg;
   db->mTrace &= SQLITE_TRACE_NONLEGACY_MASK;
   if( db->xProfile ) db->mTrace |= SQLITE_TRACE_XPROFILE;
@@ -2363,6 +2552,7 @@ void *sqlite3_update_hook(
 void *sqlite3_rollback_hook(
   sqlite3 *db,              /* Attach the hook to this database */
   void (*xCallback)(void*), /* Callback function */
+  int *xCallback_signature,
   void *pArg                /* Argument to the function */
 ){
   void *pRet;
@@ -2376,6 +2566,7 @@ void *sqlite3_rollback_hook(
   sqlite3_mutex_enter(db->mutex);
   pRet = db->pRollbackArg;
   db->xRollbackCallback = xCallback;
+  db->xRollbackCallback_signature = xCallback_signature;
   db->pRollbackArg = pArg;
   sqlite3_mutex_leave(db->mutex);
   return pRet;
@@ -2415,22 +2606,35 @@ void *sqlite3_preupdate_hook(
 int sqlite3_autovacuum_pages(
   sqlite3 *db,                 /* Attach the hook to this database */
   unsigned int (*xCallback)(void*,const char*,u32,u32,u32),
+  int *xCallback_signature,
   void *pArg,                  /* Argument to the function */
-  void (*xDestructor)(void*)   /* Destructor for pArg */
+  void (*xDestructor)(void*),
+  int *xDestructor_signature   /* Destructor for pArg */
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
   if( !sqlite3SafetyCheckOk(db) ){
-    if( xDestructor ) xDestructor(pArg);
+    // if( xDestructor ) xDestructor(pArg);
     return SQLITE_MISUSE_BKPT;
   }
 #endif
   sqlite3_mutex_enter(db->mutex);
   if( db->xAutovacDestr ){
-    db->xAutovacDestr(db->pAutovacPagesArg);
+    // db->xAutovacDestr(db->pAutovacPagesArg);
+    if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    else if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+        rtreeMatchArgFree(db->pAutovacPagesArg);
+    }
+    else if (memcmp(db->xAutovacDestr_signature, xAutovacDestr_signatures[xAutovacDestr_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeValueListFree(db->pAutovacPagesArg);
+    }
   }
   db->xAutovacPages = xCallback;
+  db->xAutovacPages_signature = xCallback_signature;
   db->pAutovacPagesArg = pArg;
   db->xAutovacDestr = xDestructor;
+  db->xAutovacDestr_signature = xDestructor_signature;
   sqlite3_mutex_leave(db->mutex);
   return SQLITE_OK;
 }
@@ -2822,7 +3026,9 @@ static int createCollation(
   u8 enc,
   void* pCtx,
   int(*xCompare)(void*,int,const void*,int,const void*),
-  void(*xDel)(void*)
+  int *xCompare_signature,
+  void(*xDel)(void*),
+  int *xDel_signature
 ){
   CollSeq *pColl;
   int enc2;
@@ -2869,7 +3075,21 @@ static int createCollation(
         CollSeq *p = &aColl[j];
         if( p->enc==pColl->enc ){
           if( p->xDel ){
-            p->xDel(p->pUser);
+            if (memcmp(p->xDel_signature, xDel_signatures[xDel_0_enum], sizeof(p->xDel_signature)) == 0) {
+              0;
+            }
+            else
+              if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3RowSetDelete_enum], sizeof(p->xDel_signature)) == 0) {
+                sqlite3RowSetDelete(p->pUser);
+              }
+            else
+              if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3VdbeFrameMemDel_enum], sizeof(p->xDel_signature)) == 0) {
+                sqlite3VdbeFrameMemDel(p->pUser);
+              }
+            else
+              if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3_free_enum], sizeof(p->xDel_signature)) == 0) {
+                sqlite3_free(p->pUser);
+              }
           }
           p->xCmp = 0;
         }
@@ -2882,6 +3102,7 @@ static int createCollation(
   pColl->xCmp = xCompare;
   pColl->pUser = pCtx;
   pColl->xDel = xDel;
+  pColl->xDel_signature = xDel_signature;
   pColl->enc = (u8)(enc2 | (enc & SQLITE_UTF16_ALIGNED));
   sqlite3Error(db, SQLITE_OK);
   return SQLITE_OK;
@@ -3473,11 +3694,11 @@ static int openDatabase(
   ** EVIDENCE-OF: R-52786-44878 SQLite defines three built-in collating
   ** functions:
   */
-  createCollation(db, sqlite3StrBINARY, SQLITE_UTF8, 0, binCollFunc, 0);
-  createCollation(db, sqlite3StrBINARY, SQLITE_UTF16BE, 0, binCollFunc, 0);
-  createCollation(db, sqlite3StrBINARY, SQLITE_UTF16LE, 0, binCollFunc, 0);
-  createCollation(db, "NOCASE", SQLITE_UTF8, 0, nocaseCollatingFunc, 0);
-  createCollation(db, "RTRIM", SQLITE_UTF8, 0, rtrimCollFunc, 0);
+  createCollation(db, sqlite3StrBINARY, SQLITE_UTF8, 0, binCollFunc, xCompare_signatures[xCompare_binCollFunc_enum], 0, xDel_signatures[xDel_0_enum]);
+  createCollation(db, sqlite3StrBINARY, SQLITE_UTF16BE, 0, binCollFunc, xCompare_signatures[xCompare_binCollFunc_enum], 0, xDel_signatures[xDel_0_enum]);
+  createCollation(db, sqlite3StrBINARY, SQLITE_UTF16LE, 0, binCollFunc, xCompare_signatures[xCompare_binCollFunc_enum], 0, xDel_signatures[xDel_0_enum]);
+  createCollation(db, "NOCASE", SQLITE_UTF8, 0, nocaseCollatingFunc, xCompare_signatures[xCompare_nocaseCollatingFunc_enum], 0, xDel_signatures[xDel_0_enum]);
+  createCollation(db, "RTRIM", SQLITE_UTF8, 0, rtrimCollFunc, xCompare_signatures[xCompare_rtrimCollFunc_enum], 0, xDel_signatures[xDel_0_enum]);
   if( db->mallocFailed ){
     goto opendb_out;
   }
@@ -3682,7 +3903,7 @@ int sqlite3_open16(
 #endif
   if( zFilename==0 ) zFilename = "\000\000";
   pVal = sqlite3ValueNew(0);
-  sqlite3ValueSetStr(pVal, -1, zFilename, SQLITE_UTF16NATIVE, SQLITE_STATIC);
+  sqlite3ValueSetStr(pVal, -1, zFilename, SQLITE_UTF16NATIVE, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   zFilename8 = sqlite3ValueText(pVal, SQLITE_UTF8);
   if( zFilename8 ){
     rc = openDatabase(zFilename8, ppDb,
@@ -3708,9 +3929,10 @@ int sqlite3_create_collation(
   const char *zName,
   int enc,
   void* pCtx,
-  int(*xCompare)(void*,int,const void*,int,const void*)
+  int(*xCompare)(void*,int,const void*,int,const void*),
+  int *xCompare_signature
 ){
-  return sqlite3_create_collation_v2(db, zName, enc, pCtx, xCompare, 0);
+  return sqlite3_create_collation_v2(db, zName, enc, pCtx, xCompare,xCompare_signature, 0, xDestroy_signatures[xDestroy_0_enum]);
 }
 
 /*
@@ -3722,7 +3944,9 @@ int sqlite3_create_collation_v2(
   int enc,
   void* pCtx,
   int(*xCompare)(void*,int,const void*,int,const void*),
-  void(*xDel)(void*)
+  int *xCompare_signature,
+  void(*xDel)(void*),
+  int *xDel_signature
 ){
   int rc;
 
@@ -3731,7 +3955,7 @@ int sqlite3_create_collation_v2(
 #endif
   sqlite3_mutex_enter(db->mutex);
   assert( !db->mallocFailed );
-  rc = createCollation(db, zName, (u8)enc, pCtx, xCompare, xDel);
+  rc = createCollation(db, zName, (u8)enc, pCtx, xCompare, xCompare_signature, xDel, xDel_signature);
   rc = sqlite3ApiExit(db, rc);
   sqlite3_mutex_leave(db->mutex);
   return rc;
@@ -3746,7 +3970,8 @@ int sqlite3_create_collation16(
   const void *zName,
   int enc,
   void* pCtx,
-  int(*xCompare)(void*,int,const void*,int,const void*)
+  int(*xCompare)(void*,int,const void*,int,const void*),
+  int *xCompare_signature
 ){
   int rc = SQLITE_OK;
   char *zName8;
@@ -3758,7 +3983,7 @@ int sqlite3_create_collation16(
   assert( !db->mallocFailed );
   zName8 = sqlite3Utf16to8(db, zName, -1, SQLITE_UTF16NATIVE);
   if( zName8 ){
-    rc = createCollation(db, zName8, (u8)enc, pCtx, xCompare, 0);
+    rc = createCollation(db, zName8, (u8)enc, pCtx, xCompare, xCompare_signature, 0, xDel_signatures[xDel_0_enum]);
     sqlite3DbFree(db, zName8);
   }
   rc = sqlite3ApiExit(db, rc);
@@ -3774,13 +3999,15 @@ int sqlite3_create_collation16(
 int sqlite3_collation_needed(
   sqlite3 *db,
   void *pCollNeededArg,
-  void(*xCollNeeded)(void*,sqlite3*,int eTextRep,const char*)
+  void(*xCollNeeded)(void*,sqlite3*,int eTextRep,const char*),
+  int *xCollNeeded_signature
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
   if( !sqlite3SafetyCheckOk(db) ) return SQLITE_MISUSE_BKPT;
 #endif
   sqlite3_mutex_enter(db->mutex);
   db->xCollNeeded = xCollNeeded;
+  db->xCollNeeded_signature = xCollNeeded_signature;
   db->xCollNeeded16 = 0;
   db->pCollNeededArg = pCollNeededArg;
   sqlite3_mutex_leave(db->mutex);
@@ -3795,7 +4022,8 @@ int sqlite3_collation_needed(
 int sqlite3_collation_needed16(
   sqlite3 *db,
   void *pCollNeededArg,
-  void(*xCollNeeded16)(void*,sqlite3*,int eTextRep,const void*)
+  void(*xCollNeeded16)(void*,sqlite3*,int eTextRep,const void*),
+  int *xCollNeeded16_signature
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
   if( !sqlite3SafetyCheckOk(db) ) return SQLITE_MISUSE_BKPT;
@@ -3803,6 +4031,7 @@ int sqlite3_collation_needed16(
   sqlite3_mutex_enter(db->mutex);
   db->xCollNeeded = 0;
   db->xCollNeeded16 = xCollNeeded16;
+  db->xCollNeeded16_signature = xCollNeeded16_signature;
   db->pCollNeededArg = pCollNeededArg;
   sqlite3_mutex_leave(db->mutex);
   return SQLITE_OK;
@@ -3833,7 +4062,8 @@ int sqlite3_set_clientdata(
   sqlite3 *db,                   /* Attach client data to this connection */
   const char *zName,             /* Name of the client data */
   void *pData,                   /* The client data itself */
-  void (*xDestructor)(void*)     /* Destructor */
+  void (*xDestructor)(void*),
+  int *xDestructor_signature     /* Destructor */
 ){
   DbClientData *p, **pp;
   sqlite3_mutex_enter(db->mutex);
@@ -3843,7 +4073,7 @@ int sqlite3_set_clientdata(
   }
   if( p ){
     assert( p->pData!=0 );
-    if( p->xDestructor ) p->xDestructor(p->pData);
+    // if( p->xDestructor ) p->xDestructor(p->pData);
     if( pData==0 ){
       *pp = p->pNext;
       sqlite3_free(p);
@@ -3857,7 +4087,7 @@ int sqlite3_set_clientdata(
     size_t n = strlen(zName);
     p = sqlite3_malloc64( SZ_DBCLIENTDATA(n+1) );
     if( p==0 ){
-      if( xDestructor ) xDestructor(pData);
+      // if( xDestructor ) xDestructor(pData);
       sqlite3_mutex_leave(db->mutex);
       return SQLITE_NOMEM;
     }
@@ -3867,6 +4097,7 @@ int sqlite3_set_clientdata(
   }
   p->pData = pData;
   p->xDestructor = xDestructor;
+  p->xDestructor_signature = xDestructor_signature;
   sqlite3_mutex_leave(db->mutex);
   return SQLITE_OK;
 }
@@ -4289,8 +4520,8 @@ int sqlite3_test_control(int op, ...){
     */
     case SQLITE_TESTCTRL_BENIGN_MALLOC_HOOKS: {
       typedef void (*void_function)(void);
-      void (*xBenignBegin)(void);
-      void (*xBenignEnd)(void);
+      void_function xBenignBegin;
+      void_function xBenignEnd;
       xBenignBegin = va_arg(ap, void_function);
       xBenignEnd = va_arg(ap, void_function);
       sqlite3BenignMallocHooks(xBenignBegin, xBenignEnd);

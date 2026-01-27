@@ -914,7 +914,9 @@ void sqlite3RenameExprUnmap(Parse *pParse, Expr *pExpr){
   memset(&sWalker, 0, sizeof(Walker));
   sWalker.pParse = pParse;
   sWalker.xExprCallback = renameUnmapExprCb;
+  sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renameUnmapExprCb_enum];
   sWalker.xSelectCallback = renameUnmapSelectCb;
+  sWalker.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_renameUnmapSelectCb_enum];
   pParse->eParseMode = PARSE_MODE_UNMAP;
   sqlite3WalkExpr(&sWalker, pExpr);
   pParse->eParseMode = eMode;
@@ -931,6 +933,7 @@ void sqlite3RenameExprlistUnmap(Parse *pParse, ExprList *pEList){
     memset(&sWalker, 0, sizeof(Walker));
     sWalker.pParse = pParse;
     sWalker.xExprCallback = renameUnmapExprCb;
+    sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renameUnmapExprCb_enum];
     sqlite3WalkExprList(&sWalker, pEList);
     for(i=0; i<pEList->nExpr; i++){
       if( ALWAYS(pEList->a[i].fg.eEName==ENAME_NAME) ){
@@ -1286,7 +1289,8 @@ static int renameEditSql(
       sqlite3DbFree(db, pBest);
     }
 
-    sqlite3_result_text(pCtx, zOut, -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(pCtx, zOut, -1, SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3DbFree(db, zOut);
   }else{
     rc = SQLITE_NOMEM;
@@ -1554,7 +1558,9 @@ static void renameColumnFunc(
   memset(&sWalker, 0, sizeof(Walker));
   sWalker.pParse = &sParse;
   sWalker.xExprCallback = renameColumnExprCb;
+  sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renameColumnExprCb_enum];
   sWalker.xSelectCallback = renameColumnSelectCb;
+  sWalker.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_renameColumnSelectCb_enum];
   sWalker.u.pRename = &sCtx;
 
   sCtx.pTab = pTab;
@@ -1665,6 +1671,7 @@ renameColumnFunc_done:
   renameTokenFree(db, sCtx.pList);
 #ifndef SQLITE_OMIT_AUTHORIZATION
   db->xAuth = xAuth;
+  db->xAuth_signature = db->xAuth_signature;
 #endif
   sqlite3BtreeLeaveAll(db);
 }
@@ -1762,7 +1769,9 @@ static void renameTableFunc(
     memset(&sWalker, 0, sizeof(Walker));
     sWalker.pParse = &sParse;
     sWalker.xExprCallback = renameTableExprCb;
+    sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renameTableExprCb_enum];
     sWalker.xSelectCallback = renameTableSelectCb;
+    sWalker.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_renameTableSelectCb_enum];
     sWalker.u.pRename = &sCtx;
 
     rc = renameParseSql(&sParse, zDb, db, zInput, bTemp);
@@ -1876,6 +1885,7 @@ static void renameTableFunc(
     sqlite3BtreeLeaveAll(db);
 #ifndef SQLITE_OMIT_AUTHORIZATION
     db->xAuth = xAuth;
+    db->xAuth_signature = db->xAuth_signature;
 #endif
   }
 
@@ -1947,7 +1957,9 @@ static void renameQuotefixFunc(
       memset(&sWalker, 0, sizeof(Walker));
       sWalker.pParse = &sParse;
       sWalker.xExprCallback = renameQuotefixExprCb;
+      sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renameQuotefixExprCb_enum];
       sWalker.xSelectCallback = renameColumnSelectCb;
+      sWalker.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_renameColumnSelectCb_enum];
       sWalker.u.pRename = &sCtx;
 
       if( sParse.pNewTable ){
@@ -2000,6 +2012,7 @@ static void renameQuotefixFunc(
 
 #ifndef SQLITE_OMIT_AUTHORIZATION
   db->xAuth = xAuth;
+  db->xAuth_signature = db->xAuth_signature;
 #endif
 
   sqlite3BtreeLeaveAll(db);
@@ -2089,6 +2102,7 @@ static void renameTableTest(
 
 #ifndef SQLITE_OMIT_AUTHORIZATION
   db->xAuth = xAuth;
+  db->xAuth_signature = db->xAuth_signature;
 #endif
 }
 
@@ -2148,13 +2162,15 @@ static void dropColumnFunc(
   }
 
   zNew = sqlite3MPrintf(db, "%.*s%s", pCol->t.z-zSql, zSql, zEnd);
-  sqlite3_result_text(context, zNew, -1, SQLITE_TRANSIENT);
+  sqlite3_result_text(context, zNew, -1, SQLITE_TRANSIENT,
+                      xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   sqlite3_free(zNew);
 
 drop_column_done:
   renameParseCleanup(&sParse);
 #ifndef SQLITE_OMIT_AUTHORIZATION
   db->xAuth = xAuth;
+  db->xAuth_signature = db->xAuth_signature;
 #endif
   if( rc!=SQLITE_OK ){
     sqlite3_result_error_code(context, rc);

@@ -35,8 +35,9 @@ typedef struct BenignMallocHooks BenignMallocHooks;
 static SQLITE_WSD struct BenignMallocHooks {
   void (*xBenignBegin)(void);
   void (*xBenignEnd)(void);
-  int xBenignBegin_signature;
-  int xBenignEnd_signature;
+  int *xBenignBegin_signature;
+  int *xBenignEnd_signature;
+
 } sqlite3Hooks = { 0, 0 };
 
 /* The "wsdHooks" macro will resolve to the appropriate BenignMallocHooks

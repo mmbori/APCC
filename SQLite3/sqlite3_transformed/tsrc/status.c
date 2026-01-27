@@ -299,7 +299,13 @@ int sqlite3_db_status(
         if( ALWAYS(pSchema!=0) ){
           HashElem *p;
 
-          nByte += sqlite3GlobalConfig.m.xRoundup(sizeof(HashElem)) * (
+          // nByte += sqlite3GlobalConfig.m.xRoundup(sizeof(HashElem)) * (
+          //     pSchema->tblHash.count 
+          //   + pSchema->trigHash.count
+          //   + pSchema->idxHash.count
+          //   + pSchema->fkeyHash.count
+          // );
+          nByte += sqlite3MemRoundup(sizeof(HashElem)) * (
               pSchema->tblHash.count 
             + pSchema->trigHash.count
             + pSchema->idxHash.count

@@ -442,7 +442,19 @@ static int isAuxiliaryVtabOperator(
       assert( !ExprHasProperty(pExpr, EP_IntValue) );
       pMod = (sqlite3_module *)pVtab->pModule;
       if( pMod->xFindFunction!=0 ){
-        i = pMod->xFindFunction(pVtab,2, pExpr->u.zToken, &xNotUsed, &pNotUsed);
+        if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_0_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+          i = 0;
+        }
+        else
+          if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_fts3FindFunctionMethod_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+            i = fts3FindFunctionMethod(pVtab, 2, pExpr->u.zToken, &xNotUsed,
+                                       &pNotUsed);
+          }
+        else
+          if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_zipfileFindFunction_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+            i = zipfileFindFunction(pVtab, 2, pExpr->u.zToken, &xNotUsed,
+                                    &pNotUsed);
+          }
         if( i>=SQLITE_INDEX_CONSTRAINT_FUNCTION ){
           *peOp2 = i;
           *ppRight = pList->a[1].pExpr;

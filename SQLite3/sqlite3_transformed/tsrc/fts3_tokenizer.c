@@ -61,8 +61,11 @@ static int fts3TokenizerEnabled(sqlite3_context *context){
 ** is a blob containing the pointer stored as the hash data corresponding
 ** to string <key-name> (after the hash-table is updated, if applicable).
 */
-void fts3TokenizerFunc(sqlite3_context *context, int argc,
-                       sqlite3_value **argv){
+static void fts3TokenizerFunc(
+  sqlite3_context *context,
+  int argc,
+  sqlite3_value **argv
+){
   Fts3Hash *pHash;
   void *pPtr = 0;
   const unsigned char *zName;
@@ -104,7 +107,7 @@ void fts3TokenizerFunc(sqlite3_context *context, int argc,
     }
   }
   if( fts3TokenizerEnabled(context) || sqlite3_value_frombind(argv[0]) ){
-    sqlite3_result_blob(context, (void *)&pPtr, sizeof(pPtr), SQLITE_TRANSIENT);
+    sqlite3_result_blob(context, (void *)&pPtr, sizeof(pPtr), SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
 }
 
@@ -206,7 +209,145 @@ int sqlite3Fts3InitTokenizer(
       sqlite3Fts3Dequote(z);
       z = &z[n+1];
     }
-    rc = m->xCreate(iArg, aArg, ppTok);
+    if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_0_enum], sizeof(m->xCreate_signature)) == 0) {
+      rc = 0;
+    }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_amatchConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = amatchConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_closureConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = closureConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_csvtabCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = csvtabCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_dbpageConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = dbpageConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_echoCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = echoCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_expertConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = expertConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_f5tOrigintextCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = f5tOrigintextCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_f5tTokenizerCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = f5tTokenizerCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fsConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fsConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fsdirConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fsdirConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fstreeConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fstreeConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fts3CreateMethod_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fts3CreateMethod(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fts3auxConnectMethod_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fts3auxConnectMethod(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fts3termConnectMethod_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fts3termConnectMethod(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fts3tokConnectMethod_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fts3tokConnectMethod(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_fuzzerConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = fuzzerConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_geopolyCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = geopolyCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_intarrayCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = intarrayCreate(iArg, aArg, ppTok);
+    //   }
+    else
+      if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_pcache1Create_enum], sizeof(m->xCreate_signature)) == 0) {
+        rc = pcache1Create(iArg, aArg, ppTok);
+      }
+    else
+      if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_pcachetraceCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+        rc = pcachetraceCreate(iArg, aArg, ppTok);
+      }
+    else
+      if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_porterCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+        rc = porterCreate(iArg, aArg, ppTok);
+      }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_rtreeCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = rtreeCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_schemaCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = schemaCreate(iArg, aArg, ppTok);
+    //   }
+    else
+      if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_simpleCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+        rc = simpleCreate(iArg, aArg, ppTok);
+      }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_spellfix1Create_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = spellfix1Create(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_statConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = statConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_tclConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = tclConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_tclvarConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = tclvarConnect(iArg, aArg, ppTok);
+    //   }
+    else
+      if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_unicodeCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+        rc = unicodeCreate(iArg, aArg, ppTok);
+      }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_unionConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = unionConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_vlogConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = vlogConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_vtablogCreate_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = vtablogCreate(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_wholenumberConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = wholenumberConnect(iArg, aArg, ppTok);
+    //   }
+    // else
+    //   if (memcmp(m->xCreate_signature, xCreate_signatures[xCreate_zipfileConnect_enum], sizeof(m->xCreate_signature)) == 0) {
+    //     rc = zipfileConnect(iArg, aArg, ppTok);
+    //   }
     assert( rc!=SQLITE_OK || *ppTok );
     if( rc!=SQLITE_OK ){
       sqlite3Fts3ErrMsg(pzErr, "unknown tokenizer");
@@ -337,7 +478,7 @@ finish:
   if( zErr ){
     sqlite3_result_error(context, zErr, -1);
   }else{
-    sqlite3_result_text(context, Tcl_GetString(pRet), -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, Tcl_GetString(pRet), -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
   Tcl_DecrRefCount(pRet);
 }
@@ -357,8 +498,8 @@ int registerTokenizer(
     return rc;
   }
 
-  sqlite3_bind_text(pStmt, 1, zName, -1, SQLITE_STATIC);
-  sqlite3_bind_blob(pStmt, 2, &p, sizeof(p), SQLITE_STATIC);
+  sqlite3_bind_text(pStmt, 1, zName, -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
+  sqlite3_bind_blob(pStmt, 2, &p, sizeof(p), SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   sqlite3_step(pStmt);
 
   return sqlite3_finalize(pStmt);
@@ -381,7 +522,7 @@ int queryTokenizer(
     return rc;
   }
 
-  sqlite3_bind_text(pStmt, 1, zName, -1, SQLITE_STATIC);
+  sqlite3_bind_text(pStmt, 1, zName, -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   if( SQLITE_ROW==sqlite3_step(pStmt) ){
     if( sqlite3_column_type(pStmt, 0)==SQLITE_BLOB
      && sqlite3_column_bytes(pStmt, 0)==sizeof(*pp)
@@ -445,7 +586,7 @@ static void intTestFunc(
     assert( p2==p1 );
   }
 
-  sqlite3_result_text(context, "ok", -1, SQLITE_STATIC);
+  sqlite3_result_text(context, "ok", -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 }
 
 #endif
@@ -488,17 +629,17 @@ int sqlite3Fts3InitHashTable(
 #endif
 
   if( SQLITE_OK==rc ){
-    rc = sqlite3_create_function(db, zName, 1, any, p, fts3TokenizerFunc, 0, 0);
+    rc = sqlite3_create_function(db, zName, 1, any, p, fts3TokenizerFunc, xSFunc_signatures[xSFunc_fts3TokenizerFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   if( SQLITE_OK==rc ){
-    rc = sqlite3_create_function(db, zName, 2, any, p, fts3TokenizerFunc, 0, 0);
+    rc = sqlite3_create_function(db, zName, 2, any, p, fts3TokenizerFunc, xSFunc_signatures[xSFunc_fts3TokenizerFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 #ifdef SQLITE_TEST
   if( SQLITE_OK==rc ){
-    rc = sqlite3_create_function(db, zTest, -1, any, p, testFunc, 0, 0);
+    rc = sqlite3_create_function(db, zTest, -1, any, p, testFunc, xSFunc_signatures[xSFunc_testFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   if( SQLITE_OK==rc ){
-    rc = sqlite3_create_function(db, zTest2, 0, any, pdb, intTestFunc, 0, 0);
+    rc = sqlite3_create_function(db, zTest2, 0, any, pdb, intTestFunc, xSFunc_signatures[xSFunc_intTestFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 #endif
 

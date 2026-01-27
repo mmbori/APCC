@@ -41,7 +41,8 @@ Module *sqlite3VtabCreateModule(
   const char *zName,              /* Name assigned to this module */
   const sqlite3_module *pModule,  /* The definition of the module */
   void *pAux,                     /* Context pointer for xCreate/xConnect */
-  void (*xDestroy)(void *)        /* Module destructor function */
+  void (*xDestroy)(void *),        /* Module destructor function */
+  int *xDestroy_signature
 ){
   Module *pMod;
   Module *pDel;
@@ -62,6 +63,7 @@ Module *sqlite3VtabCreateModule(
     pMod->pModule = pModule;
     pMod->pAux = pAux;
     pMod->xDestroy = xDestroy;
+    pMod->xDestroy_signature = xDestroy_signature;
     pMod->pEpoTab = 0;
     pMod->nRefModule = 1;
   }
@@ -89,14 +91,31 @@ static int createModule(
   const char *zName,              /* Name assigned to this module */
   const sqlite3_module *pModule,  /* The definition of the module */
   void *pAux,                     /* Context pointer for xCreate/xConnect */
-  void (*xDestroy)(void *)        /* Module destructor function */
+  void (*xDestroy)(void *),
+  int *xDestroy_signature        /* Module destructor function */
 ){
   int rc = SQLITE_OK;
 
   sqlite3_mutex_enter(db->mutex);
-  (void)sqlite3VtabCreateModule(db, zName, pModule, pAux, xDestroy);
+  (void)sqlite3VtabCreateModule(db, zName, pModule, pAux, xDestroy, xDestroy_signature);
   rc = sqlite3ApiExit(db, rc);
-  if( rc!=SQLITE_OK && xDestroy ) xDestroy(pAux);
+  if( rc!=SQLITE_OK && xDestroy ) {
+    if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(xDestroy_signature)) == 0) {
+      0;
+    }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_hashDestroy_enum], sizeof(xDestroy_signature)) == 0) {
+        hashDestroy(pAux);
+      }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum], sizeof(xDestroy_signature)) == 0) {
+        rtreeFreeCallback(pAux);
+      }
+    else
+      if (memcmp(xDestroy_signature, xDestroy_signatures[xDestroy_sqlite3_free_enum], sizeof(xDestroy_signature)) == 0) {
+        sqlite3_free(pAux);
+      }
+  }
   sqlite3_mutex_leave(db->mutex);
   return rc;
 }
@@ -114,7 +133,7 @@ int sqlite3_create_module(
 #ifdef SQLITE_ENABLE_API_ARMOR
   if( !sqlite3SafetyCheckOk(db) || zName==0 ) return SQLITE_MISUSE_BKPT;
 #endif
-  return createModule(db, zName, pModule, pAux, 0);
+  return createModule(db, zName, pModule, pAux, 0, xDestroy_signatures[xDestroy_0_enum]);
 }
 
 /*
@@ -125,12 +144,13 @@ int sqlite3_create_module_v2(
   const char *zName,              /* Name assigned to this module */
   const sqlite3_module *pModule,  /* The definition of the module */
   void *pAux,                     /* Context pointer for xCreate/xConnect */
-  void (*xDestroy)(void *)        /* Module destructor function */
+  void (*xDestroy)(void *),
+  int *xDestroy_signature        /* Module destructor function */
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
   if( !sqlite3SafetyCheckOk(db) || zName==0 ) return SQLITE_MISUSE_BKPT;
 #endif
-  return createModule(db, zName, pModule, pAux, xDestroy);
+  return createModule(db, zName, pModule, pAux, xDestroy, xDestroy_signature);
 }
 
 /*
@@ -150,7 +170,7 @@ int sqlite3_drop_modules(sqlite3 *db, const char** azNames){
       for(ii=0; azNames[ii]!=0 && strcmp(azNames[ii],pMod->zName)!=0; ii++){}
       if( azNames[ii]!=0 ) continue;
     }
-    createModule(db, pMod->zName, 0, 0, 0);
+    createModule(db, pMod->zName, 0, 0, 0, xDestroy_signatures[xDestroy_0_enum]);
   }
   return SQLITE_OK;
 }
@@ -164,7 +184,41 @@ void sqlite3VtabModuleUnref(sqlite3 *db, Module *pMod){
   pMod->nRefModule--;
   if( pMod->nRefModule==0 ){
     if( pMod->xDestroy ){
-      pMod->xDestroy(pMod->pAux);
+      if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          dbpageDisconnect(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          fsdirDisconnect(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          fts3tokDisconnectMethod(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          pcache1Destroy(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          rtreeDestroy(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          simpleDestroy(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          statDisconnect(pMod->pAux);
+        }
+      else
+        if (memcmp(pMod->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pMod->xDestroy_signature)) == 0) {
+          unicodeDestroy(pMod->pAux);
+        }
     }
     assert( pMod->pEpoTab==0 );
     sqlite3DbFree(db, pMod);
@@ -212,7 +266,69 @@ void sqlite3VtabUnlock(VTable *pVTab){
   if( pVTab->nRef==0 ){
     sqlite3_vtab *p = pVTab->pVtab;
     if( p ){
-      p->pModule->xDisconnect(p);
+      if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_bytecodevtabDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+        bytecodevtabDisconnect(p);
+      }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_completionDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          completionDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_dbdataDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          dbdataDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_dbpageDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          dbpageDisconnect(p);
+        }
+      // else
+      //   if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_expertDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+      //     expertDisconnect(p);
+      //   }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_fsdirDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          fsdirDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_fts3DisconnectMethod_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          fts3DisconnectMethod(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_fts3auxDisconnectMethod_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          fts3auxDisconnectMethod(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_fts3tokDisconnectMethod_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          fts3tokDisconnectMethod(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_jsonEachDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          jsonEachDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_pragmaVtabDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          pragmaVtabDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_rtreeDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          rtreeDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_seriesDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          seriesDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_statDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          statDisconnect(p);
+        }
+      else
+        if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_stmtDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+          stmtDisconnect(p);
+        }
+      // else
+      //   if (memcmp(p->pModule->xDisconnect_signature, xDisconnect_signatures[xDisconnect_zipfileDisconnect_enum], sizeof(p->pModule->xDisconnect_signature)) == 0) {
+      //     zipfileDisconnect(p);
+      //   }
     }
     sqlite3VtabModuleUnref(pVTab->db, pVTab->pMod);
     sqlite3DbFree(db, pVTab);
@@ -559,6 +675,7 @@ static int vtabCallConstructor(
   Table *pTab,
   Module *pMod,
   int (*xConstruct)(sqlite3*,void*,int,const char*const*,sqlite3_vtab**,char**),
+  int *xConstruct_signature,
   char **pzErr
 ){
   VtabCtx sCtx;
@@ -611,7 +728,102 @@ static int vtabCallConstructor(
   sCtx.bDeclared = 0;
   db->pVtabCtx = &sCtx;
   pTab->nTabRef++;
-  rc = xConstruct(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+  if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_bytecodevtabConnect_enum], sizeof(xConstruct_signature)) == 0) {
+    rc = bytecodevtabConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                             &zErr);
+  }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_completionConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = completionConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                             &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_dbdataConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = dbdataConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_dbpageConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = dbpageConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_fsdirConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = fsdirConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_fts3ConnectMethod_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = fts3ConnectMethod(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                             &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_fts3auxConnectMethod_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = fts3auxConnectMethod(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                                &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_fts3tokConnectMethod_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = fts3tokConnectMethod(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                                &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_jsonEachConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = jsonEachConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                           &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_pragmaVtabConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = pragmaVtabConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                             &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_rtreeConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = rtreeConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_seriesConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = seriesConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_statConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = statConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_stmtConnect_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = stmtConnect(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_0_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = 0;
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_fts3CreateMethod_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = fts3CreateMethod(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                            &zErr);
+    }
+  // else
+  //   if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_pcache1Create_enum], sizeof(xConstruct_signature)) == 0) {
+  //     rc = pcache1Create(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+  //   }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_pcachetraceCreate_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = pcachetraceCreate(db, pMod->pAux, nArg, azArg, &pVTable->pVtab,
+                             &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_porterCreate_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = porterCreate(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  else
+    if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_rtreeCreate_enum], sizeof(xConstruct_signature)) == 0) {
+      rc = rtreeCreate(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+    }
+  // else
+  //   if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_simpleCreate_enum], sizeof(xConstruct_signature)) == 0) {
+  //     rc = simpleCreate(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+  //   }
+  // else
+  //   if (memcmp(xConstruct_signature, xConstruct_signatures[xConstruct_unicodeCreate_enum], sizeof(xConstruct_signature)) == 0) {
+  //     rc = unicodeCreate(db, pMod->pAux, nArg, azArg, &pVTable->pVtab, &zErr);
+  //   }
   assert( pTab!=0 );
   assert( pTab->nTabRef>1 || rc!=SQLITE_OK );
   sqlite3DeleteTable(db, pTab);
@@ -716,7 +928,7 @@ int sqlite3VtabCallConnect(Parse *pParse, Table *pTab){
     rc = SQLITE_ERROR;
   }else{
     char *zErr = 0;
-    rc = vtabCallConstructor(db, pTab, pMod, pMod->pModule->xConnect, &zErr);
+    rc = vtabCallConstructor(db, pTab, pMod, pMod->pModule->xConnect, pMod->pModule->xConnect_signature, &zErr);
     if( rc!=SQLITE_OK ){
       sqlite3ErrorMsg(pParse, "%s", zErr);
       pParse->rc = rc;
@@ -788,7 +1000,7 @@ int sqlite3VtabCallCreate(sqlite3 *db, int iDb, const char *zTab, char **pzErr){
     *pzErr = sqlite3MPrintf(db, "no such module: %s", zMod);
     rc = SQLITE_ERROR;
   }else{
-    rc = vtabCallConstructor(db, pTab, pMod, pMod->pModule->xCreate, pzErr);
+    rc = vtabCallConstructor(db, pTab, pMod, pMod->pModule->xCreate, pMod->pModule->xCreate_signature, pzErr);
   }
 
   /* Justification of ALWAYS():  The xConstructor method is required to
@@ -945,7 +1157,47 @@ int sqlite3VtabCallDestroy(sqlite3 *db, int iDb, const char *zTab){
     if( xDestroy==0 ) xDestroy = p->pMod->pModule->xDisconnect;
     assert( xDestroy!=0 );
     pTab->nTabRef++;
-    rc = xDestroy(p->pVtab);
+    // rc = xDestroy(p->pVtab);
+    if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_hashDestroy_enum], sizeof(int[4])) == 0) {
+        rc = hashDestroy(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum], sizeof(int[4])) == 0) {
+        rc = rtreeFreeCallback(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(int[4])) == 0) {
+        rc = dbpageDisconnect(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3DestroyMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3DestroyMethod(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3auxDisconnectMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3auxDisconnectMethod(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3tokDisconnectMethod(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_pcachetraceDestroy_enum], sizeof(int[4])) == 0) {
+        rc = pcachetraceDestroy(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_porterDestroy_enum], sizeof(int[4])) == 0) {
+        rc = porterDestroy(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(int[4])) == 0) {
+        rc = rtreeDestroy(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(int[4])) == 0) {
+        rc = simpleDestroy(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(int[4])) == 0) {
+        rc = statDisconnect(p->pVtab);
+    }
+    else if (memcmp(p->pMod->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(int[4])) == 0) {
+        rc = unicodeDestroy(p->pVtab);
+    }
+
     /* Remove the sqlite3_vtab* from the aVTrans[] array, if applicable */
     if( rc==SQLITE_OK ){
       assert( pTab->u.vtab.p==p && p->pNext==0 );
@@ -1005,7 +1257,23 @@ int sqlite3VtabSync(sqlite3 *db, Vdbe *p){
     int (*x)(sqlite3_vtab *);
     sqlite3_vtab *pVtab = aVTrans[i]->pVtab;
     if( pVtab && (x = pVtab->pModule->xSync)!=0 ){
-      rc = x(pVtab);
+      // rc = x(pVtab);
+      if (memcmp(pVtab->pModule->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(int[4])) == 0) {
+      ;
+      }
+      else if (memcmp(pVtab->pModule->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(int[4])) == 0) {
+          rc = apndSync(pVtab);
+      }
+      else if (memcmp(pVtab->pModule->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(int[4])) == 0) {
+          rc = dbpageSync(pVtab);
+      }
+      else if (memcmp(pVtab->pModule->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(int[4])) == 0) {
+          rc = fts3SyncMethod(pVtab);
+      }
+      else if (memcmp(pVtab->pModule->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(int[4])) == 0) {
+          rc = rtreeEndTransaction(pVtab);
+      }
+      
       sqlite3VtabImportErrmsg(p, pVtab);
     }
   }
@@ -1070,13 +1338,41 @@ int sqlite3VtabBegin(sqlite3 *db, VTable *pVTab){
     ** sqlite3.aVTrans[] array. */
     rc = growVTrans(db);
     if( rc==SQLITE_OK ){
-      rc = pModule->xBegin(pVTab->pVtab);
+      if (memcmp(pModule->xBegin_signature, xBegin_signatures[xBegin_0_enum], sizeof(pModule->xBegin_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(pModule->xBegin_signature, xBegin_signatures[xBegin_dbpageBegin_enum], sizeof(pModule->xBegin_signature)) == 0) {
+          rc = dbpageBegin(pVTab->pVtab);
+        }
+      else
+        if (memcmp(pModule->xBegin_signature, xBegin_signatures[xBegin_fts3BeginMethod_enum], sizeof(pModule->xBegin_signature)) == 0) {
+          rc = fts3BeginMethod(pVTab->pVtab);
+        }
+      else
+        if (memcmp(pModule->xBegin_signature, xBegin_signatures[xBegin_rtreeBeginTransaction_enum], sizeof(pModule->xBegin_signature)) == 0) {
+          rc = rtreeBeginTransaction(pVTab->pVtab);
+        }
+      else
+        if (memcmp(pModule->xBegin_signature, xBegin_signatures[xBegin_zipfileBegin_enum], sizeof(pModule->xBegin_signature)) == 0) {
+          rc = zipfileBegin(pVTab->pVtab);
+        }
       if( rc==SQLITE_OK ){
         int iSvpt = db->nStatement + db->nSavepoint;
         addToVTrans(db, pVTab);
         if( iSvpt && pModule->xSavepoint ){
           pVTab->iSavepoint = iSvpt;
-          rc = pModule->xSavepoint(pVTab->pVtab, iSvpt-1);
+          if (memcmp(pModule->xSavepoint_signature, xSavepoint_signatures[xSavepoint_0_enum], sizeof(pModule->xSavepoint_signature)) == 0) {
+            rc = 0;
+          }
+          else
+            if (memcmp(pModule->xSavepoint_signature, xSavepoint_signatures[xSavepoint_fts3SavepointMethod_enum], sizeof(pModule->xSavepoint_signature)) == 0) {
+              rc = fts3SavepointMethod(pVTab->pVtab, iSvpt - 1);
+            }
+          else
+            if (memcmp(pModule->xSavepoint_signature, xSavepoint_signatures[xSavepoint_rtreeSavepoint_enum], sizeof(pModule->xSavepoint_signature)) == 0) {
+              rc = rtreeSavepoint(pVTab->pVtab, iSvpt - 1);
+            }
         }
       }
     }
@@ -1193,7 +1489,17 @@ FuncDef *sqlite3VtabOverloadFunction(
     }
   }
 #endif
-  rc = pMod->xFindFunction(pVtab, nArg, pDef->zName, &xSFunc, &pArg);
+  if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_0_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+    rc = 0;
+  }
+  else
+    if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_fts3FindFunctionMethod_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+      rc = fts3FindFunctionMethod(pVtab, nArg, pDef->zName, &xSFunc, &pArg);
+    }
+  else
+    if (memcmp(pMod->xFindFunction_signature, xFindFunction_signatures[xFindFunction_zipfileFindFunction_enum], sizeof(pMod->xFindFunction_signature)) == 0) {
+      rc = zipfileFindFunction(pVtab, nArg, pDef->zName, &xSFunc, &pArg);
+    }
   if( rc==0 ){
     return pDef;
   }
@@ -1209,6 +1515,7 @@ FuncDef *sqlite3VtabOverloadFunction(
   pNew->zName = (const char*)&pNew[1];
   memcpy((char*)&pNew[1], pDef->zName, sqlite3Strlen30(pDef->zName)+1);
   pNew->xSFunc = xSFunc;
+  pNew->xSFunc_signature = xSFunc_signatures[xSFunc_xSFunc_enum];
   pNew->pUserData = pArg;
   pNew->funcFlags |= SQLITE_FUNC_EPHEM;
   return pNew;
@@ -1279,7 +1586,7 @@ int sqlite3VtabEponymousTableInit(Parse *pParse, Module *pMod){
   addModuleArgument(pParse, pTab, sqlite3DbStrDup(db, pTab->zName));
   addModuleArgument(pParse, pTab, 0);
   addModuleArgument(pParse, pTab, sqlite3DbStrDup(db, pTab->zName));
-  rc = vtabCallConstructor(db, pTab, pMod, pModule->xConnect, &zErr);
+  rc = vtabCallConstructor(db, pTab, pMod, pModule->xConnect, pModule->xConnect_signature, &zErr);
   if( rc ){
     sqlite3ErrorMsg(pParse, "%s", zErr);
     sqlite3DbFree(db, zErr);

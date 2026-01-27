@@ -703,10 +703,9 @@ struct Pager {
 #ifdef SQLITE_ENABLE_SETLK_TIMEOUT
   sqlite3 *dbWal;
 #endif
-
-  int xBusyHandler_signature;
-  int xReiniter_signature;
-  int xGet_signature;
+  int *xBusyHandler_signature;
+  int *xReiniter_signature;
+  int *xGet_signature;
 };
 
 /*
@@ -819,8 +818,31 @@ int sqlite3PagerDirectReadOk(Pager *pPager, Pgno pgno){
   }
 #endif
   assert( pPager->fd->pMethods->xDeviceCharacteristics!=0 );
-  if( (pPager->fd->pMethods->xDeviceCharacteristics(pPager->fd)
-        & SQLITE_IOCAP_SUBPAGE_READ)==0 ){
+  int rc;
+  if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_0_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+    rc = 0;
+  }
+  else
+    if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_apndDeviceCharacteristics_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      rc = apndDeviceCharacteristics(pPager->fd);
+    }
+  else
+    if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_memdbDeviceCharacteristics_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      rc = memdbDeviceCharacteristics(pPager->fd);
+    }
+  else
+    if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_recoverVfsDeviceCharacteristics_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      rc = recoverVfsDeviceCharacteristics(pPager->fd);
+    }
+  else
+    if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_vfstraceDeviceCharacteristics_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      rc = vfstraceDeviceCharacteristics(pPager->fd);
+    }
+  else
+    if (memcmp(pPager->fd->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_unixDeviceCharacteristics_enum], sizeof(pPager->fd->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      rc = unixDeviceCharacteristics(pPager->fd);
+    }
+  if( (rc & SQLITE_IOCAP_SUBPAGE_READ)==0 ){
     return 0; /* Case (2) */
   }
   return 1;
@@ -1034,10 +1056,10 @@ char *print_pager_state(Pager *p){
 #endif
 
 /* Forward references to the various page getters */
-int getPageNormal(Pager *, Pgno, DbPage **, int);
-int getPageError(Pager *, Pgno, DbPage **, int);
+int getPageNormal(Pager*,Pgno,DbPage**,int);
+int getPageError(Pager*,Pgno,DbPage**,int);
 #if SQLITE_MAX_MMAP_SIZE>0
-int getPageMMap(Pager *, Pgno, DbPage **, int);
+int getPageMMap(Pager*,Pgno,DbPage**,int);
 #endif
 
 /*
@@ -1047,12 +1069,15 @@ int getPageMMap(Pager *, Pgno, DbPage **, int);
 static void setGetterMethod(Pager *pPager){
   if( pPager->errCode ){
     pPager->xGet = getPageError;
+    pPager->xGet_signature = xGet_signatures[xGet_getPageError_enum];
 #if SQLITE_MAX_MMAP_SIZE>0
   }else if( USEFETCH(pPager) ){
     pPager->xGet = getPageMMap;
+    pPager->xGet_signature = xGet_signatures[xGet_getPageMMap_enum];
 #endif /* SQLITE_MAX_MMAP_SIZE>0 */
   }else{
     pPager->xGet = getPageNormal;
+    pPager->xGet_signature = xGet_signatures[xGet_getPageNormal_enum];
   }
 }
 
@@ -2114,7 +2139,8 @@ static int pager_end_transaction(Pager *pPager, int hasSuper, int bCommit){
   }
 
 #ifdef SQLITE_CHECK_PAGES
-  sqlite3PcacheIterateDirty(pPager->pPCache, pager_set_pagehash);
+  sqlite3PcacheIterateDirty(pPager->pPCache, pager_set_pagehash,
+                            xIter_signatures[xIter_pager_set_pagehash_enum]);
   if( pPager->dbSize==0 && sqlite3PcacheRefCount(pPager->pPCache)>0 ){
     PgHdr *p = sqlite3PagerLookup(pPager, 1);
     if( p ){
@@ -2473,7 +2499,7 @@ static int pager_playback_one_page(
     void *pData;
     pData = pPg->pData;
     memcpy(pData, (u8*)aData, pPager->pageSize);
-    pPager->xReiniter(pPg);
+    pageReinit(pPg);
     /* It used to be that sqlite3PcacheMakeClean(pPg) was called here.  But
     ** that call was dangerous and had no detectable benefit since the cache
     ** is normally cleaned by sqlite3PcacheCleanAll() after rollback and so
@@ -3111,7 +3137,7 @@ static void pager_write_changecounter(PgHdr *pPg){
 ** attempt to reload content from the database is required and fails,
 ** return an SQLite error code. Otherwise, SQLITE_OK.
 */
-int pagerUndoCallback(void *pCtx, Pgno iPg){
+static int pagerUndoCallback(void *pCtx, Pgno iPg){
   int rc = SQLITE_OK;
   Pager *pPager = (Pager *)pCtx;
   PgHdr *pPg;
@@ -3124,7 +3150,7 @@ int pagerUndoCallback(void *pCtx, Pgno iPg){
     }else{
       rc = readDbPage(pPg);
       if( rc==SQLITE_OK ){
-        pPager->xReiniter(pPg);
+        pageReinit(pPg);
       }
       sqlite3PagerUnrefNotNull(pPg);
     }
@@ -3158,7 +3184,9 @@ static int pagerRollbackWal(Pager *pPager){
   **   + Reload page content from the database (if refcount>0).
   */
   pPager->dbSize = pPager->dbOrigSize;
-  rc = sqlite3WalUndo(pPager->pWal, pagerUndoCallback, (void *)pPager);
+  rc = sqlite3WalUndo(pPager->pWal, pagerUndoCallback,
+                      xUndo_signatures[xUndo_pagerUndoCallback_enum],
+                      (void *)pPager);
   pList = sqlite3PcacheDirtyList(pPager->pPCache);
   while( pList && rc==SQLITE_OK ){
     PgHdr *pNext = pList->pDirty;
@@ -3724,11 +3752,13 @@ static int pagerOpentemp(
 */
 void sqlite3PagerSetBusyHandler(
   Pager *pPager,                       /* Pager object */
-  int (*xBusyHandler)(void *),         /* Pointer to busy-handler function */
+  int (*xBusyHandler)(void *),
+  int *xBusyHandler_signature,         /* Pointer to busy-handler function */
   void *pBusyHandlerArg                /* Argument to pass to xBusyHandler */
 ){
   void **ap;
   pPager->xBusyHandler = xBusyHandler;
+  pPager->xBusyHandler_signature = xBusyHandler_signature;
   pPager->pBusyHandlerArg = pBusyHandlerArg;
   ap = (void **)&pPager->xBusyHandler;
   assert( ((int(*)(void *))(ap[0]))==xBusyHandler );
@@ -3947,6 +3977,7 @@ void sqlite3PagerPagecount(Pager *pPager, int *pnPage){
 */
 static int pager_wait_on_lock(Pager *pPager, int locktype){
   int rc;                              /* Return code */
+  int rc2;
 
   /* Check that this is either a no-op (because the requested lock is
   ** already held), or one of the transitions that the busy-handler
@@ -3958,9 +3989,36 @@ static int pager_wait_on_lock(Pager *pPager, int locktype){
        || (pPager->eLock==RESERVED_LOCK && locktype==EXCLUSIVE_LOCK)
   );
 
-  do {
+  rc = pagerLockDb(pPager, locktype);
+  // rc2 = pPager->xBusyHandler(pPager->pBusyHandlerArg);
+  if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_btreeInvokeBusyHandler_enum], sizeof(int[4])) == 0) {
+    rc2 = btreeInvokeBusyHandler(pPager->pBusyHandlerArg);
+  }
+  else if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_0_enum], sizeof(int[4])) == 0) {
+      rc2 = 0;
+  }
+  else if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_sqliteDefaultBusyCallback_enum], sizeof(int[4])) == 0) {
+      rc2 = sqliteDefaultBusyCallback(pPager->pBusyHandlerArg);
+  }
+
+  while (rc2 && rc==SQLITE_BUSY) {
     rc = pagerLockDb(pPager, locktype);
-  }while( rc==SQLITE_BUSY && pPager->xBusyHandler(pPager->pBusyHandlerArg) );
+    // rc2 = pPager->xBusyHandler(pPager->pBusyHandlerArg);
+    if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_btreeInvokeBusyHandler_enum], sizeof(int[4])) == 0) {
+    rc2 = btreeInvokeBusyHandler(pPager->pBusyHandlerArg);
+    }
+    else if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_0_enum], sizeof(int[4])) == 0) {
+        rc2 = 0;
+    }
+    else if (memcmp(pPager->xBusyHandler_signature, xBusyHandler_signatures[xBusyHandler_sqliteDefaultBusyCallback_enum], sizeof(int[4])) == 0) {
+        rc2 = sqliteDefaultBusyCallback(pPager->pBusyHandlerArg);
+    }
+  }
+
+  // do {
+  //   rc = pagerLockDb(pPager, locktype);
+  // }while( rc==SQLITE_BUSY && pPager->xBusyHandler(pPager->pBusyHandlerArg) );
+
   return rc;
 }
 
@@ -3999,7 +4057,8 @@ static void assertTruncateConstraintCb(PgHdr *pPg){
   }
 }
 static void assertTruncateConstraint(Pager *pPager){
-  sqlite3PcacheIterateDirty(pPager->pPCache, assertTruncateConstraintCb);
+  sqlite3PcacheIterateDirty(pPager->pPCache, assertTruncateConstraintCb,
+                            xIter_signatures[xIter_assertTruncateConstraintCb_enum]);
 }
 #else
 # define assertTruncateConstraint(pPager)
@@ -4606,7 +4665,7 @@ static int subjournalPageIfRequired(PgHdr *pPg){
 ** made clean for some other reason, but no error occurs, then SQLITE_OK
 ** is returned by sqlite3PcacheMakeClean() is not called.
 */
-static int pagerStress(void *p, PgHdr *pPg){
+int pagerStress(void *p, PgHdr *pPg){
   Pager *pPager = (Pager *)p;
   int rc = SQLITE_OK;
 
@@ -4739,7 +4798,8 @@ int sqlite3PagerOpen(
   int nExtra,              /* Extra bytes append to each in-memory page */
   int flags,               /* flags controlling this file */
   int vfsFlags,            /* flags passed through to sqlite3_vfs.xOpen() */
-  void (*xReinit)(DbPage*) /* Function to reinitialize pages */
+  void (*xReinit)(DbPage*),
+  int *xReinit_signature /* Function to reinitialize pages */
 ){
   u8 *pPtr;
   Pager *pPager = 0;       /* Pager object to allocate and return */
@@ -5024,7 +5084,7 @@ act_like_temp_file:
     nExtra = ROUND8(nExtra);
     assert( nExtra>=8 && nExtra<1000 );
     rc = sqlite3PcacheOpen(szPageDflt, nExtra, !memDb,
-                       !memDb?pagerStress:0, (void *)pPager, pPager->pPCache);
+                       !memDb?pagerStress:0, !memDb?xStress_signatures[xStress_pagerStress_enum]:xStress_signatures[xStress_0_enum], (void *)pPager, pPager->pPCache);
   }
 
   /* If an error occurred above, free the  Pager structure and close the file.
@@ -5638,7 +5698,12 @@ pager_acquire_err:
 
 #if SQLITE_MAX_MMAP_SIZE>0
 /* The page getter for when memory-mapped I/O is enabled */
-int getPageMMap(Pager *pPager, Pgno pgno, DbPage **ppPage, int flags){
+int getPageMMap(
+  Pager *pPager,      /* The pager open on the database file */
+  Pgno pgno,          /* Page number to fetch */
+  DbPage **ppPage,    /* Write a pointer to the page here */
+  int flags           /* PAGER_GET_XXX flags */
+){
   int rc = SQLITE_OK;
   PgHdr *pPg = 0;
   u32 iFrame = 0;                 /* Frame to read from WAL file */
@@ -5702,7 +5767,12 @@ int getPageMMap(Pager *pPager, Pgno pgno, DbPage **ppPage, int flags){
 #endif /* SQLITE_MAX_MMAP_SIZE>0 */
 
 /* The page getter method for when the pager is an error state */
-int getPageError(Pager *pPager, Pgno pgno, DbPage **ppPage, int flags){
+int getPageError(
+  Pager *pPager,      /* The pager open on the database file */
+  Pgno pgno,          /* Page number to fetch */
+  DbPage **ppPage,    /* Write a pointer to the page here */
+  int flags           /* PAGER_GET_XXX flags */
+){
   UNUSED_PARAMETER(pgno);
   UNUSED_PARAMETER(flags);
   assert( pPager->errCode!=SQLITE_OK );
@@ -5731,7 +5801,17 @@ int sqlite3PagerGet(
   return rc;
 #else
   /* Normal, high-speed version of sqlite3PagerGet() */
-  return pPager->xGet(pPager, pgno, ppPage, flags);
+  if (memcmp(pPager->xGet_signature, xGet_signatures[xGet_getPageError_enum], sizeof(pPager->xGet_signature)) == 0) {
+    return getPageError(pPager, pgno, ppPage, flags);
+  }
+  else
+    if (memcmp(pPager->xGet_signature, xGet_signatures[xGet_getPageMMap_enum], sizeof(pPager->xGet_signature)) == 0) {
+      return getPageMMap(pPager, pgno, ppPage, flags);
+    }
+  else
+    if (memcmp(pPager->xGet_signature, xGet_signatures[xGet_getPageNormal_enum], sizeof(pPager->xGet_signature)) == 0) {
+      return getPageNormal(pPager, pgno, ppPage, flags);
+    }
 #endif
 }
 
@@ -7515,11 +7595,11 @@ int sqlite3PagerCheckpoint(
     ** sqlite3_wal_checkpoint() call, but it happens very rarely.
     ** https://sqlite.org/forum/forumpost/fd0f19d229156939
     */
-    sqlite3_exec(db, "PRAGMA table_list",0,0,0);
+    sqlite3_exec(db, "PRAGMA table_list",0,callback_signatures[callback_0_enum], 0,0);
   }
   if( pPager->pWal ){
     rc = sqlite3WalCheckpoint(pPager->pWal, db, eMode,
-        (eMode<=SQLITE_CHECKPOINT_PASSIVE ? 0 : pPager->xBusyHandler),
+        (eMode<=SQLITE_CHECKPOINT_PASSIVE ? 0 : pPager->xBusyHandler), (eMode<=SQLITE_CHECKPOINT_PASSIVE ?xBusy_signatures[xBusy_0_enum]:xBusy_signatures[xBusy_xBusyHandler_enum]),
         pPager->pBusyHandlerArg,
         pPager->walSyncFlags, pPager->pageSize, (u8 *)pPager->pTmpSpace,
         pnLog, pnCkpt

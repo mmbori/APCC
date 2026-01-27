@@ -70,6 +70,7 @@
 int sqlite3_set_authorizer(
   sqlite3 *db,
   int (*xAuth)(void*,int,const char*,const char*,const char*,const char*),
+  int *xAuth_signature,
   void *pArg
 ){
 #ifdef SQLITE_ENABLE_API_ARMOR
@@ -112,7 +113,35 @@ int sqlite3AuthReadCol(
   int rc;                            /* Auth callback return code */
 
   if( db->init.busy ) return SQLITE_OK;
-  rc = db->xAuth(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // rc = db->xAuth(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  if (db->xAuth == 0) {
+    rc = 0;
+  } 
+  else if (db->xAuth == idxAuthCallback) {
+    idxAuthCallback(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  }
+  // else if (db->xAuth == s3jni_xAuth) {
+  //   s3jni_xAuth(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // }
+  // else if (db->xAuth == authCallback) {
+  //   authCallback(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // }
+  else if (db->xAuth == safeModeAuth) {
+    safeModeAuth(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  }
+  else if (db->xAuth == shellAuth) {
+    shellAuth(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  }
+  // else if (db->xAuth == auth_callback) {
+  //   auth_callback(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // }
+  // else if (db->xAuth == block_troublesome_sql) {
+  //   block_troublesome_sql(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // }
+  // else if (db->xAuth == block_debug_pragmas) {
+  //   block_debug_pragmas(db->pAuthArg, SQLITE_READ, zTab,zCol,zDb,pParse->zAuthContext);
+  // }
+
   if( rc==SQLITE_DENY ){
     char *z = sqlite3_mprintf("%s.%s", zTab, zCol);
     if( db->nDb>2 || iDb!=0 ) z = sqlite3_mprintf("%s.%z", zDb, z);

@@ -215,6 +215,9 @@
 */
 #include "sqliteInt.h"
 
+#ifndef STRACCUM_TYPEDEF_DEFINED
+#define STRACCUM_TYPEDEF_DEFINED
+#endif
 
 /* The following value is the maximum cell size assuming a maximum page
 ** size give above.
@@ -270,6 +273,8 @@ typedef struct CellInfo CellInfo;
 ** Access to all fields of this structure is controlled by the mutex
 ** stored in MemPage.pBt->mutex.
 */
+#ifndef STRUCT_MEMPAGE
+#define STRUCT_MEMPAGE
 struct MemPage {
   u8 isInit;           /* True if previously initialized. MUST BE FIRST! */
   u8 intKey;           /* True if table b-trees.  False for index b-trees */
@@ -300,11 +305,12 @@ struct MemPage {
   u8 *aDataOfst;       /* Same as aData for leaves.  aData+4 for interior */
   DbPage *pDbPage;     /* Pager page handle */
   u16 (*xCellSize)(MemPage*,u8*);             /* cellSizePtr method */
-  void (*xParseCell)(MemPage*,u8*,CellInfo*); /* btreeParseCell method */
-
-  int xCellSize_signature;
-  int xParseCell_signature;
+  void (*xParseCell)(MemPage*,u8*,CellInfo*);
+  int *xCellSize_signature;
+  int *xParseCell_signature;
+ /* btreeParseCell method */
 };
+#endif
 
 /*
 ** A linked list of the following structures is stored at BtShared.pLock.
@@ -313,12 +319,15 @@ struct MemPage {
 ** from this list when a transaction is committed or rolled back, or when
 ** a btree handle is closed.
 */
+#ifndef STRUCT_BTLOCK
+#define STRUCT_BTLOCK
 struct BtLock {
   Btree *pBtree;        /* Btree handle holding this lock */
   Pgno iTable;          /* Root page of table */
   u8 eLock;             /* READ_LOCK or WRITE_LOCK */
   BtLock *pNext;        /* Next in BtShared.pLock list */
 };
+#endif
 
 /* Candidate values for BtLock.eLock */
 #define READ_LOCK     1
@@ -345,6 +354,8 @@ struct BtLock {
 ** cursors have to go through this Btree to find their BtShared and
 ** they often do so without holding sqlite3.mutex.
 */
+#ifndef STRUCT_BTREE
+#define STRUCT_BTREE
 struct Btree {
   sqlite3 *db;       /* The database connection holding this btree */
   BtShared *pBt;     /* Sharable content of this btree */
@@ -364,6 +375,7 @@ struct Btree {
   BtLock lock;       /* Object used to lock page 1 */
 #endif
 };
+#endif
 
 /*
 ** Btree.inTrans may take one of the following values.
@@ -425,6 +437,8 @@ struct Btree {
 **
 **   This feature is included to help prevent writer-starvation.
 */
+#ifndef STRUCT_BTSHARED
+#define STRUCT_BTSHARED
 struct BtShared {
   Pager *pPager;        /* The page cache */
   sqlite3 *db;          /* Database connection currently using this Btree */
@@ -459,10 +473,11 @@ struct BtShared {
   Btree *pWriter;       /* Btree with currently open write transaction */
 #endif
   u8 *pTmpSpace;        /* Temp space sufficient to hold a single cell */
-  int nPreformatSize;   /* Size of last cell written by TransferRow() */
-
-  int xFreeSchema_signature;
+  int nPreformatSize;
+  int *xFreeSchema_signature;
+   /* Size of last cell written by TransferRow() */
 };
+#endif
 
 /*
 ** Allowed values for BtShared.btsFlags
@@ -482,6 +497,8 @@ struct BtShared {
 ** about a cell.  The parseCellPtr() function fills in this structure
 ** based on information extract from the raw disk page.
 */
+#ifndef STRUCT_CELLINFO
+#define STRUCT_CELLINFO
 struct CellInfo {
   i64 nKey;      /* The key for INTKEY tables, or nPayload otherwise */
   u8 *pPayload;  /* Pointer to the start of payload */
@@ -489,6 +506,7 @@ struct CellInfo {
   u16 nLocal;    /* Amount of payload held locally, not on overflow */
   u16 nSize;     /* Size of the cell content on the main b-tree page */
 };
+#endif
 
 /*
 ** Maximum depth of an SQLite B-Tree structure. Any B-Tree deeper than
@@ -533,6 +551,8 @@ struct CellInfo {
 **                     eState=SKIPNEXT if skipNext!=0
 **   FAULT             skipNext holds the cursor fault error code.
 */
+#ifndef STRUCT_BTCURSOR
+#define STRUCT_BTCURSOR
 struct BtCursor {
   u8 eState;                /* One of the CURSOR_XXX constants (see below) */
   u8 curFlags;              /* zero or more BTCF_* flags defined below */
@@ -560,6 +580,7 @@ struct BtCursor {
   MemPage *pPage;                        /* Current page */
   MemPage *apPage[BTCURSOR_MAX_DEPTH-1]; /* Stack of parents of current page */
 };
+#endif
 
 /*
 ** Legal values for BtCursor.curFlags
@@ -701,6 +722,9 @@ struct BtCursor {
 ** detect pages that are used twice and orphaned pages (both of which 
 ** indicate corruption).
 */
+
+#ifndef STRUCT_INTEGRITYCK
+#define STRUCT_INTEGRITYCK
 typedef struct IntegrityCk IntegrityCk;
 struct IntegrityCk {
   BtShared *pBt;    /* The tree being checked out */
@@ -720,6 +744,7 @@ struct IntegrityCk {
   sqlite3 *db;      /* Database connection running the check */
   i64 nRow;         /* Number of rows visited in current tree */
 };
+#endif
 
 /*
 ** Routines to read or write a two- and four-byte big-endian integer values.

@@ -124,7 +124,7 @@ static LONG SQLITE_WIN32_VOLATILE winMutex_lock = 0;
 int sqlite3_win32_is_nt(void); /* os_win.c */
 void sqlite3_win32_sleep(DWORD milliseconds); /* os_win.c */
 
-static int winMutexInit(void){
+int winMutexInit(void){
   /* The first to increment to 1 does actual initialization */
   if( InterlockedCompareExchange(&winMutex_lock, 1, 0)==0 ){
     int i;
@@ -146,7 +146,7 @@ static int winMutexInit(void){
   return SQLITE_OK;
 }
 
-static int winMutexEnd(void){
+int winMutexEnd(void){
   /* The first to decrement to 0 does actual shutdown
   ** (which should be the last to shutdown.) */
   if( InterlockedCompareExchange(&winMutex_lock, 0, 1)==1 ){
@@ -196,7 +196,7 @@ static int winMutexEnd(void){
 ** might return such a mutex in response to SQLITE_MUTEX_FAST.
 **
 ** The other allowed parameters to sqlite3_mutex_alloc() each return
-** a pointer to a static preexisting mutex.  Six static mutexes are
+** a pointer to a preexisting mutex.  Six static mutexes are
 ** used by the current version of SQLite.  Future versions of SQLite
 ** may add additional static mutexes.  Static mutexes are for internal
 ** use by SQLite only.  Applications that use SQLite mutexes should
@@ -257,7 +257,7 @@ static sqlite3_mutex *winMutexAlloc(int iType){
 ** allocated mutex.  SQLite is careful to deallocate every
 ** mutex that it allocates.
 */
-static void winMutexFree(sqlite3_mutex *p){
+void winMutexFree(sqlite3_mutex *p){
   assert( p );
   assert( p->nRef==0 && p->owner==0 );
   if( p->id==SQLITE_MUTEX_FAST || p->id==SQLITE_MUTEX_RECURSIVE ){
@@ -281,7 +281,7 @@ static void winMutexFree(sqlite3_mutex *p){
 ** can enter.  If the same thread tries to enter any other kind of mutex
 ** more than once, the behavior is undefined.
 */
-static void winMutexEnter(sqlite3_mutex *p){
+void winMutexEnter(sqlite3_mutex *p){
 #if defined(SQLITE_DEBUG) || defined(SQLITE_TEST)
   DWORD tid = GetCurrentThreadId();
 #endif
@@ -304,7 +304,7 @@ static void winMutexEnter(sqlite3_mutex *p){
 #endif
 }
 
-static int winMutexTry(sqlite3_mutex *p){
+int winMutexTry(sqlite3_mutex *p){
 #if defined(SQLITE_DEBUG) || defined(SQLITE_TEST)
   DWORD tid = GetCurrentThreadId();
 #endif
@@ -354,7 +354,7 @@ static int winMutexTry(sqlite3_mutex *p){
 ** is undefined if the mutex is not currently entered or
 ** is not currently allocated.  SQLite will never do either.
 */
-static void winMutexLeave(sqlite3_mutex *p){
+void winMutexLeave(sqlite3_mutex *p){
 #if defined(SQLITE_DEBUG) || defined(SQLITE_TEST)
   DWORD tid = GetCurrentThreadId();
 #endif
@@ -393,13 +393,13 @@ sqlite3_mutex_methods const *sqlite3DefaultMutex(void){
     0
 #endif
   ,
-  .xMutexInit_signature = xMutexInit_winMutexInit,
-  .xMutexEnd_signature = xMutexEnd_winMutexEnd,
-  .xMutexAlloc_signature = xMutexAlloc_winMutexAlloc,
-  .xMutexFree_signature = xMutexFree_winMutexFree,
-  .xMutexEnter_signature = xMutexEnter_winMutexEnter,
-  .xMutexTry_signature = xMutexTry_winMutexTry,
-  .xMutexLeave_signature = xMutexLeave_winMutexLeave
+  .xMutexInit_signature = xMutexInit_signatures[xMutexInit_winMutexInit_enum],
+  .xMutexEnd_signature = xMutexEnd_signatures[xMutexEnd_winMutexEnd_enum],
+  .xMutexAlloc_signature = xMutexAlloc_signatures[xMutexAlloc_winMutexAlloc_enum],
+  .xMutexFree_signature = xMutexFree_signatures[xMutexFree_winMutexFree_enum],
+  .xMutexEnter_signature = xMutexEnter_signatures[xMutexEnter_winMutexEnter_enum],
+  .xMutexTry_signature = xMutexTry_signatures[xMutexTry_winMutexTry_enum],
+  .xMutexLeave_signature = xMutexLeave_signatures[xMutexLeave_winMutexLeave_enum]
 };
   return &sMutex;
 }

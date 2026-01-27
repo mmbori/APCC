@@ -39,7 +39,7 @@ typedef struct TabResult {
 ** is to fill in the TabResult structure appropriately, allocating new
 ** memory as necessary.
 */
-int sqlite3_get_table_cb(void *pArg, int nCol, char **argv, char **colv){
+static int sqlite3_get_table_cb(void *pArg, int nCol, char **argv, char **colv){
   TabResult *p = (TabResult*)pArg;  /* Result accumulator */
   int need;                         /* Slots needed in p->azResult[] */
   int i;                            /* Loop counter */
@@ -143,7 +143,7 @@ int sqlite3_get_table(
      return SQLITE_NOMEM_BKPT;
   }
   res.azResult[0] = 0;
-  rc = sqlite3_exec(db, zSql, sqlite3_get_table_cb, &res, pzErrMsg);
+  rc = sqlite3_exec(db, zSql, sqlite3_get_table_cb, callback_signatures[callback_sqlite3_get_table_cb_enum], &res, pzErrMsg);
   assert( sizeof(res.azResult[0])>= sizeof(res.nData) );
   res.azResult[0] = SQLITE_INT_TO_PTR(res.nData);
   if( (rc&0xff)==SQLITE_ABORT ){

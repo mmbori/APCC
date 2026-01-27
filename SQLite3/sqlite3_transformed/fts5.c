@@ -437,30 +437,30 @@ struct Fts5ExtensionApi {
     void *pCtx,                        /* Context passed to xToken() */
     int (*xToken)(void*, int, const char*, int, int, int)       /* Callback */
   );
+  int *xUserData_signature;
+  int *xColumnCount_signature;
+  int *xRowCount_signature;
+  int *xColumnTotalSize_signature;
+  int *xTokenize_signature;
+  int *xPhraseCount_signature;
+  int *xPhraseSize_signature;
+  int *xInstCount_signature;
+  int *xInst_signature;
+  int *xRowid_signature;
+  int *xColumnText_signature;
+  int *xColumnSize_signature;
+  int *xQueryPhrase_signature;
+  int *xSetAuxdata_signature;
+  int *xGetAuxdata_signature;
+  int *xPhraseFirst_signature;
+  int *xPhraseNext_signature;
+  int *xPhraseFirstColumn_signature;
+  int *xPhraseNextColumn_signature;
+  int *xQueryToken_signature;
+  int *xInstToken_signature;
+  int *xColumnLocale_signature;
+  int *xTokenize_v2_signature;
 
-  int xUserData_signature;
-  int xColumnCount_signature;
-  int xRowCount_signature;
-  int xColumnTotalSize_signature;
-  int xTokenize_signature;
-  int xPhraseCount_signature;
-  int xPhraseSize_signature;
-  int xInstCount_signature;
-  int xInst_signature;
-  int xRowid_signature;
-  int xColumnText_signature;
-  int xColumnSize_signature;
-  int xQueryPhrase_signature;
-  int xSetAuxdata_signature;
-  int xGetAuxdata_signature;
-  int xPhraseFirst_signature;
-  int xPhraseNext_signature;
-  int xPhraseFirstColumn_signature;
-  int xPhraseNextColumn_signature;
-  int xQueryToken_signature;
-  int xInstToken_signature;
-  int xColumnLocale_signature;
-  int xTokenize_v2_signature;
 };
 
 /* 
@@ -711,10 +711,10 @@ struct fts5_tokenizer_v2 {
         int iEnd            /* Byte offset of end of token within input text */
       )
   );
+  int *xCreate_signature;
+  int *xDelete_signature;
+  int *xTokenize_signature;
 
-  int xCreate_signature;
-  int xDelete_signature;
-  int xTokenize_signature;
 };
 
 /*
@@ -739,10 +739,10 @@ struct fts5_tokenizer {
         int iEnd            /* Byte offset of end of token within input text */
       )
   );
+  int *xCreate_signature;
+  int *xDelete_signature;
+  int *xTokenize_signature;
 
-  int xCreate_signature;
-  int xDelete_signature;
-  int xTokenize_signature;
 };
 
 
@@ -789,13 +789,7 @@ struct fts5_api {
     fts5_api *pApi,
     const char *zName,
     void *pUserData,
-    void (*xFunction)(
-  const Fts5ExtensionApi *pApi,   
-  Fts5Context *pFts,              
-  sqlite3_context *pCtx,          
-  int nVal,                       
-  sqlite3_value **apVal           
-),
+    fts5_extension_function xFunction,
     void (*xDestroy)(void*)
   );
 
@@ -817,12 +811,12 @@ struct fts5_api {
     void **ppUserData,
     fts5_tokenizer_v2 **ppTokenizer
   );
+  int *xCreateTokenizer_signature;
+  int *xFindTokenizer_signature;
+  int *xFunction_signature;
+  int *xCreateTokenizer_v2_signature;
+  int *xFindTokenizer_v2_signature;
 
-  int xCreateTokenizer_signature;
-  int xFindTokenizer_signature;
-  int xCreateFunction_signature;
-  int xCreateTokenizer_v2_signature;
-  int xFindTokenizer_v2_signature;
 };
 
 /*
@@ -889,7 +883,9 @@ typedef sqlite3_uint64 u64;
 # define NEVER(X)       (X)
 #endif
 
+#ifndef MIN
 #define MIN(x,y) (((x) < (y)) ? (x) : (y))
+#endif
 #define MAX(x,y) (((x) > (y)) ? (x) : (y))
 
 /*
@@ -1134,7 +1130,8 @@ static int sqlite3Fts5Tokenize(
   int flags,                      /* FTS5_TOKENIZE_* flags */
   const char *pText, int nText,   /* Text to tokenize */
   void *pCtx,                     /* Context passed to xToken() */
-  int (*xToken)(void*, int, const char*, int, int, int)    /* Callback */
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature    /* Callback */
 );
 
 static void sqlite3Fts5Dequote(char *z);
@@ -1756,7 +1753,8 @@ static int sqlite3Fts5AuxInit(fts5_api*);
 
 static int sqlite3Fts5TokenizerInit(fts5_api*);
 static int sqlite3Fts5TokenizerPattern(
-    int (*xCreate)(void*, const char**, int, Fts5Tokenizer**),
+    int (*xCreate)(void*, const char**, int, Fts5Tokenizer**)
+    int *xCreate_signature,
     Fts5Tokenizer *pTok
 );
 static int sqlite3Fts5TokenizerPreload(Fts5TokenizerConfig*);
@@ -1787,8 +1785,6 @@ static void sqlite3Fts5UnicodeAscii(u8*, u8*);
 /*
 ** End of interface to code in fts5_unicode2.c.
 **************************************************************************/
-
-#include "../../src/sqlite_signatures.h"
 
 #endif
 
@@ -3640,7 +3636,8 @@ static void fts5HighlightFunction(
   ctx.iRangeEnd = -1;
   rc = pApi->xColumnText(pFts, iCol, &ctx.zIn, &ctx.nIn);
   if( rc==SQLITE_RANGE ){
-    sqlite3_result_text(pCtx, "", -1, SQLITE_STATIC);
+    sqlite3_result_text(pCtx, "", -1, SQLITE_STATIC,
+                        xDel_signatures[xDel_SQLITE_STATIC_enum]);
     rc = SQLITE_OK;
   }else if( ctx.zIn ){
     const char *pLoc = 0;         /* Locale of column iCol */
@@ -3663,7 +3660,8 @@ static void fts5HighlightFunction(
     fts5HighlightAppend(&rc, &ctx, &ctx.zIn[ctx.iOff], ctx.nIn - ctx.iOff);
 
     if( rc==SQLITE_OK ){
-      sqlite3_result_text(pCtx, (const char*)ctx.zOut, -1, SQLITE_TRANSIENT);
+      sqlite3_result_text(pCtx, (const char *)ctx.zOut, -1, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }
     sqlite3_free(ctx.zOut);
   }
@@ -3960,7 +3958,8 @@ static void fts5SnippetFunction(
     }
   }
   if( rc==SQLITE_OK ){
-    sqlite3_result_text(pCtx, (const char*)ctx.zOut, -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(pCtx, (const char *)ctx.zOut, -1, SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else{
     sqlite3_result_error_code(pCtx, rc);
   }
@@ -4176,25 +4175,20 @@ static void fts5GetLocaleFunction(
     return;
   }
 
-  sqlite3_result_text(pCtx, zLocale, nLocale, SQLITE_TRANSIENT);
+  sqlite3_result_text(pCtx, zLocale, nLocale, SQLITE_TRANSIENT,
+                      xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
 }
 
 static int sqlite3Fts5AuxInit(fts5_api *pApi){
   struct Builtin {
     const char *zFunc;            /* Function name (nul-terminated) */
     void *pUserData;              /* User-data pointer */
-    void (*xFunc)(
-  const Fts5ExtensionApi *pApi,   
-  Fts5Context *pFts,              
-  sqlite3_context *pCtx,          
-  int nVal,                       
-  sqlite3_value **apVal           
-);/* Callback function */
-    void (*xDestroy)(void*);      /* Destructor function */
-  
-    int xFunc_signature;
-    int xDestroy_signature;
-} aBuiltin [] = {
+    fts5_extension_function xFunc;/* Callback function */
+    void (*xDestroy)(void*);
+  int *xFunc_signature;
+  int *xDestroy_signature;
+      /* Destructor function */
+  } aBuiltin [] = {
     { "snippet",         0, fts5SnippetFunction,   0 },
     { "highlight",       0, fts5HighlightFunction, 0 },
     { "bm25",            0, fts5Bm25Function,      0 },
@@ -5356,9 +5350,53 @@ static void sqlite3Fts5ConfigFree(Fts5Config *pConfig){
     int i;
     if( pConfig->t.pTok ){
       if( pConfig->t.pApi1 ){
-        pConfig->t.pApi1->xDelete(pConfig->t.pTok);
+        if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+            f5tOrigintextDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+            f5tTokenizerDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+            kvstorageDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+            vfstraceDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pConfig->t.pApi1->xDelete_signature)) == 0) {
+            unixDelete(pConfig->t.pTok);
+          }
       }else{
-        pConfig->t.pApi2->xDelete(pConfig->t.pTok);
+        if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+            f5tOrigintextDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+            f5tTokenizerDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+            kvstorageDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+            vfstraceDelete(pConfig->t.pTok);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pConfig->t.pApi2->xDelete_signature)) == 0) {
+            unixDelete(pConfig->t.pTok);
+          }
       }
     }
     sqlite3_free((char*)pConfig->t.azArg);
@@ -5434,7 +5472,8 @@ static int sqlite3Fts5Tokenize(
   int flags,                      /* FTS5_TOKENIZE_* flags */
   const char *pText, int nText,   /* Text to tokenize */
   void *pCtx,                     /* Context passed to xToken() */
-  int (*xToken)(void*, int, const char*, int, int, int)    /* Callback */
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature    /* Callback */
 ){
   int rc = SQLITE_OK;
   if( pText ){
@@ -5443,13 +5482,46 @@ static int sqlite3Fts5Tokenize(
     }
     if( rc==SQLITE_OK ){
       if( pConfig->t.pApi1 ){
-        rc = pConfig->t.pApi1->xTokenize(
-            pConfig->t.pTok, pCtx, flags, pText, nText, xToken
-        );
+        if (memcmp(pConfig->t.pApi1->xTokenize_signature, xTokenize_signatures[xTokenize_0_enum], sizeof(pConfig->t.pApi1->xTokenize_signature)) == 0) {
+          rc = 0;
+        }
+        else
+          if (memcmp(pConfig->t.pApi1->xTokenize_signature, xTokenize_signatures[xTokenize_f5tOrigintextTokenize_enum], sizeof(pConfig->t.pApi1->xTokenize_signature)) == 0) {
+            rc = f5tOrigintextTokenize(pConfig->t.pTok, pCtx, flags, pText,
+                                       nText, xToken);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_enum], sizeof(pConfig->t.pApi1->xTokenize_signature)) == 0) {
+            rc = f5tTokenizerTokenize(pConfig->t.pTok, pCtx, flags, pText,
+                                      nText, xToken);
+          }
+        else
+          if (memcmp(pConfig->t.pApi1->xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_v2_enum], sizeof(pConfig->t.pApi1->xTokenize_signature)) == 0) {
+            rc = f5tTokenizerTokenize_v2(pConfig->t.pTok, pCtx, flags, pText,
+                                         nText, xToken);
+          }
       }else{
-        rc = pConfig->t.pApi2->xTokenize(pConfig->t.pTok, pCtx, flags, 
-            pText, nText, pConfig->t.pLocale, pConfig->t.nLocale, xToken
-        );
+        if (memcmp(pConfig->t.pApi2->xTokenize_signature, xTokenize_signatures[xTokenize_0_enum], sizeof(pConfig->t.pApi2->xTokenize_signature)) == 0) {
+          rc = 0;
+        }
+        else
+          if (memcmp(pConfig->t.pApi2->xTokenize_signature, xTokenize_signatures[xTokenize_f5tOrigintextTokenize_enum], sizeof(pConfig->t.pApi2->xTokenize_signature)) == 0) {
+            rc = f5tOrigintextTokenize(pConfig->t.pTok, pCtx, flags, pText,
+                                       nText, pConfig->t.pLocale,
+                                       pConfig->t.nLocale, xToken);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_enum], sizeof(pConfig->t.pApi2->xTokenize_signature)) == 0) {
+            rc = f5tTokenizerTokenize(pConfig->t.pTok, pCtx, flags, pText,
+                                      nText, pConfig->t.pLocale,
+                                      pConfig->t.nLocale, xToken);
+          }
+        else
+          if (memcmp(pConfig->t.pApi2->xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_v2_enum], sizeof(pConfig->t.pApi2->xTokenize_signature)) == 0) {
+            rc = f5tTokenizerTokenize_v2(pConfig->t.pTok, pCtx, flags, pText,
+                                         nText, pConfig->t.pLocale,
+                                         pConfig->t.nLocale, xToken);
+          }
       }
     }
   }
@@ -5794,7 +5866,8 @@ typedef struct Fts5ExprTerm Fts5ExprTerm;
 ** Functions generated by lemon from fts5parse.y.
 */
 static void *sqlite3Fts5ParserAlloc(void *(*mallocProc)(u64));
-static void sqlite3Fts5ParserFree(void*, void (*freeProc)(void*));
+static void sqlite3Fts5ParserFree(void*, void (*freeProc)(void*),
+int *freeProc_signature);
 static void sqlite3Fts5Parser(void*, int, Fts5Token, Fts5Parse*);
 #ifndef NDEBUG
 #include <stdio.h>
@@ -5846,8 +5919,9 @@ struct Fts5ExprNode {
   /* Child nodes. For a NOT node, this array always contains 2 entries. For 
   ** AND or OR nodes, it contains 2 or more entries.  */
   int nChild;                     /* Number of child nodes */
-  int xNext_signature;
-  Fts5ExprNode *apChild[FLEXARRAY]; /* Array of child nodes */
+  Fts5ExprNode *apChild[FLEXARRAY];
+  int *xNext_signature;
+ /* Array of child nodes */
 };
 
 /* Size (in bytes) of an Fts5ExprNode object that holds up to N children */
@@ -6922,7 +6996,7 @@ static int fts5ExprNodeTest_STRING(
 ** Return SQLITE_OK if successful, or an SQLite error code if an error
 ** occurs.
 */
-static int fts5ExprNodeNext_STRING(
+int fts5ExprNodeNext_STRING(
   Fts5Expr *pExpr,                /* Expression pPhrase belongs to */
   Fts5ExprNode *pNode,            /* FTS5_STRING or FTS5_TERM node */
   int bFromValid,
@@ -7015,7 +7089,7 @@ static int fts5ExprNodeTest_TERM(
 /*
 ** xNext() method for a node of type FTS5_TERM.
 */
-static int fts5ExprNodeNext_TERM(
+int fts5ExprNodeNext_TERM(
   Fts5Expr *pExpr, 
   Fts5ExprNode *pNode,
   int bFromValid,
@@ -7058,7 +7132,7 @@ static void fts5ExprNodeTest_OR(
   pNode->bNomatch = pNext->bNomatch;
 }
 
-static int fts5ExprNodeNext_OR(
+int fts5ExprNodeNext_OR(
   Fts5Expr *pExpr, 
   Fts5ExprNode *pNode,
   int bFromValid,
@@ -7142,7 +7216,7 @@ static int fts5ExprNodeTest_AND(
   return SQLITE_OK;
 }
 
-static int fts5ExprNodeNext_AND(
+int fts5ExprNodeNext_AND(
   Fts5Expr *pExpr, 
   Fts5ExprNode *pNode,
   int bFromValid,
@@ -7185,7 +7259,7 @@ static int fts5ExprNodeTest_NOT(
   return rc;
 }
 
-static int fts5ExprNodeNext_NOT(
+int fts5ExprNodeNext_NOT(
   Fts5Expr *pExpr, 
   Fts5ExprNode *pNode,
   int bFromValid,
@@ -7969,6 +8043,7 @@ static void fts5ParseSetColset(
         if( pNear->pColset->nCol==0 ){
           pNode->eType = FTS5_EOF;
           pNode->xNext = 0;
+          pNode->xNext_signature = xNext_signatures[xNext_0_enum];
         }
       }else if( *ppFree ){
         pNear->pColset = pColset;
@@ -8171,6 +8246,7 @@ static Fts5ExprNode *sqlite3Fts5ParseNode(
             pNear->apPhrase[iPhrase]->pNode = pRet;
             if( pNear->apPhrase[iPhrase]->nTerm==0 ){
               pRet->xNext = 0;
+              pRet->xNext_signature = xNext_signatures[xNext_0_enum];
               pRet->eType = FTS5_EOF;
             }
           }
@@ -8581,7 +8657,7 @@ static void fts5ExprFunction(
     if( zText==0 ){
       rc = SQLITE_NOMEM;
     }else{
-      sqlite3_result_text(pCtx, zText, -1, SQLITE_TRANSIENT);
+      sqlite3_result_text(pCtx, zText, -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       sqlite3_free(zText);
     }
   }
@@ -8680,7 +8756,33 @@ static int sqlite3Fts5ExprInit(Fts5Global *pGlobal, sqlite3 *db){
 
   for(i=0; rc==SQLITE_OK && i<ArraySize(aFunc); i++){
     struct Fts5ExprFunc *p = &aFunc[i];
-    rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, 0, 0);
+    if (p->x == fts3AllocateMSI) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3AllocateMSI_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprGlobalHitsCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprGlobalHitsCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprLoadDoclistsCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprLoadDoclistsCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprLocalHitsCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprLocalHitsCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprPhraseCountCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprPhraseCountCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprRestartIfCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprRestartIfCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3ExprTermOffsetInit) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3ExprTermOffsetInit_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3MatchinfoLcsCb) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3MatchinfoLcsCb_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
+    else if (p->x == fts3SnippetFindPositions) {
+      rc = sqlite3_create_function(db, p->z, -1, SQLITE_UTF8, pCtx, p->x, xSFunc_signatures[xSFunc_fts3SnippetFindPositions_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+    }
   }
 #else
   int rc = SQLITE_OK;
@@ -10192,9 +10294,9 @@ struct Fts5SegIter {
   Fts5Buffer term;                /* Current term */
   i64 iRowid;                     /* Current rowid */
   int nPos;                       /* Number of bytes in current position list */
-  u8 bDel;                        /* True if the delete flag is set */
-
-  int xNext_signature;
+  u8 bDel;
+  int *xNext_signature;
+                        /* True if the delete flag is set */
 };
 
 static int fts5IndexCorruptRowid(Fts5Index *pIdx, i64 iRowid){
@@ -10308,7 +10410,9 @@ struct Fts5Iter {
 
   i64 iSwitchRowid;               /* Firstest rowid of other than aFirst[1] */
   Fts5CResult *aFirst;            /* Current merge state (see above) */
-  Fts5SegIter aSeg[FLEXARRAY];    /* Array of segment iterators */
+  Fts5SegIter aSeg[FLEXARRAY];
+  int *xSetOutputs_signature;
+    /* Array of segment iterators */
 };
 
 /* Size (in bytes) of an Fts5Iter object holding up to N segment iterators */
@@ -11609,9 +11713,9 @@ static void fts5SegIterLoadTerm(Fts5Index *p, Fts5SegIter *pIter, int nKeep){
   fts5SegIterLoadRowid(p, pIter);
 }
 
-static void fts5SegIterNext(Fts5Index*, Fts5SegIter*, int*);
-static void fts5SegIterNext_Reverse(Fts5Index*, Fts5SegIter*, int*);
-static void fts5SegIterNext_None(Fts5Index*, Fts5SegIter*, int*);
+void fts5SegIterNext(Fts5Index*, Fts5SegIter*, int*);
+void fts5SegIterNext_Reverse(Fts5Index*, Fts5SegIter*, int*);
+void fts5SegIterNext_None(Fts5Index*, Fts5SegIter*, int*);
 
 static void fts5SegIterSetNext(Fts5Index *p, Fts5SegIter *pIter){
   if( pIter->flags & FTS5_SEGITER_REVERSE ){
@@ -11755,7 +11859,7 @@ static void fts5SegIterReverseInitPage(Fts5Index *p, Fts5SegIter *pIter){
 /*
 **
 */
-static void fts5SegIterReverseNewPage(Fts5Index *p, Fts5SegIter *pIter){
+void fts5SegIterReverseNewPage(Fts5Index *p, Fts5SegIter *pIter){
   assert( pIter->flags & FTS5_SEGITER_REVERSE );
   assert( pIter->flags & FTS5_SEGITER_ONETERM );
 
@@ -11821,7 +11925,7 @@ static int fts5MultiIterIsEmpty(Fts5Index *p, Fts5Iter *pIter){
 **
 ** This version of fts5SegIterNext() is only used by reverse iterators.
 */
-static void fts5SegIterNext_Reverse(
+void fts5SegIterNext_Reverse(
   Fts5Index *p,                   /* FTS5 backend object */
   Fts5SegIter *pIter,             /* Iterator to advance */
   int *pbUnused                   /* Unused */
@@ -11855,7 +11959,7 @@ static void fts5SegIterNext_Reverse(
 ** This version of fts5SegIterNext() is only used if detail=none and the
 ** iterator is not a reverse direction iterator.
 */
-static void fts5SegIterNext_None(
+void fts5SegIterNext_None(
   Fts5Index *p,                   /* FTS5 backend object */
   Fts5SegIter *pIter,             /* Iterator to advance */
   int *pbNewTerm                  /* OUT: Set for new term */
@@ -11928,7 +12032,7 @@ static void fts5SegIterNext_None(
 ** is not considered an error if the iterator reaches EOF. If an error has 
 ** already occurred when this function is called, it is a no-op.
 */
-static void fts5SegIterNext(
+void fts5SegIterNext(
   Fts5Index *p,                   /* FTS5 backend object */
   Fts5SegIter *pIter,             /* Iterator to advance */
   int *pbNewTerm                  /* OUT: Set for new term */
@@ -12826,7 +12930,195 @@ static void fts5SegIterNextFrom(
   }
 
   do{
-    if( bMove && p->rc==SQLITE_OK ) pIter->xNext(p, pIter, 0);
+    if( bMove && p->rc==SQLITE_OK ) {
+      if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pIter->xNext_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          amatchNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          binfoNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          bytecodevtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          carrayNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          cidxNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          closureNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          completionNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          csvtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          dbdataNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          dbpageNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          deltaparsevtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          echoNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          expertNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          explainNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fsNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fsdirNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fstreeNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fts3NextMethod(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fts3auxNextMethod(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fts3termNextMethod(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fts3tokNextMethod(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          fuzzerNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          intarrayNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          jsonEachNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          memstatNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          porterNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          pragmaVtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          prefixesNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          qpvtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          rtreeNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          schemaNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          seriesNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          simpleNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pIter->xNext_signature)) == 0) {
+          spellfix1Next(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          statNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          stmtNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          tclNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          tclvarNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          templatevtabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          unicodeNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          unionNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          vlogNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          vstattabNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          vtablogNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          wholenumberNext(p, pIter, 0);
+        }
+      else
+        if (memcmp(pIter->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pIter->xNext_signature)) == 0) {
+          zipfileNext(p, pIter, 0);
+        }
+    }
     if( pIter->pLeaf==0 ) break;
     if( bRev==0 && pIter->iRowid>=iMatch ) break;
     if( bRev!=0 && pIter->iRowid<=iMatch ) break;
@@ -12860,7 +13152,193 @@ static void fts5MultiIterAdvanced(
     if( (iEq = fts5MultiIterDoCompare(pIter, i)) ){
       Fts5SegIter *pSeg = &pIter->aSeg[iEq];
       assert( p->rc==SQLITE_OK );
-      pSeg->xNext(p, pSeg, 0);
+      if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pSeg->xNext_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          amatchNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          binfoNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          bytecodevtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          carrayNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          cidxNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          closureNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          completionNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          csvtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbdataNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbpageNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          deltaparsevtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          echoNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          expertNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          explainNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsdirNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fstreeNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3NextMethod(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3auxNextMethod(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3termNextMethod(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3tokNextMethod(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fuzzerNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          intarrayNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          jsonEachNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          memstatNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          porterNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          pragmaVtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          prefixesNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          qpvtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          rtreeNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          schemaNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          seriesNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          simpleNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          spellfix1Next(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          statNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          stmtNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclvarNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          templatevtabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unicodeNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unionNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vlogNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vstattabNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vtablogNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          wholenumberNext(p, pSeg, 0);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          zipfileNext(p, pSeg, 0);
+        }
       i = pIter->nSeg + iEq;
     }
   }
@@ -13027,7 +13505,193 @@ static void fts5MultiIterNext(
     if( bUseFrom && pSeg->pDlidx ){
       fts5SegIterNextFrom(p, pSeg, iFrom);
     }else{
-      pSeg->xNext(p, pSeg, &bNewTerm);
+      if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pSeg->xNext_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          amatchNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          binfoNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          bytecodevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          carrayNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          cidxNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          closureNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          completionNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          csvtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbdataNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbpageNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          deltaparsevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          echoNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          expertNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          explainNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsdirNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fstreeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3NextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3auxNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3termNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3tokNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fuzzerNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          intarrayNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          jsonEachNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          memstatNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          porterNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          pragmaVtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          prefixesNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          qpvtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          rtreeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          schemaNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          seriesNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          simpleNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          spellfix1Next(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          statNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          stmtNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclvarNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          templatevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unicodeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unionNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vlogNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vstattabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vtablogNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          wholenumberNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          zipfileNext(p, pSeg, &bNewTerm);
+        }
     }
 
     if( pSeg->pLeaf==0 || bNewTerm 
@@ -13065,7 +13729,193 @@ static void fts5MultiIterNext2(
       int bNewTerm = 0;
 
       assert( p->rc==SQLITE_OK );
-      pSeg->xNext(p, pSeg, &bNewTerm);
+      if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pSeg->xNext_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          amatchNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          binfoNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          bytecodevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          carrayNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          cidxNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          closureNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          completionNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          csvtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbdataNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          dbpageNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          deltaparsevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          echoNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          expertNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          explainNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fsdirNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fstreeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3NextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3auxNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3termNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fts3tokNextMethod(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          fuzzerNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          intarrayNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          jsonEachNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          memstatNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          porterNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          pragmaVtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          prefixesNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          qpvtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          rtreeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          schemaNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          seriesNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          simpleNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          spellfix1Next(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          statNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          stmtNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          tclvarNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          templatevtabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unicodeNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          unionNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vlogNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vstattabNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          vtablogNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          wholenumberNext(p, pSeg, &bNewTerm);
+        }
+      else
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          zipfileNext(p, pSeg, &bNewTerm);
+        }
       if( pSeg->pLeaf==0 || bNewTerm 
        || fts5MultiIterAdvanceRowid(pIter, iFirst, &pSeg)
       ){
@@ -13081,7 +13931,7 @@ static void fts5MultiIterNext2(
   }
 }
 
-static void fts5IterSetOutputs_Noop(Fts5Iter *pUnused1, Fts5SegIter *pUnused2){
+void fts5IterSetOutputs_Noop(Fts5Iter *pUnused1, Fts5SegIter *pUnused2){
   UNUSED_PARAM2(pUnused1, pUnused2);
 }
 
@@ -13223,7 +14073,8 @@ static void fts5ChunkIterate(
   Fts5Index *p,                   /* Index object */
   Fts5SegIter *pSeg,              /* Poslist of this iterator */
   void *pCtx,                     /* Context pointer for xChunk callback */
-  void (*xChunk)(Fts5Index*, void*, const u8*, int)
+  void (*xChunk)(Fts5Index*, void*, const u8*, int),
+  int *xChunk_signature
 ){
   int nRem = pSeg->nPos;          /* Number of bytes still to come */
   Fts5Data *pData = 0;
@@ -13374,7 +14225,7 @@ static void fts5IndexExtractColset(
 /*
 ** xSetOutputs callback used by detail=none tables.
 */
-static void fts5IterSetOutputs_None(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_None(Fts5Iter *pIter, Fts5SegIter *pSeg){
   assert( pIter->pIndex->pConfig->eDetail==FTS5_DETAIL_NONE );
   pIter->base.iRowid = pSeg->iRowid;
   pIter->base.nData = pSeg->nPos;
@@ -13384,7 +14235,7 @@ static void fts5IterSetOutputs_None(Fts5Iter *pIter, Fts5SegIter *pSeg){
 ** xSetOutputs callback used by detail=full and detail=col tables when no
 ** column filters are specified.
 */
-static void fts5IterSetOutputs_Nocolset(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_Nocolset(Fts5Iter *pIter, Fts5SegIter *pSeg){
   pIter->base.iRowid = pSeg->iRowid;
   pIter->base.nData = pSeg->nPos;
 
@@ -13409,7 +14260,7 @@ static void fts5IterSetOutputs_Nocolset(Fts5Iter *pIter, Fts5SegIter *pSeg){
 ** xSetOutputs callback used when the Fts5Colset object has nCol==0 (match
 ** against no columns at all).
 */
-static void fts5IterSetOutputs_ZeroColset(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_ZeroColset(Fts5Iter *pIter, Fts5SegIter *pSeg){
   UNUSED_PARAM(pSeg);
   pIter->base.nData = 0;
 }
@@ -13419,7 +14270,7 @@ static void fts5IterSetOutputs_ZeroColset(Fts5Iter *pIter, Fts5SegIter *pSeg){
 ** and there are 100 or more columns. Also called as a fallback from
 ** fts5IterSetOutputs_Col100 if the column-list spans more than one page.
 */
-static void fts5IterSetOutputs_Col(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_Col(Fts5Iter *pIter, Fts5SegIter *pSeg){
   fts5BufferZero(&pIter->poslist);
   fts5SegiterPoslist(pIter->pIndex, pSeg, pIter->pColset, &pIter->poslist);
   pIter->base.iRowid = pSeg->iRowid;
@@ -13437,7 +14288,7 @@ static void fts5IterSetOutputs_Col(Fts5Iter *pIter, Fts5SegIter *pSeg){
 ** The last point is to ensure all column numbers are stored as 
 ** single-byte varints.
 */
-static void fts5IterSetOutputs_Col100(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_Col100(Fts5Iter *pIter, Fts5SegIter *pSeg){
 
   assert( pIter->pIndex->pConfig->eDetail==FTS5_DETAIL_COLUMNS );
   assert( pIter->pColset );
@@ -13477,7 +14328,7 @@ setoutputs_col_out:
 /*
 ** xSetOutputs callback used by detail=full when there is a column filter.
 */
-static void fts5IterSetOutputs_Full(Fts5Iter *pIter, Fts5SegIter *pSeg){
+void fts5IterSetOutputs_Full(Fts5Iter *pIter, Fts5SegIter *pSeg){
   Fts5Colset *pColset = pIter->pColset;
   pIter->base.iRowid = pSeg->iRowid;
 
@@ -13544,7 +14395,195 @@ static void fts5MultiIterFinishSetup(Fts5Index *p, Fts5Iter *pIter){
     int iEq;
     if( (iEq = fts5MultiIterDoCompare(pIter, iIter)) ){
       Fts5SegIter *pSeg = &pIter->aSeg[iEq];
-      if( p->rc==SQLITE_OK ) pSeg->xNext(p, pSeg, 0);
+      if( p->rc==SQLITE_OK ) {
+        if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pSeg->xNext_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            amatchNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            binfoNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            bytecodevtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            carrayNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            cidxNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            closureNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            completionNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            csvtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            dbdataNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            dbpageNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            deltaparsevtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            echoNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            expertNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            explainNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fsNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fsdirNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fstreeNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fts3NextMethod(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fts3auxNextMethod(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fts3termNextMethod(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fts3tokNextMethod(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            fuzzerNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            intarrayNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            jsonEachNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            memstatNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            porterNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            pragmaVtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            prefixesNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            qpvtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            rtreeNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            schemaNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            seriesNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            simpleNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            spellfix1Next(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            statNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            stmtNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            tclNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            tclvarNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            templatevtabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            unicodeNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            unionNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            vlogNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            vstattabNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            vtablogNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            wholenumberNext(p, pSeg, 0);
+          }
+        else
+          if (memcmp(pSeg->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pSeg->xNext_signature)) == 0) {
+            zipfileNext(p, pSeg, 0);
+          }
+      }
       fts5MultiIterAdvanced(p, pIter, iEq, iIter);
     }
   }
@@ -13830,7 +14869,7 @@ static void fts5IndexDiscardData(Fts5Index *p){
 ** Buffer (pNew/<length-unknown>) is guaranteed to be greater 
 ** than buffer (pOld/nOld).
 */
-static int fts5PrefixCompress(int nOld, const u8 *pOld, const u8 *pNew){
+int fts5PrefixCompress(int nOld, const u8 *pOld, const u8 *pNew){
   int i;
   for(i=0; i<nOld; i++){
     if( pOld[i]!=pNew[i] ) break;
@@ -15585,7 +16624,7 @@ static int sqlite3Fts5IndexMerge(Fts5Index *p, int nMerge){
   return fts5IndexReturn(p);
 }
 
-static void fts5AppendRowid(
+void fts5AppendRowid(
   Fts5Index *p,
   u64 iDelta,
   Fts5Iter *pUnused,
@@ -15595,7 +16634,7 @@ static void fts5AppendRowid(
   fts5BufferAppendVarint(&p->rc, pBuf, iDelta);
 }
 
-static void fts5AppendPoslist(
+void fts5AppendPoslist(
   Fts5Index *p,
   u64 iDelta,
   Fts5Iter *pMulti,
@@ -15702,7 +16741,7 @@ static void fts5NextRowid(Fts5Buffer *pBuf, int *piOff, i64 *piRowid){
 ** This is the equivalent of fts5MergePrefixLists() for detail=none mode.
 ** In this case the buffers consist of a delta-encoded list of rowids only.
 */
-static void fts5MergeRowidLists(
+void fts5MergeRowidLists(
   Fts5Index *p,                   /* FTS5 backend object */
   Fts5Buffer *p1,                 /* First list to merge */
   int nBuf,                       /* Number of entries in apBuf[] */
@@ -15787,7 +16826,7 @@ static void fts5PrefixMergerInsertByPosition(
 ** Array aBuf[] contains nBuf doclists. These are all merged in with the
 ** doclist in buffer p1.
 */
-static void fts5MergePrefixLists(
+void fts5MergePrefixLists(
   Fts5Index *p,                   /* FTS5 backend object */
   Fts5Buffer *p1,                 /* First list to merge */
   int nBuf,                       /* Number of buffers in array aBuf[] */
@@ -15967,7 +17006,8 @@ static int fts5VisitEntries(
   u8 *pToken,                     /* Buffer containing token */
   int nToken,                     /* Size of buffer pToken in bytes */
   int bPrefix,                    /* True for a prefix scan */
-  void (*xVisit)(Fts5Index*, void *pCtx, Fts5Iter *pIter, const u8*, int),
+  void (*xVisit)(Fts5Index*, void *pCtx, Fts5Iter *pIter, const u8*, int)
+  int *xVisit_signature,
   void *pCtx                      /* Passed as second argument to xVisit() */
 ){
   const int flags = (bPrefix ? FTS5INDEX_QUERY_SCAN : 0)
@@ -15996,7 +17036,13 @@ static int fts5VisitEntries(
       if( nNew<nToken || memcmp(pToken, pNew, nToken) ) break;
     }
 
-    xVisit(p, pCtx, p1, pNew, nNew);
+    if (memcmp(xVisit_signature, xVisit_signatures[xVisit_prefixIterSetupCb_enum], sizeof(xVisit_signature)) == 0) {
+      prefixIterSetupCb(p, pCtx, p1, pNew, nNew);
+    }
+    else
+      if (memcmp(xVisit_signature, xVisit_signatures[xVisit_prefixIterSetupTokendataCb_enum], sizeof(xVisit_signature)) == 0) {
+        prefixIterSetupTokendataCb(p, pCtx, p1, pNew, nNew);
+      }
   }
   fts5MultiIterFree(p1);
 
@@ -16262,6 +17308,9 @@ struct PrefixSetupCtx {
   int nBuf;
   Fts5Buffer doclist;
   TokendataSetupCtx *pTokendata;
+  int *xMerge_signature;
+  int *xAppend_signature;
+
 };
 
 /*
@@ -18835,7 +19884,7 @@ static void fts5DecodeFunction(
  decode_out:
   sqlite3_free(a);
   if( rc==SQLITE_OK ){
-    sqlite3_result_text(pCtx, (const char*)s.p, s.n, SQLITE_TRANSIENT);
+    sqlite3_result_text(pCtx, (const char*)s.p, s.n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else{
     sqlite3_result_error_code(pCtx, rc);
   }
@@ -18898,7 +19947,7 @@ struct Fts5StructVcsr {
 /*
 ** Create a new fts5_structure() table-valued function.
 */
-static int fts5structConnectMethod(
+int fts5structConnectMethod(
   sqlite3 *db,
   void *pAux,
   int argc, const char *const*argv,
@@ -18926,7 +19975,7 @@ static int fts5structConnectMethod(
 ** into the xFilter method.  If there is no valid struct=? constraint,
 ** then return an SQLITE_CONSTRAINT error.
 */
-static int fts5structBestIndexMethod(
+int fts5structBestIndexMethod(
   sqlite3_vtab *tab,
   sqlite3_index_info *pIdxInfo
 ){
@@ -18951,7 +20000,7 @@ static int fts5structBestIndexMethod(
 /*
 ** This method is the destructor for bytecodevtab objects.
 */
-static int fts5structDisconnectMethod(sqlite3_vtab *pVtab){
+int fts5structDisconnectMethod(sqlite3_vtab *pVtab){
   Fts5StructVtab *p = (Fts5StructVtab*)pVtab;
   sqlite3_free(p);
   return SQLITE_OK;
@@ -18960,7 +20009,7 @@ static int fts5structDisconnectMethod(sqlite3_vtab *pVtab){
 /*
 ** Constructor for a new bytecodevtab_cursor object.
 */
-static int fts5structOpenMethod(sqlite3_vtab *p, sqlite3_vtab_cursor **ppCsr){
+int fts5structOpenMethod(sqlite3_vtab *p, sqlite3_vtab_cursor **ppCsr){
   int rc = SQLITE_OK;
   Fts5StructVcsr *pNew = 0;
 
@@ -18973,7 +20022,7 @@ static int fts5structOpenMethod(sqlite3_vtab *p, sqlite3_vtab_cursor **ppCsr){
 /*
 ** Destructor for a bytecodevtab_cursor.
 */
-static int fts5structCloseMethod(sqlite3_vtab_cursor *cur){
+int fts5structCloseMethod(sqlite3_vtab_cursor *cur){
   Fts5StructVcsr *pCsr = (Fts5StructVcsr*)cur;
   fts5StructureRelease(pCsr->pStruct);
   sqlite3_free(pCsr);
@@ -18984,7 +20033,7 @@ static int fts5structCloseMethod(sqlite3_vtab_cursor *cur){
 /*
 ** Advance a bytecodevtab_cursor to its next row of output.
 */
-static int fts5structNextMethod(sqlite3_vtab_cursor *cur){
+int fts5structNextMethod(sqlite3_vtab_cursor *cur){
   Fts5StructVcsr *pCsr = (Fts5StructVcsr*)cur;
   Fts5Structure *p = pCsr->pStruct;
 
@@ -19006,12 +20055,12 @@ static int fts5structNextMethod(sqlite3_vtab_cursor *cur){
 ** Return TRUE if the cursor has been moved off of the last
 ** row of output.
 */
-static int fts5structEofMethod(sqlite3_vtab_cursor *cur){
+int fts5structEofMethod(sqlite3_vtab_cursor *cur){
   Fts5StructVcsr *pCsr = (Fts5StructVcsr*)cur;
   return pCsr->pStruct==0;
 }
 
-static int fts5structRowidMethod(
+int fts5structRowidMethod(
   sqlite3_vtab_cursor *cur, 
   sqlite_int64 *piRowid
 ){
@@ -19024,7 +20073,7 @@ static int fts5structRowidMethod(
 ** Return values of columns for the row at which the bytecodevtab_cursor
 ** is currently pointing.
 */
-static int fts5structColumnMethod(
+int fts5structColumnMethod(
   sqlite3_vtab_cursor *cur,   /* The cursor */
   sqlite3_context *ctx,       /* First argument to sqlite3_result_...() */
   int i                       /* Which column to return */
@@ -19077,7 +20126,7 @@ static int fts5structColumnMethod(
 **    idxNum==0     means show all subprograms
 **    idxNum==1     means show only the main bytecode and omit subprograms.
 */
-static int fts5structFilterMethod(
+int fts5structFilterMethod(
   sqlite3_vtab_cursor *pVtabCursor, 
   int idxNum, const char *idxStr,
   int argc, sqlite3_value **argv
@@ -19118,20 +20167,17 @@ static int fts5structFilterMethod(
 static int sqlite3Fts5IndexInit(sqlite3 *db){
 #if defined(SQLITE_TEST) || defined(SQLITE_FTS5_DEBUG)
   int rc = sqlite3_create_function(
-      db, "fts5_decode", 2, SQLITE_UTF8, 0, fts5DecodeFunction, 0, 0
-  );
+      db, "fts5_decode", 2, SQLITE_UTF8, 0, fts5DecodeFunction, xSFunc_signatures[xSFunc_fts5DecodeFunction_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
 
   if( rc==SQLITE_OK ){
     rc = sqlite3_create_function(
         db, "fts5_decode_none", 2, 
-        SQLITE_UTF8, (void*)db, fts5DecodeFunction, 0, 0
-    );
+        SQLITE_UTF8, (void*)db, fts5DecodeFunction, xSFunc_signatures[xSFunc_fts5DecodeFunction_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 
   if( rc==SQLITE_OK ){
     rc = sqlite3_create_function(
-        db, "fts5_rowid", -1, SQLITE_UTF8, 0, fts5RowidFunction, 0, 0
-    );
+        db, "fts5_rowid", -1, SQLITE_UTF8, 0, fts5RowidFunction, xSFunc_signatures[xSFunc_fts5RowidFunction_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 
   if( rc==SQLITE_OK ){
@@ -19162,30 +20208,16 @@ static int sqlite3Fts5IndexInit(sqlite3 *db){
       0,                           /* xShadowName   */
       0                            /* xIntegrity    */
     ,
-  .xCreate_signature = xCreate_0,
-  .xConnect_signature = xConnect_fts5structConnectMethod,
-  .xBestIndex_signature = xBestIndex_fts5structBestIndexMethod,
-  .xDisconnect_signature = xDisconnect_fts5structDisconnectMethod,
-  .xDestroy_signature = xDestroy_0,
-  .xOpen_signature = xOpen_fts5structOpenMethod,
-  .xClose_signature = xClose_fts5structCloseMethod,
-  .xFilter_signature = xFilter_fts5structFilterMethod,
-  .xNext_signature = xNext_fts5structNextMethod,
-  .xEof_signature = xEof_fts5structEofMethod,
-  .xColumn_signature = xColumn_fts5structColumnMethod,
-  .xRowid_signature = xRowid_fts5structRowidMethod,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xConnect_signature = xConnect_signatures[xConnect_fts5structConnectMethod_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_fts5structBestIndexMethod_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_fts5structDisconnectMethod_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_fts5structOpenMethod_enum],
+  .xClose_signature = xClose_signatures[xClose_fts5structCloseMethod_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_fts5structFilterMethod_enum],
+  .xNext_signature = xNext_signatures[xNext_fts5structNextMethod_enum],
+  .xEof_signature = xEof_signatures[xEof_fts5structEofMethod_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_fts5structColumnMethod_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts5structRowidMethod_enum]
 };
     rc = sqlite3_create_module(db, "fts5_structure", &fts5structure_module, 0);
   }
@@ -19312,18 +20344,12 @@ struct Fts5Auxiliary {
   Fts5Global *pGlobal;            /* Global context for this function */
   char *zFunc;                    /* Function name (nul-terminated) */
   void *pUserData;                /* User-data pointer */
-  void (*xFunc)(
-  const Fts5ExtensionApi *pApi,   
-  Fts5Context *pFts,              
-  sqlite3_context *pCtx,          
-  int nVal,                       
-  sqlite3_value **apVal           
-);  /* Callback function */
+  fts5_extension_function xFunc;  /* Callback function */
   void (*xDestroy)(void*);        /* Destructor function */
-  Fts5Auxiliary *pNext;           /* Next registered auxiliary function */
-
-  int xFunc_signature;
-  int xDestroy_signature;
+  Fts5Auxiliary *pNext;
+  int *xFunc_signature;
+  int *xDestroy_signature;
+           /* Next registered auxiliary function */
 };
 
 /*
@@ -19353,9 +20379,9 @@ struct Fts5TokenizerModule {
   fts5_tokenizer x1;              /* Tokenizer functions */
   fts5_tokenizer_v2 x2;           /* V2 tokenizer functions */
   void (*xDestroy)(void*);        /* Destructor function */
-  Fts5TokenizerModule *pNext;     /* Next registered tokenizer module */
-
-  int xDestroy_signature;
+  Fts5TokenizerModule *pNext;
+  int *xDestroy_signature;
+     /* Next registered tokenizer module */
 };
 
 struct Fts5FullTable {
@@ -19490,9 +20516,9 @@ struct Fts5Auxdata {
   Fts5Auxiliary *pAux;            /* Extension to which this belongs */
   void *pPtr;                     /* Pointer value */
   void(*xDelete)(void*);          /* Destructor */
-  Fts5Auxdata *pNext;             /* Next object in linked list */
-
-  int xDelete_signature;
+  Fts5Auxdata *pNext;
+  int *xDelete_signature;
+             /* Next object in linked list */
 };
 
 #ifdef SQLITE_DEBUG
@@ -19583,7 +20609,7 @@ static void fts5FreeVtab(Fts5FullTable *pTab){
 /*
 ** The xDisconnect() virtual table method.
 */
-static int fts5DisconnectMethod(sqlite3_vtab *pVtab){
+int fts5DisconnectMethod(sqlite3_vtab *pVtab){
   fts5FreeVtab((Fts5FullTable*)pVtab);
   return SQLITE_OK;
 }
@@ -19591,7 +20617,7 @@ static int fts5DisconnectMethod(sqlite3_vtab *pVtab){
 /*
 ** The xDestroy() virtual table method.
 */
-static int fts5DestroyMethod(sqlite3_vtab *pVtab){
+int fts5DestroyMethod(sqlite3_vtab *pVtab){
   Fts5Table *pTab = (Fts5Table*)pVtab;
   int rc = sqlite3Fts5DropAll(pTab->pConfig);
   if( rc==SQLITE_OK ){
@@ -19685,7 +20711,7 @@ static int fts5InitVtab(
 ** The xConnect() and xCreate() methods for the virtual table. All the
 ** work is done in function fts5InitVtab().
 */
-static int fts5ConnectMethod(
+int fts5ConnectMethod(
   sqlite3 *db,                    /* Database connection */
   void *pAux,                     /* Pointer to tokenizer hash table */
   int argc,                       /* Number of elements in argv array */
@@ -19695,7 +20721,7 @@ static int fts5ConnectMethod(
 ){
   return fts5InitVtab(0, db, pAux, argc, argv, ppVtab, pzErr);
 }
-static int fts5CreateMethod(
+int fts5CreateMethod(
   sqlite3 *db,                    /* Database connection */
   void *pAux,                     /* Pointer to tokenizer hash table */
   int argc,                       /* Number of elements in argv array */
@@ -19821,7 +20847,7 @@ static int fts5UsePatternMatch(
 **
 ** Costs are not modified by the ORDER BY clause.
 */
-static int fts5BestIndexMethod(sqlite3_vtab *pVTab, sqlite3_index_info *pInfo){
+int fts5BestIndexMethod(sqlite3_vtab *pVTab, sqlite3_index_info *pInfo){
   Fts5Table *pTab = (Fts5Table*)pVTab;
   Fts5Config *pConfig = pTab->pConfig;
   const int nCol = pConfig->nCol;
@@ -19977,7 +21003,7 @@ static int fts5NewTransaction(Fts5FullTable *pTab){
 /*
 ** Implementation of xOpen method.
 */
-static int fts5OpenMethod(sqlite3_vtab *pVTab, sqlite3_vtab_cursor **ppCsr){
+int fts5OpenMethod(sqlite3_vtab *pVTab, sqlite3_vtab_cursor **ppCsr){
   Fts5FullTable *pTab = (Fts5FullTable*)pVTab;
   Fts5Config *pConfig = pTab->p.pConfig;
   Fts5Cursor *pCsr = 0;           /* New cursor object */
@@ -20047,7 +21073,35 @@ static void fts5FreeCursorComponents(Fts5Cursor *pCsr){
 
   for(pData=pCsr->pAuxdata; pData; pData=pNext){
     pNext = pData->pNext;
-    if( pData->xDelete ) pData->xDelete(pData->pPtr);
+    if( pData->xDelete ) {
+      if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pData->xDelete_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          apndDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          f5tOrigintextDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          f5tTokenizerDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          kvstorageDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          vfstraceDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          unixDelete(pData->pPtr);
+        }
+    }
     sqlite3_free(pData);
   }
 
@@ -20068,7 +21122,7 @@ static void fts5FreeCursorComponents(Fts5Cursor *pCsr){
 ** Close the cursor.  For additional information see the documentation
 ** on the xClose method of the virtual table interface.
 */
-static int fts5CloseMethod(sqlite3_vtab_cursor *pCursor){
+int fts5CloseMethod(sqlite3_vtab_cursor *pCursor){
   if( pCursor ){
     Fts5FullTable *pTab = (Fts5FullTable*)(pCursor->pVtab);
     Fts5Cursor *pCsr = (Fts5Cursor*)pCursor;
@@ -20184,7 +21238,7 @@ static int fts5CursorReseek(Fts5Cursor *pCsr, int *pbSkip){
 ** even if we reach end-of-file.  The fts5EofMethod() will be called
 ** subsequently to determine whether or not an EOF was hit.
 */
-static int fts5NextMethod(sqlite3_vtab_cursor *pCursor){
+int fts5NextMethod(sqlite3_vtab_cursor *pCursor){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCursor;
   int rc;
 
@@ -20604,7 +21658,7 @@ static int sqlite3Fts5DecodeLocaleValue(
 ** is required to (a) call sqlite3Fts5ClearLocale() to reset the tokenizer 
 ** locale, and (b) call sqlite3_free() to free (*pzText).
 */
-static int fts5ExtractExprText(
+int fts5ExtractExprText(
   Fts5Config *pConfig,            /* Fts5 configuration */
   sqlite3_value *pVal,            /* Value to extract expression text from */
   char **pzText,                  /* OUT: nul-terminated buffer of text */
@@ -20643,7 +21697,7 @@ static int fts5ExtractExprText(
 **   2. A by-rowid lookup.
 **   3. A full-table scan.
 */
-static int fts5FilterMethod(
+int fts5FilterMethod(
   sqlite3_vtab_cursor *pCursor,   /* The cursor used for this query */
   int idxNum,                     /* Strategy index */
   const char *idxStr,             /* Unused */
@@ -20849,7 +21903,7 @@ static int fts5FilterMethod(
 ** This is the xEof method of the virtual table. SQLite calls this 
 ** routine to find out if it has reached the end of a result set.
 */
-static int fts5EofMethod(sqlite3_vtab_cursor *pCursor){
+int fts5EofMethod(sqlite3_vtab_cursor *pCursor){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCursor;
   return (CsrFlagTest(pCsr, FTS5CSR_EOF) ? 1 : 0);
 }
@@ -20879,7 +21933,7 @@ static i64 fts5CursorRowid(Fts5Cursor *pCsr){
 ** exposes %_content.rowid as the rowid for the virtual table. The
 ** rowid should be written to *pRowid.
 */
-static int fts5RowidMethod(sqlite3_vtab_cursor *pCursor, sqlite_int64 *pRowid){
+int fts5RowidMethod(sqlite3_vtab_cursor *pCursor, sqlite_int64 *pRowid){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCursor;
   int ePlan = pCsr->ePlan;
   
@@ -21082,7 +22136,7 @@ static void fts5StorageInsert(
 **   * The contentless_delete=1 option was specified and all of the indexed
 **     columns (not a subset) have been modified.
 */
-static int fts5ContentlessUpdate(
+int fts5ContentlessUpdate(
   Fts5Config *pConfig,
   sqlite3_value **apVal,
   int bRowidModified,
@@ -21134,7 +22188,7 @@ static int fts5ContentlessUpdate(
 **   3. Values for each of the nCol matchable columns.
 **   4. Values for the two hidden columns (<tablename> and "rank").
 */
-static int fts5UpdateMethod(
+int fts5UpdateMethod(
   sqlite3_vtab *pVtab,            /* Virtual table handle */
   int nArg,                       /* Size of argument array */
   sqlite3_value **apVal,          /* Array of arguments */
@@ -21309,7 +22363,7 @@ static int fts5UpdateMethod(
 /*
 ** Implementation of xSync() method. 
 */
-static int fts5SyncMethod(sqlite3_vtab *pVtab){
+int fts5SyncMethod(sqlite3_vtab *pVtab){
   int rc;
   Fts5FullTable *pTab = (Fts5FullTable*)pVtab;
   fts5CheckTransactionState(pTab, FTS5_SYNC, 0);
@@ -21322,7 +22376,7 @@ static int fts5SyncMethod(sqlite3_vtab *pVtab){
 /*
 ** Implementation of xBegin() method. 
 */
-static int fts5BeginMethod(sqlite3_vtab *pVtab){
+int fts5BeginMethod(sqlite3_vtab *pVtab){
   int rc = fts5NewTransaction((Fts5FullTable*)pVtab);
   if( rc==SQLITE_OK ){
     fts5CheckTransactionState((Fts5FullTable*)pVtab, FTS5_BEGIN, 0);
@@ -21335,7 +22389,7 @@ static int fts5BeginMethod(sqlite3_vtab *pVtab){
 ** the pending-terms hash-table have already been flushed into the database
 ** by fts5SyncMethod().
 */
-static int fts5CommitMethod(sqlite3_vtab *pVtab){
+int fts5CommitMethod(sqlite3_vtab *pVtab){
   UNUSED_PARAM(pVtab);  /* Call below is a no-op for NDEBUG builds */
   fts5CheckTransactionState((Fts5FullTable*)pVtab, FTS5_COMMIT, 0);
   return SQLITE_OK;
@@ -21345,7 +22399,7 @@ static int fts5CommitMethod(sqlite3_vtab *pVtab){
 ** Implementation of xRollback(). Discard the contents of the pending-terms
 ** hash-table. Any changes made to the database are reverted by SQLite.
 */
-static int fts5RollbackMethod(sqlite3_vtab *pVtab){
+int fts5RollbackMethod(sqlite3_vtab *pVtab){
   int rc;
   Fts5FullTable *pTab = (Fts5FullTable*)pVtab;
   fts5CheckTransactionState(pTab, FTS5_ROLLBACK, 0);
@@ -21356,17 +22410,17 @@ static int fts5RollbackMethod(sqlite3_vtab *pVtab){
 
 static int fts5CsrPoslist(Fts5Cursor*, int, const u8**, int*);
 
-static void *fts5ApiUserData(Fts5Context *pCtx){
+void *fts5ApiUserData(Fts5Context *pCtx){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   return pCsr->pAux->pUserData;
 }
 
-static int fts5ApiColumnCount(Fts5Context *pCtx){
+int fts5ApiColumnCount(Fts5Context *pCtx){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   return ((Fts5Table*)(pCsr->base.pVtab))->pConfig->nCol;
 }
 
-static int fts5ApiColumnTotalSize(
+int fts5ApiColumnTotalSize(
   Fts5Context *pCtx, 
   int iCol, 
   sqlite3_int64 *pnToken
@@ -21376,7 +22430,7 @@ static int fts5ApiColumnTotalSize(
   return sqlite3Fts5StorageSize(pTab->pStorage, iCol, pnToken);
 }
 
-static int fts5ApiRowCount(Fts5Context *pCtx, i64 *pnRow){
+int fts5ApiRowCount(Fts5Context *pCtx, i64 *pnRow){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5FullTable *pTab = (Fts5FullTable*)(pCsr->base.pVtab);
   return sqlite3Fts5StorageRowCount(pTab->pStorage, pnRow);
@@ -21385,12 +22439,13 @@ static int fts5ApiRowCount(Fts5Context *pCtx, i64 *pnRow){
 /*
 ** Implementation of xTokenize_v2() API.
 */
-static int fts5ApiTokenize_v2(
+int fts5ApiTokenize_v2(
   Fts5Context *pCtx, 
   const char *pText, int nText, 
   const char *pLoc, int nLoc, 
   void *pUserData,
-  int (*xToken)(void*, int, const char*, int, int, int)
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature
 ){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5Table *pTab = (Fts5Table*)(pCsr->base.pVtab);
@@ -21409,21 +22464,22 @@ static int fts5ApiTokenize_v2(
 ** Implementation of xTokenize() API. This is just xTokenize_v2() with NULL/0
 ** passed as the locale.
 */
-static int fts5ApiTokenize(
+int fts5ApiTokenize(
   Fts5Context *pCtx, 
   const char *pText, int nText, 
   void *pUserData,
-  int (*xToken)(void*, int, const char*, int, int, int)
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature
 ){
   return fts5ApiTokenize_v2(pCtx, pText, nText, 0, 0, pUserData, xToken);
 }
 
-static int fts5ApiPhraseCount(Fts5Context *pCtx){
+int fts5ApiPhraseCount(Fts5Context *pCtx){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   return sqlite3Fts5ExprPhraseCount(pCsr->pExpr);
 }
 
-static int fts5ApiPhraseSize(Fts5Context *pCtx, int iPhrase){
+int fts5ApiPhraseSize(Fts5Context *pCtx, int iPhrase){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   return sqlite3Fts5ExprPhraseSize(pCsr->pExpr, iPhrase);
 }
@@ -21471,7 +22527,7 @@ static int fts5TextFromStmt(
   return rc;
 }
 
-static int fts5ApiColumnText(
+int fts5ApiColumnText(
   Fts5Context *pCtx, 
   int iCol, 
   const char **pz, 
@@ -21649,7 +22705,7 @@ static int fts5CacheInstArray(Fts5Cursor *pCsr){
   return rc;
 }
 
-static int fts5ApiInstCount(Fts5Context *pCtx, int *pnInst){
+int fts5ApiInstCount(Fts5Context *pCtx, int *pnInst){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   int rc = SQLITE_OK;
   if( CsrFlagTest(pCsr, FTS5CSR_REQUIRE_INST)==0 
@@ -21659,7 +22715,7 @@ static int fts5ApiInstCount(Fts5Context *pCtx, int *pnInst){
   return rc;
 }
 
-static int fts5ApiInst(
+int fts5ApiInst(
   Fts5Context *pCtx, 
   int iIdx, 
   int *piPhrase, 
@@ -21682,7 +22738,7 @@ static int fts5ApiInst(
   return rc;
 }
 
-static sqlite3_int64 fts5ApiRowid(Fts5Context *pCtx){
+sqlite3_int64 fts5ApiRowid(Fts5Context *pCtx){
   return fts5CursorRowid((Fts5Cursor*)pCtx);
 }
 
@@ -21703,7 +22759,7 @@ static int fts5ColumnSizeCb(
   return SQLITE_OK;
 }
 
-static int fts5ApiColumnSize(Fts5Context *pCtx, int iCol, int *pnToken){
+int fts5ApiColumnSize(Fts5Context *pCtx, int iCol, int *pnToken){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5FullTable *pTab = (Fts5FullTable*)(pCsr->base.pVtab);
   Fts5Config *pConfig = pTab->p.pConfig;
@@ -21758,10 +22814,11 @@ static int fts5ApiColumnSize(Fts5Context *pCtx, int iCol, int *pnToken){
 /*
 ** Implementation of the xSetAuxdata() method.
 */
-static int fts5ApiSetAuxdata(
+int fts5ApiSetAuxdata(
   Fts5Context *pCtx,              /* Fts5 context */
   void *pPtr,                     /* Pointer to save as auxdata */
-  void(*xDelete)(void*)           /* Destructor for pPtr (or NULL) */
+  void(*xDelete)(void*),
+  int *xDelete_signature           /* Destructor for pPtr (or NULL) */
 ){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5Auxdata *pData;
@@ -21774,13 +22831,39 @@ static int fts5ApiSetAuxdata(
 
   if( pData ){
     if( pData->xDelete ){
-      pData->xDelete(pData->pPtr);
+      if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pData->xDelete_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          apndDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          f5tOrigintextDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          f5tTokenizerDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          kvstorageDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          vfstraceDelete(pData->pPtr);
+        }
+      else
+        if (memcmp(pData->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pData->xDelete_signature)) == 0) {
+          unixDelete(pData->pPtr);
+        }
     }
   }else{
     int rc = SQLITE_OK;
     pData = (Fts5Auxdata*)sqlite3Fts5MallocZero(&rc, sizeof(Fts5Auxdata));
     if( pData==0 ){
-      if( xDelete ) xDelete(pPtr);
+      // if( xDelete ) xDelete(pPtr);
       return rc;
     }
     pData->pAux = pCsr->pAux;
@@ -21789,11 +22872,12 @@ static int fts5ApiSetAuxdata(
   }
 
   pData->xDelete = xDelete;
+  pData->xDelete_signature = xDelete_signature;
   pData->pPtr = pPtr;
   return SQLITE_OK;
 }
 
-static void *fts5ApiGetAuxdata(Fts5Context *pCtx, int bClear){
+void *fts5ApiGetAuxdata(Fts5Context *pCtx, int bClear){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5Auxdata *pData;
   void *pRet = 0;
@@ -21807,13 +22891,14 @@ static void *fts5ApiGetAuxdata(Fts5Context *pCtx, int bClear){
     if( bClear ){
       pData->pPtr = 0;
       pData->xDelete = 0;
+      pData->xDelete_signature = xDelete_signatures[xDelete_0_enum];
     }
   }
 
   return pRet;
 }
 
-static void fts5ApiPhraseNext(
+void fts5ApiPhraseNext(
   Fts5Context *pCtx, 
   Fts5PhraseIter *pIter, 
   int *piCol, int *piOff
@@ -21838,7 +22923,7 @@ static void fts5ApiPhraseNext(
   }
 }
 
-static int fts5ApiPhraseFirst(
+int fts5ApiPhraseFirst(
   Fts5Context *pCtx, 
   int iPhrase, 
   Fts5PhraseIter *pIter, 
@@ -21857,7 +22942,7 @@ static int fts5ApiPhraseFirst(
   return rc;
 }
 
-static void fts5ApiPhraseNextColumn(
+void fts5ApiPhraseNextColumn(
   Fts5Context *pCtx, 
   Fts5PhraseIter *pIter, 
   int *piCol
@@ -21887,7 +22972,7 @@ static void fts5ApiPhraseNextColumn(
   }
 }
 
-static int fts5ApiPhraseFirstColumn(
+int fts5ApiPhraseFirstColumn(
   Fts5Context *pCtx, 
   int iPhrase, 
   Fts5PhraseIter *pIter, 
@@ -21935,7 +23020,7 @@ static int fts5ApiPhraseFirstColumn(
 /*
 ** xQueryToken() API implemenetation.
 */
-static int fts5ApiQueryToken(
+int fts5ApiQueryToken(
   Fts5Context* pCtx, 
   int iPhrase, 
   int iToken, 
@@ -21949,7 +23034,7 @@ static int fts5ApiQueryToken(
 /*
 ** xInstToken() API implemenetation.
 */
-static int fts5ApiInstToken(
+int fts5ApiInstToken(
   Fts5Context *pCtx,
   int iIdx, 
   int iToken,
@@ -21976,14 +23061,14 @@ static int fts5ApiInstToken(
 }
 
 
-static int fts5ApiQueryPhrase(Fts5Context*, int, void*, 
+int fts5ApiQueryPhrase(Fts5Context*, int, void*, 
     int(*)(const Fts5ExtensionApi*, Fts5Context*, void*)
 );
 
 /*
 ** The xColumnLocale() API.
 */
-static int fts5ApiColumnLocale(
+int fts5ApiColumnLocale(
   Fts5Context *pCtx, 
   int iCol, 
   const char **pzLocale, 
@@ -22045,16 +23130,41 @@ static const Fts5ExtensionApi sFts5Api = {
   fts5ApiInstToken,
   fts5ApiColumnLocale,
   fts5ApiTokenize_v2
+,
+  .xUserData_signature = xUserData_signatures[xUserData_fts5ApiUserData_enum],
+  .xColumnCount_signature = xColumnCount_signatures[xColumnCount_fts5ApiColumnCount_enum],
+  .xRowCount_signature = xRowCount_signatures[xRowCount_fts5ApiRowCount_enum],
+  .xColumnTotalSize_signature = xColumnTotalSize_signatures[xColumnTotalSize_fts5ApiColumnTotalSize_enum],
+  .xTokenize_signature = xTokenize_signatures[xTokenize_fts5ApiTokenize_enum],
+  .xPhraseCount_signature = xPhraseCount_signatures[xPhraseCount_fts5ApiPhraseCount_enum],
+  .xPhraseSize_signature = xPhraseSize_signatures[xPhraseSize_fts5ApiPhraseSize_enum],
+  .xInstCount_signature = xInstCount_signatures[xInstCount_fts5ApiInstCount_enum],
+  .xInst_signature = xInst_signatures[xInst_fts5ApiInst_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts5ApiRowid_enum],
+  .xColumnText_signature = xColumnText_signatures[xColumnText_fts5ApiColumnText_enum],
+  .xColumnSize_signature = xColumnSize_signatures[xColumnSize_fts5ApiColumnSize_enum],
+  .xQueryPhrase_signature = xQueryPhrase_signatures[xQueryPhrase_fts5ApiQueryPhrase_enum],
+  .xSetAuxdata_signature = xSetAuxdata_signatures[xSetAuxdata_fts5ApiSetAuxdata_enum],
+  .xGetAuxdata_signature = xGetAuxdata_signatures[xGetAuxdata_fts5ApiGetAuxdata_enum],
+  .xPhraseFirst_signature = xPhraseFirst_signatures[xPhraseFirst_fts5ApiPhraseFirst_enum],
+  .xPhraseNext_signature = xPhraseNext_signatures[xPhraseNext_fts5ApiPhraseNext_enum],
+  .xPhraseFirstColumn_signature = xPhraseFirstColumn_signatures[xPhraseFirstColumn_fts5ApiPhraseFirstColumn_enum],
+  .xPhraseNextColumn_signature = xPhraseNextColumn_signatures[xPhraseNextColumn_fts5ApiPhraseNextColumn_enum],
+  .xQueryToken_signature = xQueryToken_signatures[xQueryToken_fts5ApiQueryToken_enum],
+  .xInstToken_signature = xInstToken_signatures[xInstToken_fts5ApiInstToken_enum],
+  .xColumnLocale_signature = xColumnLocale_signatures[xColumnLocale_fts5ApiColumnLocale_enum],
+  .xTokenize_v2_signature = xTokenize_v2_signatures[xTokenize_v2_fts5ApiTokenize_v2_enum]
 };
 
 /*
 ** Implementation of API function xQueryPhrase().
 */
-static int fts5ApiQueryPhrase(
+int fts5ApiQueryPhrase(
   Fts5Context *pCtx, 
   int iPhrase, 
   void *pUserData,
-  int(*xCallback)(const Fts5ExtensionApi*, Fts5Context*, void*)
+  int(*xCallback)(const Fts5ExtensionApi*, Fts5Context*, void*),
+  int *xCallback_signature
 ){
   Fts5Cursor *pCsr = (Fts5Cursor*)pCtx;
   Fts5FullTable *pTab = (Fts5FullTable*)(pCsr->base.pVtab);
@@ -22075,7 +23185,7 @@ static int fts5ApiQueryPhrase(
         rc==SQLITE_OK && CsrFlagTest(pNew, FTS5CSR_EOF)==0;
         rc = fts5NextMethod((sqlite3_vtab_cursor*)pNew)
     ){
-      rc = xCallback(&sFts5Api, (Fts5Context*)pNew, pUserData);
+      // rc = xCallback(&sFts5Api, (Fts5Context*)pNew, pUserData);
       if( rc!=SQLITE_OK ){
         if( rc==SQLITE_DONE ) rc = SQLITE_OK;
         break;
@@ -22230,7 +23340,7 @@ static int fts5PoslistBlob(sqlite3_context *pCtx, Fts5Cursor *pCsr){
       break;
   }
 
-  sqlite3_result_blob(pCtx, val.p, val.n, sqlite3_free);
+  sqlite3_result_blob(pCtx, val.p, val.n, , xDel_signatures[xDel_sqlite3_free_enum]);
   return rc;
 }
 
@@ -22238,7 +23348,7 @@ static int fts5PoslistBlob(sqlite3_context *pCtx, Fts5Cursor *pCsr){
 ** This is the xColumn method, called by SQLite to request a value from
 ** the row that the supplied cursor currently points to.
 */
-static int fts5ColumnMethod(
+int fts5ColumnMethod(
   sqlite3_vtab_cursor *pCursor,   /* Cursor to retrieve value from */
   sqlite3_context *pCtx,          /* Context for sqlite3_result_xxx() calls */
   int iCol                        /* Index of column to read value from */
@@ -22289,7 +23399,7 @@ static int fts5ColumnMethod(
           int n = 0;
           rc = fts5TextFromStmt(pConfig, pCsr->pStmt, iCol, &z, &n);
           if( rc==SQLITE_OK ){
-            sqlite3_result_text(pCtx, z, n, SQLITE_TRANSIENT);
+            sqlite3_result_text(pCtx, z, n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
           }
           sqlite3Fts5ClearLocale(pConfig);
         }else{
@@ -22309,7 +23419,7 @@ static int fts5ColumnMethod(
 ** This routine implements the xFindFunction method for the FTS3
 ** virtual table.
 */
-static int fts5FindFunctionMethod(
+int fts5FindFunctionMethod(
   sqlite3_vtab *pVtab,            /* Virtual table handle */
   int nUnused,                    /* Number of SQL function arguments */
   const char *zName,              /* Name of SQL function */
@@ -22334,7 +23444,7 @@ static int fts5FindFunctionMethod(
 /*
 ** Implementation of FTS5 xRename method. Rename an fts5 table.
 */
-static int fts5RenameMethod(
+int fts5RenameMethod(
   sqlite3_vtab *pVtab,            /* Virtual table handle */
   const char *zName               /* New name of table */
 ){
@@ -22354,7 +23464,7 @@ static int sqlite3Fts5FlushToDisk(Fts5Table *pTab){
 **
 ** Flush the contents of the pending-terms table to disk.
 */
-static int fts5SavepointMethod(sqlite3_vtab *pVtab, int iSavepoint){
+int fts5SavepointMethod(sqlite3_vtab *pVtab, int iSavepoint){
   Fts5FullTable *pTab = (Fts5FullTable*)pVtab;
   int rc = SQLITE_OK;
 
@@ -22371,7 +23481,7 @@ static int fts5SavepointMethod(sqlite3_vtab *pVtab, int iSavepoint){
 **
 ** This is a no-op.
 */
-static int fts5ReleaseMethod(sqlite3_vtab *pVtab, int iSavepoint){
+int fts5ReleaseMethod(sqlite3_vtab *pVtab, int iSavepoint){
   Fts5FullTable *pTab = (Fts5FullTable*)pVtab;
   int rc = SQLITE_OK;
   fts5CheckTransactionState(pTab, FTS5_RELEASE, iSavepoint);
@@ -22389,7 +23499,7 @@ static int fts5ReleaseMethod(sqlite3_vtab *pVtab, int iSavepoint){
 **
 ** Discard the contents of the pending terms table.
 */
-static int fts5RollbackToMethod(sqlite3_vtab *pVtab, int iSavepoint){
+int fts5RollbackToMethod(sqlite3_vtab *pVtab, int iSavepoint){
   Fts5FullTable *pTab = (Fts5FullTable*)pVtab;
   int rc = SQLITE_OK;
   fts5CheckTransactionState(pTab, FTS5_ROLLBACKTO, iSavepoint);
@@ -22408,14 +23518,9 @@ static int fts5CreateAux(
   fts5_api *pApi,                 /* Global context (one per db handle) */
   const char *zName,              /* Name of new function */
   void *pUserData,                /* User data for aux. function */
-  void (*xFunc)(
-  const Fts5ExtensionApi *pApi,   
-  Fts5Context *pFts,              
-  sqlite3_context *pCtx,          
-  int nVal,                       
-  sqlite3_value **apVal           
-),  /* Aux. function implementation */
-  void(*xDestroy)(void*)          /* Destructor for pUserData */
+  fts5_extension_function xFunc,  /* Aux. function implementation */
+  void(*xDestroy)(void*),
+  int *xDestroy_signature          /* Destructor for pUserData */
 ){
   Fts5Global *pGlobal = (Fts5Global*)pApi;
   int rc = sqlite3_overload_function(pGlobal->db, zName, -1);
@@ -22434,7 +23539,9 @@ static int fts5CreateAux(
       pAux->pGlobal = pGlobal;
       pAux->pUserData = pUserData;
       pAux->xFunc = xFunc;
+      pAux->xFunc_signature = xFunc_signature;
       pAux->xDestroy = xDestroy;
+      pAux->xDestroy_signature = xDestroy_signature;
       pAux->pNext = pGlobal->pAux;
       pGlobal->pAux = pAux;
     }else{
@@ -22464,7 +23571,8 @@ static int fts5NewTokenizerModule(
   Fts5Global *pGlobal,            /* Global context (one per db handle) */
   const char *zName,              /* Name of new function */
   void *pUserData,                /* User data for aux. function */
-  void(*xDestroy)(void*),         /* Destructor for pUserData */
+  void(*xDestroy)(void*)
+  int *xDestroy_signature,         /* Destructor for pUserData */
   Fts5TokenizerModule **ppNew
 ){
   int rc = SQLITE_OK;
@@ -22480,6 +23588,7 @@ static int fts5NewTokenizerModule(
     memcpy(pNew->zName, zName, nName);
     pNew->pUserData = pUserData;
     pNew->xDestroy = xDestroy;
+    pNew->xDestroy_signature = xDestroy_signature;
     pNew->pNext = pGlobal->pTok;
     pGlobal->pTok = pNew;
     if( pNew->pNext==0 ){
@@ -22508,7 +23617,7 @@ struct Fts5VtoVTokenizer {
 ** Create a wrapper tokenizer. The context argument pCtx points to the
 ** Fts5TokenizerModule object.
 */
-static int fts5VtoVCreate(
+int fts5VtoVCreate(
   void *pCtx, 
   const char **azArg, 
   int nArg, 
@@ -22524,9 +23633,291 @@ static int fts5VtoVCreate(
     pNew->x2 = pMod->x2;
     pNew->bV2Native = pMod->bV2Native;
     if( pMod->bV2Native ){
-      rc = pMod->x2.xCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+      if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_0_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_amatchConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = amatchConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_closureConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = closureConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_csvtabCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = csvtabCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_dbpageConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = dbpageConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_echoCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = echoCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_expertConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = expertConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_f5tOrigintextCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = f5tOrigintextCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_f5tTokenizerCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = f5tTokenizerCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fsConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fsConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fsdirConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fsdirConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fstreeConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fstreeConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fts3CreateMethod_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fts3CreateMethod(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fts3auxConnectMethod_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fts3auxConnectMethod(pMod->pUserData, azArg, nArg,
+                                    &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fts3termConnectMethod_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fts3termConnectMethod(pMod->pUserData, azArg, nArg,
+                                     &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fts3tokConnectMethod_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fts3tokConnectMethod(pMod->pUserData, azArg, nArg,
+                                    &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_fuzzerConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = fuzzerConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_geopolyCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = geopolyCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_intarrayCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = intarrayCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_pcache1Create_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = pcache1Create(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_pcachetraceCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = pcachetraceCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_porterCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = porterCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_rtreeCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = rtreeCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_schemaCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = schemaCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_simpleCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = simpleCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_spellfix1Create_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = spellfix1Create(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_statConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = statConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_tclConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = tclConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_tclvarConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = tclvarConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_unicodeCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = unicodeCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_unionConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = unionConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_vlogConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = vlogConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_vtablogCreate_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = vtablogCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_wholenumberConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = wholenumberConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x2.xCreate_signature, xCreate_signatures[xCreate_zipfileConnect_enum], sizeof(pMod->x2.xCreate_signature)) == 0) {
+          rc = zipfileConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
     }else{
-      rc = pMod->x1.xCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+      if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_0_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_amatchConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = amatchConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_closureConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = closureConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_csvtabCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = csvtabCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_dbpageConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = dbpageConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_echoCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = echoCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_expertConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = expertConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_f5tOrigintextCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = f5tOrigintextCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_f5tTokenizerCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = f5tTokenizerCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fsConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fsConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fsdirConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fsdirConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fstreeConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fstreeConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fts3CreateMethod_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fts3CreateMethod(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fts3auxConnectMethod_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fts3auxConnectMethod(pMod->pUserData, azArg, nArg,
+                                    &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fts3termConnectMethod_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fts3termConnectMethod(pMod->pUserData, azArg, nArg,
+                                     &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fts3tokConnectMethod_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fts3tokConnectMethod(pMod->pUserData, azArg, nArg,
+                                    &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_fuzzerConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = fuzzerConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_geopolyCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = geopolyCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_intarrayCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = intarrayCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_pcache1Create_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = pcache1Create(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_pcachetraceCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = pcachetraceCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_porterCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = porterCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_rtreeCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = rtreeCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_schemaCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = schemaCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_simpleCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = simpleCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_spellfix1Create_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = spellfix1Create(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_statConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = statConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_tclConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = tclConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_tclvarConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = tclvarConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_unicodeCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = unicodeCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_unionConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = unionConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_vlogConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = vlogConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_vtablogCreate_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = vtablogCreate(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_wholenumberConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = wholenumberConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
+      else
+        if (memcmp(pMod->x1.xCreate_signature, xCreate_signatures[xCreate_zipfileConnect_enum], sizeof(pMod->x1.xCreate_signature)) == 0) {
+          rc = zipfileConnect(pMod->pUserData, azArg, nArg, &pNew->pReal);
+        }
     }
     if( rc!=SQLITE_OK ){
       sqlite3_free(pNew);
@@ -22541,13 +23932,65 @@ static int fts5VtoVCreate(
 /*
 ** Delete an Fts5VtoVTokenizer wrapper tokenizer. 
 */
-static void fts5VtoVDelete(Fts5Tokenizer *pTok){
+void fts5VtoVDelete(Fts5Tokenizer *pTok){
   Fts5VtoVTokenizer *p = (Fts5VtoVTokenizer*)pTok;
   if( p ){
     if( p->bV2Native ){
-      p->x2.xDelete(p->pReal);
+      if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          apndDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          f5tOrigintextDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          f5tTokenizerDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          kvstorageDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          vfstraceDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x2.xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(p->x2.xDelete_signature)) == 0) {
+          unixDelete(p->pReal);
+        }
     }else{
-      p->x1.xDelete(p->pReal);
+      if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          apndDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          f5tOrigintextDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          f5tTokenizerDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          kvstorageDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          vfstraceDelete(p->pReal);
+        }
+      else
+        if (memcmp(p->x1.xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(p->x1.xDelete_signature)) == 0) {
+          unixDelete(p->pReal);
+        }
     }
     sqlite3_free(p);
   }
@@ -22558,44 +24001,80 @@ static void fts5VtoVDelete(Fts5Tokenizer *pTok){
 ** xTokenizer method for a wrapper tokenizer that offers the v1 interface
 ** (no support for locales).
 */
-static int fts5V1toV2Tokenize(
+int fts5V1toV2Tokenize(
   Fts5Tokenizer *pTok, 
   void *pCtx, int flags,
   const char *pText, int nText, 
-  int (*xToken)(void*, int, const char*, int, int, int)
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature
 ){
   Fts5VtoVTokenizer *p = (Fts5VtoVTokenizer*)pTok;
   assert( p->bV2Native );
-  return p->x2.xTokenize(p->pReal, pCtx, flags, pText, nText, 0, 0, xToken);
+  if (memcmp(p->x2.xTokenize_signature, xTokenize_signatures[xTokenize_0_enum], sizeof(p->x2.xTokenize_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->x2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tOrigintextTokenize_enum], sizeof(p->x2.xTokenize_signature)) == 0) {
+      return f5tOrigintextTokenize(p->pReal, pCtx, flags, pText, nText, 0, 0,
+                                   xToken);
+    }
+  else
+    if (memcmp(p->x2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_enum], sizeof(p->x2.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize(p->pReal, pCtx, flags, pText, nText, 0, 0,
+                                  xToken);
+    }
+  else
+    if (memcmp(p->x2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_v2_enum], sizeof(p->x2.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize_v2(p->pReal, pCtx, flags, pText, nText, 0,
+                                     0, xToken);
+    }
 }
 
 /*
 ** xTokenizer method for a wrapper tokenizer that offers the v2 interface
 ** (with locale support).
 */
-static int fts5V2toV1Tokenize(
+int fts5V2toV1Tokenize(
   Fts5Tokenizer *pTok, 
   void *pCtx, int flags,
   const char *pText, int nText, 
   const char *pLocale, int nLocale, 
-  int (*xToken)(void*, int, const char*, int, int, int)
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature
 ){
   Fts5VtoVTokenizer *p = (Fts5VtoVTokenizer*)pTok;
   assert( p->bV2Native==0 );
   UNUSED_PARAM2(pLocale,nLocale);
-  return p->x1.xTokenize(p->pReal, pCtx, flags, pText, nText, xToken);
+  if (memcmp(p->x1.xTokenize_signature, xTokenize_signatures[xTokenize_0_enum], sizeof(p->x1.xTokenize_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->x1.xTokenize_signature, xTokenize_signatures[xTokenize_f5tOrigintextTokenize_enum], sizeof(p->x1.xTokenize_signature)) == 0) {
+      return f5tOrigintextTokenize(p->pReal, pCtx, flags, pText, nText,
+                                   xToken);
+    }
+  else
+    if (memcmp(p->x1.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_enum], sizeof(p->x1.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize(p->pReal, pCtx, flags, pText, nText, xToken);
+    }
+  else
+    if (memcmp(p->x1.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_v2_enum], sizeof(p->x1.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize_v2(p->pReal, pCtx, flags, pText, nText,
+                                     xToken);
+    }
 }
 
 /*
 ** Register a new tokenizer. This is the implementation of the 
 ** fts5_api.xCreateTokenizer_v2() method.
 */
-static int fts5CreateTokenizer_v2(
+int fts5CreateTokenizer_v2(
   fts5_api *pApi,                 /* Global context (one per db handle) */
   const char *zName,              /* Name of new function */
   void *pUserData,                /* User data for aux. function */
   fts5_tokenizer_v2 *pTokenizer,  /* Tokenizer implementation */
-  void(*xDestroy)(void*)          /* Destructor for pUserData */
+  void(*xDestroy)(void*),
+  int *xDestroy_signature          /* Destructor for pUserData */
 ){
   Fts5Global *pGlobal = (Fts5Global*)pApi;
   int rc = SQLITE_OK;
@@ -22620,12 +24099,13 @@ static int fts5CreateTokenizer_v2(
 /*
 ** The fts5_api.xCreateTokenizer() method.
 */
-static int fts5CreateTokenizer(
+int fts5CreateTokenizer(
   fts5_api *pApi,                 /* Global context (one per db handle) */
   const char *zName,              /* Name of new function */
   void *pUserData,                /* User data for aux. function */
   fts5_tokenizer *pTokenizer,     /* Tokenizer implementation */
-  void(*xDestroy)(void*)          /* Destructor for pUserData */
+  void(*xDestroy)(void*),
+  int *xDestroy_signature          /* Destructor for pUserData */
 ){
   Fts5TokenizerModule *pNew = 0;
   int rc = SQLITE_OK;
@@ -22668,7 +24148,7 @@ static Fts5TokenizerModule *fts5LocateTokenizer(
 ** Find a tokenizer. This is the implementation of the 
 ** fts5_api.xFindTokenizer_v2() method.
 */
-static int fts5FindTokenizer_v2(
+int fts5FindTokenizer_v2(
   fts5_api *pApi,                 /* Global context (one per db handle) */
   const char *zName,              /* Name of tokenizer */
   void **ppUserData,
@@ -22698,7 +24178,7 @@ static int fts5FindTokenizer_v2(
 ** Find a tokenizer. This is the implementation of the 
 ** fts5_api.xFindTokenizer() method.
 */
-static int fts5FindTokenizer(
+int fts5FindTokenizer(
   fts5_api *pApi,                 /* Global context (one per db handle) */
   const char *zName,              /* Name of new function */
   void **ppUserData,
@@ -22785,13 +24265,133 @@ static void fts5ModuleDestroy(void *pCtx){
 
   for(pAux=pGlobal->pAux; pAux; pAux=pNextAux){
     pNextAux = pAux->pNext;
-    if( pAux->xDestroy ) pAux->xDestroy(pAux->pUserData);
+    if( pAux->xDestroy ) {
+      if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          dbpageDisconnect(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_expertDisconnect_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          expertDisconnect(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          fsdirDisconnect(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_fts3DestroyMethod_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          fts3DestroyMethod(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_fts3auxDisconnectMethod_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          fts3auxDisconnectMethod(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          fts3tokDisconnectMethod(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          pcache1Destroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_pcachetraceDestroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          pcachetraceDestroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_porterDestroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          porterDestroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          rtreeDestroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          simpleDestroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          statDisconnect(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          unicodeDestroy(pAux->pUserData);
+        }
+      else
+        if (memcmp(pAux->xDestroy_signature, xDestroy_signatures[xDestroy_zipfileDisconnect_enum], sizeof(pAux->xDestroy_signature)) == 0) {
+          zipfileDisconnect(pAux->pUserData);
+        }
+    }
     sqlite3_free(pAux);
   }
 
   for(pTok=pGlobal->pTok; pTok; pTok=pNextTok){
     pNextTok = pTok->pNext;
-    if( pTok->xDestroy ) pTok->xDestroy(pTok->pUserData);
+    if( pTok->xDestroy ) {
+      if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          dbpageDisconnect(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_expertDisconnect_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          expertDisconnect(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          fsdirDisconnect(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_fts3DestroyMethod_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          fts3DestroyMethod(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_fts3auxDisconnectMethod_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          fts3auxDisconnectMethod(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          fts3tokDisconnectMethod(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          pcache1Destroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_pcachetraceDestroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          pcachetraceDestroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_porterDestroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          porterDestroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          rtreeDestroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          simpleDestroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          statDisconnect(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          unicodeDestroy(pTok->pUserData);
+        }
+      else
+        if (memcmp(pTok->xDestroy_signature, xDestroy_signatures[xDestroy_zipfileDisconnect_enum], sizeof(pTok->xDestroy_signature)) == 0) {
+          zipfileDisconnect(pTok->pUserData);
+        }
+    }
     sqlite3_free(pTok);
   }
 
@@ -22825,7 +24425,7 @@ static void fts5SourceIdFunc(
 ){
   assert( nArg==0 );
   UNUSED_PARAM2(nArg, apUnused);
-  sqlite3_result_text(pCtx, "fts5: 2025-09-29 18:55:05 70c2c99b6f12a3467c23b44adcaf2d7d780ba8317b72de2f6730b1d892cf0c85", -1, SQLITE_TRANSIENT);
+  sqlite3_result_text(pCtx, "fts5: 2025-09-28 23:10:54 27ae98629406bbaee2857f75c069b2ccd4757b247f0742e51b9e619e96b6dc45", -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
 }
 
 /*
@@ -22862,7 +24462,7 @@ static void fts5LocaleFunc(
   nText = sqlite3_value_bytes(apArg[1]);
 
   if( zLocale==0 || zLocale[0]=='\0' ){
-    sqlite3_result_text(pCtx, zText, nText, SQLITE_TRANSIENT);
+    sqlite3_result_text(pCtx, zText, nText, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else{
     Fts5Global *p = (Fts5Global*)sqlite3_user_data(pCtx);
     u8 *pBlob = 0;
@@ -22885,7 +24485,7 @@ static void fts5LocaleFunc(
     if( zText ) memcpy(pCsr, zText, nText);
     assert( &pCsr[nText]==&pBlob[nBlob] );
 
-    sqlite3_result_blob(pCtx, pBlob, nBlob, sqlite3_free);
+    sqlite3_result_blob(pCtx, pBlob, nBlob, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   }
 }
 
@@ -22907,7 +24507,7 @@ static void fts5InsttokenFunc(
 ** Return true if zName is the extension on one of the shadow tables used
 ** by this module.
 */
-static int fts5ShadowName(const char *zName){
+int fts5ShadowName(const char *zName){
   static const char *azName[] = {
     "config", "content", "data", "docsize", "idx"
   };
@@ -22923,7 +24523,7 @@ static int fts5ShadowName(const char *zName){
 ** if anything is found amiss.  Return a NULL pointer if everything is
 ** OK.
 */
-static int fts5IntegrityMethod(
+int fts5IntegrityMethod(
   sqlite3_vtab *pVtab,    /* the FTS5 virtual table to check */
   const char *zSchema,    /* Name of schema in which this table lives */
   const char *zTabname,   /* Name of the table itself */
@@ -22984,6 +24584,31 @@ static int fts5Init(sqlite3 *db){
     /* xRollbackTo   */ fts5RollbackToMethod,
     /* xShadowName   */ fts5ShadowName,
     /* xIntegrity    */ fts5IntegrityMethod
+  ,
+  .xCreate_signature = xCreate_signatures[xCreate_fts5CreateMethod_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_fts5ConnectMethod_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_fts5BestIndexMethod_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_fts5DisconnectMethod_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_fts5DestroyMethod_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_fts5OpenMethod_enum],
+  .xClose_signature = xClose_signatures[xClose_fts5CloseMethod_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_fts5FilterMethod_enum],
+  .xNext_signature = xNext_signatures[xNext_fts5NextMethod_enum],
+  .xEof_signature = xEof_signatures[xEof_fts5EofMethod_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_fts5ColumnMethod_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts5RowidMethod_enum],
+  .xUpdate_signature = xUpdate_signatures[xUpdate_fts5UpdateMethod_enum],
+  .xBegin_signature = xBegin_signatures[xBegin_fts5BeginMethod_enum],
+  .xSync_signature = xSync_signatures[xSync_fts5SyncMethod_enum],
+  .xCommit_signature = xCommit_signatures[xCommit_fts5CommitMethod_enum],
+  .xRollback_signature = xRollback_signatures[xRollback_fts5RollbackMethod_enum],
+  .xFindFunction_signature = xFindFunction_signatures[xFindFunction_fts5FindFunctionMethod_enum],
+  .xRename_signature = xRename_signatures[xRename_fts5RenameMethod_enum],
+  .xSavepoint_signature = xSavepoint_signatures[xSavepoint_fts5SavepointMethod_enum],
+  .xRelease_signature = xRelease_signatures[xRelease_fts5ReleaseMethod_enum],
+  .xRollbackTo_signature = xRollbackTo_signatures[xRollbackTo_fts5RollbackToMethod_enum],
+  .xShadowName_signature = xShadowName_signatures[xShadowName_fts5ShadowName_enum],
+  .xIntegrity_signature = xIntegrity_signatures[xIntegrity_fts5IntegrityMethod_enum]
 };
 
   int rc;
@@ -23012,7 +24637,7 @@ static int fts5Init(sqlite3 *db){
     pGlobal->aLocaleHdr[3] ^= 0x9B03A67F;
     assert( sizeof(pGlobal->aLocaleHdr)==16 );
 
-    rc = sqlite3_create_module_v2(db, "fts5", &fts5Mod, p, fts5ModuleDestroy);
+    rc = sqlite3_create_module_v2(db, "fts5", &fts5Mod, p, fts5ModuleDestroy, xDestroy_signatures[xDestroy_fts5ModuleDestroy_enum]);
     if( rc==SQLITE_OK ) rc = sqlite3Fts5IndexInit(db);
     if( rc==SQLITE_OK ) rc = sqlite3Fts5ExprInit(pGlobal, db);
     if( rc==SQLITE_OK ) rc = sqlite3Fts5AuxInit(&pGlobal->api);
@@ -23020,29 +24645,29 @@ static int fts5Init(sqlite3 *db){
     if( rc==SQLITE_OK ) rc = sqlite3Fts5VocabInit(pGlobal, db);
     if( rc==SQLITE_OK ){
       rc = sqlite3_create_function(
-          db, "fts5", 1, SQLITE_UTF8, p, fts5Fts5Func, 0, 0
-      );
+          db, "fts5", 1, SQLITE_UTF8, p, fts5Fts5Func, xSFunc_signatures[xSFunc_fts5Fts5Func_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+
     }
     if( rc==SQLITE_OK ){
       rc = sqlite3_create_function(
           db, "fts5_source_id", 0, 
           SQLITE_UTF8|SQLITE_DETERMINISTIC|SQLITE_INNOCUOUS,
-          p, fts5SourceIdFunc, 0, 0
-      );
+          p, fts5SourceIdFunc, xSFunc_signatures[xSFunc_0_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+
     }
     if( rc==SQLITE_OK ){
       rc = sqlite3_create_function(
           db, "fts5_locale", 2, 
           SQLITE_UTF8|SQLITE_INNOCUOUS|SQLITE_RESULT_SUBTYPE|SQLITE_SUBTYPE,
-          p, fts5LocaleFunc, 0, 0
-      );
+          p, fts5LocaleFunc, xSFunc_signatures[xSFunc_0_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+
     }
     if( rc==SQLITE_OK ){
       rc = sqlite3_create_function(
           db, "fts5_insttoken", 1, 
           SQLITE_UTF8|SQLITE_INNOCUOUS|SQLITE_RESULT_SUBTYPE,
-          p, fts5InsttokenFunc, 0, 0
-      );
+          p, fts5InsttokenFunc, xSFunc_signatures[xSFunc_0_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
+
     }
   }
 
@@ -23338,7 +24963,7 @@ static int fts5ExecPrintf(
   if( zSql==0 ){
     rc = SQLITE_NOMEM;
   }else{
-    rc = sqlite3_exec(db, zSql, 0, 0, pzErr);
+    rc = sqlite3_exec(db, zSql, 0, callback_signatures[callback_0_enum],  0, pzErr);
     sqlite3_free(zSql);
   }
 
@@ -23681,9 +25306,10 @@ static int fts5StorageDeleteFromIndex(
       if( rc==SQLITE_OK ){
         sqlite3Fts5SetLocale(pConfig, pLoc, nLoc);
         ctx.szCol = 0;
-        rc = sqlite3Fts5Tokenize(pConfig, FTS5_TOKENIZE_DOCUMENT, 
-            pText, nText, (void*)&ctx, fts5StorageInsertCallback
-        );
+        rc = sqlite3Fts5Tokenize(pConfig, FTS5_TOKENIZE_DOCUMENT, pText,
+                                 nText, (void *)&ctx,
+                                 fts5StorageInsertCallback,
+                                 xToken_signatures[xToken_fts5StorageInsertCallback_enum]);
         p->aTotalSize[iCol-1] -= (i64)ctx.szCol;
         if( rc==SQLITE_OK && p->aTotalSize[iCol-1]<0 ){
           rc = FTS5_CORRUPT;
@@ -23782,7 +25408,8 @@ static int fts5StorageInsertDocsize(
       }
     }
     if( rc==SQLITE_OK ){
-      sqlite3_bind_blob(pReplace, 2, pBuf->p, pBuf->n, SQLITE_STATIC);
+      sqlite3_bind_blob(pReplace, 2, pBuf->p, pBuf->n, SQLITE_STATIC,
+                        xDel_signatures[xDel_SQLITE_STATIC_enum]);
       sqlite3_step(pReplace);
       rc = sqlite3_reset(pReplace);
       sqlite3_bind_null(pReplace, 2);
@@ -23985,12 +25612,10 @@ static int sqlite3Fts5StorageRebuild(Fts5Storage *p){
 
         if( rc==SQLITE_OK ){
           sqlite3Fts5SetLocale(pConfig, pLoc, nLoc);
-          rc = sqlite3Fts5Tokenize(pConfig, 
-              FTS5_TOKENIZE_DOCUMENT,
-              pText, nText,
-              (void*)&ctx,
-              fts5StorageInsertCallback
-          );
+          rc = sqlite3Fts5Tokenize(pConfig, FTS5_TOKENIZE_DOCUMENT, pText,
+                                   nText, (void *)&ctx,
+                                   fts5StorageInsertCallback,
+                                   xToken_signatures[xToken_fts5StorageInsertCallback_enum]);
           sqlite3Fts5ClearLocale(pConfig);
         }
       }
@@ -24111,10 +25736,12 @@ static int sqlite3Fts5StorageContentInsert(
 
           rc = sqlite3Fts5DecodeLocaleValue(pVal, &pText, &nText, &pLoc, &nLoc);
           if( rc==SQLITE_OK ){
-            sqlite3_bind_text(pInsert, i, pText, nText, SQLITE_TRANSIENT);
+            sqlite3_bind_text(pInsert, i, pText, nText, SQLITE_TRANSIENT,
+                              xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
             if( bUnindexed==0 ){
               int iLoc = pConfig->nCol + i;
-              sqlite3_bind_text(pInsert, iLoc, pLoc, nLoc, SQLITE_TRANSIENT);
+              sqlite3_bind_text(pInsert, iLoc, pLoc, nLoc, SQLITE_TRANSIENT,
+                                xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
             }
           }
 
@@ -24183,10 +25810,10 @@ static int sqlite3Fts5StorageIndexInsert(
 
       if( rc==SQLITE_OK ){
         sqlite3Fts5SetLocale(pConfig, pLoc, nLoc);
-        rc = sqlite3Fts5Tokenize(pConfig, 
-            FTS5_TOKENIZE_DOCUMENT, pText, nText, (void*)&ctx,
-            fts5StorageInsertCallback
-        );
+        rc = sqlite3Fts5Tokenize(pConfig, FTS5_TOKENIZE_DOCUMENT, pText,
+                                 nText, (void *)&ctx,
+                                 fts5StorageInsertCallback,
+                                 xToken_signatures[xToken_fts5StorageInsertCallback_enum]);
         sqlite3Fts5ClearLocale(pConfig);
       }
     }
@@ -24384,12 +26011,10 @@ static int sqlite3Fts5StorageIntegrity(Fts5Storage *p, int iArg){
 
             if( rc==SQLITE_OK ){
               sqlite3Fts5SetLocale(pConfig, pLoc, nLoc);
-              rc = sqlite3Fts5Tokenize(pConfig, 
-                  FTS5_TOKENIZE_DOCUMENT,
-                  pText, nText,
-                  (void*)&ctx,
-                  fts5StorageIntegrityCallback
-              );
+              rc = sqlite3Fts5Tokenize(pConfig, FTS5_TOKENIZE_DOCUMENT, pText,
+                                       nText, (void *)&ctx,
+                                       fts5StorageIntegrityCallback,
+                                       xToken_signatures[xToken_fts5StorageIntegrityCallback_enum]);
               sqlite3Fts5ClearLocale(pConfig);
             }
 
@@ -24612,7 +26237,8 @@ static int sqlite3Fts5StorageConfigValue(
   sqlite3_stmt *pReplace = 0;
   int rc = fts5StorageGetStmt(p, FTS5_STMT_REPLACE_CONFIG, &pReplace, 0);
   if( rc==SQLITE_OK ){
-    sqlite3_bind_text(pReplace, 1, z, -1, SQLITE_STATIC);
+    sqlite3_bind_text(pReplace, 1, z, -1, SQLITE_STATIC,
+                      xDel_signatures[xDel_SQLITE_STATIC_enum]);
     if( pVal ){
       sqlite3_bind_value(pReplace, 2, pVal);
     }else{
@@ -24754,7 +26380,8 @@ static int fts5AsciiTokenize(
   void *pCtx,
   int iUnused,
   const char *pText, int nText,
-  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)
+  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd),
+  int *xToken_signature
 ){
   AsciiTokenizer *p = (AsciiTokenizer*)pTokenizer;
   int rc = SQLITE_OK;
@@ -24797,7 +26424,7 @@ static int fts5AsciiTokenize(
     asciiFold(pFold, &pText[is], nByte);
 
     /* Invoke the token callback */
-    rc = xToken(pCtx, 0, pFold, nByte, is, ie);
+    // rc = xToken(pCtx, 0, pFold, nByte, is, ie);
     is = ie+1;
   }
   
@@ -25079,7 +26706,8 @@ static int fts5UnicodeTokenize(
   void *pCtx,
   int iUnused,
   const char *pText, int nText,
-  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)
+  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd),
+  int *xToken_signature
 ){
   Unicode61Tokenizer *p = (Unicode61Tokenizer*)pTokenizer;
   int rc = SQLITE_OK;
@@ -25170,7 +26798,7 @@ static int fts5UnicodeTokenize(
     }
 
     /* Invoke the token callback */
-    rc = xToken(pCtx, 0, aFold, zOut-aFold, is, ie); 
+    // rc = xToken(pCtx, 0, aFold, zOut-aFold, is, ie); 
   }
   
  tokenize_done:
@@ -25196,11 +26824,37 @@ struct PorterTokenizer {
 /*
 ** Delete a "porter" tokenizer.
 */
-static void fts5PorterDelete(Fts5Tokenizer *pTok){
+void fts5PorterDelete(Fts5Tokenizer *pTok){
   if( pTok ){
     PorterTokenizer *p = (PorterTokenizer*)pTok;
     if( p->pTokenizer ){
-      p->tokenizer_v2.xDelete(p->pTokenizer);
+      if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          apndDelete(p->pTokenizer);
+        }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          f5tOrigintextDelete(p->pTokenizer);
+        }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          f5tTokenizerDelete(p->pTokenizer);
+        }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          kvstorageDelete(p->pTokenizer);
+        }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          vfstraceDelete(p->pTokenizer);
+        }
+      else
+        if (memcmp(p->tokenizer_v2.xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(p->tokenizer_v2.xDelete_signature)) == 0) {
+          unixDelete(p->pTokenizer);
+        }
     }
     sqlite3_free(p);
   }
@@ -25209,7 +26863,7 @@ static void fts5PorterDelete(Fts5Tokenizer *pTok){
 /*
 ** Create a "porter" tokenizer.
 */
-static int fts5PorterCreate(
+int fts5PorterCreate(
   void *pCtx, 
   const char **azArg, int nArg,
   Fts5Tokenizer **ppOut
@@ -25236,7 +26890,145 @@ static int fts5PorterCreate(
     int nArg2 = (nArg>0 ? nArg-1 : 0);
     const char **az2 = (nArg2 ? &azArg[1] : 0);
     memcpy(&pRet->tokenizer_v2, pV2, sizeof(fts5_tokenizer_v2));
-    rc = pRet->tokenizer_v2.xCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+    if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_0_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_amatchConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = amatchConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_closureConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = closureConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_csvtabCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = csvtabCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_dbpageConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = dbpageConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_echoCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = echoCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_expertConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = expertConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_f5tOrigintextCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = f5tOrigintextCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_f5tTokenizerCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = f5tTokenizerCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fsConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fsConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fsdirConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fsdirConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fstreeConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fstreeConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fts3CreateMethod_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fts3CreateMethod(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fts3auxConnectMethod_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fts3auxConnectMethod(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fts3termConnectMethod_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fts3termConnectMethod(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fts3tokConnectMethod_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fts3tokConnectMethod(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_fuzzerConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = fuzzerConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_geopolyCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = geopolyCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_intarrayCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = intarrayCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_pcache1Create_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = pcache1Create(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_pcachetraceCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = pcachetraceCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_porterCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = porterCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_rtreeCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = rtreeCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_schemaCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = schemaCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_simpleCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = simpleCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_spellfix1Create_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = spellfix1Create(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_statConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = statConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_tclConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = tclConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_tclvarConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = tclvarConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_unicodeCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = unicodeCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_unionConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = unionConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_vlogConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = vlogConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_vtablogCreate_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = vtablogCreate(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_wholenumberConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = wholenumberConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
+    else
+      if (memcmp(pRet->tokenizer_v2.xCreate_signature, xCreate_signatures[xCreate_zipfileConnect_enum], sizeof(pRet->tokenizer_v2.xCreate_signature)) == 0) {
+        rc = zipfileConnect(pUserdata, az2, nArg2, &pRet->pTokenizer);
+      }
   }
 
   if( rc!=SQLITE_OK ){
@@ -25252,6 +27044,8 @@ struct PorterContext {
   void *pCtx;
   int (*xToken)(void*, int, const char*, int, int, int);
   char *aBuf;
+  int *xToken_signature;
+
 };
 
 typedef struct PorterRule PorterRule;
@@ -25261,6 +27055,8 @@ struct PorterRule {
   int (*xCond)(char *zStem, int nStem);
   const char *zOutput;
   int nOutput;
+  int *xCond_signature;
+
 };
 
 #if 0
@@ -25882,22 +27678,39 @@ static int fts5PorterCb(
 /*
 ** Tokenize using the porter tokenizer.
 */
-static int fts5PorterTokenize(
+int fts5PorterTokenize(
   Fts5Tokenizer *pTokenizer,
   void *pCtx,
   int flags,
   const char *pText, int nText,
   const char *pLoc, int nLoc,
-  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)
+  int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd),
+  int *xToken_signature
 ){
   PorterTokenizer *p = (PorterTokenizer*)pTokenizer;
   PorterContext sCtx;
   sCtx.xToken = xToken;
+  sCtx.xToken_signature = xToken_signature;
   sCtx.pCtx = pCtx;
   sCtx.aBuf = p->aBuf;
-  return p->tokenizer_v2.xTokenize(
-      p->pTokenizer, (void*)&sCtx, flags, pText, nText, pLoc, nLoc, fts5PorterCb
-  );
+  if (memcmp(p->tokenizer_v2.xTokenize_signature, xTokenize_signatures[xTokenize_0_enum], sizeof(p->tokenizer_v2.xTokenize_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->tokenizer_v2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tOrigintextTokenize_enum], sizeof(p->tokenizer_v2.xTokenize_signature)) == 0) {
+      return f5tOrigintextTokenize(p->pTokenizer, (void *)&sCtx, flags, pText,
+                                   nText, pLoc, nLoc, fts5PorterCb);
+    }
+  else
+    if (memcmp(p->tokenizer_v2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_enum], sizeof(p->tokenizer_v2.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize(p->pTokenizer, (void *)&sCtx, flags, pText,
+                                  nText, pLoc, nLoc, fts5PorterCb);
+    }
+  else
+    if (memcmp(p->tokenizer_v2.xTokenize_signature, xTokenize_signatures[xTokenize_f5tTokenizerTokenize_v2_enum], sizeof(p->tokenizer_v2.xTokenize_signature)) == 0) {
+      return f5tTokenizerTokenize_v2(p->pTokenizer, (void *)&sCtx, flags,
+                                     pText, nText, pLoc, nLoc, fts5PorterCb);
+    }
 }
 
 /**************************************************************************
@@ -25980,7 +27793,8 @@ static int fts5TriTokenize(
   void *pCtx,
   int unusedFlags,
   const char *pText, int nText,
-  int (*xToken)(void*, int, const char*, int, int, int)
+  int (*xToken)(void*, int, const char*, int, int, int),
+  int *xToken_signature
 ){
   TrigramTokenizer *p = (TrigramTokenizer*)pTok;
   int rc = SQLITE_OK;
@@ -26029,7 +27843,7 @@ static int fts5TriTokenize(
     }while( iCode==0 );
 
     /* Pass the current trigram back to fts5 */
-    rc = xToken(pCtx, 0, aBuf, zOut-aBuf, aStart[0], iNext);
+    // rc = xToken(pCtx, 0, aBuf, zOut-aBuf, aStart[0], iNext);
     if( iCode==0 || rc!=SQLITE_OK ) break;
 
     /* Remove the first character from buffer aBuf[]. Append the character
@@ -26061,7 +27875,8 @@ static int fts5TriTokenize(
 **     all other tokenizers - FTS5_PATTERN_NONE
 */
 static int sqlite3Fts5TokenizerPattern(
-    int (*xCreate)(void*, const char**, int, Fts5Tokenizer**),
+    int (*xCreate)(void*, const char**, int, Fts5Tokenizer**)
+    int *xCreate_signature,
     Fts5Tokenizer *pTok
 ){
   if( xCreate==fts5TriCreate ){
@@ -26113,6 +27928,10 @@ static int sqlite3Fts5TokenizerInit(fts5_api *pApi){
       fts5PorterCreate,
       fts5PorterDelete,
       fts5PorterTokenize
+    ,
+  .xCreate_signature = xCreate_signatures[xCreate_fts5PorterCreate_enum],
+  .xDelete_signature = xDelete_signatures[xDelete_fts5PorterDelete_enum],
+  .xTokenize_signature = xTokenize_signatures[xTokenize_fts5PorterTokenize_enum]
 };
     rc = pApi->xCreateTokenizer_v2(pApi,
         "porter",
@@ -27388,7 +29207,7 @@ static int fts5VocabTableType(const char *zType, char **pzErr, int *peType){
 /*
 ** The xDisconnect() virtual table method.
 */
-static int fts5VocabDisconnectMethod(sqlite3_vtab *pVtab){
+int fts5VocabDisconnectMethod(sqlite3_vtab *pVtab){
   Fts5VocabTable *pTab = (Fts5VocabTable*)pVtab;
   sqlite3_free(pTab);
   return SQLITE_OK;
@@ -27397,7 +29216,7 @@ static int fts5VocabDisconnectMethod(sqlite3_vtab *pVtab){
 /*
 ** The xDestroy() virtual table method.
 */
-static int fts5VocabDestroyMethod(sqlite3_vtab *pVtab){
+int fts5VocabDestroyMethod(sqlite3_vtab *pVtab){
   Fts5VocabTable *pTab = (Fts5VocabTable*)pVtab;
   sqlite3_free(pTab);
   return SQLITE_OK;
@@ -27486,7 +29305,7 @@ static int fts5VocabInitVtab(
 ** The xConnect() and xCreate() methods for the virtual table. All the
 ** work is done in function fts5VocabInitVtab().
 */
-static int fts5VocabConnectMethod(
+int fts5VocabConnectMethod(
   sqlite3 *db,                    /* Database connection */
   void *pAux,                     /* Pointer to tokenizer hash table */
   int argc,                       /* Number of elements in argv array */
@@ -27496,7 +29315,7 @@ static int fts5VocabConnectMethod(
 ){
   return fts5VocabInitVtab(db, pAux, argc, argv, ppVtab, pzErr);
 }
-static int fts5VocabCreateMethod(
+int fts5VocabCreateMethod(
   sqlite3 *db,                    /* Database connection */
   void *pAux,                     /* Pointer to tokenizer hash table */
   int argc,                       /* Number of elements in argv array */
@@ -27519,7 +29338,7 @@ static int fts5VocabCreateMethod(
 ** are interpreted. Less-than and less-than-or-equal are treated 
 ** identically, as are greater-than and greater-than-or-equal.
 */
-static int fts5VocabBestIndexMethod(
+int fts5VocabBestIndexMethod(
   sqlite3_vtab *pUnused,
   sqlite3_index_info *pInfo
 ){
@@ -27583,7 +29402,7 @@ static int fts5VocabBestIndexMethod(
 /*
 ** Implementation of xOpen method.
 */
-static int fts5VocabOpenMethod(
+int fts5VocabOpenMethod(
   sqlite3_vtab *pVTab, 
   sqlite3_vtab_cursor **ppCsr
 ){
@@ -27667,7 +29486,7 @@ static void fts5VocabResetCursor(Fts5VocabCursor *pCsr){
 ** Close the cursor.  For additional information see the documentation
 ** on the xClose method of the virtual table interface.
 */
-static int fts5VocabCloseMethod(sqlite3_vtab_cursor *pCursor){
+int fts5VocabCloseMethod(sqlite3_vtab_cursor *pCursor){
   Fts5VocabCursor *pCsr = (Fts5VocabCursor*)pCursor;
   fts5VocabResetCursor(pCsr);
   sqlite3Fts5BufferFree(&pCsr->term);
@@ -27730,7 +29549,7 @@ static int fts5VocabInstanceNext(Fts5VocabCursor *pCsr){
 /*
 ** Advance the cursor to the next row in the table.
 */
-static int fts5VocabNextMethod(sqlite3_vtab_cursor *pCursor){
+int fts5VocabNextMethod(sqlite3_vtab_cursor *pCursor){
   Fts5VocabCursor *pCsr = (Fts5VocabCursor*)pCursor;
   Fts5VocabTable *pTab = (Fts5VocabTable*)pCursor->pVtab;
   int nCol = pCsr->pFts5->pConfig->nCol;
@@ -27868,7 +29687,7 @@ static int fts5VocabNextMethod(sqlite3_vtab_cursor *pCursor){
 /*
 ** This is the xFilter implementation for the virtual table.
 */
-static int fts5VocabFilterMethod(
+int fts5VocabFilterMethod(
   sqlite3_vtab_cursor *pCursor,   /* The cursor used for this query */
   int idxNum,                     /* Strategy index */
   const char *zUnused,            /* Unused */
@@ -27943,12 +29762,12 @@ static int fts5VocabFilterMethod(
 ** This is the xEof method of the virtual table. SQLite calls this 
 ** routine to find out if it has reached the end of a result set.
 */
-static int fts5VocabEofMethod(sqlite3_vtab_cursor *pCursor){
+int fts5VocabEofMethod(sqlite3_vtab_cursor *pCursor){
   Fts5VocabCursor *pCsr = (Fts5VocabCursor*)pCursor;
   return pCsr->bEof;
 }
 
-static int fts5VocabColumnMethod(
+int fts5VocabColumnMethod(
   sqlite3_vtab_cursor *pCursor,   /* Cursor to retrieve value from */
   sqlite3_context *pCtx,          /* Context for sqlite3_result_xxx() calls */
   int iCol                        /* Index of column to read value from */
@@ -27959,15 +29778,16 @@ static int fts5VocabColumnMethod(
   i64 iVal = 0;
 
   if( iCol==0 ){
-    sqlite3_result_text(
-        pCtx, (const char*)pCsr->term.p, pCsr->term.n, SQLITE_TRANSIENT
-    );
+    sqlite3_result_text(pCtx, (const char *)pCsr->term.p, pCsr->term.n,
+                        SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else if( eType==FTS5_VOCAB_COL ){
     assert( iCol==1 || iCol==2 || iCol==3 );
     if( iCol==1 ){
       if( eDetail!=FTS5_DETAIL_NONE ){
         const char *z = pCsr->pFts5->pConfig->azCol[pCsr->iCol];
-        sqlite3_result_text(pCtx, z, -1, SQLITE_STATIC);
+        sqlite3_result_text(pCtx, z, -1, SQLITE_STATIC,
+                            xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }
     }else if( iCol==2 ){
       iVal = pCsr->aDoc[pCsr->iCol];
@@ -27996,7 +29816,8 @@ static int fts5VocabColumnMethod(
         }
         if( ii>=0 && ii<pCsr->pFts5->pConfig->nCol ){
           const char *z = pCsr->pFts5->pConfig->azCol[ii];
-          sqlite3_result_text(pCtx, z, -1, SQLITE_STATIC);
+          sqlite3_result_text(pCtx, z, -1, SQLITE_STATIC,
+                              xDel_signatures[xDel_SQLITE_STATIC_enum]);
         }
         break;
       }
@@ -28020,7 +29841,7 @@ static int fts5VocabColumnMethod(
 ** retrieve the rowid for the current row of the result set. The
 ** rowid should be written to *pRowid.
 */
-static int fts5VocabRowidMethod(
+int fts5VocabRowidMethod(
   sqlite3_vtab_cursor *pCursor, 
   sqlite_int64 *pRowid
 ){
@@ -28056,10 +29877,24 @@ static int sqlite3Fts5VocabInit(Fts5Global *pGlobal, sqlite3 *db){
     /* xRollbackTo   */ 0,
     /* xShadowName   */ 0,
     /* xIntegrity    */ 0
+  ,
+  .xCreate_signature = xCreate_signatures[xCreate_fts5VocabCreateMethod_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_fts5VocabConnectMethod_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_fts5VocabBestIndexMethod_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_fts5VocabDisconnectMethod_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_fts5VocabDestroyMethod_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_fts5VocabOpenMethod_enum],
+  .xClose_signature = xClose_signatures[xClose_fts5VocabCloseMethod_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_fts5VocabFilterMethod_enum],
+  .xNext_signature = xNext_signatures[xNext_fts5VocabNextMethod_enum],
+  .xEof_signature = xEof_signatures[xEof_fts5VocabEofMethod_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_fts5VocabColumnMethod_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts5VocabRowidMethod_enum]
 };
   void *p = (void*)pGlobal;
 
-  return sqlite3_create_module_v2(db, "fts5vocab", &fts5Vocab, p, 0);
+  return sqlite3_create_module_v2(db, "fts5vocab", &fts5Vocab, p, 0,
+                                  xDestroy_signatures[xDestroy_0_enum]);
 }
 
 

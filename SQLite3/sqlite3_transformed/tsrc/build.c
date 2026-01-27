@@ -1405,7 +1405,7 @@ void sqlite3ColumnPropertiesFromName(Table *pTab, Column *pCol){
 /*
 ** Clean up the data structures associated with the RETURNING clause.
 */
-void sqlite3DeleteReturning(sqlite3 *db, void *pArg){
+static void sqlite3DeleteReturning(sqlite3 *db, void *pArg){
   Returning *pRet = (Returning*)pArg;
   Hash *pHash;
   pHash = &(db->aDb[1].pSchema->trigHash);
@@ -1449,7 +1449,9 @@ void sqlite3AddReturning(Parse *pParse, ExprList *pList){
   pParse->u1.d.pReturning = pRet;
   pRet->pParse = pParse;
   pRet->pReturnEL = pList;
-  sqlite3ParserAddCleanup(pParse, sqlite3DeleteReturning, pRet);
+  sqlite3ParserAddCleanup(pParse, sqlite3DeleteReturning,
+                          xCleanup_signatures[xCleanup_sqlite3DeleteReturning_enum],
+                          pRet);
   testcase( pParse->earlyCleanup );
   if( db->mallocFailed ) return;
   sqlite3_snprintf(sizeof(pRet->zName), pRet->zName,
@@ -2517,7 +2519,17 @@ int sqlite3IsShadowTableOf(sqlite3 *db, Table *pTab, const char *zName){
   if( pMod==0 ) return 0;
   if( pMod->pModule->iVersion<3 ) return 0;
   if( pMod->pModule->xShadowName==0 ) return 0;
-  return pMod->pModule->xShadowName(zName+nName+1);
+  if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_0_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_fts3ShadowName_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+      return fts3ShadowName(zName + nName + 1);
+    }
+  else
+    if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_rtreeShadowName_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+      return rtreeShadowName(zName + nName + 1);
+    }
 }
 #endif /* ifndef SQLITE_OMIT_VIRTUALTABLE */
 
@@ -2546,12 +2558,30 @@ void sqlite3MarkAllShadowTablesOf(sqlite3 *db, Table *pTab){
     assert( pOther->zName!=0 );
     if( !IsOrdinaryTable(pOther) ) continue;
     if( pOther->tabFlags & TF_Shadow ) continue;
+    
+    // if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_0_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+    //   int tmp = 0;
+    // }
+    // else
+    //   if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_fts3ShadowName_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+    //     int tmp = fts3ShadowName(pOther->zName+nName+1);
+    //   }
+    // else
+    //   if (memcmp(pMod->pModule->xShadowName_signature, xShadowName_signatures[xShadowName_rtreeShadowName_enum], sizeof(pMod->pModule->xShadowName_signature)) == 0) {
+    //     int tmp = rtreeShadowName(pOther->zName+nName+1);
+    //   }
     if( sqlite3StrNICmp(pOther->zName, pTab->zName, nName)==0
      && pOther->zName[nName]=='_'
      && pMod->pModule->xShadowName(pOther->zName+nName+1)
     ){
       pOther->tabFlags |= TF_Shadow;
     }
+    // if( sqlite3StrNICmp(pOther->zName, pTab->zName, nName)==0
+    //  && pOther->zName[nName]=='_'
+    //  && tmp
+    // ){
+    //   pOther->tabFlags |= TF_Shadow;
+    // }
   }
 }
 #endif /* ifndef SQLITE_OMIT_VIRTUALTABLE */
@@ -2586,7 +2616,7 @@ int sqlite3ShadowTableName(sqlite3 *db, const char *zName){
 ** index definition are tagged this way to help ensure that we do
 ** not pass them into code generator routines by mistake.
 */
-static int markImmutableExprStep(Walker *pWalker, Expr *pExpr){
+int markImmutableExprStep(Walker *pWalker, Expr *pExpr){
   (void)pWalker;
   ExprSetVVAProperty(pExpr, EP_Immutable);
   return WRC_Continue;
@@ -2596,8 +2626,11 @@ static void markExprListImmutable(ExprList *pList){
     Walker w;
     memset(&w, 0, sizeof(w));
     w.xExprCallback = markImmutableExprStep;
+    w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_markImmutableExprStep_enum];
     w.xSelectCallback = sqlite3SelectWalkNoop;
+    w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
     w.xSelectCallback2 = 0;
+    w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
     sqlite3WalkExprList(&w, pList);
   }
 }
@@ -3083,8 +3116,7 @@ static SQLITE_NOINLINE int viewGetColumnNames(Parse *pParse, Table *pTable){
   int rc;
 #endif
 #ifndef SQLITE_OMIT_AUTHORIZATION
-  int (*xAuth)(void*,int,const char*,const char*,const char*,
-                             const char*);       /* Saved xAuth pointer */
+  sqlite3_xauth xAuth;       /* Saved xAuth pointer */
 #endif
 
   assert( pTable );

@@ -233,8 +233,17 @@ static Fts3HashElem *fts3FindElementByHash(
     count = pEntry->count;
     xCompare = ftsCompareFunction(pH->keyClass);
     while( count-- && elem ){
-      if( (*xCompare)(elem->pKey,elem->nKey,pKey,nKey)==0 ){ 
-        return elem;
+      // if( (*xCompare)(elem->pKey,elem->nKey,pKey,nKey)==0 ){ 
+      //   return elem;
+      // }
+      if( pH->keyClass==FTS3_HASH_STRING ){
+        if (fts3StrCompare(elem->pKey,elem->nKey,pKey,nKey)==0) {
+          return elem;
+        }
+      } else if (pH->keyClass==FTS3_HASH_BINARY ){
+        if (fts3BinCompare(elem->pKey,elem->nKey,pKey,nKey)==0) {
+          return elem;
+        }
       }
       elem = elem->next;
     }

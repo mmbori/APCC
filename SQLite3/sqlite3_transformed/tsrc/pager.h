@@ -137,13 +137,14 @@ int sqlite3PagerOpen(
   int,
   int,
   int,
-  void(*)(DbPage*)
+  void(*)(DbPage*),
+  int*
 );
 int sqlite3PagerClose(Pager *pPager, sqlite3*);
 int sqlite3PagerReadFileheader(Pager*, int, unsigned char*);
 
 /* Functions used to configure a Pager object. */
-void sqlite3PagerSetBusyHandler(Pager*, int(*)(void *), void *);
+void sqlite3PagerSetBusyHandler(Pager*, int(*)(void *), int*, void *);
 int sqlite3PagerSetPagesize(Pager*, u32*, int);
 Pgno sqlite3PagerMaxPageCount(Pager*, Pgno);
 void sqlite3PagerSetCachesize(Pager*, int);

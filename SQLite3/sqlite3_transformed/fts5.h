@@ -399,30 +399,30 @@ struct Fts5ExtensionApi {
     void *pCtx,                        /* Context passed to xToken() */
     int (*xToken)(void*, int, const char*, int, int, int)       /* Callback */
   );
+  int *xUserData_signature;
+  int *xColumnCount_signature;
+  int *xRowCount_signature;
+  int *xColumnTotalSize_signature;
+  int *xTokenize_signature;
+  int *xPhraseCount_signature;
+  int *xPhraseSize_signature;
+  int *xInstCount_signature;
+  int *xInst_signature;
+  int *xRowid_signature;
+  int *xColumnText_signature;
+  int *xColumnSize_signature;
+  int *xQueryPhrase_signature;
+  int *xSetAuxdata_signature;
+  int *xGetAuxdata_signature;
+  int *xPhraseFirst_signature;
+  int *xPhraseNext_signature;
+  int *xPhraseFirstColumn_signature;
+  int *xPhraseNextColumn_signature;
+  int *xQueryToken_signature;
+  int *xInstToken_signature;
+  int *xColumnLocale_signature;
+  int *xTokenize_v2_signature;
 
-  int xUserData_signature;
-  int xColumnCount_signature;
-  int xRowCount_signature;
-  int xColumnTotalSize_signature;
-  int xTokenize_signature;
-  int xPhraseCount_signature;
-  int xPhraseSize_signature;
-  int xInstCount_signature;
-  int xInst_signature;
-  int xRowid_signature;
-  int xColumnText_signature;
-  int xColumnSize_signature;
-  int xQueryPhrase_signature;
-  int xSetAuxdata_signature;
-  int xGetAuxdata_signature;
-  int xPhraseFirst_signature;
-  int xPhraseNext_signature;
-  int xPhraseFirstColumn_signature;
-  int xPhraseNextColumn_signature;
-  int xQueryToken_signature;
-  int xInstToken_signature;
-  int xColumnLocale_signature;
-  int xTokenize_v2_signature;
 };
 
 /* 
@@ -673,10 +673,10 @@ struct fts5_tokenizer_v2 {
         int iEnd            /* Byte offset of end of token within input text */
       )
   );
+  int *xCreate_signature;
+  int *xDelete_signature;
+  int *xTokenize_signature;
 
-  int xCreate_signature;
-  int xDelete_signature;
-  int xTokenize_signature;
 };
 
 /*
@@ -701,10 +701,10 @@ struct fts5_tokenizer {
         int iEnd            /* Byte offset of end of token within input text */
       )
   );
+  int *xCreate_signature;
+  int *xDelete_signature;
+  int *xTokenize_signature;
 
-  int xCreate_signature;
-  int xDelete_signature;
-  int xTokenize_signature;
 };
 
 
@@ -751,13 +751,7 @@ struct fts5_api {
     fts5_api *pApi,
     const char *zName,
     void *pUserData,
-    void (*xFunction)(
-  const Fts5ExtensionApi *pApi,   
-  Fts5Context *pFts,              
-  sqlite3_context *pCtx,          
-  int nVal,                       
-  sqlite3_value **apVal           
-),
+    fts5_extension_function xFunction,
     void (*xDestroy)(void*)
   );
 
@@ -779,12 +773,12 @@ struct fts5_api {
     void **ppUserData,
     fts5_tokenizer_v2 **ppTokenizer
   );
+  int *xCreateTokenizer_signature;
+  int *xFindTokenizer_signature;
+  int *xFunction_signature;
+  int *xCreateTokenizer_v2_signature;
+  int *xFindTokenizer_v2_signature;
 
-  int xCreateTokenizer_signature;
-  int xFindTokenizer_signature;
-  int xCreateFunction_signature;
-  int xCreateTokenizer_v2_signature;
-  int xFindTokenizer_v2_signature;
 };
 
 /*

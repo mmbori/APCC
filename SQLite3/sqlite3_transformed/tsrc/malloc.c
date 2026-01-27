@@ -71,6 +71,7 @@ sqlite3_mutex *sqlite3MallocMutex(void){
 */
 int sqlite3_memory_alarm(
   void(*xCallback)(void *pArg, sqlite3_int64 used,int N),
+  int *xCallback_signature,
   void *pArg,
   sqlite3_int64 iThreshold
 ){
@@ -167,7 +168,7 @@ int sqlite3MallocInit(void){
     sqlite3GlobalConfig.pPage = 0;
     sqlite3GlobalConfig.szPage = 0;
   }
-  rc = sqlite3GlobalConfig.m.xInit(sqlite3GlobalConfig.m.pAppData);
+  rc = sqlite3MemInit(sqlite3GlobalConfig.m.pAppData);
   if( rc!=SQLITE_OK ) memset(&mem0, 0, sizeof(mem0));
   return rc;
 }
@@ -186,7 +187,7 @@ int sqlite3HeapNearlyFull(void){
 */
 void sqlite3MallocEnd(void){
   if( sqlite3GlobalConfig.m.xShutdown ){
-    sqlite3GlobalConfig.m.xShutdown(sqlite3GlobalConfig.m.pAppData);
+    sqlite3MemShutdown(sqlite3GlobalConfig.m.pAppData);
   }
   memset(&mem0, 0, sizeof(mem0));
 }
@@ -254,7 +255,7 @@ static void mallocWithAlarm(int n, void **pp){
   ** mode and specifically when the DMD "Dark Matter Detector" is enabled
   ** or else a crash results.  Hence, do not attempt to optimize out the
   ** following xRoundup() call. */
-  nFull = sqlite3GlobalConfig.m.xRoundup(n);
+  nFull = sqlite3MemRoundup(n);
 
   sqlite3StatusHighwater(SQLITE_STATUS_MALLOC_SIZE, n);
   if( mem0.alarmThreshold>0 ){
@@ -274,11 +275,11 @@ static void mallocWithAlarm(int n, void **pp){
       AtomicStore(&mem0.nearlyFull, 0);
     }
   }
-  p = sqlite3GlobalConfig.m.xMalloc(nFull);
+  p = sqlite3MemMalloc(nFull);
 #ifdef SQLITE_ENABLE_MEMORY_MANAGEMENT
   if( p==0 && mem0.alarmThreshold>0 ){
     sqlite3MallocAlarm(nFull);
-    p = sqlite3GlobalConfig.m.xMalloc(nFull);
+    p = sqlite3MemMalloc(nFull);
   }
 #endif
   if( p ){
@@ -323,7 +324,7 @@ void *sqlite3Malloc(u64 n){
     mallocWithAlarm((int)n, &p);
     sqlite3_mutex_leave(mem0.mutex);
   }else{
-    p = sqlite3GlobalConfig.m.xMalloc((int)n);
+    p = sqlite3MemMalloc((int)n);
   }
   assert( EIGHT_BYTE_ALIGNMENT(p) );  /* IMP: R-11148-40995 */
   return p;
@@ -364,7 +365,7 @@ static int isLookaside(sqlite3 *db, const void *p){
 */
 int sqlite3MallocSize(const void *p){
   assert( sqlite3MemdebugHasType(p, MEMTYPE_HEAP) );
-  return sqlite3GlobalConfig.m.xSize((void*)p);
+  return sqlite3MemSize((void *)p);
 }
 static int lookasideMallocSize(sqlite3 *db, const void *p){
 #ifndef SQLITE_OMIT_TWOSIZE_LOOKASIDE    
@@ -398,12 +399,12 @@ int sqlite3DbMallocSize(sqlite3 *db, const void *p){
       }
     }
   }
-  return sqlite3GlobalConfig.m.xSize((void*)p);
+  return sqlite3MemSize((void *)p);
 }
 sqlite3_uint64 sqlite3_msize(void *p){
   assert( sqlite3MemdebugNoType(p, (u8)~MEMTYPE_HEAP) );
   assert( sqlite3MemdebugHasType(p, MEMTYPE_HEAP) );
-  return p ? sqlite3GlobalConfig.m.xSize(p) : 0;
+  return p ? sqlite3MemSize(p) : 0;
 }
 
 /*
@@ -417,10 +418,10 @@ void sqlite3_free(void *p){
     sqlite3_mutex_enter(mem0.mutex);
     sqlite3StatusDown(SQLITE_STATUS_MEMORY_USED, sqlite3MallocSize(p));
     sqlite3StatusDown(SQLITE_STATUS_MALLOC_COUNT, 1);
-    sqlite3GlobalConfig.m.xFree(p);
+    sqlite3MemFree(p);
     sqlite3_mutex_leave(mem0.mutex);
   }else{
-    sqlite3GlobalConfig.m.xFree(p);
+    sqlite3MemFree(p);
   }
 }
 
@@ -541,7 +542,7 @@ void *sqlite3Realloc(void *pOld, u64 nBytes){
   /* IMPLEMENTATION-OF: R-46199-30249 SQLite guarantees that the second
   ** argument to xRealloc is always a value returned by a prior call to
   ** xRoundup. */
-  nNew = sqlite3GlobalConfig.m.xRoundup((int)nBytes);
+  nNew = sqlite3MemRoundup((int)nBytes);
   if( nOld==nNew ){
     pNew = pOld;
   }else if( sqlite3GlobalConfig.bMemstat ){
@@ -558,11 +559,11 @@ void *sqlite3Realloc(void *pOld, u64 nBytes){
         return 0;
       }
     }
-    pNew = sqlite3GlobalConfig.m.xRealloc(pOld, nNew);
+    pNew = sqlite3MemRealloc(pOld, nNew);
 #ifdef SQLITE_ENABLE_MEMORY_MANAGEMENT
     if( pNew==0 && mem0.alarmThreshold>0 ){
       sqlite3MallocAlarm((int)nBytes);
-      pNew = sqlite3GlobalConfig.m.xRealloc(pOld, nNew);
+      pNew = sqlite3MemRealloc(pOld, nNew);
     }
 #endif
     if( pNew ){
@@ -571,7 +572,7 @@ void *sqlite3Realloc(void *pOld, u64 nBytes){
     }
     sqlite3_mutex_leave(mem0.mutex);
   }else{
-    pNew = sqlite3GlobalConfig.m.xRealloc(pOld, nNew);
+    pNew = sqlite3MemRealloc(pOld, nNew);
   }
   assert( EIGHT_BYTE_ALIGNMENT(pNew) ); /* IMP: R-11148-40995 */
   return pNew;

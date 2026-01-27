@@ -47,9 +47,13 @@ struct bytecodevtab_cursor {
 /*
 ** Create a new bytecode() table-valued function.
 */
-int bytecodevtabConnect(sqlite3 *db, void *pAux, int argc,
-                        const char * const *argv, sqlite3_vtab **ppVtab,
-                        char **pzErr){
+int bytecodevtabConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   bytecodevtab *pNew;
   int rc;
   int isTabUsed = pAux!=0;
@@ -191,7 +195,11 @@ int bytecodevtabEof(sqlite3_vtab_cursor *cur){
 ** Return values of columns for the row at which the bytecodevtab_cursor
 ** is currently pointing.
 */
-int bytecodevtabColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
+int bytecodevtabColumn(
+  sqlite3_vtab_cursor *cur,   /* The cursor */
+  sqlite3_context *ctx,       /* First argument to sqlite3_result_...() */
+  int i                       /* Which column to return */
+){
   bytecodevtab_cursor *pCur = (bytecodevtab_cursor*)cur;
   bytecodevtab *pVTab = (bytecodevtab*)cur->pVtab;
   Op *pOp = pCur->aOp + pCur->iAddr;
@@ -233,8 +241,9 @@ int bytecodevtabColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
       sqlite3_result_int(ctx, pCur->iAddr);
       break;
     case 1:   /* opcode */
-      sqlite3_result_text(ctx, (char*)sqlite3OpcodeName(pOp->opcode),
-                          -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, (char *)sqlite3OpcodeName(pOp->opcode), -1,
+                          SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     case 2:   /* p1 */
       sqlite3_result_int(ctx, pOp->p1);
@@ -251,11 +260,13 @@ int bytecodevtabColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
         pCur->zP4 = sqlite3VdbeDisplayP4(pVTab->db, pOp);
       }
       if( i==5 ){
-        sqlite3_result_text(ctx, pCur->zP4, -1, SQLITE_STATIC);
+        sqlite3_result_text(ctx, pCur->zP4, -1, SQLITE_STATIC,
+                            xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }else{
 #ifdef SQLITE_ENABLE_EXPLAIN_COMMENTS
         char *zCom = sqlite3VdbeDisplayComment(pVTab->db, pOp, pCur->zP4);
-        sqlite3_result_text(ctx, zCom, -1, sqlite3_free);
+        sqlite3_result_text(ctx, zCom, -1, sqlite3_free,
+                            xDel_signatures[xDel_sqlite3_free_enum]);
 #endif
       }
       break;
@@ -269,9 +280,11 @@ int bytecodevtabColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
       if( pCur->iRowid==pCur->iAddr+1 ){
         break;  /* Result is NULL for the main program */
       }else if( aOp[0].p4.z!=0 ){
-         sqlite3_result_text(ctx, aOp[0].p4.z+3, -1, SQLITE_STATIC);
+         sqlite3_result_text(ctx, aOp[0].p4.z + 3, -1, SQLITE_STATIC,
+                             xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }else{
-         sqlite3_result_text(ctx, "(FK)", 4, SQLITE_STATIC);
+         sqlite3_result_text(ctx, "(FK)", 4, SQLITE_STATIC,
+                             xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }
       break;
     }
@@ -291,13 +304,16 @@ int bytecodevtabColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
 #endif
 
     case 20:  /* tables_used.type */
-      sqlite3_result_text(ctx, pCur->zType, -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, pCur->zType, -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     case 21:  /* tables_used.schema */
-      sqlite3_result_text(ctx, pCur->zSchema, -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, pCur->zSchema, -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     case 22:  /* tables_used.name */
-      sqlite3_result_text(ctx, pCur->zName, -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, pCur->zName, -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     case 23:  /* tables_used.wr */
       sqlite3_result_int(ctx, pOp->opcode==OP_OpenWrite);
@@ -322,8 +338,11 @@ int bytecodevtabRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid){
 **    idxNum==0     means show all subprograms
 **    idxNum==1     means show only the main bytecode and omit subprograms.
 */
-int bytecodevtabFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
-                       const char *idxStr, int argc, sqlite3_value **argv){
+int bytecodevtabFilter(
+  sqlite3_vtab_cursor *pVtabCursor, 
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   bytecodevtab_cursor *pCur = (bytecodevtab_cursor *)pVtabCursor;
   bytecodevtab *pVTab = (bytecodevtab *)pVtabCursor->pVtab;
   int rc = SQLITE_OK;
@@ -362,7 +381,10 @@ int bytecodevtabFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
 ** into the xFilter method.  If there is no valid stmt=? constraint,
 ** then return an SQLITE_CONSTRAINT error.
 */
-int bytecodevtabBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
+int bytecodevtabBestIndex(
+  sqlite3_vtab *tab,
+  sqlite3_index_info *pIdxInfo
+){
   int i;
   int rc = SQLITE_CONSTRAINT;
   struct sqlite3_index_constraint *p;
@@ -417,30 +439,16 @@ static sqlite3_module bytecodevtabModule = {
   /* xShadowName */ 0,
   /* xIntegrity  */ 0
 ,
-  .xCreate_signature = xCreate_0,
-  .xConnect_signature = xConnect_bytecodevtabConnect,
-  .xBestIndex_signature = xBestIndex_bytecodevtabBestIndex,
-  .xDisconnect_signature = xDisconnect_bytecodevtabDisconnect,
-  .xDestroy_signature = xDestroy_0,
-  .xOpen_signature = xOpen_bytecodevtabOpen,
-  .xClose_signature = xClose_bytecodevtabClose,
-  .xFilter_signature = xFilter_bytecodevtabFilter,
-  .xNext_signature = xNext_bytecodevtabNext,
-  .xEof_signature = xEof_bytecodevtabEof,
-  .xColumn_signature = xColumn_bytecodevtabColumn,
-  .xRowid_signature = xRowid_bytecodevtabRowid,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xConnect_signature = xConnect_signatures[xConnect_bytecodevtabConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_bytecodevtabBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_bytecodevtabDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_bytecodevtabOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_bytecodevtabClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_bytecodevtabFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_bytecodevtabNext_enum],
+  .xEof_signature = xEof_signatures[xEof_bytecodevtabEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_bytecodevtabColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_bytecodevtabRowid_enum]
 };
 
 

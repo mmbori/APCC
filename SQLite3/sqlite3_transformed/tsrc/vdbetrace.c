@@ -139,7 +139,8 @@ char *sqlite3VdbeExpandSql(
         if( enc!=SQLITE_UTF8 ){
           memset(&utf8, 0, sizeof(utf8));
           utf8.db = db;
-          sqlite3VdbeMemSetStr(&utf8, pVar->z, pVar->n, enc, SQLITE_STATIC);
+          sqlite3VdbeMemSetStr(&utf8, pVar->z, pVar->n, enc, SQLITE_STATIC,
+                               xDel_signatures[xDel_SQLITE_STATIC_enum]);
           if( SQLITE_NOMEM==sqlite3VdbeChangeEncoding(&utf8, SQLITE_UTF8) ){
             out.accError = SQLITE_NOMEM;
             out.nAlloc = 0;

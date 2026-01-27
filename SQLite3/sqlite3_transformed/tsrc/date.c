@@ -584,7 +584,7 @@ static int osLocaltime(time_t *t, struct tm *pTm){
 #ifndef SQLITE_UNTESTABLE
   if( sqlite3GlobalConfig.bLocaltimeFault ){
     if( sqlite3GlobalConfig.xAltLocaltime!=0 ){
-      return sqlite3GlobalConfig.xAltLocaltime((const void*)t,(void*)pTm);
+      return 0;
     }else{
       return 1;
     }
@@ -1235,9 +1235,11 @@ static void datetimeFunc(
     }
     if( x.Y<0 ){
       zBuf[0] = '-';
-      sqlite3_result_text(context, zBuf, n, SQLITE_TRANSIENT);
+      sqlite3_result_text(context, zBuf, n, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }else{
-      sqlite3_result_text(context, &zBuf[1], n-1, SQLITE_TRANSIENT);
+      sqlite3_result_text(context, &zBuf[1], n - 1, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }
   }
 }
@@ -1280,7 +1282,8 @@ static void timeFunc(
       zBuf[8] = 0;
       n = 8;
     }
-    sqlite3_result_text(context, zBuf, n, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, zBuf, n, SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
 }
 
@@ -1314,9 +1317,11 @@ static void dateFunc(
     zBuf[11] = 0;
     if( x.Y<0 ){
       zBuf[0] = '-';
-      sqlite3_result_text(context, zBuf, 11, SQLITE_TRANSIENT);
+      sqlite3_result_text(context, zBuf, 11, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }else{
-      sqlite3_result_text(context, &zBuf[1], 10, SQLITE_TRANSIENT);
+      sqlite3_result_text(context, &zBuf[1], 10, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }
   }
 }
@@ -1756,7 +1761,8 @@ static void currentTimeFunc(
 #endif
   if( pTm ){
     strftime(zBuf, 20, zFormat, &sNow);
-    sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
 }
 #endif
@@ -1785,7 +1791,8 @@ static void datedebugFunc(
       x.s, x.validJD, x.validYMD, x.validHMS,
       x.nFloor, x.rawS, x.isError, x.useSubsec,
       x.isUtc, x.isLocal);
-    sqlite3_result_text(context, zJson, -1, sqlite3_free);
+    sqlite3_result_text(context, zJson, -1, sqlite3_free,
+                        xDel_signatures[xDel_sqlite3_free_enum]);
   }
 }
 #endif /* !SQLITE_OMIT_DATETIME_FUNCS && SQLITE_DEBUG */

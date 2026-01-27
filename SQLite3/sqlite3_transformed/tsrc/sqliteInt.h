@@ -640,8 +640,6 @@
 #include <stddef.h>
 #include <ctype.h>
 
-#include "sqlite_signatures.h"
-
 /*
 ** Use a macro to replace memcpy() if compiled with SQLITE_INLINE_MEMCPY.
 ** This allows better measurements of where memcpy() is used when running
@@ -1218,9 +1216,9 @@ typedef struct BusyHandler BusyHandler;
 struct BusyHandler {
   int (*xBusyHandler)(void *,int);  /* The busy callback */
   void *pBusyArg;                   /* First arg to busy callback */
-  int nBusy;                        /* Incremented with each busy call */
-
-  int xBusyHandler_signature;
+  int nBusy;
+  int *xBusyHandler_signature;
+                        /* Incremented with each busy call */
 };
 
 /*
@@ -1261,7 +1259,9 @@ struct BusyHandler {
 ** A convenience macro that returns the number of elements in
 ** an array.
 */
+#ifndef ArraySize
 #define ArraySize(X)    ((int)(sizeof(X)/sizeof(X[0])))
+#endif
 
 /*
 ** Determine if the argument is a power of two
@@ -1388,7 +1388,6 @@ typedef struct WhereInfo WhereInfo;
 typedef struct Window Window;
 typedef struct With With;
 
-
 /*
 ** The bitmask datatype defined below is used for various optimizations.
 **
@@ -1436,6 +1435,8 @@ typedef int VList;
 #include "vdbe.h"
 #include "pcache.h"
 #include "mutex.h"
+
+#include "sqlite_fp_signature_header.h"
 
 /* The SQLITE_EXTRA_DURABLE compile-time option used to set the default
 ** synchronous setting to EXTRA.  It is no longer supported.
@@ -1724,6 +1725,7 @@ struct sqlite3 {
 #ifndef SQLITE_OMIT_DEPRECATED
   void (*xProfile)(void*,const char*,u64);  /* Profiling function */
   void *pProfileArg;                        /* Argument to profile function */
+  int *xProfile_signature;
 #endif
   void *pCommitArg;                 /* Argument to xCommitCallback() */
   int (*xCommitCallback)(void*);    /* Invoked at every commit. */
@@ -1756,14 +1758,15 @@ struct sqlite3 {
   } u1;
   Lookaside lookaside;          /* Lookaside malloc configuration */
 #ifndef SQLITE_OMIT_AUTHORIZATION
-  int (*xAuth)(void*,int,const char*,const char*,const char*,
-                             const char*);          /* Access authorization function */
+  sqlite3_xauth xAuth;          /* Access authorization function */
   void *pAuthArg;               /* 1st argument to the access auth function */
+  int *xAuth_signature;
 #endif
 #ifndef SQLITE_OMIT_PROGRESS_CALLBACK
   int (*xProgress)(void *);     /* The progress callback */
   void *pProgressArg;           /* Argument to the progress callback */
   unsigned nProgressOps;        /* Number of opcodes for progress callback */
+  int *xProgress_signature;
 #endif
 #ifndef SQLITE_OMIT_VIRTUALTABLE
   int nVTrans;                  /* Allocated size of aVTrans */
@@ -1804,20 +1807,19 @@ struct sqlite3 {
   sqlite3 *pUnlockConnection;           /* Connection to watch for unlock */
   void *pUnlockArg;                     /* Argument to xUnlockNotify */
   void (*xUnlockNotify)(void **, int);  /* Unlock notify callback */
-  sqlite3 *pNextBlocked;        /* Next in list of all blocked connections */
+  sqlite3 *pNextBlocked;
+        /* Next in list of all blocked connections */
 #endif
-
-  int xV2_signature;
-  int xProfile_signature;
-  int xCommitCallback_signature;
-  int xRollbackCallback_signature;
-  int xUpdateCallback_signature;
-  int xAutovacDestr_signature;
-  int xAutovacPages_signature;
-  int xCollNeeded_signature;
-  int xCollNeeded16_signature;
-  int xAuth_signature;
-  int xProgress_signature;
+int *xV2_signature;
+int *xCommitCallback_signature;
+int *xRollbackCallback_signature;
+int *xUpdateCallback_signature;
+int *xAutovacDestr_signature;
+int *xAutovacPages_signature;
+int *xPreUpdateCallback_signature;
+int *xCollNeeded_signature;
+int *xCollNeeded16_signature;
+int *xUnlockNotify_signature;
 };
 
 /*
@@ -1993,12 +1995,12 @@ struct FuncDef {
   union {
     FuncDef *pHash;      /* Next with a different name but the same hash */
     FuncDestructor *pDestructor;   /* Reference counted destructor function */
-  } u; /* pHash if SQLITE_FUNC_BUILTIN, pDestructor otherwise */
-
-  int xSFunc_signature;
-  int xFinalize_signature;
-  int xValue_signature;
-  int xInverse_signature;
+  } u;
+  int *xSFunc_signature;
+  int *xFinalize_signature;
+  int *xValue_signature;
+  int *xInverse_signature;
+ /* pHash if SQLITE_FUNC_BUILTIN, pDestructor otherwise */
 };
 
 /*
@@ -2019,8 +2021,8 @@ struct FuncDestructor {
   int nRef;
   void (*xDestroy)(void *);
   void *pUserData;
+  int *xDestroy_signature;
 
-  int xDestroy_signature;
 };
 
 /*
@@ -2236,9 +2238,9 @@ struct Module {
   int nRefModule;                      /* Number of pointers to this object */
   void *pAux;                          /* pAux passed to create_module() */
   void (*xDestroy)(void *);            /* Module destructor function */
-  Table *pEpoTab;                      /* Eponymous table for this module */
-
-  int xDestroy_signature;
+  Table *pEpoTab;
+  int *xDestroy_signature;
+                      /* Eponymous table for this module */
 };
 
 /*
@@ -2328,10 +2330,10 @@ struct CollSeq {
   u8 enc;               /* Text encoding handled by xCmp() */
   void *pUser;          /* First argument to xCmp() */
   int (*xCmp)(void*,int, const void*, int, const void*);
-  void (*xDel)(void*);  /* Destructor for pUser */
-
-  int xCmp_signature;
-  int xDel_signature;
+  void (*xDel)(void*);
+  int *xCmp_signature;
+  int *xDel_signature;
+  /* Destructor for pUser */
 };
 
 /*
@@ -3901,9 +3903,9 @@ struct IndexedExpr {
 struct ParseCleanup {
   ParseCleanup *pNext;               /* Next cleanup task */
   void *pPtr;                        /* Pointer to object to deallocate */
-  void (*xCleanup)(sqlite3*,void*);  /* Deallocation routine */
-
-  int xCleanup_signature;
+  void (*xCleanup)(sqlite3*,void*);
+  int *xCleanup_signature;
+  /* Deallocation routine */
 };
 
 /*
@@ -4394,12 +4396,11 @@ struct Sqlite3Config {
   unsigned int iPrngSeed;           /* Alternative fixed seed for the PRNG */
   /* vvvv--- must be last ---vvv */
 #ifdef SQLITE_DEBUG
-  sqlite3_int64 aTune[SQLITE_NTUNE]; /* Tuning parameters */
+  sqlite3_int64 aTune[SQLITE_NTUNE];
+  int *xLog_signature;
+  int *xAltLocaltime_signature;
+ /* Tuning parameters */
 #endif
-
-  int xLog_signature;
-  int xTestCallback_signature;
-  int xAltLocaltime_signature;
 };
 
 /*
@@ -4452,10 +4453,10 @@ struct Walker {
     Mem *aMem;                                /* See sqlite3BtreeCursorHint() */
     struct CheckOnCtx *pCheckOnCtx;           /* See selectCheckOnClauses() */
   } u;
+  int *xExprCallback_signature;
+  int *xSelectCallback_signature;
+  int *xSelectCallback2_signature;
 
-  int xExprCallback_signature;
-  int xSelectCallback_signature;
-  int xSelectCallback2_signature;
 };
 
 /*
@@ -4567,8 +4568,9 @@ struct DbClientData {
   DbClientData *pNext;        /* Next in a linked list */
   void *pData;                /* The data */
   void (*xDestructor)(void*); /* Destructor.  Might be NULL */
-  int xDestructor_signature;
-  char zName[FLEXARRAY];      /* Name of this client data. MUST BE LAST */
+  int *xDestructor_signature;
+  char zName[FLEXARRAY];
+      /* Name of this client data. MUST BE LAST */
 };
 
 /* The size (in bytes) of a DbClientData object that can has a name
@@ -5447,10 +5449,10 @@ void sqlite3FileSuffix3(const char*, char*);
 u8 sqlite3GetBoolean(const char *z,u8);
 
 const void *sqlite3ValueText(sqlite3_value*, u8);
-int sqlite3ValueIsOfClass(const sqlite3_value*, void(*)(void*));
+int sqlite3ValueIsOfClass(const sqlite3_value*, void(*)(void*), int*);
 int sqlite3ValueBytes(sqlite3_value*, u8);
 void sqlite3ValueSetStr(sqlite3_value*, int, const void *,u8,
-                        void(*)(void*));
+                        void(*)(void*), int*);
 void sqlite3ValueSetNull(sqlite3_value*);
 void sqlite3ValueFree(sqlite3_value*);
 #ifndef SQLITE_UNTESTABLE
@@ -5543,11 +5545,11 @@ int sqlite3HasExplicitNulls(Parse*, ExprList*);
 int sqlite3KeyInfoIsWriteable(KeyInfo*);
 #endif
 int sqlite3CreateFunc(sqlite3 *, const char *, int, int, void *,
-  void (*)(sqlite3_context*,int,sqlite3_value **),
-  void (*)(sqlite3_context*,int,sqlite3_value **),
-  void (*)(sqlite3_context*),
-  void (*)(sqlite3_context*),
-  void (*)(sqlite3_context*,int,sqlite3_value **),
+  void (*)(sqlite3_context*,int,sqlite3_value **), int*,
+  void (*)(sqlite3_context*,int,sqlite3_value **), int*,
+  void (*)(sqlite3_context*), int*,
+  void (*)(sqlite3_context*), int*,
+  void (*)(sqlite3_context*,int,sqlite3_value **), int*,
   FuncDestructor *pDestructor
 );
 void sqlite3NoopDestructor(void*);
@@ -5649,7 +5651,7 @@ void sqlite3AutoLoadExtensions(sqlite3*);
      const char*,
      const sqlite3_module*,
      void*,
-     void(*)(void*)
+     void(*)(void*), int*
    );
 #  define sqlite3VtabInSync(db) ((db)->nVTrans>0 && (db)->aVTrans==0)
 #endif
@@ -5682,7 +5684,7 @@ int sqlite3VdbeParameterIndex(Vdbe*, const char*, int);
 int sqlite3TransferBindings(sqlite3_stmt *, sqlite3_stmt *);
 void sqlite3ParseObjectInit(Parse*,sqlite3*);
 void sqlite3ParseObjectReset(Parse*);
-void *sqlite3ParserAddCleanup(Parse*,void(*)(sqlite3*,void*),void*);
+void *sqlite3ParserAddCleanup(Parse*,void(*)(sqlite3*,void*), int*, void*);
 #ifdef SQLITE_ENABLE_NORMALIZE
 char *sqlite3Normalize(Vdbe*, const char*);
 #endif
@@ -5894,7 +5896,7 @@ SQLITE_API SQLITE_EXTERN void (SQLITE_CDECL *sqlite3IoTrace)(const char*,...);
 ** Threading interface
 */
 #if SQLITE_MAX_WORKER_THREADS>0
-int sqlite3ThreadCreate(SQLiteThread**,void*(*)(void*),void*);
+int sqlite3ThreadCreate(SQLiteThread**,void*(*)(void*),int*,void*);
 int sqlite3ThreadJoin(SQLiteThread*, void**);
 #endif
 
@@ -5932,3 +5934,29 @@ sqlite3_uint64 sqlite3Hwtime(void);
 #endif
 
 #endif /* SQLITEINT_H */
+
+sqlite3_mutex *noopMutexAlloc(int id);
+int noopMutexEnd(void);
+void noopMutexEnter(sqlite3_mutex *p);
+void noopMutexFree(sqlite3_mutex *p);
+int noopMutexInit(void);
+void noopMutexLeave(sqlite3_mutex *p);
+int noopMutexTry(sqlite3_mutex *p);
+void pcache1Cachesize(sqlite3_pcache *p , int nMax);
+sqlite3_pcache *pcache1Create(int szPage , int szExtra , int bPurgeable);
+void pcache1Destroy(sqlite3_pcache *p);
+sqlite3_pcache_page *pcache1Fetch(sqlite3_pcache *p , unsigned int iKey , int createFlag);
+int pcache1Init(void *NotUsed);
+int pcache1Pagecount(sqlite3_pcache *p);
+void pcache1Rekey(sqlite3_pcache *p , sqlite3_pcache_page *pPg , unsigned int iOld , unsigned int iNew);
+void pcache1Shrink(sqlite3_pcache *p);
+void pcache1Shutdown(void *NotUsed);
+void pcache1Truncate(sqlite3_pcache *p , unsigned int iLimit);
+void pcache1Unpin(sqlite3_pcache *p , sqlite3_pcache_page *pPg , int reuseUnlikely);
+void sqlite3MemFree(void *pPrior);
+int sqlite3MemInit(void *NotUsed);
+void *sqlite3MemMalloc(int nByte);
+void *sqlite3MemRealloc(void *pPrior , int nByte);
+int sqlite3MemRoundup(int n);
+void sqlite3MemShutdown(void *NotUsed);
+int sqlite3MemSize(void *p);

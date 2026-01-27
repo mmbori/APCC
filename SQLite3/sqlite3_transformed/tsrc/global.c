@@ -299,7 +299,6 @@ SQLITE_WSD struct Sqlite3Config sqlite3Config = {
 #ifdef SQLITE_DEBUG
    {0,0,0,0,0,0},             /* aTune */
 #endif
-  .xLog_signature = xLog_0
 };
 
 /*

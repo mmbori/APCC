@@ -2108,13 +2108,17 @@ static void generateColumnTypes(
     ** column specific strings, in case the schema is reset before this
     ** virtual machine is deleted.
     */
-    sqlite3VdbeSetColName(v, i, COLNAME_DATABASE, zOrigDb, SQLITE_TRANSIENT);
-    sqlite3VdbeSetColName(v, i, COLNAME_TABLE, zOrigTab, SQLITE_TRANSIENT);
-    sqlite3VdbeSetColName(v, i, COLNAME_COLUMN, zOrigCol, SQLITE_TRANSIENT);
+    sqlite3VdbeSetColName(v, i, COLNAME_DATABASE, zOrigDb, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
+    sqlite3VdbeSetColName(v, i, COLNAME_TABLE, zOrigTab, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
+    sqlite3VdbeSetColName(v, i, COLNAME_COLUMN, zOrigCol, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
 #else
     zType = columnType(&sNC, p, 0, 0, 0);
 #endif
-    sqlite3VdbeSetColName(v, i, COLNAME_DECLTYPE, zType, SQLITE_TRANSIENT);
+    sqlite3VdbeSetColName(v, i, COLNAME_DECLTYPE, zType, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
 #else
   UNUSED_PARAMETER(pParse);
@@ -2189,7 +2193,8 @@ void sqlite3GenerateColumnNames(
     if( pEList->a[i].zEName && pEList->a[i].fg.eEName==ENAME_NAME ){
       /* An AS clause always takes first priority */
       char *zName = pEList->a[i].zEName;
-      sqlite3VdbeSetColName(v, i, COLNAME_NAME, zName, SQLITE_TRANSIENT);
+      sqlite3VdbeSetColName(v, i, COLNAME_NAME, zName, SQLITE_TRANSIENT,
+                            xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }else if( srcName && p->op==TK_COLUMN ){
       char *zCol;
       int iCol = p->iColumn;
@@ -2205,14 +2210,17 @@ void sqlite3GenerateColumnNames(
       if( fullName ){
         char *zName = 0;
         zName = sqlite3MPrintf(db, "%s.%s", pTab->zName, zCol);
-        sqlite3VdbeSetColName(v, i, COLNAME_NAME, zName, SQLITE_DYNAMIC);
+        sqlite3VdbeSetColName(v, i, COLNAME_NAME, zName, SQLITE_DYNAMIC,
+                              xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
       }else{
-        sqlite3VdbeSetColName(v, i, COLNAME_NAME, zCol, SQLITE_TRANSIENT);
+        sqlite3VdbeSetColName(v, i, COLNAME_NAME, zCol, SQLITE_TRANSIENT,
+                              xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }
     }else{
       const char *z = pEList->a[i].zEName;
       z = z==0 ? sqlite3MPrintf(db, "column%d", i+1) : sqlite3DbStrDup(db, z);
-      sqlite3VdbeSetColName(v, i, COLNAME_NAME, z, SQLITE_DYNAMIC);
+      sqlite3VdbeSetColName(v, i, COLNAME_NAME, z, SQLITE_DYNAMIC,
+                            xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
     }
   }
   generateColumnTypes(pParse, pTabList, pEList);
@@ -3287,7 +3295,9 @@ multi_select_end:
   pDest->nSdst = dest.nSdst;
   pDest->iSDParm2 = dest.iSDParm2;
   if( pDelete ){
-    sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric, pDelete);
+    sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric,
+                            xCleanup_signatures[xCleanup_sqlite3SelectDeleteGeneric_enum],
+                            pDelete);
   }
   return rc;
 }
@@ -3843,7 +3853,9 @@ static int multiSelectOrderBy(
   /* Make arrangements to free the 2nd and subsequent arms of the compound
   ** after the parse has finished */
   if( pSplit->pPrior ){
-    sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric, pSplit->pPrior);
+    sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric,
+                            xCleanup_signatures[xCleanup_sqlite3SelectDeleteGeneric_enum],
+                            pSplit->pPrior);
   }
   pSplit->pPrior = pPrior;
   pPrior->pNext = pSplit;
@@ -4093,7 +4105,9 @@ static void recomputeColumnsUsed(
   if( NEVER(pSrcItem->pSTab==0) ) return;
   memset(&w, 0, sizeof(w));
   w.xExprCallback = recomputeColumnsUsedExpr;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_recomputeColumnsUsedExpr_enum];
   w.xSelectCallback = sqlite3SelectWalkNoop;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
   w.u.pSrcItem = pSrcItem;
   pSrcItem->colUsed = 0;
   sqlite3WalkSelect(&w, pSelect);
@@ -4194,7 +4208,9 @@ static void renumberCursors(
   memset(&w, 0, sizeof(w));
   w.u.aiCol = aCsrMap;
   w.xExprCallback = renumberCursorsCb;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_renumberCursorsCb_enum];
   w.xSelectCallback = sqlite3SelectWalkNoop;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
   sqlite3WalkSelect(&w, p);
 }
 #endif /* !defined(SQLITE_OMIT_SUBQUERY) || !defined(SQLITE_OMIT_VIEW) */
@@ -4682,7 +4698,7 @@ static int flattenSubquery(
     Table *pTabToDel = pSubitem->pSTab;
     if( pTabToDel->nTabRef==1 ){
       Parse *pToplevel = sqlite3ParseToplevel(pParse);
-      sqlite3ParserAddCleanup(pToplevel, sqlite3DeleteTableGeneric, pTabToDel);
+      sqlite3ParserAddCleanup(pToplevel, sqlite3DeleteTableGeneric, xCleanup_signatures[xCleanup_sqlite3DeleteTableGeneric_enum], pTabToDel);
       testcase( pToplevel->earlyCleanup );
     }else{
       pTabToDel->nTabRef--;
@@ -5107,8 +5123,11 @@ static int propagateConstants(
       memset(&w, 0, sizeof(w));
       w.pParse = pParse;
       w.xExprCallback = propagateConstantExprRewrite;
+      w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_propagateConstantExprRewrite_enum];
       w.xSelectCallback = sqlite3SelectWalkNoop;
+      w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
       w.xSelectCallback2 = 0;
+      w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
       w.walkerDepth = 0;
       w.u.pConst = &x;
       sqlite3WalkExpr(&w, p->pWhere);
@@ -5765,7 +5784,7 @@ static struct Cte *searchWith(
 With *sqlite3WithPush(Parse *pParse, With *pWith, u8 bFree){
   if( pWith ){
     if( bFree ){
-      pWith = (With*)sqlite3ParserAddCleanup(pParse, sqlite3WithDeleteGeneric,
+      pWith = (With*)sqlite3ParserAddCleanup(pParse, sqlite3WithDeleteGeneric, xCleanup_signatures[xCleanup_sqlite3WithDeleteGeneric_enum], 
                       pWith);
       if( pWith==0 ) return 0;
     }
@@ -5854,7 +5873,7 @@ static int resolveFromTermToCte(
     if( pCteUse==0 ){
       pCte->pUse = pCteUse = sqlite3DbMallocZero(db, sizeof(pCteUse[0]));
       if( pCteUse==0
-       || sqlite3ParserAddCleanup(pParse,sqlite3DbFree,pCteUse)==0
+       || sqlite3ParserAddCleanup(pParse,sqlite3DbFree,xCleanup_signatures[xCleanup_sqlite3DbFree_enum], pCteUse)==0
       ){
         sqlite3DbFree(db, pTab);
         return 2;
@@ -6494,14 +6513,19 @@ void sqlite3SelectWalkAssert2(Walker *NotUsed, Select *NotUsed2){
 static void sqlite3SelectExpand(Parse *pParse, Select *pSelect){
   Walker w;
   w.xExprCallback = sqlite3ExprWalkNoop;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3ExprWalkNoop_enum];
   w.pParse = pParse;
   if( OK_IF_ALWAYS_TRUE(pParse->hasCompound) ){
     w.xSelectCallback = convertCompoundSelectToSubquery;
+    w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_convertCompoundSelectToSubquery_enum];
     w.xSelectCallback2 = 0;
+    w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
     sqlite3WalkSelect(&w, pSelect);
   }
   w.xSelectCallback = selectExpander;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_selectExpander_enum];
   w.xSelectCallback2 = sqlite3SelectPopWith;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_sqlite3SelectPopWith_enum];
   w.eCode = 0;
   sqlite3WalkSelect(&w, pSelect);
 }
@@ -6556,8 +6580,11 @@ static void sqlite3SelectAddTypeInfo(Parse *pParse, Select *pSelect){
 #ifndef SQLITE_OMIT_SUBQUERY
   Walker w;
   w.xSelectCallback = sqlite3SelectWalkNoop;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
   w.xSelectCallback2 = selectAddSubqueryTypeInfo;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_selectAddSubqueryTypeInfo_enum];
   w.xExprCallback = sqlite3ExprWalkNoop;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3ExprWalkNoop_enum];
   w.pParse = pParse;
   sqlite3WalkSelect(&w, pSelect);
 #endif
@@ -6742,6 +6769,7 @@ static void aggregateConvertIndexedExprRefToColumn(AggInfo *pAggInfo){
   Walker w;
   memset(&w, 0, sizeof(w));
   w.xExprCallback = aggregateIdxEprRefToColCallback;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_aggregateIdxEprRefToColCallback_enum];
   for(i=0; i<pAggInfo->nFunc; i++){
     sqlite3WalkExpr(&w, pAggInfo->aFunc[i].pFExpr);
   }
@@ -7164,6 +7192,7 @@ static void havingToWhere(Parse *pParse, Select *p){
   memset(&sWalker, 0, sizeof(sWalker));
   sWalker.pParse = pParse;
   sWalker.xExprCallback = havingToWhereExprCb;
+  sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_havingToWhereExprCb_enum];
   sWalker.u.pSelect = p;
   sqlite3WalkExpr(&sWalker, p->pHaving);
 #if TREETRACE_ENABLED
@@ -7303,7 +7332,9 @@ static int countOfViewOptimization(Parse *pParse, Select *p){
     pSub->selFlags |= SF_Aggregate;
     pSub->selFlags &= ~(u32)SF_Compound;
     pSub->nSelectRow = 0;
-    sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric, pSub->pEList);
+    sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric,
+                            xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum],
+                            pSub->pEList);
     pTerm = pPrior ? sqlite3ExprDup(db, pCount, 0) : pCount;
     pSub->pEList = sqlite3ExprListAppend(pParse, 0, pTerm);
     pTerm = sqlite3PExpr(pParse, TK_SELECT, 0, 0);
@@ -7476,7 +7507,7 @@ static SQLITE_NOINLINE void existsToJoin(
           pSub->pWhere = 0;
         }
         pSub->pSrc = 0;
-        sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric, pSub);
+        sqlite3ParserAddCleanup(pParse, sqlite3SelectDeleteGeneric, xCleanup_signatures[xCleanup_sqlite3SelectDeleteGeneric_enum], pSub);
 #if TREETRACE_ENABLED
         if( sqlite3TreeTrace & 0x100000 ){
           TREETRACE(0x100000,pParse,p,
@@ -7591,7 +7622,9 @@ static void selectCheckOnClauses(Parse *pParse, Select *pSelect){
   memset(&w, 0, sizeof(w));
   w.pParse = pParse;
   w.xExprCallback = selectCheckOnClausesExpr;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_selectCheckOnClausesExpr_enum];
   w.xSelectCallback = selectCheckOnClausesSelect;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_selectCheckOnClausesSelect_enum];
   w.u.pCheckOnCtx = &sCtx;
   memset(&sCtx, 0, sizeof(sCtx));
   sCtx.pSrc = pSelect->pSrc;
@@ -7706,6 +7739,7 @@ int sqlite3Select(
       }
 #endif   
       sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric,
+                              xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum],
                               p->pOrderBy);
       testcase( pParse->earlyCleanup );
       p->pOrderBy = 0;
@@ -7917,6 +7951,7 @@ int sqlite3Select(
       TREETRACE(0x800,pParse,p,
                 ("omit superfluous ORDER BY on %r FROM-clause subquery\n",i+1));
       sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric,
+                              xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum],
                               pSub->pOrderBy);
       pSub->pOrderBy = 0;
     }
@@ -8495,7 +8530,9 @@ int sqlite3Select(
     */
     pAggInfo = sqlite3DbMallocZero(db, sizeof(*pAggInfo) );
     if( pAggInfo ){
-      sqlite3ParserAddCleanup(pParse, agginfoFree, pAggInfo);
+      sqlite3ParserAddCleanup(pParse, agginfoFree,
+                              xCleanup_signatures[xCleanup_agginfoFree_enum],
+                              pAggInfo);
       testcase( pParse->earlyCleanup );
     }
     if( db->mallocFailed ){

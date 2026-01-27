@@ -588,7 +588,7 @@ static void invalidateAllOverflowCache(BtShared *pBt){
 ** rowid iRow is being replaced or deleted. In this case invalidate
 ** only those incrblob cursors open on that specific row.
 */
-static void invalidateIncrblobCursors(
+void invalidateIncrblobCursors(
   Btree *pBtree,          /* The database file to check */
   Pgno pgnoRoot,          /* The table that might be changing */
   i64 iRow,               /* The rowid that might be changing */
@@ -1001,6 +1001,7 @@ void sqlite3BtreeCursorHint(BtCursor *pCur, int eHintType, ...){
     Walker w;
     memset(&w, 0, sizeof(w));
     w.xExprCallback = sqlite3CursorRangeHintExprCheck;
+    w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3CursorRangeHintExprCheck_enum];
     va_start(ap, eHintType);
     pExpr = va_arg(ap, Expr*);
     w.u.aMem = va_arg(ap, Mem*);
@@ -1239,7 +1240,11 @@ static int btreePayloadToLocal(MemPage *pPage, i64 nPayload){
 ** all MemPage types and that references the cell by index rather than
 ** by pointer.
 */
-void btreeParseCellPtrNoPayload(MemPage *pPage, u8 *pCell, CellInfo *pInfo){
+void btreeParseCellPtrNoPayload(
+  MemPage *pPage,         /* Page containing the cell */
+  u8 *pCell,              /* Pointer to the cell text. */
+  CellInfo *pInfo         /* Fill in this structure */
+){
   assert( sqlite3_mutex_held(pPage->pBt->mutex) );
   assert( pPage->leaf==0 );
   assert( pPage->childPtrSize==4 );
@@ -1252,7 +1257,11 @@ void btreeParseCellPtrNoPayload(MemPage *pPage, u8 *pCell, CellInfo *pInfo){
   pInfo->pPayload = 0;
   return;
 }
-void btreeParseCellPtr(MemPage *pPage, u8 *pCell, CellInfo *pInfo){
+void btreeParseCellPtr(
+  MemPage *pPage,         /* Page containing the cell */
+  u8 *pCell,              /* Pointer to the cell text. */
+  CellInfo *pInfo         /* Fill in this structure */
+){
   u8 *pIter;              /* For scanning through pCell */
   u32 nPayload;           /* Number of bytes of cell payload */
   u64 iKey;               /* Extracted Key value */
@@ -1336,7 +1345,11 @@ void btreeParseCellPtr(MemPage *pPage, u8 *pCell, CellInfo *pInfo){
     btreeParseCellAdjustSizeForOverflow(pPage, pCell, pInfo);
   }
 }
-void btreeParseCellPtrIndex(MemPage *pPage, u8 *pCell, CellInfo *pInfo){
+void btreeParseCellPtrIndex(
+  MemPage *pPage,         /* Page containing the cell */
+  u8 *pCell,              /* Pointer to the cell text. */
+  CellInfo *pInfo         /* Fill in this structure */
+){
   u8 *pIter;              /* For scanning through pCell */
   u32 nPayload;           /* Number of bytes of cell payload */
 
@@ -1376,7 +1389,17 @@ static void btreeParseCell(
   int iCell,              /* The cell index.  First cell is 0 */
   CellInfo *pInfo         /* Fill in this structure */
 ){
-  pPage->xParseCell(pPage, findCell(pPage, iCell), pInfo);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, findCell(pPage, iCell), pInfo);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, findCell(pPage, iCell), pInfo);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, findCell(pPage, iCell), pInfo);
+    }
 }
 
 /*
@@ -1404,7 +1427,17 @@ u16 cellSizePtr(MemPage *pPage, u8 *pCell){
   ** cell. If SQLITE_DEBUG is defined, an assert() at the bottom of
   ** this function verifies that this invariant is not violated. */
   CellInfo debuginfo;
-  pPage->xParseCell(pPage, pCell, &debuginfo);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, pCell, &debuginfo);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, pCell, &debuginfo);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, pCell, &debuginfo);
+    }
 #endif
 
   assert( pPage->childPtrSize==4 );
@@ -1446,7 +1479,17 @@ u16 cellSizePtrIdxLeaf(MemPage *pPage, u8 *pCell){
   ** cell. If SQLITE_DEBUG is defined, an assert() at the bottom of
   ** this function verifies that this invariant is not violated. */
   CellInfo debuginfo;
-  pPage->xParseCell(pPage, pCell, &debuginfo);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, pCell, &debuginfo);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, pCell, &debuginfo);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, pCell, &debuginfo);
+    }
 #endif
 
   assert( pPage->childPtrSize==0 );
@@ -1487,7 +1530,17 @@ u16 cellSizePtrNoPayload(MemPage *pPage, u8 *pCell){
   ** cell. If SQLITE_DEBUG is defined, an assert() at the bottom of
   ** this function verifies that this invariant is not violated. */
   CellInfo debuginfo;
-  pPage->xParseCell(pPage, pCell, &debuginfo);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, pCell, &debuginfo);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, pCell, &debuginfo);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, pCell, &debuginfo);
+    }
 #else
   UNUSED_PARAMETER(pPage);
 #endif
@@ -1509,7 +1562,17 @@ u16 cellSizePtrTableLeaf(MemPage *pPage, u8 *pCell){
   ** cell. If SQLITE_DEBUG is defined, an assert() at the bottom of
   ** this function verifies that this invariant is not violated. */
   CellInfo debuginfo;
-  pPage->xParseCell(pPage, pCell, &debuginfo);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, pCell, &debuginfo);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, pCell, &debuginfo);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, pCell, &debuginfo);
+    }
 #endif
 
   nSize = *pIter;
@@ -1556,7 +1619,21 @@ u16 cellSizePtrTableLeaf(MemPage *pPage, u8 *pCell){
 /* This variation on cellSizePtr() is used inside of assert() statements
 ** only. */
 static u16 cellSize(MemPage *pPage, int iCell){
-  return pPage->xCellSize(pPage, findCell(pPage, iCell));
+  if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+    return cellSizePtr(pPage, findCell(pPage, iCell));
+  }
+  else
+    if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+      return cellSizePtrIdxLeaf(pPage, findCell(pPage, iCell));
+    }
+  else
+    if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+      return cellSizePtrNoPayload(pPage, findCell(pPage, iCell));
+    }
+  else
+    if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+      return cellSizePtrTableLeaf(pPage, findCell(pPage, iCell));
+    }
 }
 #endif
 
@@ -1571,7 +1648,17 @@ static void ptrmapPutOvflPtr(MemPage *pPage, MemPage *pSrc, u8 *pCell,int *pRC){
   CellInfo info;
   if( *pRC ) return;
   assert( pCell!=0 );
-  pPage->xParseCell(pPage, pCell, &info);
+  if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+    btreeParseCellPtr(pPage, pCell, &info);
+  }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrIndex(pPage, pCell, &info);
+    }
+  else
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtrNoPayload(pPage, pCell, &info);
+    }
   if( info.nLocal<info.nPayload ){
     Pgno ovfl;
     if( SQLITE_OVERFLOW(pSrc->aDataEnd, pCell, pCell+info.nLocal) ){
@@ -1690,7 +1777,21 @@ static int defragmentPage(MemPage *pPage, int nMaxFrag){
         return SQLITE_CORRUPT_PAGE(pPage);
       }
       assert( pc>=0 && pc<=iCellLast );
-      size = pPage->xCellSize(pPage, &src[pc]);
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        size = cellSizePtr(pPage, &src[pc]);
+      }
+      else
+        if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+          size = cellSizePtrIdxLeaf(pPage, &src[pc]);
+        }
+      else
+        if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+          size = cellSizePtrNoPayload(pPage, &src[pc]);
+        }
+      else
+        if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+          size = cellSizePtrTableLeaf(pPage, &src[pc]);
+        }
       cbrk -= size;
       if( cbrk<iCellStart || pc+size>usableSize ){
         return SQLITE_CORRUPT_PAGE(pPage);
@@ -2026,7 +2127,9 @@ static int decodeFlags(MemPage *pPage, int flagByte){
     if( flagByte==(PTF_LEAFDATA | PTF_INTKEY | PTF_LEAF) ){
       pPage->intKeyLeaf = 1;
       pPage->xCellSize = cellSizePtrTableLeaf;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum];
       pPage->xParseCell = btreeParseCellPtr;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtr_enum];
       pPage->intKey = 1;
       pPage->maxLocal = pBt->maxLeaf;
       pPage->minLocal = pBt->minLeaf;
@@ -2034,14 +2137,18 @@ static int decodeFlags(MemPage *pPage, int flagByte){
       pPage->intKey = 0;
       pPage->intKeyLeaf = 0;
       pPage->xCellSize = cellSizePtrIdxLeaf;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum];
       pPage->xParseCell = btreeParseCellPtrIndex;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum];
       pPage->maxLocal = pBt->maxLocal;
       pPage->minLocal = pBt->minLocal;
     }else{
       pPage->intKey = 0;
       pPage->intKeyLeaf = 0;
       pPage->xCellSize = cellSizePtrIdxLeaf;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum];
       pPage->xParseCell = btreeParseCellPtrIndex;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum];
       return SQLITE_CORRUPT_PAGE(pPage);
     }
   }else{
@@ -2051,13 +2158,17 @@ static int decodeFlags(MemPage *pPage, int flagByte){
       pPage->intKey = 0;
       pPage->intKeyLeaf = 0;
       pPage->xCellSize = cellSizePtr;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtr_enum];
       pPage->xParseCell = btreeParseCellPtrIndex;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum];
       pPage->maxLocal = pBt->maxLocal;
       pPage->minLocal = pBt->minLocal;
     }else if( flagByte==(PTF_LEAFDATA | PTF_INTKEY) ){
       pPage->intKeyLeaf = 0;
       pPage->xCellSize = cellSizePtrNoPayload;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum];
       pPage->xParseCell = btreeParseCellPtrNoPayload;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum];
       pPage->intKey = 1;
       pPage->maxLocal = pBt->maxLeaf;
       pPage->minLocal = pBt->minLeaf;
@@ -2065,7 +2176,9 @@ static int decodeFlags(MemPage *pPage, int flagByte){
       pPage->intKey = 0;
       pPage->intKeyLeaf = 0;
       pPage->xCellSize = cellSizePtr;
+      pPage->xCellSize_signature = xCellSize_signatures[xCellSize_cellSizePtr_enum];
       pPage->xParseCell = btreeParseCellPtrIndex;
+      pPage->xParseCell_signature = xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum];
       return SQLITE_CORRUPT_PAGE(pPage);
     }
   }
@@ -2181,7 +2294,21 @@ static SQLITE_NOINLINE int btreeCellSizeCheck(MemPage *pPage){
     if( pc<iCellFirst || pc>iCellLast ){
       return SQLITE_CORRUPT_PAGE(pPage);
     }
-    sz = pPage->xCellSize(pPage, &data[pc]);
+    if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+      sz = cellSizePtr(pPage, &data[pc]);
+    }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        sz = cellSizePtrIdxLeaf(pPage, &data[pc]);
+      }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        sz = cellSizePtrNoPayload(pPage, &data[pc]);
+      }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        sz = cellSizePtrTableLeaf(pPage, &data[pc]);
+      }
     testcase( pc+sz==usableSize );
     if( pc+sz>usableSize ){
       return SQLITE_CORRUPT_PAGE(pPage);
@@ -2663,8 +2790,9 @@ int sqlite3BtreeOpen(
       rc = SQLITE_NOMEM_BKPT;
       goto btree_open_out;
     }
-    rc = sqlite3PagerOpen(pVfs, &pBt->pPager, zFilename,
-                          sizeof(MemPage), flags, vfsFlags, pageReinit);
+    rc = sqlite3PagerOpen(pVfs, &pBt->pPager, zFilename, sizeof(MemPage),
+                          flags, vfsFlags, pageReinit,
+                          xReinit_signatures[xReinit_pageReinit_enum]);
     if( rc==SQLITE_OK ){
       sqlite3PagerSetMmapLimit(pBt->pPager, db->szMmap);
       rc = sqlite3PagerReadFileheader(pBt->pPager,sizeof(zDbHeader),zDbHeader);
@@ -2674,7 +2802,9 @@ int sqlite3BtreeOpen(
     }
     pBt->openFlags = (u8)flags;
     pBt->db = db;
-    sqlite3PagerSetBusyHandler(pBt->pPager, btreeInvokeBusyHandler, pBt);
+    sqlite3PagerSetBusyHandler(pBt->pPager, btreeInvokeBusyHandler,
+                               xBusyHandler_signatures[xBusyHandler_btreeInvokeBusyHandler_enum],
+                               pBt);
     p->pBt = pBt;
  
     pBt->pCursor = 0;
@@ -2943,7 +3073,7 @@ int sqlite3BtreeClose(Btree *p){
     assert( !pBt->pCursor );
     sqlite3PagerClose(pBt->pPager, p->db);
     if( pBt->xFreeSchema && pBt->pSchema ){
-      pBt->xFreeSchema(pBt->pSchema);
+      // pBt->xFreeSchema(pBt->pSchema);
     }
     sqlite3DbFree(0, pBt->pSchema);
     freeTempSpace(pBt);
@@ -3859,7 +3989,17 @@ static int modifyPagePointer(MemPage *pPage, Pgno iFrom, Pgno iTo, u8 eType){
       u8 *pCell = findCell(pPage, i);
       if( eType==PTRMAP_OVERFLOW1 ){
         CellInfo info;
-        pPage->xParseCell(pPage, pCell, &info);
+        if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+          btreeParseCellPtr(pPage, pCell, &info);
+        }
+        else
+          if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+            btreeParseCellPtrIndex(pPage, pCell, &info);
+          }
+        else
+          if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+            btreeParseCellPtrNoPayload(pPage, pCell, &info);
+          }
         if( info.nLocal<info.nPayload ){
           if( pCell+info.nSize > pPage->aData+pPage->pBt->usableSize ){
             return SQLITE_CORRUPT_PAGE(pPage);
@@ -5917,7 +6057,8 @@ static int indexCellCompare(
   MemPage *pPage,
   int idx,
   UnpackedRecord *pIdxKey,
-  int (*xRecordCompare)(int,const void*,UnpackedRecord*)){
+  RecordCompare xRecordCompare
+){
   int c;
   int nCell;  /* Size of the pCell cell in bytes */
   u8 *pCell = findCellPastPtr(pPage, idx);
@@ -5990,7 +6131,7 @@ int sqlite3BtreeIndexMoveto(
   int *pRes                /* Write search results here */
 ){
   int rc;
-  int (*xRecordCompare)(int,const void*,UnpackedRecord*);
+  RecordCompare xRecordCompare;
 
   assert( cursorOwnsBtShared(pCur) );
   assert( sqlite3_mutex_held(pCur->pBtree->db->mutex) );
@@ -6118,7 +6259,17 @@ bypass_moveto_root:
         void *pCellKey;
         u8 * const pCellBody = pCell - pPage->childPtrSize;
         const int nOverrun = 18;  /* Size of the overrun padding */
-        pPage->xParseCell(pPage, pCellBody, &pCur->info);
+        if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+          btreeParseCellPtr(pPage, pCellBody, &pCur->info);
+        }
+        else
+          if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+            btreeParseCellPtrIndex(pPage, pCellBody, &pCur->info);
+          }
+        else
+          if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+            btreeParseCellPtrNoPayload(pPage, pCellBody, &pCur->info);
+          }
         nCell = (int)pCur->info.nKey;
         testcase( nCell<0 );   /* True if key size is 2^32 or more */
         testcase( nCell==0 );  /* Invalid key size:  0x80 0x80 0x00 */
@@ -7109,7 +7260,17 @@ static int fillInCell(
 #ifdef SQLITE_DEBUG
   {
     CellInfo info;
-    pPage->xParseCell(pPage, pCell, &info);
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtr(pPage, pCell, &info);
+    }
+    else
+      if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+        btreeParseCellPtrIndex(pPage, pCell, &info);
+      }
+    else
+      if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+        btreeParseCellPtrNoPayload(pPage, pCell, &info);
+      }
     assert( nHeader==(int)(info.pPayload - pCell) );
     assert( info.nKey==pX->nKey );
     assert( *pnSize == info.nSize );
@@ -7295,7 +7456,19 @@ static int insertCell(
   assert( pPage->nOverflow<=ArraySize(pPage->apOvfl) );
   assert( ArraySize(pPage->apOvfl)==ArraySize(pPage->aiOvfl) );
   assert( sqlite3_mutex_held(pPage->pBt->mutex) );
-  assert( sz==pPage->xCellSize(pPage, pCell) || CORRUPT_DB );
+  // assert( sz==pPage->xCellSize(pPage, pCell) || CORRUPT_DB );
+  if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(int[4])) == 0) {
+    assert( sz==cellSizePtr(pPage, pCell) || CORRUPT_DB );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(int[4])) == 0) {
+      assert( sz==cellSizePtrIdxLeaf(pPage, pCell) || CORRUPT_DB );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(int[4])) == 0) {
+      assert( sz==cellSizePtrNoPayload(pPage, pCell) || CORRUPT_DB );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(int[4])) == 0) {
+      assert( sz==cellSizePtrTableLeaf(pPage, pCell) || CORRUPT_DB );
+  }
   assert( pPage->nFree>=0 );
   assert( iChild>0 );
   if( pPage->nOverflow || sz+2>pPage->nFree ){
@@ -7551,10 +7724,39 @@ static void populateCellCache(CellArray *p, int idx, int N){
   while( N>0 ){
     assert( p->apCell[idx]!=0 );
     if( szCell[idx]==0 ){
-      szCell[idx] = pRef->xCellSize(pRef, p->apCell[idx]);
+      // szCell[idx] = pRef->xCellSize(pRef, p->apCell[idx]);
+      if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+        szCell[idx] = cellSizePtr(pRef, p->apCell[idx]);
+      }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          szCell[idx] = cellSizePtrIdxLeaf(pRef, p->apCell[idx]);
+        }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          szCell[idx] = cellSizePtrNoPayload(pRef, p->apCell[idx]);
+        }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          szCell[idx] = cellSizePtrTableLeaf(pRef, p->apCell[idx]);
+        }
     }else{
-      assert( CORRUPT_DB ||
-              szCell[idx]==pRef->xCellSize(pRef, p->apCell[idx]) );
+      if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+        assert( CORRUPT_DB || szCell[idx]==cellSizePtr(pRef, p->apCell[idx]) );
+      }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          assert( CORRUPT_DB || szCell[idx]==cellSizePtrIdxLeaf(pRef, p->apCell[idx]) );
+        }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          assert( CORRUPT_DB || szCell[idx]==cellSizePtrNoPayload(pRef, p->apCell[idx]) );
+        }
+      else
+        if (memcmp(pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pRef->xCellSize_signature)) == 0) {
+          assert( CORRUPT_DB || szCell[idx]==cellSizePtrTableLeaf(pRef, p->apCell[idx]) );
+        }
+      // assert( CORRUPT_DB || szCell[idx]==pRef->xCellSize(pRef, p->apCell[idx]) );
     }
     idx++;
     N--;
@@ -7567,7 +7769,21 @@ static void populateCellCache(CellArray *p, int idx, int N){
 static SQLITE_NOINLINE u16 computeCellSize(CellArray *p, int N){
   assert( N>=0 && N<p->nCell );
   assert( p->szCell[N]==0 );
-  p->szCell[N] = p->pRef->xCellSize(p->pRef, p->apCell[N]);
+  if (memcmp(p->pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(p->pRef->xCellSize_signature)) == 0) {
+    p->szCell[N] = cellSizePtr(p->pRef, p->apCell[N]);
+  }
+  else
+    if (memcmp(p->pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(p->pRef->xCellSize_signature)) == 0) {
+      p->szCell[N] = cellSizePtrIdxLeaf(p->pRef, p->apCell[N]);
+    }
+  else
+    if (memcmp(p->pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(p->pRef->xCellSize_signature)) == 0) {
+      p->szCell[N] = cellSizePtrNoPayload(p->pRef, p->apCell[N]);
+    }
+  else
+    if (memcmp(p->pRef->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(p->pRef->xCellSize_signature)) == 0) {
+      p->szCell[N] = cellSizePtrTableLeaf(p->pRef, p->apCell[N]);
+    }
   return p->szCell[N];
 }
 static u16 cachedCellSize(CellArray *p, int N){
@@ -7976,7 +8192,23 @@ static int balance_quick(MemPage *pParent, MemPage *pPage, u8 *pSpace){
 
     u8 *pOut = &pSpace[4];
     u8 *pCell = pPage->apOvfl[0];
-    u16 szCell = pPage->xCellSize(pPage, pCell);
+    // u16 szCell = pPage->xCellSize(pPage, pCell);
+    u16 szCell;
+    if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+      szCell = cellSizePtr(pPage, pCell);
+    }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        szCell = cellSizePtrIdxLeaf(pPage, pCell);
+      }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        szCell = cellSizePtrNoPayload(pPage, pCell);
+      }
+    else
+      if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+        szCell = cellSizePtrTableLeaf(pPage, pCell);
+      }
     u8 *pStop;
     CellArray b;
 
@@ -8298,12 +8530,40 @@ static int balance_nonroot(
     if( pParent->nOverflow && i+nxDiv==pParent->aiOvfl[0] ){
       apDiv[i] = pParent->apOvfl[0];
       pgno = get4byte(apDiv[i]);
-      szNew[i] = pParent->xCellSize(pParent, apDiv[i]);
+      if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+        szNew[i] = cellSizePtr(pParent, apDiv[i]);
+      }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrIdxLeaf(pParent, apDiv[i]);
+        }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrNoPayload(pParent, apDiv[i]);
+        }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrTableLeaf(pParent, apDiv[i]);
+        }
       pParent->nOverflow = 0;
     }else{
       apDiv[i] = findCell(pParent, i+nxDiv-pParent->nOverflow);
       pgno = get4byte(apDiv[i]);
-      szNew[i] = pParent->xCellSize(pParent, apDiv[i]);
+      if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+        szNew[i] = cellSizePtr(pParent, apDiv[i]);
+      }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrIdxLeaf(pParent, apDiv[i]);
+        }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrNoPayload(pParent, apDiv[i]);
+        }
+      else
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          szNew[i] = cellSizePtrTableLeaf(pParent, apDiv[i]);
+        }
 
       /* Drop the cell from the parent page. apDiv[i] still points to
       ** the cell within the parent, even though it has been dropped.
@@ -8501,7 +8761,22 @@ static int balance_nonroot(
     assert( p->nFree>=0 );
     szNew[i] = usableSpace - p->nFree;
     for(j=0; j<p->nOverflow; j++){
-      szNew[i] += 2 + p->xCellSize(p, p->apOvfl[j]);
+      // szNew[i] += 2 + p->xCellSize(p, p->apOvfl[j]);
+      if (memcmp(p->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(p->xCellSize_signature)) == 0) {
+        szNew[i] += 2 + cellSizePtr(p, p->apOvfl[j]);
+      }
+      else
+        if (memcmp(p->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(p->xCellSize_signature)) == 0) {
+          szNew[i] += 2 + cellSizePtrIdxLeaf(p, p->apOvfl[j]);
+        }
+      else
+        if (memcmp(p->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(p->xCellSize_signature)) == 0) {
+          szNew[i] += 2 + cellSizePtrNoPayload(p, p->apOvfl[j]);
+        }
+      else
+        if (memcmp(p->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(p->xCellSize_signature)) == 0) {
+          szNew[i] += 2 + cellSizePtrTableLeaf(p, p->apOvfl[j]);
+        }
     }
     cntNew[i] = cntOld[i];
   }
@@ -8798,7 +9073,17 @@ static int balance_nonroot(
       */
       CellInfo info;
       j--;
-      pNew->xParseCell(pNew, b.apCell[j], &info);
+      if (memcmp(pNew->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pNew->xParseCell_signature)) == 0) {
+        btreeParseCellPtr(pNew, b.apCell[j], &info);
+      }
+      else
+        if (memcmp(pNew->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pNew->xParseCell_signature)) == 0) {
+          btreeParseCellPtrIndex(pNew, b.apCell[j], &info);
+        }
+      else
+        if (memcmp(pNew->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pNew->xParseCell_signature)) == 0) {
+          btreeParseCellPtrNoPayload(pNew, b.apCell[j], &info);
+        }
       pCell = pTemp;
       sz = 4 + putVarint(&pCell[4], info.nKey);
       pTemp = 0;
@@ -8817,7 +9102,21 @@ static int balance_nonroot(
       */
       if( b.szCell[j]==4 ){
         assert(leafCorrection==4);
-        sz = pParent->xCellSize(pParent, pCell);
+        if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+          sz = cellSizePtr(pParent, pCell);
+        }
+        else
+          if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+            sz = cellSizePtrIdxLeaf(pParent, pCell);
+          }
+        else
+          if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+            sz = cellSizePtrNoPayload(pParent, pCell);
+          }
+        else
+          if (memcmp(pParent->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pParent->xCellSize_signature)) == 0) {
+            sz = cellSizePtrTableLeaf(pParent, pCell);
+          }
       }
     }
     iOvflSpace += sz;
@@ -9538,7 +9837,17 @@ int sqlite3BtreeInsert(
     }
     if( ISAUTOVACUUM(p->pBt) && szNew>pPage->maxLocal ){
       CellInfo info;
-      pPage->xParseCell(pPage, newCell, &info);
+      if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+        btreeParseCellPtr(pPage, newCell, &info);
+      }
+      else
+        if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+          btreeParseCellPtrIndex(pPage, newCell, &info);
+        }
+      else
+        if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+          btreeParseCellPtrNoPayload(pPage, newCell, &info);
+        }
       if( info.nPayload!=info.nLocal ){
         Pgno ovfl = get4byte(&newCell[szNew-4]);
         ptrmapPut(p->pBt, ovfl, PTRMAP_OVERFLOW1, pPage->pgno, &rc);
@@ -9549,7 +9858,20 @@ int sqlite3BtreeInsert(
     rc = fillInCell(pPage, newCell, pX, &szNew);
     if( rc ) goto end_insert;
   }
-  assert( szNew==pPage->xCellSize(pPage, newCell) );
+  // assert( szNew==pPage->xCellSize(pPage, newCell) );
+  if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(int[4])) == 0) {
+    assert( szNew==cellSizePtr(pPage, newCell) );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(int[4])) == 0) {
+      assert( szNew==cellSizePtrIdxLeaf(pPage, newCell) );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(int[4])) == 0) {
+      assert( szNew==cellSizePtrNoPayload(pPage, newCell) );
+  }
+  else if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(int[4])) == 0) {
+      assert( szNew==cellSizePtrTableLeaf(pPage, newCell) );
+  }
+  
   assert( szNew <= MX_CELL_SIZE(p->pBt) );
   idx = pCur->ix;
   pCur->info.nSize = 0;
@@ -9847,9 +10169,26 @@ int sqlite3BtreeDelete(BtCursor *pCur, u8 flags){
   */
   bPreserve = (flags & BTREE_SAVEPOSITION)!=0;
   if( bPreserve ){
+    int tmp;
+    // int tmp = pPage->nFree+pPage->xCellSize(pPage,pCell)+2;
+    if (memcmp(pPage->nFree+pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->nFree+pPage->xCellSize_signature)) == 0) {
+      tmp = cellSizePtr(pPage,pCell)+2;
+    }
+    else
+      if (memcmp(pPage->nFree+pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->nFree+pPage->xCellSize_signature)) == 0) {
+        tmp = cellSizePtrIdxLeaf(pPage,pCell)+2;
+      }
+    else
+      if (memcmp(pPage->nFree+pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->nFree+pPage->xCellSize_signature)) == 0) {
+        tmp = cellSizePtrNoPayload(pPage,pCell)+2;
+      }
+    else
+      if (memcmp(pPage->nFree+pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->nFree+pPage->xCellSize_signature)) == 0) {
+        tmp = cellSizePtrTableLeaf(pPage,pCell)+2;
+      }
+
     if( !pPage->leaf
-     || (pPage->nFree+pPage->xCellSize(pPage,pCell)+2) >
-                                                   (int)(pBt->usableSize*2/3)
+     || (tmp) > (int)(pBt->usableSize*2/3)
      || pPage->nCell==1  /* See dbfuzz001.test for a test case */
     ){
       /* A b-tree rebalance will be required after deleting this entry.
@@ -9859,6 +10198,18 @@ int sqlite3BtreeDelete(BtCursor *pCur, u8 flags){
     }else{
       bPreserve = 2;
     }
+    // if( !pPage->leaf
+    //  || (pPage->nFree+pPage->xCellSize(pPage,pCell)+2) >
+    //                                                (int)(pBt->usableSize*2/3)
+    //  || pPage->nCell==1  /* See dbfuzz001.test for a test case */
+    // ){
+    //   /* A b-tree rebalance will be required after deleting this entry.
+    //   ** Save the cursor key.  */
+    //   rc = saveCursorKey(pCur);
+    //   if( rc ) return rc;
+    // }else{
+    //   bPreserve = 2;
+    // }
   }
 
   /* If the page containing the entry to delete is not a leaf page, move
@@ -9918,7 +10269,21 @@ int sqlite3BtreeDelete(BtCursor *pCur, u8 flags){
     }
     pCell = findCell(pLeaf, pLeaf->nCell-1);
     if( pCell<&pLeaf->aData[4] ) return SQLITE_CORRUPT_PAGE(pLeaf);
-    nCell = pLeaf->xCellSize(pLeaf, pCell);
+    if (memcmp(pLeaf->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pLeaf->xCellSize_signature)) == 0) {
+      nCell = cellSizePtr(pLeaf, pCell);
+    }
+    else
+      if (memcmp(pLeaf->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pLeaf->xCellSize_signature)) == 0) {
+        nCell = cellSizePtrIdxLeaf(pLeaf, pCell);
+      }
+    else
+      if (memcmp(pLeaf->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pLeaf->xCellSize_signature)) == 0) {
+        nCell = cellSizePtrNoPayload(pLeaf, pCell);
+      }
+    else
+      if (memcmp(pLeaf->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pLeaf->xCellSize_signature)) == 0) {
+        nCell = cellSizePtrTableLeaf(pLeaf, pCell);
+      }
     assert( MX_CELL_SIZE(pBt) >= nCell );
     pTmp = pBt->pTmpSpace;
     assert( pTmp!=0 );
@@ -10547,13 +10912,25 @@ static void checkProgress(IntegrityCk *pCheck){
   if( db->xProgress ){
     assert( db->nProgressOps>0 );
     pCheck->nStep++;
-    if( (pCheck->nStep % db->nProgressOps)==0
-     && db->xProgress(db->pProgressArg)
-    ){
-      pCheck->rc = SQLITE_INTERRUPT;
-      pCheck->nErr++;
-      pCheck->mxErr = 0;
+
+    if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_progress_handler_enum], sizeof(int[4])) == 0) {
+      if( (pCheck->nStep % db->nProgressOps)==0 && progress_handler(db->pProgressArg)) {
+        pCheck->rc = SQLITE_INTERRUPT;
+        pCheck->nErr++;
+        pCheck->mxErr = 0;
+      }
     }
+    else if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+
+    // if( (pCheck->nStep % db->nProgressOps)==0
+    //  && db->xProgress(db->pProgressArg)
+    // ){
+    //   pCheck->rc = SQLITE_INTERRUPT;
+    //   pCheck->nErr++;
+    //   pCheck->mxErr = 0;
+    // }
   }
 #endif
 }
@@ -10921,7 +11298,17 @@ static int checkTreePage(
       continue;
     }
     pCell = &data[pc];
-    pPage->xParseCell(pPage, pCell, &info);
+    if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtr_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+      btreeParseCellPtr(pPage, pCell, &info);
+    }
+    else
+      if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrIndex_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+        btreeParseCellPtrIndex(pPage, pCell, &info);
+      }
+    else
+      if (memcmp(pPage->xParseCell_signature, xParseCell_signatures[xParseCell_btreeParseCellPtrNoPayload_enum], sizeof(pPage->xParseCell_signature)) == 0) {
+        btreeParseCellPtrNoPayload(pPage, pCell, &info);
+      }
     if( pc+info.nSize>usableSize ){
       checkAppendMsg(pCheck, "Extends off end of page");
       doCoverageCheck = 0;
@@ -10986,7 +11373,21 @@ static int checkTreePage(
       for(i=nCell-1; i>=0; i--){
         u32 size;
         pc = get2byteAligned(&data[cellStart+i*2]);
-        size = pPage->xCellSize(pPage, &data[pc]);
+        if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtr_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+          size = cellSizePtr(pPage, &data[pc]);
+        }
+        else
+          if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrIdxLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+            size = cellSizePtrIdxLeaf(pPage, &data[pc]);
+          }
+        else
+          if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrNoPayload_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+            size = cellSizePtrNoPayload(pPage, &data[pc]);
+          }
+        else
+          if (memcmp(pPage->xCellSize_signature, xCellSize_signatures[xCellSize_cellSizePtrTableLeaf_enum], sizeof(pPage->xCellSize_signature)) == 0) {
+            size = cellSizePtrTableLeaf(pPage, &data[pc]);
+          }
         btreeHeapInsert(heap, (pc<<16)|(pc+size-1));
       }
     }

@@ -71,7 +71,11 @@ int sqlite3DbIsNamed(sqlite3 *db, int iDb, const char *zName){
 ** new database, close the database on db->init.iDb and reopen it as an
 ** empty MemDB.
 */
-void attachFunc(sqlite3_context *context, int NotUsed, sqlite3_value **argv){
+void attachFunc(
+  sqlite3_context *context,
+  int NotUsed,
+  sqlite3_value **argv
+){
   int i;
   int rc = 0;
   sqlite3 *db = sqlite3_context_db_handle(context);
@@ -277,7 +281,11 @@ attach_error:
 **
 **     SELECT sqlite_detach(x)
 */
-void detachFunc(sqlite3_context *context, int NotUsed, sqlite3_value **argv){
+void detachFunc(
+  sqlite3_context *context,
+  int NotUsed,
+  sqlite3_value **argv
+){
   const char *zName = (const char *)sqlite3_value_text(argv[0]);
   sqlite3 *db = sqlite3_context_db_handle(context);
   int i;
@@ -335,7 +343,7 @@ detach_error:
 ** This procedure generates VDBE code for a single invocation of either the
 ** sqlite_detach() or sqlite_attach() SQL user functions.
 */
-static void codeAttach(
+void codeAttach(
   Parse *pParse,       /* The parser context */
   int type,            /* Either SQLITE_ATTACH or SQLITE_DETACH */
   FuncDef const *pFunc,/* FuncDef wrapper for detachFunc() or attachFunc() */
@@ -421,10 +429,7 @@ void sqlite3Detach(Parse *pParse, Expr *pDbname){
     "sqlite_detach",  /* zName */
     {0}
   ,
-  .xSFunc_signature = xSFunc_detachFunc,
-  .xFinalize_signature = xFinalize_0,
-  .xValue_signature = xValue_0,
-  .xInverse_signature = xInverse_0
+  .xSFunc_signature = xSFunc_signatures[xSFunc_detachFunc_enum]
 };
   codeAttach(pParse, SQLITE_DETACH, &detach_func, pDbname, 0, 0, pDbname);
 }
@@ -446,10 +451,7 @@ void sqlite3Attach(Parse *pParse, Expr *p, Expr *pDbname, Expr *pKey){
     "sqlite_attach",  /* zName */
     {0}
   ,
-  .xSFunc_signature = xSFunc_attachFunc,
-  .xFinalize_signature = xFinalize_0,
-  .xValue_signature = xValue_0,
-  .xInverse_signature = xInverse_0
+  .xSFunc_signature = xSFunc_signatures[xSFunc_attachFunc_enum]
 };
   codeAttach(pParse, SQLITE_ATTACH, &attach_func, p, p, pDbname, pKey);
 }
@@ -540,8 +542,11 @@ void sqlite3FixInit(
   pFix->bTemp = (iDb==1);
   pFix->w.pParse = pParse;
   pFix->w.xExprCallback = fixExprCb;
+  pFix->w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_fixExprCb_enum];
   pFix->w.xSelectCallback = fixSelectCb;
+  pFix->w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_fixSelectCb_enum];
   pFix->w.xSelectCallback2 = sqlite3WalkWinDefnDummyCallback;
+  pFix->w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_sqlite3WalkWinDefnDummyCallback_enum];
   pFix->w.walkerDepth = 0;
   pFix->w.eCode = 0;
   pFix->w.u.pFix = pFix;

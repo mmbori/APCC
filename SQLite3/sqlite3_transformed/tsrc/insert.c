@@ -342,8 +342,11 @@ void sqlite3ComputeGeneratedColumns(
 
   w.u.pTab = pTab;
   w.xExprCallback = exprColumnFlagUnion;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprColumnFlagUnion_enum];
   w.xSelectCallback = 0;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_0_enum];
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
 
   /* On the second pass, compute the value of each NOT-AVAILABLE column.
   ** Companion code in the TK_COLUMN case of sqlite3ExprCodeTarget() will
@@ -437,7 +440,9 @@ static int autoIncBegin(
     while( pInfo && pInfo->pTab!=pTab ){ pInfo = pInfo->pNext; }
     if( pInfo==0 ){
       pInfo = sqlite3DbMallocRawNN(pParse->db, sizeof(*pInfo));
-      sqlite3ParserAddCleanup(pToplevel, sqlite3DbFree, pInfo);
+      sqlite3ParserAddCleanup(pToplevel, sqlite3DbFree,
+                              xCleanup_signatures[xCleanup_sqlite3DbFree_enum],
+                              pInfo);
       testcase( pParse->earlyCleanup );
       if( pParse->db->mallocFailed ) return 0;
       pInfo->pNext = pToplevel->pAinc;
@@ -1724,6 +1729,7 @@ int sqlite3ExprReferencesUpdatedColumn(
   memset(&w, 0, sizeof(w));
   w.eCode = 0;
   w.xExprCallback = checkConstraintExprNode;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_checkConstraintExprNode_enum];
   w.u.aiCol = aiChng;
   sqlite3WalkExpr(&w, pExpr);
   if( !chngRowid ){

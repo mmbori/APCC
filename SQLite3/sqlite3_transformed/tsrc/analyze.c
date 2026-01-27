@@ -304,7 +304,7 @@ struct StatAccum {
 /* Reclaim memory used by a StatSample
 */
 #ifdef SQLITE_ENABLE_STAT4
-static void sampleClear(sqlite3 *db, StatSample *p){
+void sampleClear(sqlite3 *db, StatSample *p){
   assert( db!=0 );
   if( p->nRowid ){
     sqlite3DbFree(db, p->u.aRowid);
@@ -398,7 +398,11 @@ void statAccumDestructor(void *pOld){
 ** return value is BLOB, but it is really just a pointer to the StatAccum
 ** object.
 */
-void statInit(sqlite3_context *context, int argc, sqlite3_value **argv){
+void statInit(
+  sqlite3_context *context,
+  int argc,
+  sqlite3_value **argv
+){
   StatAccum *p;
   int nCol;                       /* Number of columns in index being sampled */
   int nKeyCol;                    /* Number of key columns */
@@ -478,7 +482,8 @@ void statInit(sqlite3_context *context, int argc, sqlite3_value **argv){
   ** only the pointer (the 2nd parameter) matters.  The size of the object
   ** (given by the 3rd parameter) is never used and can be any positive
   ** value. */
-  sqlite3_result_blob(context, p, sizeof(*p), statAccumDestructor);
+  sqlite3_result_blob(context, p, sizeof(*p), statAccumDestructor,
+                      xDel_signatures[xDel_statAccumDestructor_enum]);
 }
 static const FuncDef statInitFuncdef = {
   4,               /* nArg */
@@ -491,10 +496,7 @@ static const FuncDef statInitFuncdef = {
   "stat_init",     /* zName */
   {0}
 ,
-  .xSFunc_signature = xSFunc_statInit,
-  .xFinalize_signature = xFinalize_0,
-  .xValue_signature = xValue_0,
-  .xInverse_signature = xInverse_0
+  .xSFunc_signature = xSFunc_signatures[xSFunc_statInit_enum]
 };
 
 #ifdef SQLITE_ENABLE_STAT4
@@ -700,7 +702,11 @@ static void samplePushPrevious(StatAccum *p, int iChng){
 **
 ** The R parameter is only used for STAT4
 */
-void statPush(sqlite3_context *context, int argc, sqlite3_value **argv){
+void statPush(
+  sqlite3_context *context,
+  int argc,
+  sqlite3_value **argv
+){
   int i;
 
   /* The three function arguments */
@@ -786,10 +792,7 @@ static const FuncDef statPushFuncdef = {
   "stat_push",     /* zName */
   {0}
 ,
-  .xSFunc_signature = xSFunc_statPush,
-  .xFinalize_signature = xFinalize_0,
-  .xValue_signature = xValue_0,
-  .xInverse_signature = xInverse_0
+  .xSFunc_signature = xSFunc_signatures[xSFunc_statPush_enum]
 };
 
 #define STAT_GET_STAT1 0          /* "stat" column of stat1 table */
@@ -817,7 +820,11 @@ static const FuncDef statPushFuncdef = {
 ** a one-parameter function, stat_get(P), that always returns the
 ** stat1 table entry information.
 */
-void statGet(sqlite3_context *context, int argc, sqlite3_value **argv){
+void statGet(
+  sqlite3_context *context,
+  int argc,
+  sqlite3_value **argv
+){
   StatAccum *p = (StatAccum*)sqlite3_value_blob(argv[0]);
 #ifdef SQLITE_ENABLE_STAT4
   /* STAT4 has a parameter on this routine. */
@@ -888,7 +895,8 @@ void statGet(sqlite3_context *context, int argc, sqlite3_value **argv){
         sqlite3_result_int64(context, pS->u.iRowid);
       }else{
         sqlite3_result_blob(context, pS->u.aRowid, pS->nRowid,
-                            SQLITE_TRANSIENT);
+                            SQLITE_TRANSIENT,
+                            xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }
     }
   }else{
@@ -929,10 +937,7 @@ static const FuncDef statGetFuncdef = {
   "stat_get",      /* zName */
   {0}
 ,
-  .xSFunc_signature = xSFunc_statGet,
-  .xFinalize_signature = xFinalize_0,
-  .xValue_signature = xValue_0,
-  .xInverse_signature = xInverse_0
+  .xSFunc_signature = xSFunc_signatures[xSFunc_statGet_enum]
 };
 
 static void callStatGet(Parse *pParse, int regStat, int iParam, int regOut){
@@ -1593,7 +1598,7 @@ static void decodeIntArray(
 ** Entries for which argv[1]==NULL simply record the number of rows in
 ** the table.
 */
-int analysisLoader(void *pData, int argc, char **argv, char **NotUsed){
+static int analysisLoader(void *pData, int argc, char **argv, char **NotUsed){
   analysisInfo *pInfo = (analysisInfo*)pData;
   Index *pIndex;
   Table *pTable;
@@ -1979,7 +1984,7 @@ int sqlite3AnalysisLoad(sqlite3 *db, int iDb){
     if( zSql==0 ){
       rc = SQLITE_NOMEM_BKPT;
     }else{
-      rc = sqlite3_exec(db, zSql, analysisLoader, &sInfo, 0);
+      rc = sqlite3_exec(db, zSql, analysisLoader, callback_signatures[callback_analysisLoader_enum], &sInfo, 0);
       sqlite3DbFree(db, zSql);
     }
   }

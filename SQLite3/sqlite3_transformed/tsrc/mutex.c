@@ -21,7 +21,7 @@
 ** and uninitialized so that we can assert() if there is an attempt to
 ** allocate a mutex while the system is uninitialized.
 */
-static SQLITE_WSD int mutexIsInit = 0;
+SQLITE_WSD int mutexIsInit = 0;
 #endif /* SQLITE_DEBUG && !defined(SQLITE_MUTEX_OMIT) */
 
 
@@ -67,21 +67,49 @@ static SQLITE_WSD const sqlite3_mutex_methods *pGlobalMutexMethods;
 
 #ifdef SQLITE_DEBUG
 static int checkMutexHeld(sqlite3_mutex *p){
-  return pGlobalMutexMethods->xMutexHeld(((CheckMutex*)p)->mutex);
+  if (memcmp(pGlobalMutexMethods->xMutexHeld_signature, xMutexHeld_signatures[xMutexHeld_0_enum], sizeof(pGlobalMutexMethods->xMutexHeld_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexHeld_signature, xMutexHeld_signatures[xMutexHeld_counterMutexHeld_enum], sizeof(pGlobalMutexMethods->xMutexHeld_signature)) == 0) {
+      return counterMutexHeld(((CheckMutex *)p)->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexHeld_signature, xMutexHeld_signatures[xMutexHeld_debugMutexHeld_enum], sizeof(pGlobalMutexMethods->xMutexHeld_signature)) == 0) {
+      return debugMutexHeld(((CheckMutex *)p)->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexHeld_signature, xMutexHeld_signatures[xMutexHeld_wrMutexHeld_enum], sizeof(pGlobalMutexMethods->xMutexHeld_signature)) == 0) {
+      return wrMutexHeld(((CheckMutex *)p)->mutex);
+    }
 }
-static int checkMutexNotheld(sqlite3_mutex *p){
-  return pGlobalMutexMethods->xMutexNotheld(((CheckMutex*)p)->mutex);
+int checkMutexNotheld(sqlite3_mutex *p){
+  if (memcmp(pGlobalMutexMethods->xMutexNotheld_signature, xMutexNotheld_signatures[xMutexNotheld_0_enum], sizeof(pGlobalMutexMethods->xMutexNotheld_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexNotheld_signature, xMutexNotheld_signatures[xMutexNotheld_counterMutexNotheld_enum], sizeof(pGlobalMutexMethods->xMutexNotheld_signature)) == 0) {
+      return counterMutexNotheld(((CheckMutex *)p)->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexNotheld_signature, xMutexNotheld_signatures[xMutexNotheld_debugMutexNotheld_enum], sizeof(pGlobalMutexMethods->xMutexNotheld_signature)) == 0) {
+      return debugMutexNotheld(((CheckMutex *)p)->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexNotheld_signature, xMutexNotheld_signatures[xMutexNotheld_wrMutexNotheld_enum], sizeof(pGlobalMutexMethods->xMutexNotheld_signature)) == 0) {
+      return wrMutexNotheld(((CheckMutex *)p)->mutex);
+    }
 }
 #endif
 
 /*
 ** Initialize and deinitialize the mutex subsystem.
 */
-static int checkMutexInit(void){ 
+int checkMutexInit(void){ 
   pGlobalMutexMethods = sqlite3DefaultMutex();
   return SQLITE_OK; 
 }
-static int checkMutexEnd(void){ 
+int checkMutexEnd(void){ 
   pGlobalMutexMethods = 0;
   return SQLITE_OK; 
 }
@@ -89,7 +117,7 @@ static int checkMutexEnd(void){
 /*
 ** Allocate a mutex.
 */
-static sqlite3_mutex *checkMutexAlloc(int iType){
+sqlite3_mutex *checkMutexAlloc(int iType){
   static CheckMutex staticMutexes[] = {
     {2, 0}, {3, 0}, {4, 0}, {5, 0},
     {6, 0}, {7, 0}, {8, 0}, {9, 0},
@@ -113,7 +141,33 @@ static sqlite3_mutex *checkMutexAlloc(int iType){
   }
 
   if( p->mutex==0 ){
-    p->mutex = pGlobalMutexMethods->xMutexAlloc(iType);
+    if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_checkMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+      p->mutex = checkMutexAlloc(iType);
+    }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_counterMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = counterMutexAlloc(iType);
+      }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_debugMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = debugMutexAlloc(iType);
+      }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_noopMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = noopMutexAlloc(iType);
+      }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_pthreadMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = pthreadMutexAlloc(iType);
+      }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_winMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = winMutexAlloc(iType);
+      }
+    else
+      if (memcmp(pGlobalMutexMethods->xMutexAlloc_signature, xMutexAlloc_signatures[xMutexAlloc_wrMutexAlloc_enum], sizeof(pGlobalMutexMethods->xMutexAlloc_signature)) == 0) {
+        p->mutex = wrMutexAlloc(iType);
+      }
     if( p->mutex==0 ){
       if( iType<2 ){
         sqlite3_free(p);
@@ -128,7 +182,7 @@ static sqlite3_mutex *checkMutexAlloc(int iType){
 /*
 ** Free a mutex.
 */
-static void checkMutexFree(sqlite3_mutex *p){
+void checkMutexFree(sqlite3_mutex *p){
   assert( SQLITE_MUTEX_RECURSIVE<2 );
   assert( SQLITE_MUTEX_FAST<2 );
   assert( SQLITE_MUTEX_WARNONCONTENTION<2 );
@@ -138,9 +192,35 @@ static void checkMutexFree(sqlite3_mutex *p){
 #endif
   {
     CheckMutex *pCheck = (CheckMutex*)p;
-    pGlobalMutexMethods->xMutexFree(pCheck->mutex);
-    sqlite3_free(pCheck);
-  }
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_checkMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      checkMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_counterMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      counterMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_debugMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      debugMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_noopMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      noopMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_pthreadMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      pthreadMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_winMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      winMutexFree(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexFree_signature, xMutexFree_signatures[xMutexFree_wrMutexFree_enum], sizeof(pGlobalMutexMethods->xMutexFree_signature)) == 0) {
+      wrMutexFree(pCheck->mutex);
+    }
+  sqlite3_free(pCheck);
+}
 #ifdef SQLITE_ENABLE_API_ARMOR
   else{
     (void)SQLITE_MISUSE_BKPT;
@@ -151,7 +231,7 @@ static void checkMutexFree(sqlite3_mutex *p){
 /*
 ** Enter the mutex.
 */
-static void checkMutexEnter(sqlite3_mutex *p){
+void checkMutexEnter(sqlite3_mutex *p){
   CheckMutex *pCheck = (CheckMutex*)p;
   if( pCheck->iType==SQLITE_MUTEX_WARNONCONTENTION ){
     if( SQLITE_OK==pGlobalMutexMethods->xMutexTry(pCheck->mutex) ){
@@ -161,23 +241,101 @@ static void checkMutexEnter(sqlite3_mutex *p){
         "illegal multi-threaded access to database connection"
     );
   }
-  pGlobalMutexMethods->xMutexEnter(pCheck->mutex);
+  if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_checkMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+    checkMutexEnter(pCheck->mutex);
+  }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_counterMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      counterMutexEnter(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_debugMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      debugMutexEnter(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_noopMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      noopMutexEnter(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_pthreadMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      pthreadMutexEnter(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_winMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      winMutexEnter(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexEnter_signature, xMutexEnter_signatures[xMutexEnter_wrMutexEnter_enum], sizeof(pGlobalMutexMethods->xMutexEnter_signature)) == 0) {
+      wrMutexEnter(pCheck->mutex);
+    }
 }
 
 /*
 ** Enter the mutex (do not block).
 */
-static int checkMutexTry(sqlite3_mutex *p){
+int checkMutexTry(sqlite3_mutex *p){
   CheckMutex *pCheck = (CheckMutex*)p;
-  return pGlobalMutexMethods->xMutexTry(pCheck->mutex);
+  if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_checkMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+    return checkMutexTry(pCheck->mutex);
+  }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_counterMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return counterMutexTry(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_debugMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return debugMutexTry(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_noopMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return noopMutexTry(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_pthreadMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return pthreadMutexTry(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_winMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return winMutexTry(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexTry_signature, xMutexTry_signatures[xMutexTry_wrMutexTry_enum], sizeof(pGlobalMutexMethods->xMutexTry_signature)) == 0) {
+      return wrMutexTry(pCheck->mutex);
+    }
 }
 
 /*
 ** Leave the mutex.
 */
-static void checkMutexLeave(sqlite3_mutex *p){
+void checkMutexLeave(sqlite3_mutex *p){
   CheckMutex *pCheck = (CheckMutex*)p;
-  pGlobalMutexMethods->xMutexLeave(pCheck->mutex);
+  if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_checkMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+    checkMutexLeave(pCheck->mutex);
+  }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_counterMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      counterMutexLeave(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_debugMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      debugMutexLeave(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_noopMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      noopMutexLeave(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_pthreadMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      pthreadMutexLeave(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_winMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      winMutexLeave(pCheck->mutex);
+    }
+  else
+    if (memcmp(pGlobalMutexMethods->xMutexLeave_signature, xMutexLeave_signatures[xMutexLeave_wrMutexLeave_enum], sizeof(pGlobalMutexMethods->xMutexLeave_signature)) == 0) {
+      wrMutexLeave(pCheck->mutex);
+    }
 }
 
 sqlite3_mutex_methods const *multiThreadedCheckMutex(void){
@@ -197,13 +355,13 @@ sqlite3_mutex_methods const *multiThreadedCheckMutex(void){
     0
 #endif
   ,
-  .xMutexInit_signature = xMutexInit_checkMutexInit,
-  .xMutexEnd_signature = xMutexEnd_checkMutexEnd,
-  .xMutexAlloc_signature = xMutexAlloc_checkMutexAlloc,
-  .xMutexFree_signature = xMutexFree_checkMutexFree,
-  .xMutexEnter_signature = xMutexEnter_checkMutexEnter,
-  .xMutexTry_signature = xMutexTry_checkMutexTry,
-  .xMutexLeave_signature = xMutexLeave_checkMutexLeave
+  .xMutexInit_signature = xMutexInit_signatures[xMutexInit_checkMutexInit_enum],
+  .xMutexEnd_signature = xMutexEnd_signatures[xMutexEnd_checkMutexEnd_enum],
+  .xMutexAlloc_signature = xMutexAlloc_signatures[xMutexAlloc_checkMutexAlloc_enum],
+  .xMutexFree_signature = xMutexFree_signatures[xMutexFree_checkMutexFree_enum],
+  .xMutexEnter_signature = xMutexEnter_signatures[xMutexEnter_checkMutexEnter_enum],
+  .xMutexTry_signature = xMutexTry_signatures[xMutexTry_checkMutexTry_enum],
+  .xMutexLeave_signature = xMutexLeave_signatures[xMutexLeave_checkMutexLeave_enum]
 };
   return &sMutex;
 }
@@ -256,7 +414,7 @@ int sqlite3MutexInit(void){
     pTo->xMutexAlloc = pFrom->xMutexAlloc;
   }
   assert( sqlite3GlobalConfig.mutex.xMutexInit );
-  rc = sqlite3GlobalConfig.mutex.xMutexInit();
+  rc = noopMutexInit();
 
 #ifdef SQLITE_DEBUG
   GLOBAL(int, mutexIsInit) = 1;
@@ -273,7 +431,7 @@ int sqlite3MutexInit(void){
 int sqlite3MutexEnd(void){
   int rc = SQLITE_OK;
   if( sqlite3GlobalConfig.mutex.xMutexEnd ){
-    rc = sqlite3GlobalConfig.mutex.xMutexEnd();
+    rc = noopMutexEnd();
   }
 
 #ifdef SQLITE_DEBUG
@@ -292,7 +450,7 @@ sqlite3_mutex *sqlite3_mutex_alloc(int id){
   if( id>SQLITE_MUTEX_RECURSIVE && sqlite3MutexInit() ) return 0;
 #endif
   assert( sqlite3GlobalConfig.mutex.xMutexAlloc );
-  return sqlite3GlobalConfig.mutex.xMutexAlloc(id);
+  return noopMutexAlloc(id);
 }
 
 sqlite3_mutex *sqlite3MutexAlloc(int id){
@@ -301,7 +459,7 @@ sqlite3_mutex *sqlite3MutexAlloc(int id){
   }
   assert( GLOBAL(int, mutexIsInit) );
   assert( sqlite3GlobalConfig.mutex.xMutexAlloc );
-  return sqlite3GlobalConfig.mutex.xMutexAlloc(id);
+  return noopMutexAlloc(id);
 }
 
 /*
@@ -310,7 +468,7 @@ sqlite3_mutex *sqlite3MutexAlloc(int id){
 void sqlite3_mutex_free(sqlite3_mutex *p){
   if( p ){
     assert( sqlite3GlobalConfig.mutex.xMutexFree );
-    sqlite3GlobalConfig.mutex.xMutexFree(p);
+    noopMutexFree(p);
   }
 }
 
@@ -321,7 +479,7 @@ void sqlite3_mutex_free(sqlite3_mutex *p){
 void sqlite3_mutex_enter(sqlite3_mutex *p){
   if( p ){
     assert( sqlite3GlobalConfig.mutex.xMutexEnter );
-    sqlite3GlobalConfig.mutex.xMutexEnter(p);
+    noopMutexEnter(p);
   }
 }
 
@@ -333,7 +491,7 @@ int sqlite3_mutex_try(sqlite3_mutex *p){
   int rc = SQLITE_OK;
   if( p ){
     assert( sqlite3GlobalConfig.mutex.xMutexTry );
-    return sqlite3GlobalConfig.mutex.xMutexTry(p);
+    return noopMutexTry(p);
   }
   return rc;
 }
@@ -347,7 +505,7 @@ int sqlite3_mutex_try(sqlite3_mutex *p){
 void sqlite3_mutex_leave(sqlite3_mutex *p){
   if( p ){
     assert( sqlite3GlobalConfig.mutex.xMutexLeave );
-    sqlite3GlobalConfig.mutex.xMutexLeave(p);
+    noopMutexLeave(p);
   }
 }
 

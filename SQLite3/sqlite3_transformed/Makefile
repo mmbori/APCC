@@ -29,7 +29,7 @@ all:
 # The top-most directory of the source tree.  This is the directory
 # that contains this "Makefile.in" and the "configure" script.
 #
-TOP = /home/bhsu/sqlite_tmp
+TOP = /home/bhsu/sqlite_transformed
 
 #
 # Autotools-conventional vars which are used by package installation
@@ -87,7 +87,7 @@ T.cc = $(CC)
 # explicitly passes CFLAGS=... to make, the CPPFLAGS will be
 # lost. That behavior is retained in 3.48+.
 #
-CFLAGS = -g -O0 -fno-omit-frame-pointer -fno-inline -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -w 
+CFLAGS = -g -O2 -fno-omit-frame-pointer -fno-inline -w 
 #
 # $(LDFLAGS.configure) represents any LDFLAGS=... the client passes to
 # configure. See main.mk.
@@ -186,7 +186,7 @@ HAVE_TCL = 0
 # "tclsh", but we may know the specific version we want to use. This
 # must point to a canonical TCL interpreter, not JimTCL.
 #
-TCLSH_CMD = 
+TCLSH_CMD = /usr/bin/tclsh8.6
 TCL_CONFIG_SH = 
 
 #
@@ -252,7 +252,7 @@ AS_AUTO_DEF = $(TOP)/auto.def
 # Shell commands to re-run $(TOP)/configure with the same args it was
 # invoked with to produce this makefile.
 #
-AS_AUTORECONFIG = cd "/home/bhsu/sqlite_tmp" && ./configure "CFLAGS=-g -O0 -fno-omit-frame-pointer -fno-inline -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -w"
+AS_AUTORECONFIG = cd "/home/bhsu/sqlite_transformed" && ./configure "CFLAGS=-g -O2 -fno-omit-frame-pointer -fno-inline -w"
 .PHONY: config reconfigure
 config reconfigure:
 	$(AS_AUTORECONFIG)

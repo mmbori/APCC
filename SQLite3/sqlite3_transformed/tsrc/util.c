@@ -43,7 +43,7 @@
 #ifndef SQLITE_UNTESTABLE
 int sqlite3FaultSim(int iTest){
   int (*xCallback)(int) = sqlite3GlobalConfig.xTestCallback;
-  return xCallback ? xCallback(iTest) : SQLITE_OK;
+  return SQLITE_OK;
 }
 #endif
 
@@ -201,7 +201,8 @@ void sqlite3ErrorWithMsg(sqlite3 *db, int err_code, const char *zFormat, ...){
     va_start(ap, zFormat);
     z = sqlite3VMPrintf(db, zFormat, ap);
     va_end(ap);
-    sqlite3ValueSetStr(db->pErr, -1, z, SQLITE_UTF8, SQLITE_DYNAMIC);
+    sqlite3ValueSetStr(db->pErr, -1, z, SQLITE_UTF8, SQLITE_DYNAMIC,
+                       xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   }
 }
 

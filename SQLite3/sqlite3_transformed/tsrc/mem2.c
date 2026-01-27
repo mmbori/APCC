@@ -239,7 +239,7 @@ static void randomFill(char *pBuf, int nByte){
 /*
 ** Allocate nByte bytes of memory.
 */
-void * sqlite3MemMalloc(int nByte){
+void *sqlite3MemMalloc(int nByte){
   struct MemBlockHdr *pHdr;
   void **pBt;
   char *z;
@@ -340,7 +340,7 @@ void sqlite3MemFree(void *pPrior){
 ** much more likely to break and we are much more liking to find
 ** the error.
 */
-void * sqlite3MemRealloc(void *pPrior, int nByte){
+void *sqlite3MemRealloc(void *pPrior, int nByte){
   struct MemBlockHdr *pOldHdr;
   void *pNew;
   assert( mem.disallow==0 );
@@ -372,13 +372,13 @@ void sqlite3MemSetDefault(void){
      sqlite3MemShutdown,
      0
   ,
-  .xMalloc_signature = xMalloc_sqlite3MemMalloc,
-  .xFree_signature = xFree_sqlite3MemFree,
-  .xRealloc_signature = xRealloc_sqlite3MemRealloc,
-  .xSize_signature = xSize_sqlite3MemSize,
-  .xRoundup_signature = xRoundup_sqlite3MemRoundup,
-  .xInit_signature = xInit_sqlite3MemInit,
-  .xShutdown_signature = xShutdown_sqlite3MemShutdown
+  .xMalloc_signature = xMalloc_signatures[xMalloc_sqlite3MemMalloc_enum],
+  .xFree_signature = xFree_signatures[xFree_sqlite3MemFree_enum],
+  .xRealloc_signature = xRealloc_signatures[xRealloc_sqlite3MemRealloc_enum],
+  .xSize_signature = xSize_signatures[xSize_sqlite3MemSize_enum],
+  .xRoundup_signature = xRoundup_signatures[xRoundup_sqlite3MemRoundup_enum],
+  .xInit_signature = xInit_signatures[xInit_sqlite3MemInit_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_sqlite3MemShutdown_enum]
 };
   sqlite3_config(SQLITE_CONFIG_MALLOC, &defaultMethods);
 }
@@ -451,8 +451,10 @@ void sqlite3MemdebugBacktrace(int depth){
   mem.nBacktrace = depth;
 }
 
-void sqlite3MemdebugBacktraceCallback(void (*xBacktrace)(int, int, void **)){
+void sqlite3MemdebugBacktraceCallback(void (*xBacktrace)(int, int, void **),
+int *xBacktrace_signature){
   mem.xBacktrace = xBacktrace;
+  mem.xBacktrace_signature = xBacktrace_signature;
 }
 
 /*

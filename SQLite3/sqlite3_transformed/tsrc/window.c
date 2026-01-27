@@ -550,7 +550,7 @@ static const char dense_rankName[] =   "dense_rank";
 static const char rankName[] =         "rank";
 static const char percent_rankName[] = "percent_rank";
 static const char cume_distName[] =    "cume_dist";
-static const char ntileName[] =        "ntile";
+const char ntileName[] =        "ntile";
 static const char last_valueName[] =   "last_value";
 static const char nth_valueName[] =    "nth_value";
 static const char first_valueName[] =  "first_value";
@@ -877,7 +877,9 @@ static void selectWindowRewriteEList(
 
   sWalker.pParse = pParse;
   sWalker.xExprCallback = selectWindowRewriteExprCb;
+  sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_selectWindowRewriteExprCb_enum];
   sWalker.xSelectCallback = selectWindowRewriteSelectCb;
+  sWalker.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_selectWindowRewriteSelectCb_enum];
   sWalker.u.pRewrite = &sRewrite;
 
   (void)sqlite3WalkExprList(&sWalker, pEList);
@@ -987,7 +989,9 @@ int sqlite3WindowRewrite(Parse *pParse, Select *p){
     sqlite3WalkSelect(&w, p);
     if( (p->selFlags & SF_Aggregate)==0 ){
       w.xExprCallback = disallowAggregatesInOrderByCb;
+      w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_disallowAggregatesInOrderByCb_enum];
       w.xSelectCallback = 0;
+      w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_0_enum];
       sqlite3WalkExprList(&w, p->pOrderBy);
     }
 
@@ -1098,8 +1102,11 @@ int sqlite3WindowRewrite(Parse *pParse, Select *p){
         pTab = pTab2;
         memset(&w, 0, sizeof(w));
         w.xExprCallback = sqlite3WindowExtraAggFuncDepth;
+        w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3WindowExtraAggFuncDepth_enum];
         w.xSelectCallback = sqlite3WalkerDepthIncrease;
+        w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3WalkerDepthIncrease_enum];
         w.xSelectCallback2 = sqlite3WalkerDepthDecrease;
+        w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_sqlite3WalkerDepthDecrease_enum];
         sqlite3WalkSelect(&w, pSub);
       }
     }
@@ -1108,7 +1115,9 @@ int sqlite3WindowRewrite(Parse *pParse, Select *p){
     /* Defer deleting the temporary table pTab because if an error occurred,
     ** there could still be references to that table embedded in the
     ** result-set or ORDER BY clause of the SELECT statement p.  */
-    sqlite3ParserAddCleanup(pParse, sqlite3DbFree, pTab);
+    sqlite3ParserAddCleanup(pParse, sqlite3DbFree,
+                            xCleanup_signatures[xCleanup_sqlite3DbFree_enum],
+                            pTab);
   }
 
   assert( rc==SQLITE_OK || pParse->nErr!=0 );

@@ -474,7 +474,7 @@ static void memsys3FreeUnsafe(void *pOld){
 ** size returned omits the 8-byte header overhead.  This only
 ** works for chunks that are currently checked out.
 */
-static int memsys3Size(void *p){
+int memsys3Size(void *p){
   Mem3Block *pBlock;
   assert( p!=0 );
   pBlock = (Mem3Block*)p;
@@ -485,7 +485,7 @@ static int memsys3Size(void *p){
 /*
 ** Round up a request size to the next valid allocation size.
 */
-static int memsys3Roundup(int n){
+int memsys3Roundup(int n){
   if( n<=12 ){
     return 12;
   }else{
@@ -496,7 +496,7 @@ static int memsys3Roundup(int n){
 /*
 ** Allocate nBytes of memory.
 */
-static void *memsys3Malloc(int nBytes){
+void *memsys3Malloc(int nBytes){
   sqlite3_int64 *p;
   assert( nBytes>0 );          /* malloc.c filters out 0 byte requests */
   memsys3Enter();
@@ -508,7 +508,7 @@ static void *memsys3Malloc(int nBytes){
 /*
 ** Free memory.
 */
-static void memsys3Free(void *pPrior){
+void memsys3Free(void *pPrior){
   assert( pPrior );
   memsys3Enter();
   memsys3FreeUnsafe(pPrior);
@@ -518,7 +518,7 @@ static void memsys3Free(void *pPrior){
 /*
 ** Change the size of an existing memory allocation
 */
-static void *memsys3Realloc(void *pPrior, int nBytes){
+void *memsys3Realloc(void *pPrior, int nBytes){
   int nOld;
   void *p;
   if( pPrior==0 ){
@@ -549,7 +549,7 @@ static void *memsys3Realloc(void *pPrior, int nBytes){
 /*
 ** Initialize this module.
 */
-static int memsys3Init(void *NotUsed){
+int memsys3Init(void *NotUsed){
   UNUSED_PARAMETER(NotUsed);
   if( !sqlite3GlobalConfig.pHeap ){
     return SQLITE_ERROR;
@@ -574,7 +574,7 @@ static int memsys3Init(void *NotUsed){
 /*
 ** Deinitialize this module.
 */
-static void memsys3Shutdown(void *NotUsed){
+void memsys3Shutdown(void *NotUsed){
   UNUSED_PARAMETER(NotUsed);
   mem3.mutex = 0;
   return;
@@ -681,13 +681,13 @@ const sqlite3_mem_methods *sqlite3MemGetMemsys3(void){
      memsys3Shutdown,
      0
   ,
-  .xMalloc_signature = xMalloc_memsys3Malloc,
-  .xFree_signature = xFree_memsys3Free,
-  .xRealloc_signature = xRealloc_memsys3Realloc,
-  .xSize_signature = xSize_memsys3Size,
-  .xRoundup_signature = xRoundup_memsys3Roundup,
-  .xInit_signature = xInit_memsys3Init,
-  .xShutdown_signature = xShutdown_memsys3Shutdown
+  .xMalloc_signature = xMalloc_signatures[xMalloc_memsys3Malloc_enum],
+  .xFree_signature = xFree_signatures[xFree_memsys3Free_enum],
+  .xRealloc_signature = xRealloc_signatures[xRealloc_memsys3Realloc_enum],
+  .xSize_signature = xSize_signatures[xSize_memsys3Size_enum],
+  .xRoundup_signature = xRoundup_signatures[xRoundup_memsys3Roundup_enum],
+  .xInit_signature = xInit_signatures[xInit_memsys3Init_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_memsys3Shutdown_enum]
 };
   return &mempoolMethods;
 }

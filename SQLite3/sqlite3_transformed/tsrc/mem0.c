@@ -28,9 +28,9 @@
 /*
 ** No-op versions of all memory allocation routines
 */
-void * sqlite3MemMalloc(int nByte){ return 0; }
+void *sqlite3MemMalloc(int nByte){ return 0; }
 void sqlite3MemFree(void *pPrior){ return; }
-void * sqlite3MemRealloc(void *pPrior, int nByte){ return 0; }
+void *sqlite3MemRealloc(void *pPrior, int nByte){ return 0; }
 int sqlite3MemSize(void *pPrior){ return 0; }
 int sqlite3MemRoundup(int n){ return n; }
 int sqlite3MemInit(void *NotUsed){ return SQLITE_OK; }
@@ -53,13 +53,13 @@ void sqlite3MemSetDefault(void){
      sqlite3MemShutdown,
      0
   ,
-  .xMalloc_signature = xMalloc_sqlite3MemMalloc,
-  .xFree_signature = xFree_sqlite3MemFree,
-  .xRealloc_signature = xRealloc_sqlite3MemRealloc,
-  .xSize_signature = xSize_sqlite3MemSize,
-  .xRoundup_signature = xRoundup_sqlite3MemRoundup,
-  .xInit_signature = xInit_sqlite3MemInit,
-  .xShutdown_signature = xShutdown_sqlite3MemShutdown
+  .xMalloc_signature = xMalloc_signatures[xMalloc_sqlite3MemMalloc_enum],
+  .xFree_signature = xFree_signatures[xFree_sqlite3MemFree_enum],
+  .xRealloc_signature = xRealloc_signatures[xRealloc_sqlite3MemRealloc_enum],
+  .xSize_signature = xSize_signatures[xSize_sqlite3MemSize_enum],
+  .xRoundup_signature = xRoundup_signatures[xRoundup_sqlite3MemRoundup_enum],
+  .xInit_signature = xInit_signatures[xInit_sqlite3MemInit_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_sqlite3MemShutdown_enum]
 };
   sqlite3_config(SQLITE_CONFIG_MALLOC, &defaultMethods);
 }

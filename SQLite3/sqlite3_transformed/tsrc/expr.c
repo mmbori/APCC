@@ -15,7 +15,7 @@
 #include "sqliteInt.h"
 
 /* Forward declarations */
-static void exprCodeBetween(Parse*,Expr*,int,void(*)(Parse*,Expr*,int,int),int);
+static void exprCodeBetween(Parse*,Expr*,int,void(*)(Parse*,Expr*,int,int), int*, int);
 static int exprCodeVector(Parse *pParse, Expr *p, int *piToFree);
 
 /*
@@ -1231,7 +1231,7 @@ void sqlite3ExprAddFunctionOrderBy(
   assert( ExprUseXList(pExpr) );
   if( pExpr->x.pList==0 || NEVER(pExpr->x.pList->nExpr==0) ){
     /* Ignore ORDER BY on zero-argument aggregates */
-    sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric, pOrderBy);
+    sqlite3ParserAddCleanup(pParse, sqlite3ExprListDeleteGeneric, xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum], pOrderBy);
     return;
   }
   if( IsWindowFunc(pExpr) ){
@@ -1458,7 +1458,7 @@ void sqlite3ClearOnOrUsing(sqlite3 *db, OnOrUsing *p){
 ** if the delete happened immediately because of an OOM.
 */
 int sqlite3ExprDeferredDelete(Parse *pParse, Expr *pExpr){
-  return 0==sqlite3ParserAddCleanup(pParse, sqlite3ExprDeleteGeneric, pExpr);
+  return 0==sqlite3ParserAddCleanup(pParse, sqlite3ExprDeleteGeneric, xCleanup_signatures[xCleanup_sqlite3ExprDeleteGeneric_enum], pExpr);
 }
 
 /* Invoke sqlite3RenameExprUnmap() and sqlite3ExprDelete() on the
@@ -1790,8 +1790,11 @@ int gatherSelectWindowsSelectCallback(Walker *pWalker, Select *p){
 static void gatherSelectWindows(Select *p){
   Walker w;
   w.xExprCallback = gatherSelectWindowsCallback;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_gatherSelectWindowsCallback_enum];
   w.xSelectCallback = gatherSelectWindowsSelectCallback;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_gatherSelectWindowsSelectCallback_enum];
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
   w.pParse = 0;
   w.u.pSelect = p;
   sqlite3WalkSelect(&w, p);
@@ -2614,7 +2617,9 @@ static int exprIsConst(Parse *pParse, Expr *p, int initFlag){
   w.eCode = initFlag;
   w.pParse = pParse;
   w.xExprCallback = exprNodeIsConstant;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprNodeIsConstant_enum];
   w.xSelectCallback = sqlite3SelectWalkFail;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkFail_enum];
 #ifdef SQLITE_DEBUG
   w.xSelectCallback2 = sqlite3SelectWalkAssert2;
 #endif
@@ -2687,10 +2692,13 @@ static int sqlite3ExprIsTableConstant(Expr *p, int iCur, int bAllowSubq){
   w.eCode = 3;
   w.pParse = 0;
   w.xExprCallback = exprNodeIsConstant;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprNodeIsConstant_enum];
   if( bAllowSubq ){
     w.xSelectCallback = exprSelectWalkTableConstant;
+    w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_exprSelectWalkTableConstant_enum];
   }else{
     w.xSelectCallback = sqlite3SelectWalkFail;
+    w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkFail_enum];
 #ifdef SQLITE_DEBUG
     w.xSelectCallback2 = sqlite3SelectWalkAssert2;
 #endif
@@ -2829,7 +2837,9 @@ int sqlite3ExprIsConstantOrGroupBy(Parse *pParse, Expr *p, ExprList *pGroupBy){
   Walker w;
   w.eCode = 1;
   w.xExprCallback = exprNodeIsConstantOrGroupBy;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprNodeIsConstantOrGroupBy_enum];
   w.xSelectCallback = 0;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_0_enum];
   w.u.pGroupBy = pGroupBy;
   w.pParse = pParse;
   sqlite3WalkExpr(&w, p);
@@ -2871,7 +2881,9 @@ int sqlite3ExprContainsSubquery(Expr *p){
   Walker w;
   w.eCode = 1;
   w.xExprCallback = sqlite3ExprWalkNoop;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3ExprWalkNoop_enum];
   w.xSelectCallback = sqlite3SelectWalkFail;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkFail_enum];
 #ifdef SQLITE_DEBUG
   w.xSelectCallback2 = sqlite3SelectWalkAssert2;
 #endif
@@ -4701,6 +4713,7 @@ static int sqlite3ExprCanReturnSubtype(Parse *pParse, Expr *pExpr){
   memset(&w, 0, sizeof(w));
   w.pParse = pParse;
   w.xExprCallback = exprNodeCanReturnSubtype;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprNodeCanReturnSubtype_enum];
   sqlite3WalkExpr(&w, pExpr);
   return w.eCode;
 }
@@ -5475,7 +5488,7 @@ expr_code_doover:
     ** Z is stored in pExpr->pList->a[1].pExpr.
     */
     case TK_BETWEEN: {
-      exprCodeBetween(pParse, pExpr, target, 0, 0);
+      exprCodeBetween(pParse, pExpr, target, 0, xJump_signatures[xJump_0_enum], 0);
       return target;
     }
     case TK_COLLATE: {
@@ -5996,7 +6009,8 @@ static void exprCodeBetween(
   Parse *pParse,    /* Parsing and code generating context */
   Expr *pExpr,      /* The BETWEEN expression */
   int dest,         /* Jump destination or storage location */
-  void (*xJump)(Parse*,Expr*,int,int), /* Action to take */
+  void (*xJump)(Parse*,Expr*,int,int),
+  int *xJump_signature, /* Action to take */
   int jumpIfNull    /* Take the jump if the BETWEEN is NULL */
 ){
   Expr exprAnd;     /* The AND operator in  x>=y AND x<=z  */
@@ -6024,7 +6038,13 @@ static void exprCodeBetween(
     compRight.pRight = pExpr->x.pList->a[1].pExpr;
     sqlite3ExprToRegister(pDel, exprCodeVector(pParse, pDel, &regFree1));
     if( xJump ){
-      xJump(pParse, &exprAnd, dest, jumpIfNull);
+      if (xJump == sqlite3ExprIfTrue) {
+        sqlite3ExprIfTrue(pParse, &exprAnd, dest, jumpIfNull);
+      }
+      else {
+        sqlite3ExprIfFalse(pParse, &exprAnd, dest, jumpIfNull);
+      }
+      // xJump(pParse, &exprAnd, dest, jumpIfNull);
     }else{
       /* Mark the expression is being from the ON or USING clause of a join
       ** so that the sqlite3ExprCodeTarget() routine will not attempt to move
@@ -6188,7 +6208,7 @@ void sqlite3ExprIfTrue(Parse *pParse, Expr *pExpr, int dest, int jumpIfNull){
     }
     case TK_BETWEEN: {
       testcase( jumpIfNull==0 );
-      exprCodeBetween(pParse, pExpr, dest, sqlite3ExprIfTrue, jumpIfNull);
+      exprCodeBetween(pParse, pExpr, dest, sqlite3ExprIfTrue, xJump_signatures[xJump_sqlite3ExprIfTrue_enum], jumpIfNull);
       break;
     }
 #ifndef SQLITE_OMIT_SUBQUERY
@@ -6386,7 +6406,7 @@ void sqlite3ExprIfFalse(Parse *pParse, Expr *pExpr, int dest, int jumpIfNull){
     }
     case TK_BETWEEN: {
       testcase( jumpIfNull==0 );
-      exprCodeBetween(pParse, pExpr, dest, sqlite3ExprIfFalse, jumpIfNull);
+      exprCodeBetween(pParse, pExpr, dest, sqlite3ExprIfFalse, xJump_signatures[xJump_sqlite3ExprIfFalse_enum], jumpIfNull);
       break;
     }
 #ifndef SQLITE_OMIT_SUBQUERY
@@ -6988,8 +7008,11 @@ int sqlite3ExprImpliesNonNullRow(Expr *p, int iTab, int isRJ){
     }
   }
   w.xExprCallback = impliesNotNullRow;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_impliesNotNullRow_enum];
   w.xSelectCallback = 0;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_0_enum];
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
   w.eCode = 0;
   w.mWFlags = isRJ!=0;
   w.u.iCur = iTab;
@@ -7046,6 +7069,7 @@ int sqlite3ExprCoveredByIndex(
   xcov.iCur = iCur;
   xcov.pIdx = pIdx;
   w.xExprCallback = exprIdxCover;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprIdxCover_enum];
   w.u.pIdxCover = &xcov;
   sqlite3WalkExpr(&w, pExpr);
   return !w.eCode;
@@ -7151,8 +7175,11 @@ int sqlite3ReferencesSrcList(Parse *pParse, Expr *pExpr, SrcList *pSrcList){
   memset(&w, 0, sizeof(w));
   memset(&x, 0, sizeof(x));
   w.xExprCallback = exprRefToSrcList;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_exprRefToSrcList_enum];
   w.xSelectCallback = selectRefEnter;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_selectRefEnter_enum];
   w.xSelectCallback2 = selectRefLeave;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_selectRefLeave_enum];
   w.u.pRefSrcList = &x;
   x.db = pParse->db;
   x.pRef = pSrcList;
@@ -7232,7 +7259,9 @@ void sqlite3AggInfoPersistWalkerInit(Walker *pWalker, Parse *pParse){
   memset(pWalker, 0, sizeof(*pWalker));
   pWalker->pParse = pParse;
   pWalker->xExprCallback = agginfoPersistExprCb;
+  pWalker->xExprCallback_signature = xExprCallback_signatures[xExprCallback_agginfoPersistExprCb_enum];
   pWalker->xSelectCallback = sqlite3SelectWalkNoop;
+  pWalker->xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
 }
 
 /*
@@ -7513,8 +7542,11 @@ int analyzeAggregate(Walker *pWalker, Expr *pExpr){
 void sqlite3ExprAnalyzeAggregates(NameContext *pNC, Expr *pExpr){
   Walker w;
   w.xExprCallback = analyzeAggregate;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_analyzeAggregate_enum];
   w.xSelectCallback = sqlite3WalkerDepthIncrease;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3WalkerDepthIncrease_enum];
   w.xSelectCallback2 = sqlite3WalkerDepthDecrease;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_sqlite3WalkerDepthDecrease_enum];
   w.walkerDepth = 0;
   w.u.pNC = pNC;
   w.pParse = 0;

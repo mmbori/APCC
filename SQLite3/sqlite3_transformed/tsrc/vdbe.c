@@ -772,12 +772,12 @@ static SQLITE_NOINLINE int vdbeColumnFromOverflow(
     assert( t>=12 );
     sqlite3RCStrRef(pBuf);
     if( t&1 ){
-      rc = sqlite3VdbeMemSetStr(pDest, pBuf, len, encoding,
-                                sqlite3RCStrUnref);
+      rc = sqlite3VdbeMemSetStr(pDest, pBuf, len, encoding, sqlite3RCStrUnref,
+                                xDel_signatures[xDel_sqlite3RCStrUnref_enum]);
       pDest->flags |= MEM_Term;
     }else{
-      rc = sqlite3VdbeMemSetStr(pDest, pBuf, len, 0,
-                                sqlite3RCStrUnref);
+      rc = sqlite3VdbeMemSetStr(pDest, pBuf, len, 0, sqlite3RCStrUnref,
+                                xDel_signatures[xDel_sqlite3RCStrUnref_enum]);
     }
   }else{
     rc = sqlite3VdbeMemFromBtree(pC->uc.pCursor, iOffset, len, pDest);
@@ -877,7 +877,7 @@ int sqlite3VdbeExec(
     sqlite3VdbeEnter(p);
   }
 #ifndef SQLITE_OMIT_PROGRESS_CALLBACK
-  if( db->xProgress ){
+  if( 0 ){
     u32 iPrior = p->aCounter[SQLITE_STMTSTATUS_VM_STEP];
     assert( 0 < db->nProgressOps );
     nProgressLimit = db->nProgressOps - (iPrior % db->nProgressOps);
@@ -1098,11 +1098,27 @@ check_for_interrupt:
   while( nVmStep>=nProgressLimit && db->xProgress!=0 ){
     assert( db->nProgressOps!=0 );
     nProgressLimit += db->nProgressOps;
-    if( db->xProgress(db->pProgressArg) ){
-      nProgressLimit = LARGEST_UINT64;
-      rc = SQLITE_INTERRUPT;
-      goto abort_due_to_error;
-    }
+    int tmp;
+    // if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_0_enum], sizeof(db->xProgress_signature)) == 0) {
+    //     tmp = 0;
+    // }
+    // else if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_s3jni_progress_handler_impl_enum], sizeof(db->xProgress_signature)) == 0) {
+    //     tmp = s3jni_progress_handler_impl(db->pProgressArg);
+    // }
+    // else if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_progress_handler_enum], sizeof(db->xProgress_signature)) == 0) {
+    //     tmp = progress_handler(db->pProgressArg);
+    // }
+    // else if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_DbProgressHandler_enum], sizeof(db->xProgress_signature)) == 0) {
+    //     tmp = DbProgressHandler(db->pProgressArg);
+    // }
+    // else if (memcmp(db->xProgress_signature, xProgress_signatures[xProgress_progressHandler_enum], sizeof(db->xProgress_signature)) == 0) {
+    //     tmp = progressHandler(db->pProgressArg);
+    // }
+    // if( tmp ){
+    //   nProgressLimit = LARGEST_UINT64;
+    //   rc = SQLITE_INTERRUPT;
+    //   goto abort_due_to_error;
+    // }
   }
 #endif
  
@@ -1416,7 +1432,7 @@ case OP_String8: {         /* same as TK_STRING, out2 */
 
 #ifndef SQLITE_OMIT_UTF16
   if( encoding!=SQLITE_UTF8 ){
-    rc = sqlite3VdbeMemSetStr(pOut, pOp->p4.z, -1, SQLITE_UTF8, SQLITE_STATIC);
+    rc = sqlite3VdbeMemSetStr(pOut, pOp->p4.z, -1, SQLITE_UTF8, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
     assert( rc==SQLITE_OK || rc==SQLITE_TOOBIG );
     if( rc ) goto too_big;
     if( SQLITE_OK!=sqlite3VdbeChangeEncoding(pOut, encoding) ) goto no_mem;
@@ -1558,7 +1574,7 @@ case OP_Blob: {                /* out2 */
     sqlite3VdbeMemSetZeroBlob(pOut, pOp->p1);
     if( sqlite3VdbeMemExpandBlob(pOut) ) goto no_mem;
   }else{
-    sqlite3VdbeMemSetStr(pOut, pOp->p4.z, pOp->p1, 0, 0);
+    sqlite3VdbeMemSetStr(pOut, pOp->p4.z, pOp->p1, 0, 0, xDel_signatures[xDel_0_enum]);
   }
   pOut->enc = encoding;
   UPDATE_MAX_BLOBSIZE(pOut);
@@ -6167,7 +6183,61 @@ case OP_Rowid: {                 /* out2, ncycle */
     pVtab = pC->uc.pVCur->pVtab;
     pModule = pVtab->pModule;
     assert( pModule->xRowid );
-    rc = pModule->xRowid(pC->uc.pVCur, &v);
+    // rc = pModule->xRowid(pC->uc.pVCur, &v);
+    if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_0_enum], sizeof(int[4])) == 0) {
+      rc = 0;
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_bytecodevtabRowid_enum], sizeof(int[4]) == 0)) {
+        rc = bytecodevtabRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_completionRowid_enum], sizeof(int[4]) == 0)) {
+        rc = completionRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_dbdataRowid_enum], sizeof(int[4]) == 0)) {
+        rc = dbdataRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_dbpageRowid_enum], sizeof(int[4]) == 0)) {
+        rc = dbpageRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_expertRowid_enum], sizeof(int[4]) == 0)) {
+        rc = expertRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fsdirRowid_enum], sizeof(int[4]) == 0)) {
+        rc = fsdirRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fts3RowidMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3RowidMethod(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fts3auxRowidMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3auxRowidMethod(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fts3tokRowidMethod_enum], sizeof(int[4])) == 0) {
+        rc = fts3tokRowidMethod(pC->uc.pVCur, &v);
+    }
+    // else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fts5ApiRowid_enum], sizeof(int[4]) == 0)) {
+    //     rc = fts5ApiRowid(pC->uc.pVCur, &v);
+    // }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_fts5RowidMethod_enum], sizeof(int[4]) == 0)) {
+        rc = fts5RowidMethod(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_jsonEachRowid_enum], sizeof(int[4])) == 0) {
+        rc = jsonEachRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_pragmaVtabRowid_enum], sizeof(int[4])) == 0) {
+        rc = pragmaVtabRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_rtreeRowid_enum], sizeof(int[4])) == 0) {
+        rc = rtreeRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_seriesRowid_enum], sizeof(int[4])) == 0) {
+        rc = seriesRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_statRowid_enum], sizeof(int[4])) == 0) {
+        rc = statRowid(pC->uc.pVCur, &v);
+    }
+    else if (memcmp(pModule->xRowid_signature, xRowid_signatures[xRowid_stmtRowid_enum], sizeof(int[4])) == 0) {
+        rc = stmtRowid(pC->uc.pVCur, &v);
+    }
     sqlite3VtabImportErrmsg(p, pVtab);
     if( rc ) goto abort_due_to_error;
 #endif /* SQLITE_OMIT_VIRTUALTABLE */
@@ -7052,8 +7122,7 @@ case OP_CreateBtree: {          /* out2 */
 case OP_SqlExec: {
   char *zErr;
 #ifndef SQLITE_OMIT_AUTHORIZATION
-  int (*xAuth)(void*,int,const char*,const char*,const char*,
-                             const char*);
+  sqlite3_xauth xAuth;
 #endif
   u8 mTrace;
   int savedAnalysisLimit;
@@ -7075,7 +7144,7 @@ case OP_SqlExec: {
   if( pOp->p1 & 0x0002 ){
     db->nAnalysisLimit = pOp->p2;
   }
-  rc = sqlite3_exec(db, pOp->p4.z, 0, 0, &zErr);
+  rc = sqlite3_exec(db, pOp->p4.z, 0, callback_signatures[callback_0_enum], 0, &zErr);
   db->nSqlExec--;
 #ifndef SQLITE_OMIT_AUTHORIZATION
   db->xAuth = xAuth;
@@ -7149,7 +7218,7 @@ case OP_ParseSchema: {
       initData.rc = SQLITE_OK;
       initData.nInitRow = 0;
       assert( !db->mallocFailed );
-      rc = sqlite3_exec(db, zSql, sqlite3InitCallback, &initData, 0);
+      rc = sqlite3_exec(db, zSql, sqlite3InitCallback, callback_signatures[callback_sqlite3InitCallback_enum], &initData, 0);
       if( rc==SQLITE_OK ) rc = initData.rc;
       if( rc==SQLITE_OK && initData.nInitRow==0 ){
         /* The OP_ParseSchema opcode with a non-NULL P4 argument should parse
@@ -7280,7 +7349,7 @@ case OP_IntegrityCk: {
     goto abort_due_to_error;
   }else{
     pnErr->u.i -= nErr-1;
-    sqlite3VdbeMemSetStr(pIn1, z, -1, SQLITE_UTF8, sqlite3_free);
+    sqlite3VdbeMemSetStr(pIn1, z, -1, SQLITE_UTF8, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   }
   UPDATE_MAX_BLOBSIZE(pIn1);
   sqlite3VdbeChangeEncoding(pIn1, encoding);
@@ -8312,7 +8381,52 @@ case OP_VOpen: {             /* ncycle */
     goto abort_due_to_error;
   }
   pModule = pVtab->pModule;
-  rc = pModule->xOpen(pVtab, &pVCur);
+  // rc = pModule->xOpen(pVtab, &pVCur);
+  if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_apndOpen_enum], sizeof(int[4])) == 0) {
+    rc = apndOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_bytecodevtabOpen_enum], sizeof(int[4])) == 0) {
+      rc = bytecodevtabOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_completionOpen_enum], sizeof(int[4])) == 0) {
+      rc = completionOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_dbdataOpen_enum], sizeof(int[4])) == 0) {
+      rc = dbdataOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_dbpageOpen_enum], sizeof(int[4])) == 0) {
+      rc = dbpageOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_fsdirOpen_enum], sizeof(int[4])) == 0) {
+      rc = fsdirOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_fts3OpenMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3OpenMethod(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_fts3auxOpenMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3auxOpenMethod(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_fts3tokOpenMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3tokOpenMethod(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpen_enum], sizeof(int[4])) == 0) {
+      rc = jsonEachOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_pragmaVtabOpen_enum], sizeof(int[4])) == 0) {
+      rc = pragmaVtabOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_rtreeOpen_enum], sizeof(int[4])) == 0) {
+      rc = rtreeOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_seriesOpen_enum], sizeof(int[4])) == 0) {
+      rc = seriesOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_statOpen_enum], sizeof(int[4])) == 0) {
+      rc = statOpen(pVtab, &pVCur);
+  }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_stmtOpen_enum], sizeof(int[4])) == 0) {
+      rc = stmtOpen(pVtab, &pVCur);
+  }
   sqlite3VtabImportErrmsg(p, pVtab);
   if( rc ) goto abort_due_to_error;
 
@@ -8326,7 +8440,79 @@ case OP_VOpen: {             /* ncycle */
     pVtab->nRef++;
   }else{
     assert( db->mallocFailed );
-    pModule->xClose(pVCur);
+    // pModule->xClose(pVCur);
+    if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(int[4])) == 0) {
+      apndClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(int[4])) == 0) {
+        bytecodevtabClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(int[4])) == 0) {
+        completionClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(int[4])) == 0) {
+        dbdataClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(int[4])) == 0) {
+        dbpageClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(int[4])) == 0) {
+        expertClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(int[4])) == 0) {
+        fsdirClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(int[4])) == 0) {
+        fts3CloseMethod(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(int[4])) == 0) {
+        fts3auxCloseMethod(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(int[4])) == 0) {
+        fts3tokCloseMethod(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(int[4])) == 0) {
+        jsonEachClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(int[4])) == 0) {
+        memdbClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(int[4])) == 0) {
+        memjrnlClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(int[4])) == 0) {
+        porterClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(int[4])) == 0) {
+        pragmaVtabClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(int[4])) == 0) {
+        recoverVfsClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(int[4])) == 0) {
+        rtreeClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(int[4])) == 0) {
+        seriesClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(int[4])) == 0) {
+        simpleClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(int[4])) == 0) {
+        statClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(int[4])) == 0) {
+        stmtClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(int[4])) == 0) {
+        unicodeClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(int[4])) == 0) {
+        vfstraceClose(pVCur);
+    }
+    else if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(int[4])) == 0) {
+        zipfileClose(pVCur);
+    }
     goto no_mem;
   }
   break;
@@ -8373,7 +8559,7 @@ case OP_VCheck: {             /* out2 */
     goto abort_due_to_error;
   }
   if( zErr ){
-    sqlite3VdbeMemSetStr(pOut, zErr, -1, SQLITE_UTF8, sqlite3_free);
+    sqlite3VdbeMemSetStr(pOut, zErr, -1, SQLITE_UTF8, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   }
   break;
 }
@@ -8401,7 +8587,7 @@ case OP_VInitIn: {        /* out2, ncycle */
   pRhs->pOut = &aMem[pOp->p3];
   pOut = out2Prerelease(p, pOp);
   pOut->flags = MEM_Null;
-  sqlite3VdbeMemSetPointer(pOut, pRhs, "ValueList", sqlite3VdbeValueListFree);
+  sqlite3VdbeMemSetPointer(pOut, pRhs, "ValueList", sqlite3VdbeValueListFree, xDestructor_signatures[xDestructor_sqlite3VdbeValueListFree_enum]);
   break;
 }
 #endif /* SQLITE_OMIT_VIRTUALTABLE */
@@ -8465,7 +8651,49 @@ case OP_VFilter: {   /* jump, ncycle */
   rc = pModule->xFilter(pVCur, iQuery, pOp->p4.z, nArg, apArg);
   sqlite3VtabImportErrmsg(p, pVtab);
   if( rc ) goto abort_due_to_error;
-  res = pModule->xEof(pVCur);
+  // res = pModule->xEof(pVCur);
+  if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_bytecodevtabEof_enum], sizeof(int[4])) == 0) {
+    res = bytecodevtabEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_completionEof_enum], sizeof(int[4])) == 0) {
+      res = completionEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_dbdataEof_enum], sizeof(int[4])) == 0) {
+      res = dbdataEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_dbpageEof_enum], sizeof(int[4])) == 0) {
+      res = dbpageEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fsdirEof_enum], sizeof(int[4])) == 0) {
+      res = fsdirEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3EofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3EofMethod(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3auxEofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3auxEofMethod(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3tokEofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3tokEofMethod(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_jsonEachEof_enum], sizeof(int[4])) == 0) {
+      res = jsonEachEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_pragmaVtabEof_enum], sizeof(int[4])) == 0) {
+      res = pragmaVtabEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_rtreeEof_enum], sizeof(int[4])) == 0) {
+      res = rtreeEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_seriesEof_enum], sizeof(int[4])) == 0) {
+      res = seriesEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_statEof_enum], sizeof(int[4])) == 0) {
+      res = statEof(pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_stmtEof_enum], sizeof(int[4])) == 0) {
+      res = stmtEof(pVCur);
+  }
   pCur->nullRow = 0;
   VdbeBranchTaken(res!=0,2);
   if( res ) goto jump_to_p2;
@@ -8566,10 +8794,97 @@ case OP_VNext: {   /* jump, ncycle */
   ** data is available) and the error code returned when xColumn or
   ** some other method is next invoked on the save virtual table cursor.
   */
-  rc = pModule->xNext(pCur->uc.pVCur);
+  // rc = pModule->xNext(pCur->uc.pVCur);
+  if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(int[4])) == 0) {
+    rc= 0;
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(int[4])) == 0) {
+      rc = bytecodevtabNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(int[4])) == 0) {
+      rc = completionNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(int[4])) == 0) {
+      rc = dbdataNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(int[4])) == 0) {
+      rc = dbpageNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(int[4])) == 0) {
+      rc = fsdirNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3NextMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3auxNextMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3tokNextMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(int[4])) == 0) {
+      rc = jsonEachNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(int[4])) == 0) {
+      rc = pragmaVtabNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(int[4])) == 0) {
+      rc = rtreeNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(int[4])) == 0) {
+      rc = seriesNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(int[4])) == 0) {
+      rc = statNext(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(int[4])) == 0) {
+      rc = stmtNext(pCur->uc.pVCur);
+  }
   sqlite3VtabImportErrmsg(p, pVtab);
   if( rc ) goto abort_due_to_error;
-  res = pModule->xEof(pCur->uc.pVCur);
+  // res = pModule->xEof(pCur->uc.pVCur);
+  if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_bytecodevtabEof_enum], sizeof(int[4])) == 0) {
+    res = bytecodevtabEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_completionEof_enum], sizeof(int[4])) == 0) {
+      res = completionEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_dbdataEof_enum], sizeof(int[4])) == 0) {
+      res = dbdataEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_dbpageEof_enum], sizeof(int[4])) == 0) {
+      res = dbpageEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fsdirEof_enum], sizeof(int[4])) == 0) {
+      res = fsdirEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3EofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3EofMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3auxEofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3auxEofMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_fts3tokEofMethod_enum], sizeof(int[4])) == 0) {
+      res = fts3tokEofMethod(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_jsonEachEof_enum], sizeof(int[4])) == 0) {
+      res = jsonEachEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_pragmaVtabEof_enum], sizeof(int[4])) == 0) {
+      res = pragmaVtabEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_rtreeEof_enum], sizeof(int[4])) == 0) {
+      res = rtreeEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_seriesEof_enum], sizeof(int[4])) == 0) {
+      res = seriesEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_statEof_enum], sizeof(int[4])) == 0) {
+      res = statEof(pCur->uc.pVCur);
+  }
+  else if (memcmp(pModule->xEof_signature, xEof_signatures[xEof_stmtEof_enum], sizeof(int[4])) == 0) {
+      res = stmtEof(pCur->uc.pVCur);
+  }
   VdbeBranchTaken(!res,2);
   if( !res ){
     /* If there is data, jump to P2 */
@@ -8605,7 +8920,16 @@ case OP_VRename: {
   testcase( pName->enc==SQLITE_UTF16LE );
   rc = sqlite3VdbeChangeEncoding(pName, SQLITE_UTF8);
   if( rc ) goto abort_due_to_error;
-  rc = pVtab->pModule->xRename(pVtab, pName->z);
+  // rc = pVtab->pModule->xRename(pVtab, pName->z);
+  if (memcmp(pVtab->pModule->xRename_signature, xRename_signatures[xRename_0_enum], sizeof(int[4])) == 0) {
+    ;
+  }
+  else if (memcmp(pVtab->pModule->xRename_signature, xRename_signatures[xRename_fts3RenameMethod_enum], sizeof(int[4])) == 0) {
+      rc = fts3RenameMethod(pVtab, pName->z);
+  }
+  else if (memcmp(pVtab->pModule->xRename_signature, xRename_signatures[xRename_rtreeRename_enum], sizeof(int[4])) == 0) {
+      rc = rtreeRename(pVtab, pName->z);
+  }
   if( isLegacy==0 ) db->flags &= ~(u64)SQLITE_LegacyAlter;
   sqlite3VtabImportErrmsg(p, pVtab);
   p->expired = 0;
@@ -9008,7 +9332,7 @@ case OP_Init: {          /* jump0 */
 #ifndef SQLITE_OMIT_DEPRECATED
     if( db->mTrace & SQLITE_TRACE_LEGACY ){
       char *z = sqlite3VdbeExpandSql(p, zTrace);
-      db->trace.xLegacy(db->pTraceArg, z);
+      // db->trace.xLegacy(db->pTraceArg, z);
       sqlite3_free(z);
     }else
 #endif
@@ -9276,7 +9600,7 @@ vdbe_return:
 #ifndef SQLITE_OMIT_PROGRESS_CALLBACK
   while( nVmStep>=nProgressLimit && db->xProgress!=0 ){
     nProgressLimit += db->nProgressOps;
-    if( db->xProgress(db->pProgressArg) ){
+    if( 0 ){
       nProgressLimit = LARGEST_UINT64;
       rc = SQLITE_INTERRUPT;
       goto abort_due_to_error;

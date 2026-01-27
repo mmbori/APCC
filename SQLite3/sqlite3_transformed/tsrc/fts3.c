@@ -540,7 +540,41 @@ int fts3DisconnectMethod(sqlite3_vtab *pVtab){
   sqlite3_free(p->zLanguageid);
 
   /* Invoke the tokenizer destructor to free the tokenizer. */
-  p->pTokenizer->pModule->xDestroy(p->pTokenizer);
+  if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+    0;
+  }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      dbpageDisconnect(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      fsdirDisconnect(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      fts3tokDisconnectMethod(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      pcache1Destroy(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      rtreeDestroy(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      simpleDestroy(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      statDisconnect(p->pTokenizer);
+    }
+  else
+    if (memcmp(p->pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(p->pTokenizer->pModule->xDestroy_signature)) == 0) {
+      unicodeDestroy(p->pTokenizer);
+    }
 
   sqlite3_free(p);
   return SQLITE_OK;
@@ -579,7 +613,7 @@ static void fts3DbExec(
   if( zSql==0 ){
     *pRc = SQLITE_NOMEM;
   }else{
-    *pRc = sqlite3_exec(db, zSql, 0, 0, 0);
+    *pRc = sqlite3_exec(db, zSql, 0, callback_signatures[callback_0_enum], 0, 0);
     sqlite3_free(zSql);
   }
 }
@@ -1535,7 +1569,41 @@ fts3_init_out:
     if( p ){
       fts3DisconnectMethod((sqlite3_vtab *)p);
     }else if( pTokenizer ){
-      pTokenizer->pModule->xDestroy(pTokenizer);
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          dbpageDisconnect(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          fsdirDisconnect(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          fts3tokDisconnectMethod(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          pcache1Destroy(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          rtreeDestroy(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          simpleDestroy(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          statDisconnect(pTokenizer);
+        }
+      else
+        if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+          unicodeDestroy(pTokenizer);
+        }
     }
   }else{
     assert( p->pSegments==0 );
@@ -1548,14 +1616,24 @@ fts3_init_out:
 ** The xConnect() and xCreate() methods for the virtual table. All the
 ** work is done in function fts3InitVtab().
 */
-int fts3ConnectMethod(sqlite3 *db, void *pAux, int argc,
-                      const char * const *argv, sqlite3_vtab **ppVtab,
-                      char **pzErr){
+int fts3ConnectMethod(
+  sqlite3 *db,                    /* Database connection */
+  void *pAux,                     /* Pointer to tokenizer hash table */
+  int argc,                       /* Number of elements in argv array */
+  const char * const *argv,       /* xCreate/xConnect argument array */
+  sqlite3_vtab **ppVtab,          /* OUT: New sqlite3_vtab object */
+  char **pzErr                    /* OUT: sqlite3_malloc'd error message */
+){
   return fts3InitVtab(0, db, pAux, argc, argv, ppVtab, pzErr);
 }
-int fts3CreateMethod(sqlite3 *db, void *pAux, int argc,
-                     const char * const *argv, sqlite3_vtab **ppVtab,
-                     char **pzErr){
+int fts3CreateMethod(
+  sqlite3 *db,                    /* Database connection */
+  void *pAux,                     /* Pointer to tokenizer hash table */
+  int argc,                       /* Number of elements in argv array */
+  const char * const *argv,       /* xCreate/xConnect argument array */
+  sqlite3_vtab **ppVtab,          /* OUT: New sqlite3_vtab object */
+  char **pzErr                    /* OUT: sqlite3_malloc'd error message */
+){
   return fts3InitVtab(1, db, pAux, argc, argv, ppVtab, pzErr);
 }
 
@@ -1746,7 +1824,7 @@ int fts3OpenMethod(sqlite3_vtab *pVTab, sqlite3_vtab_cursor **ppCsr){
 ** and the Fts3Table.pSeekStmt slot is currently NULL, save the statement
 ** pointer there instead of finalizing it.
 */
-static void fts3CursorFinalizeStmt(Fts3Cursor *pCsr){
+void fts3CursorFinalizeStmt(Fts3Cursor *pCsr){
   if( pCsr->bSeekStmt ){
     Fts3Table *p = (Fts3Table *)pCsr->base.pVtab;
     if( p->pSeekStmt==0 ){
@@ -3285,8 +3363,13 @@ static sqlite3_int64 fts3DocidRange(sqlite3_value *pVal, i64 iDefault){
 ** number idxNum-FTS3_FULLTEXT_SEARCH, 0 indexed.  argv[0] is the right-hand
 ** side of the MATCH operator.
 */
-int fts3FilterMethod(sqlite3_vtab_cursor *pCursor, int idxNum,
-                     const char *idxStr, int nVal, sqlite3_value **apVal){
+int fts3FilterMethod(
+  sqlite3_vtab_cursor *pCursor,   /* The cursor used for this query */
+  int idxNum,                     /* Strategy index */
+  const char *idxStr,             /* Unused */
+  int nVal,                       /* Number of elements in apVal */
+  sqlite3_value **apVal           /* Arguments for the indexing scheme */
+){
   int rc = SQLITE_OK;
   char *zSql;                     /* SQL statement used to access %_content */
   int eSearch;
@@ -3433,8 +3516,11 @@ int fts3RowidMethod(sqlite3_vtab_cursor *pCursor, sqlite_int64 *pRowid){
 **   (iCol == p->nColumn+1) -> Docid column
 **   (iCol == p->nColumn+2) -> Langid column
 */
-int fts3ColumnMethod(sqlite3_vtab_cursor *pCursor, sqlite3_context *pCtx,
-                     int iCol){
+int fts3ColumnMethod(
+  sqlite3_vtab_cursor *pCursor,   /* Cursor to retrieve value from */
+  sqlite3_context *pCtx,          /* Context for sqlite3_result_xxx() calls */
+  int iCol                        /* Index of column to read value from */
+){
   int rc = SQLITE_OK;             /* Return Code */
   Fts3Cursor *pCsr = (Fts3Cursor *) pCursor;
   Fts3Table *p = (Fts3Table *)pCursor->pVtab;
@@ -3445,7 +3531,8 @@ int fts3ColumnMethod(sqlite3_vtab_cursor *pCursor, sqlite3_context *pCtx,
   switch( iCol-p->nColumn ){
     case 0:
       /* The special 'table-name' column */
-      sqlite3_result_pointer(pCtx, pCsr, "fts3cursor", 0);
+      sqlite3_result_pointer(pCtx, pCsr, "fts3cursor", 0,
+                             xDestructor_signatures[xDestructor_0_enum]);
       break;
 
     case 1:
@@ -3484,8 +3571,12 @@ int fts3ColumnMethod(sqlite3_vtab_cursor *pCursor, sqlite3_context *pCtx,
 ** FTS3 virtual tables. It is invoked by SQLite each time a row is to be
 ** inserted, updated or deleted.
 */
-int fts3UpdateMethod(sqlite3_vtab *pVtab, int nArg, sqlite3_value **apVal,
-                     sqlite_int64 *pRowid){
+int fts3UpdateMethod(
+  sqlite3_vtab *pVtab,            /* Virtual table handle */
+  int nArg,                       /* Size of argument array */
+  sqlite3_value **apVal,          /* Array of arguments */
+  sqlite_int64 *pRowid            /* OUT: The affected (or effected) rowid */
+){
   return sqlite3Fts3UpdateMethod(pVtab, nArg, apVal, pRowid);
 }
 
@@ -3719,7 +3810,7 @@ static void fts3SnippetFunc(
   if( !zEllipsis || !zEnd || !zStart ){
     sqlite3_result_error_nomem(pContext);
   }else if( nToken==0 ){
-    sqlite3_result_text(pContext, "", -1, SQLITE_STATIC);
+    sqlite3_result_text(pContext, "", -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   }else if( SQLITE_OK==fts3CursorSeek(pContext, pCsr) ){
     sqlite3Fts3Snippet(pContext, pCsr, zStart, zEnd, zEllipsis, iCol, nToken);
   }
@@ -3774,10 +3865,13 @@ static void fts3OptimizeFunc(
 
   switch( rc ){
     case SQLITE_OK:
-      sqlite3_result_text(pContext, "Index optimized", -1, SQLITE_STATIC);
+      sqlite3_result_text(pContext, "Index optimized", -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     case SQLITE_DONE:
-      sqlite3_result_text(pContext, "Index already optimal", -1, SQLITE_STATIC);
+      sqlite3_result_text(pContext, "Index already optimal", -1,
+                          SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     default:
       sqlite3_result_error_code(pContext, rc);
@@ -3808,15 +3902,19 @@ static void fts3MatchinfoFunc(
 ** This routine implements the xFindFunction method for the FTS3
 ** virtual table.
 */
-int fts3FindFunctionMethod(sqlite3_vtab *pVtab, int nArg, const char *zName,
-                           void (**pxFunc)(sqlite3_context *, int, sqlite3_value **),
-                           void **ppArg){
+int fts3FindFunctionMethod(
+  sqlite3_vtab *pVtab,            /* Virtual table handle */
+  int nArg,                       /* Number of SQL function arguments */
+  const char *zName,              /* Name of SQL function */
+  void (**pxFunc)(sqlite3_context*,int,sqlite3_value**), /* OUT: Result */
+  void **ppArg                    /* Unused */
+){
   struct Overloaded {
     const char *zName;
     void (*xFunc)(sqlite3_context*,int,sqlite3_value**);
-  
-    int xFunc_signature;
-} aOverload[] = {
+  int *xFunc_signature;
+
+  } aOverload[] = {
     { "snippet", fts3SnippetFunc },
     { "offsets", fts3OffsetsFunc },
     { "optimize", fts3OptimizeFunc },
@@ -3842,7 +3940,10 @@ int fts3FindFunctionMethod(sqlite3_vtab *pVtab, int nArg, const char *zName,
 /*
 ** Implementation of FTS3 xRename method. Rename an fts3 table.
 */
-int fts3RenameMethod(sqlite3_vtab *pVtab, const char *zName){
+int fts3RenameMethod(
+  sqlite3_vtab *pVtab,            /* Virtual table handle */
+  const char *zName               /* New name of table */
+){
   Fts3Table *p = (Fts3Table *)pVtab;
   sqlite3 *db = p->db;            /* Database connection */
   int rc;                         /* Return Code */
@@ -3915,7 +4016,7 @@ int fts3SavepointMethod(sqlite3_vtab *pVtab, int iSavepoint){
           );
       if( zSql ){
         pTab->bIgnoreSavepoint = 1;
-        rc = sqlite3_exec(pTab->db, zSql, 0, 0, 0);
+        rc = sqlite3_exec(pTab->db, zSql, 0, callback_signatures[callback_0_enum],  0, 0);
         pTab->bIgnoreSavepoint = 0;
         sqlite3_free(zSql);
       }else{
@@ -3978,8 +4079,13 @@ int fts3ShadowName(const char *zName){
 ** Implementation of the xIntegrity() method on the FTS3/FTS4 virtual
 ** table.
 */
-int fts3IntegrityMethod(sqlite3_vtab *pVtab, const char *zSchema,
-                        const char *zTabname, int isQuick, char **pzErr){
+int fts3IntegrityMethod(
+  sqlite3_vtab *pVtab,      /* The virtual table to be checked */
+  const char *zSchema,      /* Name of schema in which pVtab lives */
+  const char *zTabname,     /* Name of the pVTab table */
+  int isQuick,              /* True if this is a quick_check */
+  char **pzErr              /* Write error message here */
+){
   Fts3Table *p = (Fts3Table*)pVtab;
   int rc = SQLITE_OK;
   int bOk = 0;
@@ -4030,30 +4136,30 @@ static const sqlite3_module fts3Module = {
   /* xShadowName   */ fts3ShadowName,
   /* xIntegrity    */ fts3IntegrityMethod,
 
-  .xCreate_signature = xCreate_fts3CreateMethod,
-  .xConnect_signature = xConnect_fts3ConnectMethod,
-  .xBestIndex_signature = xBestIndex_fts3BestIndexMethod,
-  .xDisconnect_signature = xDisconnect_fts3DisconnectMethod,
-  .xDestroy_signature = xDestroy_fts3DestroyMethod,
-  .xOpen_signature = xOpen_fts3OpenMethod,
-  .xClose_signature = xClose_fts3CloseMethod,
-  .xFilter_signature = xFilter_fts3FilterMethod,
-  .xNext_signature = xNext_fts3NextMethod,
-  .xEof_signature = xEof_fts3EofMethod,
-  .xColumn_signature = xColumn_fts3ColumnMethod,
-  .xRowid_signature = xRowid_fts3RowidMethod,
-  .xUpdate_signature = xUpdate_fts3UpdateMethod,
-  .xBegin_signature = xBegin_fts3BeginMethod,
-  .xSync_signature = xSync_fts3SyncMethod,
-  .xCommit_signature = xCommit_fts3CommitMethod,
-  .xRollback_signature = xRollback_fts3RollbackMethod,
-  .xFindFunction_signature = xFindFunction_fts3FindFunctionMethod,
-  .xRename_signature = xRename_fts3RenameMethod,
-  .xSavepoint_signature = xSavepoint_fts3SavepointMethod,
-  .xRelease_signature = xRelease_fts3ReleaseMethod,
-  .xRollbackTo_signature = xRollbackTo_fts3RollbackToMethod,
-  .xShadowName_signature = xShadowName_fts3ShadowName,
-  .xIntegrity_signature = xIntegrity_fts3IntegrityMethod
+  .xCreate_signature = xCreate_signatures[xCreate_fts3CreateMethod_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_fts3ConnectMethod_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_fts3BestIndexMethod_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_fts3DisconnectMethod_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_fts3DestroyMethod_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_fts3OpenMethod_enum],
+  .xClose_signature = xClose_signatures[xClose_fts3CloseMethod_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_fts3FilterMethod_enum],
+  .xNext_signature = xNext_signatures[xNext_fts3NextMethod_enum],
+  .xEof_signature = xEof_signatures[xEof_fts3EofMethod_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_fts3ColumnMethod_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts3RowidMethod_enum],
+  .xUpdate_signature = xUpdate_signatures[xUpdate_fts3UpdateMethod_enum],
+  .xBegin_signature = xBegin_signatures[xBegin_fts3BeginMethod_enum],
+  .xSync_signature = xSync_signatures[xSync_fts3SyncMethod_enum],
+  .xCommit_signature = xCommit_signatures[xCommit_fts3CommitMethod_enum],
+  .xRollback_signature = xRollback_signatures[xRollback_fts3RollbackMethod_enum],
+  .xFindFunction_signature = xFindFunction_signatures[xFindFunction_fts3FindFunctionMethod_enum],
+  .xRename_signature = xRename_signatures[xRename_fts3RenameMethod_enum],
+  .xSavepoint_signature = xSavepoint_signatures[xSavepoint_fts3SavepointMethod_enum],
+  .xRelease_signature = xRelease_signatures[xRelease_fts3ReleaseMethod_enum],
+  .xRollbackTo_signature = xRollbackTo_signatures[xRollbackTo_fts3RollbackToMethod_enum],
+  .xShadowName_signature = xShadowName_signatures[xShadowName_fts3ShadowName_enum],
+  .xIntegrity_signature = xIntegrity_signatures[xIntegrity_fts3IntegrityMethod_enum]
 };
 
 /*
@@ -4168,18 +4274,19 @@ int sqlite3Fts3Init(sqlite3 *db){
    && SQLITE_OK==(rc = sqlite3_overload_function(db, "optimize", 1))
   ){
     pHash->nRef++;
-    rc = sqlite3_create_module_v2(
-        db, "fts3", &fts3Module, (void *)pHash, hashDestroy
-    );
+    rc = sqlite3_create_module_v2(db, "fts3", &fts3Module, (void *)pHash,
+                                  hashDestroy,
+                                  xDestroy_signatures[xDestroy_hashDestroy_enum]);
     if( rc==SQLITE_OK ){
       pHash->nRef++;
-      rc = sqlite3_create_module_v2(
-          db, "fts4", &fts3Module, (void *)pHash, hashDestroy
-      );
+      rc = sqlite3_create_module_v2(db, "fts4", &fts3Module, (void *)pHash,
+                                    hashDestroy,
+                                    xDestroy_signatures[xDestroy_hashDestroy_enum]);
     }
     if( rc==SQLITE_OK ){
       pHash->nRef++;
-      rc = sqlite3Fts3InitTok(db, (void *)pHash, hashDestroy);
+      rc = sqlite3Fts3InitTok(db, (void *)pHash, hashDestroy,
+                              xDestroy_signatures[xDestroy_hashDestroy_enum]);
     }
     return rc;
   }
@@ -5836,7 +5943,7 @@ static void fts3EvalUpdateCounts(Fts3Expr *pExpr, int nCol){
 ** has not yet been allocated, allocate and zero it. Otherwise, just zero
 ** it.
 */
-int fts3AllocateMSI(Fts3Expr *pExpr, int iPhrase, void *pCtx){
+static int fts3AllocateMSI(Fts3Expr *pExpr, int iPhrase, void *pCtx){
   Fts3Table *pTab = (Fts3Table*)pCtx;
   UNUSED_PARAMETER(iPhrase);
   if( pExpr->aMI==0 ){
@@ -5885,7 +5992,9 @@ static int fts3EvalGatherStats(
     assert( pRoot->bStart );
 
     /* Allocate space for the aMSI[] array of each FTSQUERY_PHRASE node */
-    rc = sqlite3Fts3ExprIterate(pRoot, fts3AllocateMSI, (void*)pTab);
+    rc = sqlite3Fts3ExprIterate(pRoot, fts3AllocateMSI,
+                                x_signatures[x_fts3AllocateMSI_enum],
+                                (void *)pTab);
     if( rc!=SQLITE_OK ) return rc;
     fts3EvalRestart(pCsr, pRoot, &rc);
 

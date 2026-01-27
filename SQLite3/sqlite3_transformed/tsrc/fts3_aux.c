@@ -17,7 +17,6 @@
 #include <string.h>
 #include <assert.h>
 
-
 typedef struct Fts3auxTable Fts3auxTable;
 typedef struct Fts3auxCursor Fts3auxCursor;
 
@@ -55,9 +54,14 @@ struct Fts3auxCursor {
 ** These tables have no persistent representation of their own, so xConnect
 ** and xCreate are identical operations.
 */
-int fts3auxConnectMethod(sqlite3 *db, void *pUnused, int argc,
-                         const char * const *argv, sqlite3_vtab **ppVtab,
-                         char **pzErr){
+int fts3auxConnectMethod(
+  sqlite3 *db,                    /* Database connection */
+  void *pUnused,                  /* Unused */
+  int argc,                       /* Number of elements in argv array */
+  const char * const *argv,       /* xCreate/xConnect argument array */
+  sqlite3_vtab **ppVtab,          /* OUT: New sqlite3_vtab object */
+  char **pzErr                    /* OUT: sqlite3_malloc'd error message */
+){
   char const *zDb;                /* Name of database (e.g. "main") */
   char const *zFts3;              /* Name of fts3 table */
   int nDb;                        /* Result of strlen(zDb) */
@@ -142,7 +146,10 @@ int fts3auxDisconnectMethod(sqlite3_vtab *pVtab){
 /*
 ** xBestIndex - Analyze a WHERE and ORDER BY clause.
 */
-int fts3auxBestIndexMethod(sqlite3_vtab *pVTab, sqlite3_index_info *pInfo){
+int fts3auxBestIndexMethod(
+  sqlite3_vtab *pVTab, 
+  sqlite3_index_info *pInfo
+){
   int i;
   int iEq = -1;
   int iGe = -1;
@@ -355,8 +362,13 @@ int fts3auxNextMethod(sqlite3_vtab_cursor *pCursor){
 /*
 ** xFilter - Initialize a cursor to point at the start of its data.
 */
-int fts3auxFilterMethod(sqlite3_vtab_cursor *pCursor, int idxNum,
-                        const char *idxStr, int nVal, sqlite3_value **apVal){
+int fts3auxFilterMethod(
+  sqlite3_vtab_cursor *pCursor,   /* The cursor used for this query */
+  int idxNum,                     /* Strategy index */
+  const char *idxStr,             /* Unused */
+  int nVal,                       /* Number of elements in apVal */
+  sqlite3_value **apVal           /* Arguments for the indexing scheme */
+){
   Fts3auxCursor *pCsr = (Fts3auxCursor *)pCursor;
   Fts3Table *pFts3 = ((Fts3auxTable *)pCursor->pVtab)->pFts3Tab;
   int rc;
@@ -454,21 +466,26 @@ int fts3auxEofMethod(sqlite3_vtab_cursor *pCursor){
 /*
 ** xColumn - Return a column value.
 */
-int fts3auxColumnMethod(sqlite3_vtab_cursor *pCursor, sqlite3_context *pCtx,
-                        int iCol){
+int fts3auxColumnMethod(
+  sqlite3_vtab_cursor *pCursor,   /* Cursor to retrieve value from */
+  sqlite3_context *pCtx,          /* Context for sqlite3_result_xxx() calls */
+  int iCol                        /* Index of column to read value from */
+){
   Fts3auxCursor *p = (Fts3auxCursor *)pCursor;
 
   assert( p->isEof==0 );
   switch( iCol ){
     case 0: /* term */
-      sqlite3_result_text(pCtx, p->csr.zTerm, p->csr.nTerm, SQLITE_TRANSIENT);
+      sqlite3_result_text(pCtx, p->csr.zTerm, p->csr.nTerm, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       break;
 
     case 1: /* col */
       if( p->iCol ){
         sqlite3_result_int(pCtx, p->iCol-1);
       }else{
-        sqlite3_result_text(pCtx, "*", -1, SQLITE_STATIC);
+        sqlite3_result_text(pCtx, "*", -1, SQLITE_STATIC,
+                            xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }
       break;
 
@@ -492,7 +509,10 @@ int fts3auxColumnMethod(sqlite3_vtab_cursor *pCursor, sqlite3_context *pCtx,
 /*
 ** xRowid - Return the current rowid for the cursor.
 */
-int fts3auxRowidMethod(sqlite3_vtab_cursor *pCursor, sqlite_int64 *pRowid){
+int fts3auxRowidMethod(
+  sqlite3_vtab_cursor *pCursor,   /* Cursor to retrieve value from */
+  sqlite_int64 *pRowid            /* OUT: Rowid value */
+){
   Fts3auxCursor *pCsr = (Fts3auxCursor *)pCursor;
   *pRowid = pCsr->iRowid;
   return SQLITE_OK;
@@ -530,30 +550,18 @@ int sqlite3Fts3InitAux(sqlite3 *db){
      0,                           /* xShadowName   */
      0                            /* xIntegrity    */
   ,
-  .xCreate_signature = xCreate_fts3auxConnectMethod,
-  .xConnect_signature = xConnect_fts3auxConnectMethod,
-  .xBestIndex_signature = xBestIndex_fts3auxBestIndexMethod,
-  .xDisconnect_signature = xDisconnect_fts3auxDisconnectMethod,
-  .xDestroy_signature = xDestroy_fts3auxDisconnectMethod,
-  .xOpen_signature = xOpen_fts3auxOpenMethod,
-  .xClose_signature = xClose_fts3auxCloseMethod,
-  .xFilter_signature = xFilter_fts3auxFilterMethod,
-  .xNext_signature = xNext_fts3auxNextMethod,
-  .xEof_signature = xEof_fts3auxEofMethod,
-  .xColumn_signature = xColumn_fts3auxColumnMethod,
-  .xRowid_signature = xRowid_fts3auxRowidMethod,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xCreate_signature = xCreate_signatures[xCreate_fts3auxConnectMethod_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_fts3auxConnectMethod_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_fts3auxBestIndexMethod_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_fts3auxDisconnectMethod_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_fts3auxDisconnectMethod_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_fts3auxOpenMethod_enum],
+  .xClose_signature = xClose_signatures[xClose_fts3auxCloseMethod_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_fts3auxFilterMethod_enum],
+  .xNext_signature = xNext_signatures[xNext_fts3auxNextMethod_enum],
+  .xEof_signature = xEof_signatures[xEof_fts3auxEofMethod_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_fts3auxColumnMethod_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_fts3auxRowidMethod_enum]
 };
   int rc;                         /* Return code */
 

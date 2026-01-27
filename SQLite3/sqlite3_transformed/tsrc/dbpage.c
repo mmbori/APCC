@@ -70,8 +70,13 @@ struct DbpageTable {
 /*
 ** Connect to or create a dbpagevfs virtual table.
 */
-int dbpageConnect(sqlite3 *db, void *pAux, int argc, const char * const *argv,
-                  sqlite3_vtab **ppVtab, char **pzErr){
+int dbpageConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   DbpageTable *pTab = 0;
   int rc = SQLITE_OK;
   (void)pAux;
@@ -221,8 +226,11 @@ int dbpageEof(sqlite3_vtab_cursor *pCursor){
 **
 ** idxStr is not used
 */
-int dbpageFilter(sqlite3_vtab_cursor *pCursor, int idxNum, const char *idxStr,
-                 int argc, sqlite3_value **argv){
+int dbpageFilter(
+  sqlite3_vtab_cursor *pCursor,
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   DbpageCursor *pCsr = (DbpageCursor *)pCursor;
   DbpageTable *pTab = (DbpageTable *)pCursor->pVtab;
   int rc;
@@ -267,7 +275,11 @@ int dbpageFilter(sqlite3_vtab_cursor *pCursor, int idxNum, const char *idxStr,
   return rc;
 }
 
-int dbpageColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
+int dbpageColumn(
+  sqlite3_vtab_cursor *pCursor,
+  sqlite3_context *ctx,
+  int i
+){
   DbpageCursor *pCsr = (DbpageCursor *)pCursor;
   int rc = SQLITE_OK;
   switch( i ){
@@ -285,7 +297,8 @@ int dbpageColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
         rc = sqlite3PagerGet(pCsr->pPager, pCsr->pgno, (DbPage**)&pDbPage, 0);
         if( rc==SQLITE_OK ){
           sqlite3_result_blob(ctx, sqlite3PagerGetData(pDbPage), pCsr->szPage,
-              SQLITE_TRANSIENT);
+                              SQLITE_TRANSIENT,
+                              xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
         }
         sqlite3PagerUnref(pDbPage);
       }
@@ -293,7 +306,8 @@ int dbpageColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
     }
     default: {          /* schema */
       sqlite3 *db = sqlite3_context_db_handle(ctx);
-      sqlite3_result_text(ctx, db->aDb[pCsr->iDb].zDbSName, -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, db->aDb[pCsr->iDb].zDbSName, -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     }
   }
@@ -324,8 +338,12 @@ static int dbpageBeginTrans(DbpageTable *pTab){
   return rc;
 }
 
-int dbpageUpdate(sqlite3_vtab *pVtab, int argc, sqlite3_value **argv,
-                 sqlite_int64 *pRowid){
+int dbpageUpdate(
+  sqlite3_vtab *pVtab,
+  int argc,
+  sqlite3_value **argv,
+  sqlite_int64 *pRowid
+){
   DbpageTable *pTab = (DbpageTable *)pVtab;
   Pgno pgno;
   DbPage *pDbPage = 0;
@@ -478,30 +496,22 @@ int sqlite3DbpageRegister(sqlite3 *db){
     0,                            /* xShadowName */
     0                             /* xIntegrity */
   ,
-  .xCreate_signature = xCreate_dbpageConnect,
-  .xConnect_signature = xConnect_dbpageConnect,
-  .xBestIndex_signature = xBestIndex_dbpageBestIndex,
-  .xDisconnect_signature = xDisconnect_dbpageDisconnect,
-  .xDestroy_signature = xDestroy_dbpageDisconnect,
-  .xOpen_signature = xOpen_dbpageOpen,
-  .xClose_signature = xClose_dbpageClose,
-  .xFilter_signature = xFilter_dbpageFilter,
-  .xNext_signature = xNext_dbpageNext,
-  .xEof_signature = xEof_dbpageEof,
-  .xColumn_signature = xColumn_dbpageColumn,
-  .xRowid_signature = xRowid_dbpageRowid,
-  .xUpdate_signature = xUpdate_dbpageUpdate,
-  .xBegin_signature = xBegin_dbpageBegin,
-  .xSync_signature = xSync_dbpageSync,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_dbpageRollbackTo,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xCreate_signature = xCreate_signatures[xCreate_dbpageConnect_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_dbpageConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_dbpageBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_dbpageDisconnect_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_dbpageDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_dbpageOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_dbpageClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_dbpageFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_dbpageNext_enum],
+  .xEof_signature = xEof_signatures[xEof_dbpageEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_dbpageColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_dbpageRowid_enum],
+  .xUpdate_signature = xUpdate_signatures[xUpdate_dbpageUpdate_enum],
+  .xBegin_signature = xBegin_signatures[xBegin_dbpageBegin_enum],
+  .xSync_signature = xSync_signatures[xSync_dbpageSync_enum],
+  .xRollbackTo_signature = xRollbackTo_signatures[xRollbackTo_dbpageRollbackTo_enum]
 };
   return sqlite3_create_module(db, "sqlite_dbpage", &dbpage_module, 0);
 }

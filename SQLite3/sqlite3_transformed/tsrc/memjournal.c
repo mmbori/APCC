@@ -83,7 +83,12 @@ struct MemJournal {
 ** Read data from the in-memory journal file.  This is the implementation
 ** of the sqlite3_vfs.xRead method.
 */
-int memjrnlRead(sqlite3_file *pJfd, void *zBuf, int iAmt, sqlite_int64 iOfst){
+int memjrnlRead(
+  sqlite3_file *pJfd,    /* The journal file from which to read */
+  void *zBuf,            /* Put the results here */
+  int iAmt,              /* Number of bytes to read */
+  sqlite_int64 iOfst     /* Begin reading at this offset */
+){
   MemJournal *p = (MemJournal *)pJfd;
   u8 *zOut = zBuf;
   int nRead = iAmt;
@@ -179,8 +184,12 @@ int memjrnlTruncate(sqlite3_file *pJfd, sqlite_int64 size);
 /*
 ** Write data to the file.
 */
-int memjrnlWrite(sqlite3_file *pJfd, const void *zBuf, int iAmt,
-                 sqlite_int64 iOfst){
+int memjrnlWrite(
+  sqlite3_file *pJfd,    /* The journal file into which to write */
+  const void *zBuf,      /* Take data to be written from here */
+  int iAmt,              /* Number of bytes to write */
+  sqlite_int64 iOfst     /* Begin writing at this offset into the file */
+){
   MemJournal *p = (MemJournal *)pJfd;
   int nWrite = iAmt;
   u8 *zWrite = (u8 *)zBuf;
@@ -328,24 +337,12 @@ static const struct sqlite3_io_methods MemJournalMethods = {
   0,                /* xFetch */
   0                 /* xUnfetch */
 ,
-  .xClose_signature = xClose_memjrnlClose,
-  .xRead_signature = xRead_memjrnlRead,
-  .xWrite_signature = xWrite_memjrnlWrite,
-  .xTruncate_signature = xTruncate_memjrnlTruncate,
-  .xSync_signature = xSync_memjrnlSync,
-  .xFileSize_signature = xFileSize_memjrnlFileSize,
-  .xLock_signature = xLock_0,
-  .xUnlock_signature = xUnlock_0,
-  .xCheckReservedLock_signature = xCheckReservedLock_0,
-  .xFileControl_signature = xFileControl_0,
-  .xSectorSize_signature = xSectorSize_0,
-  .xDeviceCharacteristics_signature = xDeviceCharacteristics_0,
-  .xShmMap_signature = xShmMap_0,
-  .xShmLock_signature = xShmLock_0,
-  .xShmBarrier_signature = xShmBarrier_0,
-  .xShmUnmap_signature = xShmUnmap_0,
-  .xFetch_signature = xFetch_0,
-  .xUnfetch_signature = xUnfetch_0
+  .xClose_signature = xClose_signatures[xClose_memjrnlClose_enum],
+  .xRead_signature = xRead_signatures[xRead_memjrnlRead_enum],
+  .xWrite_signature = xWrite_signatures[xWrite_memjrnlWrite_enum],
+  .xTruncate_signature = xTruncate_signatures[xTruncate_memjrnlTruncate_enum],
+  .xSync_signature = xSync_signatures[xSync_memjrnlSync_enum],
+  .xFileSize_signature = xFileSize_signatures[xFileSize_memjrnlFileSize_enum]
 };
 
 /* 

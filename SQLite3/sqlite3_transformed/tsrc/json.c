@@ -446,7 +446,7 @@ static int jsonCacheInsert(
     p = sqlite3DbMallocZero(db, sizeof(*p));
     if( p==0 ) return SQLITE_NOMEM;
     p->db = db;
-    sqlite3_set_auxdata(ctx, JSON_CACHE_ID, p, jsonCacheDeleteGeneric);
+    sqlite3_set_auxdata(ctx, JSON_CACHE_ID, p, jsonCacheDeleteGeneric, xDelete_signatures[xDelete_jsonCacheDeleteGeneric_enum]);
     p = sqlite3_get_auxdata(ctx, JSON_CACHE_ID);
     if( p==0 ) return SQLITE_NOMEM;
   }
@@ -852,7 +852,7 @@ static void jsonReturnString(
       jsonReturnStringAsBlob(p);
     }else if( p->bStatic ){
       sqlite3_result_text64(p->pCtx, p->zBuf, p->nUsed,
-                            SQLITE_TRANSIENT, SQLITE_UTF8);
+                            SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum],SQLITE_UTF8);
     }else if( jsonStringTerminate(p) ){
       if( pParse && pParse->bJsonIsRCStr==0 && pParse->nBlobAlloc>0 ){
         int rc;
@@ -867,7 +867,7 @@ static void jsonReturnString(
         }
       }
       sqlite3_result_text64(p->pCtx, sqlite3RCStrRef(p->zBuf), p->nUsed,
-                            sqlite3RCStrUnref,
+                            sqlite3RCStrUnref, xDel_signatures[xDel_sqlite3RCStrUnref_enum],
                             SQLITE_UTF8);
     }else{
       sqlite3_result_error_nomem(p->pCtx);
@@ -2100,7 +2100,7 @@ static void jsonReturnStringAsBlob(JsonString *pStr){
   }else{
     assert( px.nBlobAlloc>0 );
     assert( !px.bReadOnly );
-    sqlite3_result_blob(pStr->pCtx, px.aBlob, px.nBlob, SQLITE_DYNAMIC);
+    sqlite3_result_blob(pStr->pCtx, px.aBlob, px.nBlob, SQLITE_DYNAMIC, xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   }
 }
 
@@ -3254,7 +3254,7 @@ static void jsonReturnFromBlob(
     case JSONB_TEXTRAW:
     case JSONB_TEXT: {
       sqlite3_result_text(pCtx, (char*)&pParse->aBlob[i+n], sz,
-                          SQLITE_TRANSIENT);
+                          SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       break;
     }
     case JSONB_TEXT5:
@@ -3299,7 +3299,7 @@ static void jsonReturnFromBlob(
       } /* end for() */
       assert( iOut<=nOut );
       zOut[iOut] = 0;
-      sqlite3_result_text(pCtx, zOut, iOut, SQLITE_DYNAMIC);
+      sqlite3_result_text(pCtx, zOut, iOut, SQLITE_DYNAMIC, xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
       break;
     }
     case JSONB_ARRAY:
@@ -3312,7 +3312,7 @@ static void jsonReturnFromBlob(
         }
       }
       if( eMode==2 ){
-        sqlite3_result_blob(pCtx, &pParse->aBlob[i], sz+n, SQLITE_TRANSIENT);
+        sqlite3_result_blob(pCtx, &pParse->aBlob[i], sz+n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }else{
         jsonReturnTextJsonFromBlob(pCtx, &pParse->aBlob[i], sz+n);
       }
@@ -3343,7 +3343,7 @@ returnfromblob_malformed:
 ** pParse->aBlob and pParse->nBlob.  pParse->aBlob might be dynamically
 ** allocated (if pParse->nBlobAlloc is greater than zero) in which case
 ** the caller is responsible for freeing the space allocated to pParse->aBlob
-** when it has finished with it.  Or pParse->aBlob might be a static string
+** when it has finished with it.  Or pParse->aBlob might be a string
 ** or a value obtained from sqlite3_value_blob(pArg).
 **
 ** If the argument is a BLOB that is clearly not a JSONB, then this
@@ -3654,7 +3654,7 @@ rebuild_from_cache:
       return 0;
     }
   }else{
-    int isRCStr = sqlite3ValueIsOfClass(pArg, sqlite3RCStrUnref);
+    int isRCStr = sqlite3ValueIsOfClass(pArg, sqlite3RCStrUnref, xFree_signatures[xFree_sqlite3RCStrUnref_enum]);
     int rc;
     if( !isRCStr ){
       char *zNew = sqlite3RCStrNew( p->nJson );
@@ -3710,10 +3710,10 @@ static void jsonReturnParse(
   flgs = SQLITE_PTR_TO_INT(sqlite3_user_data(ctx));
   if( flgs & JSON_BLOB ){
     if( p->nBlobAlloc>0 && !p->bReadOnly ){
-      sqlite3_result_blob(ctx, p->aBlob, p->nBlob, SQLITE_DYNAMIC);
+      sqlite3_result_blob(ctx, p->aBlob, p->nBlob, SQLITE_DYNAMIC, xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
       p->nBlobAlloc = 0;
     }else{
-      sqlite3_result_blob(ctx, p->aBlob, p->nBlob, SQLITE_TRANSIENT);
+      sqlite3_result_blob(ctx, p->aBlob, p->nBlob, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }
   }else{
     JsonString s;
@@ -3864,7 +3864,7 @@ static void jsonParseFunc(
   if( p==0 ) return;
   if( argc==1 ){
     jsonDebugPrintBlob(p, 0, p->nBlob, 0, &out);
-    sqlite3_result_text64(ctx,out.zText,out.nChar,SQLITE_TRANSIENT,SQLITE_UTF8);
+    sqlite3_result_text64(ctx,out.zText,out.nChar,SQLITE_TRANSIENT,xDel_signatures[xDel_SQLITE_TRANSIENT_enum], SQLITE_UTF8);
   }else{
     jsonShowParse(p);
   }
@@ -4527,7 +4527,7 @@ static void jsonTypeFunc(
   }else{
     i = 0;
   }
-  sqlite3_result_text(ctx, jsonbType[p->aBlob[i]&0x0f], -1, SQLITE_STATIC);
+  sqlite3_result_text(ctx, jsonbType[p->aBlob[i]&0x0f], -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 json_type_done:
   jsonParseFree(p);
 }
@@ -4794,14 +4794,14 @@ static void jsonArrayCompute(sqlite3_context *ctx, int isFinal){
     }else if( isFinal ){
       sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed,
                           pStr->bStatic ? SQLITE_TRANSIENT :
-                              sqlite3RCStrUnref);
+                              sqlite3RCStrUnref, pStr->bStatic ? xDel_signatures[xDel_SQLITE_TRANSIENT_enum] : xDel_signatures[xDel_sqlite3RCStrUnref_enum]);
       pStr->bStatic = 1;
     }else{
-      sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed, SQLITE_TRANSIENT);
+      sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       jsonStringTrimOneChar(pStr);
     }
   }else{
-    sqlite3_result_text(ctx, "[]", 2, SQLITE_STATIC);
+    sqlite3_result_text(ctx, "[]", 2, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   }
   sqlite3_result_subtype(ctx, JSON_SUBTYPE);
 }
@@ -4916,14 +4916,14 @@ static void jsonObjectCompute(sqlite3_context *ctx, int isFinal){
     }else if( isFinal ){
       sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed,
                           pStr->bStatic ? SQLITE_TRANSIENT :
-                          sqlite3RCStrUnref);
+                          sqlite3RCStrUnref, pStr->bStatic ? xDel_signatures[xDel_SQLITE_TRANSIENT_enum] : xDel_signatures[xDel_sqlite3RCStrUnref_enum]);
       pStr->bStatic = 1;
     }else{
-      sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed, SQLITE_TRANSIENT);
+      sqlite3_result_text(ctx, pStr->zBuf, (int)pStr->nUsed, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       jsonStringTrimOneChar(pStr);
     }
   }else{
-    sqlite3_result_text(ctx, "{}", 2, SQLITE_STATIC);
+    sqlite3_result_text(ctx, "{}", 2, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   }
   sqlite3_result_subtype(ctx, JSON_SUBTYPE);
 }
@@ -4976,9 +4976,13 @@ struct JsonEachConnection {
 
 
 /* Constructor for the json_each virtual table */
-int jsonEachConnect(sqlite3 *db, void *pAux, int argc,
-                    const char * const *argv, sqlite3_vtab **ppVtab,
-                    char **pzErr){
+int jsonEachConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   JsonEachConnection *pNew;
   int rc;
 
@@ -5207,8 +5211,11 @@ static int jsonEachPathLength(JsonEachCursor *p){
 }
 
 /* Return the value of a column */
-int jsonEachColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx,
-                   int iColumn){
+int jsonEachColumn(
+  sqlite3_vtab_cursor *cur,   /* The cursor */
+  sqlite3_context *ctx,       /* First argument to sqlite3_result_...() */
+  int iColumn                 /* Which column to return */
+){
   JsonEachCursor *p = (JsonEachCursor*)cur;
   switch( iColumn ){
     case JEACH_KEY: {
@@ -5224,9 +5231,9 @@ int jsonEachColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx,
           sqlite3Atoi64(&p->path.zBuf[j+1], &x, n-1, SQLITE_UTF8);
           sqlite3_result_int64(ctx, x);
         }else if( p->path.zBuf[j+1]=='"' ){
-          sqlite3_result_text(ctx, &p->path.zBuf[j+2], n-3, SQLITE_TRANSIENT);
+          sqlite3_result_text(ctx, &p->path.zBuf[j+2], n-3, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
         }else{
-          sqlite3_result_text(ctx, &p->path.zBuf[j+1], n-1, SQLITE_TRANSIENT);
+          sqlite3_result_text(ctx, &p->path.zBuf[j+1], n-1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
         }
         break;
       }
@@ -5249,7 +5256,7 @@ int jsonEachColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx,
     case JEACH_TYPE: {
       u32 i = jsonSkipLabel(p);
       u8 eType = p->sParse.aBlob[i] & 0x0f;
-      sqlite3_result_text(ctx, jsonbType[eType], -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, jsonbType[eType], -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     }
     case JEACH_ATOM: {
@@ -5273,26 +5280,26 @@ int jsonEachColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx,
       u64 nBase = p->path.nUsed;
       if( p->nParent ) jsonAppendPathName(p);
       sqlite3_result_text64(ctx, p->path.zBuf, p->path.nUsed,
-                            SQLITE_TRANSIENT, SQLITE_UTF8);
+                            SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], SQLITE_UTF8);
       p->path.nUsed = nBase;
       break;
     }
     case JEACH_PATH: {
       u32 n = jsonEachPathLength(p);
       sqlite3_result_text64(ctx, p->path.zBuf, n,
-                            SQLITE_TRANSIENT, SQLITE_UTF8);
+                            SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], SQLITE_UTF8);
       break;
     }
     default: {
-      sqlite3_result_text(ctx, p->path.zBuf, p->nRoot, SQLITE_STATIC);
+      sqlite3_result_text(ctx, p->path.zBuf, p->nRoot, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     }
     case JEACH_JSON: {
       if( p->sParse.zJson==0 ){
         sqlite3_result_blob(ctx, p->sParse.aBlob, p->sParse.nBlob,
-                            SQLITE_TRANSIENT);
+                            SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }else{
-        sqlite3_result_text(ctx, p->sParse.zJson, -1, SQLITE_TRANSIENT);
+        sqlite3_result_text(ctx, p->sParse.zJson, -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }
       break;
     }
@@ -5312,7 +5319,10 @@ int jsonEachRowid(sqlite3_vtab_cursor *cur, sqlite_int64 *pRowid){
 ** 1 if the constraint is found, 3 if the constraint and zRoot are found,
 ** and 0 otherwise.
 */
-int jsonEachBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
+int jsonEachBestIndex(
+  sqlite3_vtab *tab,
+  sqlite3_index_info *pIdxInfo
+){
   int i;                     /* Loop counter or computed array index */
   int aIdx[2];               /* Index of constraints for JSON and ROOT */
   int unusableMask = 0;      /* Mask of unusable JSON and ROOT constraints */
@@ -5375,8 +5385,11 @@ int jsonEachBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
 }
 
 /* Start a search on a new JSON string */
-int jsonEachFilter(sqlite3_vtab_cursor *cur, int idxNum, const char *idxStr,
-                   int argc, sqlite3_value **argv){
+int jsonEachFilter(
+  sqlite3_vtab_cursor *cur,
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   JsonEachCursor *p = (JsonEachCursor*)cur;
   const char *zRoot = 0;
   u32 i, n, sz;
@@ -5498,30 +5511,16 @@ static sqlite3_module jsonEachModule = {
   0,                         /* xShadowName */
   0                          /* xIntegrity */
 ,
-  .xCreate_signature = xCreate_0,
-  .xConnect_signature = xConnect_jsonEachConnect,
-  .xBestIndex_signature = xBestIndex_jsonEachBestIndex,
-  .xDisconnect_signature = xDisconnect_jsonEachDisconnect,
-  .xDestroy_signature = xDestroy_0,
-  .xOpen_signature = xOpen_jsonEachOpen,
-  .xClose_signature = xClose_jsonEachClose,
-  .xFilter_signature = xFilter_jsonEachFilter,
-  .xNext_signature = xNext_jsonEachNext,
-  .xEof_signature = xEof_jsonEachEof,
-  .xColumn_signature = xColumn_jsonEachColumn,
-  .xRowid_signature = xRowid_jsonEachRowid,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xConnect_signature = xConnect_signatures[xConnect_jsonEachConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_jsonEachBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_jsonEachDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_jsonEachOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_jsonEachClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_jsonEachFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_jsonEachNext_enum],
+  .xEof_signature = xEof_signatures[xEof_jsonEachEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_jsonEachColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_jsonEachRowid_enum]
 };
 #endif /* SQLITE_OMIT_VIRTUALTABLE */
 #endif /* !defined(SQLITE_OMIT_JSON) */
@@ -5603,7 +5602,7 @@ Module *sqlite3JsonVtabRegister(sqlite3 *db, const char *zName){
   assert( sqlite3HashFind(&db->aModule, zName)==0 );
   for(i=0; i<sizeof(azModule)/sizeof(azModule[0]); i++){
     if( sqlite3StrICmp(azModule[i],zName)==0 ){
-      return sqlite3VtabCreateModule(db, azModule[i], &jsonEachModule, 0, 0);
+      return sqlite3VtabCreateModule(db, azModule[i], &jsonEachModule, 0, 0, xDestroy_signatures[xDestroy_0_enum]);
     }
   }
   return 0;

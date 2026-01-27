@@ -32,7 +32,8 @@ static void callCollNeeded(sqlite3 *db, int enc, const char *zName){
   if( db->xCollNeeded16 ){
     char const *zExternal;
     sqlite3_value *pTmp = sqlite3ValueNew(db);
-    sqlite3ValueSetStr(pTmp, -1, zName, SQLITE_UTF8, SQLITE_STATIC);
+    sqlite3ValueSetStr(pTmp, -1, zName, SQLITE_UTF8, SQLITE_STATIC,
+                       xDel_signatures[xDel_SQLITE_STATIC_enum]);
     zExternal = sqlite3ValueText(pTmp, SQLITE_UTF16NATIVE);
     if( zExternal ){
       db->xCollNeeded16(db->pCollNeededArg, db, (int)ENC(db), zExternal);
@@ -58,7 +59,8 @@ static int synthCollSeq(sqlite3 *db, CollSeq *pColl){
     pColl2 = sqlite3FindCollSeq(db, aEnc[i], z, 0);
     if( pColl2->xCmp!=0 ){
       memcpy(pColl, pColl2, sizeof(CollSeq));
-      pColl->xDel = 0;         /* Do not copy the destructor */
+      pColl->xDel = 0;
+      pColl->xDel_signature = xDel_signatures[xDel_0_enum];         /* Do not copy the destructor */
       return SQLITE_OK;
     }
   }

@@ -41,6 +41,7 @@ static void incrAggFunctionDepth(Expr *pExpr, int N){
     Walker w;
     memset(&w, 0, sizeof(w));
     w.xExprCallback = incrAggDepth;
+    w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_incrAggDepth_enum];
     w.u.n = N;
     sqlite3WalkExpr(&w, pExpr);
   }
@@ -1748,6 +1749,7 @@ static void windowRemoveExprFromSelect(Select *pSelect, Expr *pExpr){
     Walker sWalker;
     memset(&sWalker, 0, sizeof(Walker));
     sWalker.xExprCallback = resolveRemoveWindowsCb;
+    sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_resolveRemoveWindowsCb_enum];
     sWalker.u.pSelect = pSelect;
     sqlite3WalkExpr(&sWalker, pExpr);
   }
@@ -2152,8 +2154,10 @@ int sqlite3ResolveExprNames(
   pNC->ncFlags &= ~(NC_HasAgg|NC_MinMaxAgg|NC_HasWin|NC_OrderAgg);
   w.pParse = pNC->pParse;
   w.xExprCallback = resolveExprStep;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_resolveExprStep_enum];
   w.xSelectCallback = (pNC->ncFlags & NC_NoSelect) ? 0 : resolveSelectStep;
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
   w.u.pNC = pNC;
 #if SQLITE_MAX_EXPR_DEPTH>0
   w.pParse->nHeight += pExpr->nHeight;
@@ -2193,8 +2197,11 @@ int sqlite3ResolveExprListNames(
   if( pList==0 ) return SQLITE_OK;
   w.pParse = pNC->pParse;
   w.xExprCallback = resolveExprStep;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_resolveExprStep_enum];
   w.xSelectCallback = resolveSelectStep;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_resolveSelectStep_enum];
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
   w.u.pNC = pNC;
   savedHasAgg = pNC->ncFlags & (NC_HasAgg|NC_MinMaxAgg|NC_HasWin|NC_OrderAgg);
   pNC->ncFlags &= ~(NC_HasAgg|NC_MinMaxAgg|NC_HasWin|NC_OrderAgg);
@@ -2248,8 +2255,11 @@ void sqlite3ResolveSelectNames(
 
   assert( p!=0 );
   w.xExprCallback = resolveExprStep;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_resolveExprStep_enum];
   w.xSelectCallback = resolveSelectStep;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_resolveSelectStep_enum];
   w.xSelectCallback2 = 0;
+  w.xSelectCallback2_signature = xSelectCallback2_signatures[xSelectCallback2_0_enum];
   w.pParse = pParse;
   w.u.pNC = pOuterNC;
   sqlite3WalkSelect(&w, p);

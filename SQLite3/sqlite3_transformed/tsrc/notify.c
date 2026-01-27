@@ -148,6 +148,7 @@ static void leaveMutex(void){
 int sqlite3_unlock_notify(
   sqlite3 *db,
   void (*xNotify)(void **, int),
+  int *xNotify_signature,
   void *pArg
 ){
   int rc = SQLITE_OK;

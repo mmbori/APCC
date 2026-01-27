@@ -1050,7 +1050,7 @@ struct CCurHint {
 ** the table CCurHint.iTabCur, verify that the same column can be
 ** accessed through the index.  If it cannot, then set pWalker->eCode to 1.
 */
-static int codeCursorHintCheckExpr(Walker *pWalker, Expr *pExpr){
+int codeCursorHintCheckExpr(Walker *pWalker, Expr *pExpr){
   struct CCurHint *pHint = pWalker->u.pCCurHint;
   assert( pHint->pIdx!=0 );
   if( pExpr->op==TK_COLUMN
@@ -1077,7 +1077,7 @@ static int codeCursorHintCheckExpr(Walker *pWalker, Expr *pExpr){
 **   coalesce(col, 1)
 **   CASE WHEN col THEN 0 ELSE 1 END
 */
-static int codeCursorHintIsOrFunction(Walker *pWalker, Expr *pExpr){
+int codeCursorHintIsOrFunction(Walker *pWalker, Expr *pExpr){
   if( pExpr->op==TK_IS
    || pExpr->op==TK_ISNULL || pExpr->op==TK_ISNOT
    || pExpr->op==TK_NOTNULL || pExpr->op==TK_CASE
@@ -1112,7 +1112,7 @@ static int codeCursorHintIsOrFunction(Walker *pWalker, Expr *pExpr){
 ** know because CCurHint.pIdx!=0) then transform the TK_COLUMN into
 ** an access of the index rather than the original table.
 */
-static int codeCursorHintFixExpr(Walker *pWalker, Expr *pExpr){
+int codeCursorHintFixExpr(Walker *pWalker, Expr *pExpr){
   int rc = WRC_Continue;
   int reg;
   struct CCurHint *pHint = pWalker->u.pCCurHint;
@@ -1205,6 +1205,7 @@ static void codeCursorHint(
       ){
         sWalker.eCode = 0;
         sWalker.xExprCallback = codeCursorHintIsOrFunction;
+        sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_codeCursorHintIsOrFunction_enum];
         sqlite3WalkExpr(&sWalker, pTerm->pExpr);
         if( sWalker.eCode ) continue;
       }
@@ -1228,6 +1229,7 @@ static void codeCursorHint(
     if( sHint.pIdx!=0 ){
       sWalker.eCode = 0;
       sWalker.xExprCallback = codeCursorHintCheckExpr;
+      sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_codeCursorHintCheckExpr_enum];
       sqlite3WalkExpr(&sWalker, pTerm->pExpr);
       if( sWalker.eCode ) continue;
     }
@@ -1237,6 +1239,7 @@ static void codeCursorHint(
   }
   if( pExpr!=0 ){
     sWalker.xExprCallback = codeCursorHintFixExpr;
+    sWalker.xExprCallback_signature = xExprCallback_signatures[xExprCallback_codeCursorHintFixExpr_enum];
     if( pParse->nErr==0 ) sqlite3WalkExpr(&sWalker, pExpr);
     sqlite3VdbeAddOp4(v, OP_CursorHint,
                       (sHint.pIdx ? sHint.iIdxCur : sHint.iTabCur), 0, 0,

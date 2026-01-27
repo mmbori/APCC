@@ -383,7 +383,8 @@ static int blobReadWrite(
   void *z, 
   int n, 
   int iOffset, 
-  int (*xCall)(BtCursor*, u32, u32, void*)
+  int (*xCall)(BtCursor*, u32, u32, void*),
+  int *xCall_signature
 ){
   int rc = SQLITE_OK;
   Incrblob *p = (Incrblob *)pBlob;
@@ -445,10 +446,22 @@ static int blobReadWrite(
       }
     }
     if( rc==SQLITE_OK ){
-      rc = xCall(p->pCsr, iOffset+p->iOffset, n, z);
+      // rc = xCall(p->pCsr, iOffset+p->iOffset, n, z);
+      if( xCall==sqlite3BtreePutData) {
+        rc = sqlite3BtreePutData(p->pCsr, iOffset+p->iOffset, n, z);
+      }
+      else {
+        rc = sqlite3BtreePayloadChecked(p->pCsr, iOffset+p->iOffset, n, z);
+      }
     }
 #else
-    rc = xCall(p->pCsr, iOffset+p->iOffset, n, z);
+    // rc = xCall(p->pCsr, iOffset+p->iOffset, n, z);
+    if( xCall==sqlite3BtreePutData) {
+        rc = sqlite3BtreePutData(p->pCsr, iOffset+p->iOffset, n, z);
+      }
+      else {
+        rc = sqlite3BtreePayloadChecked(p->pCsr, iOffset+p->iOffset, n, z);
+      }
 #endif
 
     sqlite3BtreeLeaveCursor(p->pCsr);
@@ -469,14 +482,16 @@ static int blobReadWrite(
 ** Read data from a blob handle.
 */
 int sqlite3_blob_read(sqlite3_blob *pBlob, void *z, int n, int iOffset){
-  return blobReadWrite(pBlob, z, n, iOffset, sqlite3BtreePayloadChecked);
+  return blobReadWrite(pBlob, z, n, iOffset, sqlite3BtreePayloadChecked,
+                       xCall_signatures[xCall_sqlite3BtreePayloadChecked_enum]);
 }
 
 /*
 ** Write data to a blob handle.
 */
 int sqlite3_blob_write(sqlite3_blob *pBlob, const void *z, int n, int iOffset){
-  return blobReadWrite(pBlob, (void *)z, n, iOffset, sqlite3BtreePutData);
+  return blobReadWrite(pBlob, (void *)z, n, iOffset, sqlite3BtreePutData,
+                       xCall_signatures[xCall_sqlite3BtreePutData_enum]);
 }
 
 /*

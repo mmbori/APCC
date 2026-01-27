@@ -153,8 +153,13 @@ struct StatTable {
 /*
 ** Connect to or create a new DBSTAT virtual table.
 */
-int statConnect(sqlite3 *db, void *pAux, int argc, const char * const *argv,
-                sqlite3_vtab **ppVtab, char **pzErr){
+int statConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   StatTable *pTab = 0;
   int rc = SQLITE_OK;
   int iDb;
@@ -727,8 +732,11 @@ int statEof(sqlite3_vtab_cursor *pCursor){
 ** arguments in argv[0].  See statBestIndex() for a description of the
 ** meaning of the bits in idxNum.
 */
-int statFilter(sqlite3_vtab_cursor *pCursor, int idxNum, const char *idxStr,
-               int argc, sqlite3_value **argv){
+int statFilter(
+  sqlite3_vtab_cursor *pCursor, 
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   StatCursor *pCsr = (StatCursor *)pCursor;
   StatTable *pTab = (StatTable*)(pCursor->pVtab);
   sqlite3_str *pSql;      /* Query of btrees to analyze */
@@ -793,15 +801,21 @@ int statFilter(sqlite3_vtab_cursor *pCursor, int idxNum, const char *idxStr,
   return rc;
 }
 
-int statColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
+int statColumn(
+  sqlite3_vtab_cursor *pCursor, 
+  sqlite3_context *ctx, 
+  int i
+){
   StatCursor *pCsr = (StatCursor *)pCursor;
   switch( i ){
     case 0:            /* name */
-      sqlite3_result_text(ctx, pCsr->zName, -1, SQLITE_TRANSIENT);
+      sqlite3_result_text(ctx, pCsr->zName, -1, SQLITE_TRANSIENT,
+                          xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       break;
     case 1:            /* path */
       if( !pCsr->isAgg ){
-        sqlite3_result_text(ctx, pCsr->zPath, -1, SQLITE_TRANSIENT);
+        sqlite3_result_text(ctx, pCsr->zPath, -1, SQLITE_TRANSIENT,
+                            xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
       }
       break;
     case 2:            /* pageno */
@@ -813,7 +827,8 @@ int statColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
       break;
     case 3:            /* pagetype */
       if( !pCsr->isAgg ){
-        sqlite3_result_text(ctx, pCsr->zPagetype, -1, SQLITE_STATIC);
+        sqlite3_result_text(ctx, pCsr->zPagetype, -1, SQLITE_STATIC,
+                            xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }
       break;
     case 4:            /* ncell */
@@ -839,7 +854,8 @@ int statColumn(sqlite3_vtab_cursor *pCursor, sqlite3_context *ctx, int i){
     case 10: {         /* schema */
       sqlite3 *db = sqlite3_context_db_handle(ctx);
       int iDb = pCsr->iDb;
-      sqlite3_result_text(ctx, db->aDb[iDb].zDbSName, -1, SQLITE_STATIC);
+      sqlite3_result_text(ctx, db->aDb[iDb].zDbSName, -1, SQLITE_STATIC,
+                          xDel_signatures[xDel_SQLITE_STATIC_enum]);
       break;
     }
     default: {         /* aggregate */
@@ -887,30 +903,18 @@ int sqlite3DbstatRegister(sqlite3 *db){
     0,                            /* xShadowName */
     0                             /* xIntegrity */
   ,
-  .xCreate_signature = xCreate_statConnect,
-  .xConnect_signature = xConnect_statConnect,
-  .xBestIndex_signature = xBestIndex_statBestIndex,
-  .xDisconnect_signature = xDisconnect_statDisconnect,
-  .xDestroy_signature = xDestroy_statDisconnect,
-  .xOpen_signature = xOpen_statOpen,
-  .xClose_signature = xClose_statClose,
-  .xFilter_signature = xFilter_statFilter,
-  .xNext_signature = xNext_statNext,
-  .xEof_signature = xEof_statEof,
-  .xColumn_signature = xColumn_statColumn,
-  .xRowid_signature = xRowid_statRowid,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xCreate_signature = xCreate_signatures[xCreate_statConnect_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_statConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_statBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_statDisconnect_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_statDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_statOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_statClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_statFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_statNext_enum],
+  .xEof_signature = xEof_signatures[xEof_statEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_statColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_statRowid_enum]
 };
   return sqlite3_create_module(db, "dbstat", &dbstat_module, 0);
 }

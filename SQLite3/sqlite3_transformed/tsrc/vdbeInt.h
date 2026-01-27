@@ -251,10 +251,10 @@ struct sqlite3_value {
 #ifdef SQLITE_DEBUG
   Mem *pScopyFrom;    /* This Mem is a shallow copy of pScopyFrom */
   u16 mScopyFlags;    /* flags value immediately after the shallow copy */
-  u8  bScopy;         /* The pScopyFrom of some other Mem *might* point here */
+  u8  bScopy;
+         /* The pScopyFrom of some other Mem *might* point here */
 #endif
-
-  int xDel_signature;
+  int *xDel_signature;
 };
 
 /*
@@ -331,7 +331,7 @@ struct sqlite3_value {
 ** aggregate accumulator.
 */
 #define MEM_Dyn       0x1000   /* Need to call Mem.xDel() on Mem.z */
-#define MEM_Static    0x2000   /* Mem.z points to a static string */
+#define MEM_Static    0x2000   /* Mem.z points to a string */
 #define MEM_Ephem     0x4000   /* Mem.z points to an ephemeral string */
 #define MEM_Agg       0x8000   /* Mem.z points to an agg function context */
 
@@ -378,9 +378,9 @@ struct AuxData {
   int iAuxArg;                    /* Index of function argument. */
   void *pAux;                     /* Aux data pointer */
   void (*xDeleteAux)(void*);      /* Destructor for the aux data */
-  AuxData *pNextAux;              /* Next element in list */
-
-  int xDeleteAux_signature;
+  AuxData *pNextAux;
+  int *xDeleteAux_signature;
+              /* Next element in list */
 };
 
 /*
@@ -634,14 +634,14 @@ int sqlite3VdbeMemCopy(Mem*, const Mem*);
 void sqlite3VdbeMemShallowCopy(Mem*, const Mem*, int);
 void sqlite3VdbeMemMove(Mem*, Mem*);
 int sqlite3VdbeMemNulTerminate(Mem*);
-int sqlite3VdbeMemSetStr(Mem*, const char*, i64, u8, void(*)(void*));
+int sqlite3VdbeMemSetStr(Mem*, const char*, i64, u8, void(*)(void*), int*);
 void sqlite3VdbeMemSetInt64(Mem*, i64);
 #ifdef SQLITE_OMIT_FLOATING_POINT
 # define sqlite3VdbeMemSetDouble sqlite3VdbeMemSetInt64
 #else
   void sqlite3VdbeMemSetDouble(Mem*, double);
 #endif
-void sqlite3VdbeMemSetPointer(Mem*, void*, const char*, void(*)(void*));
+void sqlite3VdbeMemSetPointer(Mem*, void*, const char*, void(*)(void*), int*);
 void sqlite3VdbeMemInit(Mem*,sqlite3*,u16);
 void sqlite3VdbeMemSetNull(Mem*);
 #ifndef SQLITE_OMIT_INCRBLOB

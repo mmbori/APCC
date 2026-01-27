@@ -294,7 +294,7 @@ void sqlite3PCacheBufferSetup(void *pBuf, int sz, int n){
 ** Try to initialize the pCache->pFree and pCache->pBulk fields.  Return
 ** true if pCache->pFree ends up containing one or more free pages.
 */
-static int pcache1InitBulk(PCache1 *pCache){
+int pcache1InitBulk(PCache1 *pCache){
   i64 szBulk;
   char *zBulk;
   if( pcache1.nInitPage==0 ) return 0;
@@ -338,7 +338,7 @@ static int pcache1InitBulk(PCache1 *pCache){
 ** Multiple threads can run this routine at the same time.  Global variables
 ** in pcache1 need to be protected via mutex.
 */
-static void *pcache1Alloc(int nByte){
+void *pcache1Alloc(int nByte){
   void *p = 0;
   assert( sqlite3_mutex_notheld(pcache1.grp.mutex) );
   if( nByte<=pcache1.szSlot ){
@@ -376,7 +376,7 @@ static void *pcache1Alloc(int nByte){
 /*
 ** Free an allocated buffer obtained from pcache1Alloc().
 */
-static void pcache1Free(void *p){
+void pcache1Free(void *p){
   if( p==0 ) return;
   if( SQLITE_WITHIN(p, pcache1.pStart, pcache1.pEnd) ){
     PgFreeslot *pSlot;
@@ -409,7 +409,7 @@ static void pcache1Free(void *p){
 /*
 ** Return the size of a pcache allocation
 */
-static int pcache1MemSize(void *p){
+int pcache1MemSize(void *p){
   if( p>=pcache1.pStart && p<pcache1.pEnd ){
     return pcache1.szSlot;
   }else{
@@ -467,7 +467,7 @@ static PgHdr1 *pcache1AllocPage(PCache1 *pCache, int benignMalloc){
 /*
 ** Free a page object allocated by pcache1AllocPage().
 */
-static void pcache1FreePage(PgHdr1 *p){
+void pcache1FreePage(PgHdr1 *p){
   PCache1 *pCache;
   assert( p!=0 );
   pCache = p->pCache;
@@ -515,7 +515,7 @@ void sqlite3PageFree(void *p){
 ** allocating a new page cache entry in order to avoid stressing
 ** the heap even further.
 */
-static int pcache1UnderMemoryPressure(PCache1 *pCache){
+int pcache1UnderMemoryPressure(PCache1 *pCache){
   if( pcache1.nSlot && (pCache->szPage+pCache->szExtra)<=pcache1.szSlot ){
     return AtomicLoad(&pcache1.bUnderPressure);
   }else{
@@ -532,7 +532,7 @@ static int pcache1UnderMemoryPressure(PCache1 *pCache){
 **
 ** The PCache mutex must be held when this function is called.
 */
-static void pcache1ResizeHash(PCache1 *p){
+void pcache1ResizeHash(PCache1 *p){
   PgHdr1 **apNew;
   u64 nNew;
   u32 i;
@@ -742,7 +742,7 @@ int pcache1Init(void *NotUsed){
 
 /*
 ** Implementation of the sqlite3_pcache.xShutdown method.
-** Note that the static mutex allocated in xInit does
+** Note that the mutex allocated in xInit does
 ** not need to be freed.
 */
 void pcache1Shutdown(void *NotUsed){
@@ -759,7 +759,7 @@ void pcache1Destroy(sqlite3_pcache *p);
 **
 ** Allocate a new cache.
 */
-sqlite3_pcache * pcache1Create(int szPage, int szExtra, int bPurgeable){
+sqlite3_pcache *pcache1Create(int szPage, int szExtra, int bPurgeable){
   PCache1 *pCache;      /* The newly created page cache */
   PGroup *pGroup;       /* The group the new page cache will belong to */
   i64 sz;               /* Bytes of memory required to allocate the new cache */
@@ -869,7 +869,7 @@ int pcache1Pagecount(sqlite3_pcache *p){
 ** usually not needed, and by avoiding the stack initialization required
 ** for these steps, the main pcache1Fetch() procedure can run faster.
 */
-static SQLITE_NOINLINE PgHdr1 *pcache1FetchStage2(
+SQLITE_NOINLINE PgHdr1 *pcache1FetchStage2(
   PCache1 *pCache,
   unsigned int iKey,
   int createFlag
@@ -1042,8 +1042,11 @@ static PgHdr1 *pcache1FetchWithMutex(
   return pPage;
 }
 #endif
-sqlite3_pcache_page * pcache1Fetch(sqlite3_pcache *p, unsigned int iKey,
-                                   int createFlag){
+sqlite3_pcache_page *pcache1Fetch(
+  sqlite3_pcache *p,
+  unsigned int iKey,
+  int createFlag
+){
 #if PCACHE1_MIGHT_USE_GROUP_MUTEX || defined(SQLITE_DEBUG)
   PCache1 *pCache = (PCache1 *)p;
 #endif
@@ -1070,8 +1073,11 @@ sqlite3_pcache_page * pcache1Fetch(sqlite3_pcache *p, unsigned int iKey,
 **
 ** Mark a page as unpinned (eligible for asynchronous recycling).
 */
-void pcache1Unpin(sqlite3_pcache *p, sqlite3_pcache_page *pPg,
-                  int reuseUnlikely){
+void pcache1Unpin(
+  sqlite3_pcache *p,
+  sqlite3_pcache_page *pPg,
+  int reuseUnlikely
+){
   PCache1 *pCache = (PCache1 *)p;
   PgHdr1 *pPage = (PgHdr1 *)pPg;
   PGroup *pGroup = pCache->pGroup;
@@ -1102,8 +1108,12 @@ void pcache1Unpin(sqlite3_pcache *p, sqlite3_pcache_page *pPg,
 /*
 ** Implementation of the sqlite3_pcache.xRekey method.
 */
-void pcache1Rekey(sqlite3_pcache *p, sqlite3_pcache_page *pPg,
-                  unsigned int iOld, unsigned int iNew){
+void pcache1Rekey(
+  sqlite3_pcache *p,
+  sqlite3_pcache_page *pPg,
+  unsigned int iOld,
+  unsigned int iNew
+){
   PCache1 *pCache = (PCache1 *)p;
   PgHdr1 *pPage = (PgHdr1 *)pPg;
   PgHdr1 **pp;
@@ -1195,17 +1205,17 @@ void sqlite3PCacheSetDefault(void){
     pcache1Destroy,          /* xDestroy */
     pcache1Shrink            /* xShrink */
   ,
-  .xInit_signature = xInit_pcache1Init,
-  .xShutdown_signature = xShutdown_pcache1Shutdown,
-  .xCreate_signature = xCreate_pcache1Create,
-  .xCachesize_signature = xCachesize_pcache1Cachesize,
-  .xPagecount_signature = xPagecount_pcache1Pagecount,
-  .xFetch_signature = xFetch_pcache1Fetch,
-  .xUnpin_signature = xUnpin_pcache1Unpin,
-  .xRekey_signature = xRekey_pcache1Rekey,
-  .xTruncate_signature = xTruncate_pcache1Truncate,
-  .xDestroy_signature = xDestroy_pcache1Destroy,
-  .xShrink_signature = xShrink_pcache1Shrink
+  .xInit_signature = xInit_signatures[xInit_pcache1Init_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_pcache1Shutdown_enum],
+  .xCreate_signature = xCreate_signatures[xCreate_pcache1Create_enum],
+  .xCachesize_signature = xCachesize_signatures[xCachesize_pcache1Cachesize_enum],
+  .xPagecount_signature = xPagecount_signatures[xPagecount_pcache1Pagecount_enum],
+  .xFetch_signature = xFetch_signatures[xFetch_pcache1Fetch_enum],
+  .xUnpin_signature = xUnpin_signatures[xUnpin_pcache1Unpin_enum],
+  .xRekey_signature = xRekey_signatures[xRekey_pcache1Rekey_enum],
+  .xTruncate_signature = xTruncate_signatures[xTruncate_pcache1Truncate_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_pcache1Destroy_enum],
+  .xShrink_signature = xShrink_signatures[xShrink_pcache1Shrink_enum]
 };
   sqlite3_config(SQLITE_CONFIG_PCACHE2, &defaultMethods);
 }

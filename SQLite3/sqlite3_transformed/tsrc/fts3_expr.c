@@ -139,14 +139,172 @@ int sqlite3Fts3OpenTokenizer(
   sqlite3_tokenizer_cursor *pCsr = 0;
   int rc;
 
-  rc = pModule->xOpen(pTokenizer, z, n, &pCsr);
+  // rc = pModule->xOpen(pTokenizer, z, n, &pCsr);
+  // if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_apndOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = apndOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_bytecodevtabOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = bytecodevtabOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_completionOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = completionOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_dbdataOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = dbdataOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_dbpageOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = dbpageOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_expertOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = expertOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = jsonEachOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpenEach_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = jsonEachOpenEach(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpenTree_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = jsonEachOpenTree(pTokenizer, z, n, &pCsr);
+  // }
+  if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_porterOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+    rc = porterOpen(pTokenizer, z, n, &pCsr);
+  }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_pragmaVtabOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = pragmaVtabOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_rtreeOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = rtreeOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_seriesOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = seriesOpen(pTokenizer, z, n, &pCsr);
+  // }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_simpleOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+    rc = simpleOpen(pTokenizer, z, n, &pCsr);
+  }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_statOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = statOpen(pTokenizer, z, n, &pCsr);
+  // }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_stmtOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = stmtOpen(pTokenizer, z, n, &pCsr);
+  // }
+  else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_unicodeOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+    rc = unicodeOpen(pTokenizer, z, n, &pCsr);
+  }
+  // else if (memcmp(pModule->xOpen_signature, xOpen_signatures[xOpen_zipfileOpen_enum], sizeof(pModule->xOpen_signature)) == 0) {
+  //   rc = zipfileOpen(pTokenizer, z, n, &pCsr);
+  // }
+
+
   assert( rc==SQLITE_OK || pCsr==0 );
   if( rc==SQLITE_OK ){
     pCsr->pTokenizer = pTokenizer;
     if( pModule->iVersion>=1 ){
       rc = pModule->xLanguageid(pCsr, iLangid);
       if( rc!=SQLITE_OK ){
-        pModule->xClose(pCsr);
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            bytecodevtabClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            completionClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dbdataClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dbpageClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            expertClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fsdirClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3CloseMethod(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3auxCloseMethod(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3tokCloseMethod(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            jsonEachClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            memdbClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            memjrnlClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            porterClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            pragmaVtabClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            recoverVfsClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            rtreeClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            seriesClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            simpleClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            statClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            stmtClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            unicodeClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            vfstraceClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            zipfileClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            unixClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            nolockClose(pCsr);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dotlockClose(pCsr);
+          }
         pCsr = 0;
       }
     }
@@ -210,7 +368,214 @@ static int getNextToken(
     int nToken = 0, iStart = 0, iEnd = 0, iPosition = 0;
     sqlite3_int64 nByte;                    /* total space to allocate */
 
-    rc = pModule->xNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pModule->xNext_signature)) == 0) {
+      rc = 0;
+    }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = amatchNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = binfoNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = bytecodevtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                           &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = carrayNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = cidxNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = closureNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                      &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = completionNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                         &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = csvtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = dbdataNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = dbpageNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = deltaparsevtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                             &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = echoNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = expertNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = explainNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                      &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fsNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fsdirNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fstreeNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fts3NextMethod(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                         &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fts3auxNextMethod(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                            &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fts3termNextMethod(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                             &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fts3tokNextMethod(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                            &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = fuzzerNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = intarrayNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                       &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = jsonEachNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                       &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = memstatNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                      &iPosition);
+    //   }
+    else
+      if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+        rc = porterNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+      }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = pragmaVtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                         &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = prefixesNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                       &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = qpvtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = rtreeNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = schemaNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = seriesNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    else
+      if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+        rc = simpleNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+      }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = spellfix1Next(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                        &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = statNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = stmtNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = tclNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = tclvarNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = templatevtabNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                           &iPosition);
+    //   }
+    else
+      if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+        rc = unicodeNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+                         &iPosition);
+      }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = unionNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = vlogNext(pCursor, &zToken, &nToken, &iStart, &iEnd, &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = vstattabNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                       &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = vtablogNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                      &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = wholenumberNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                          &iPosition);
+    //   }
+    // else
+    //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+    //     rc = zipfileNext(pCursor, &zToken, &nToken, &iStart, &iEnd,
+    //                      &iPosition);
+    //   }
     if( rc==SQLITE_OK ){
       /* Check that this tokenization did not gobble up any " characters. Or,
       ** if enable_parenthesis is true, that it did not gobble up any 
@@ -219,7 +584,109 @@ static int getNextToken(
       ** up to the first such character.  */
       int iBarred = findBarredChar(z, iEnd);
       if( iBarred>=0 ){
-        pModule->xClose(pCursor);
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            bytecodevtabClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            completionClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dbdataClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dbpageClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            expertClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fsdirClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3CloseMethod(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3auxCloseMethod(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+            fts3tokCloseMethod(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            jsonEachClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            memdbClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            memjrnlClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            porterClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            pragmaVtabClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            recoverVfsClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            rtreeClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            seriesClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            simpleClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            statClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            stmtClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            unicodeClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            vfstraceClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            zipfileClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            unixClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            nolockClose(pCursor);
+          }
+        else
+          if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+            dotlockClose(pCursor);
+          }
         return getNextToken(pParse, iCol, z, iBarred, ppExpr, pnConsumed);
       }
 
@@ -265,7 +732,109 @@ static int getNextToken(
       rc = SQLITE_OK;
     }
 
-    pModule->xClose(pCursor);
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        bytecodevtabClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        completionClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dbdataClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dbpageClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        expertClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fsdirClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3CloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3auxCloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3tokCloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        jsonEachClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        memdbClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        memjrnlClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        porterClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        pragmaVtabClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        recoverVfsClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        rtreeClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        seriesClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        simpleClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        statClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        stmtClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        unicodeClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        vfstraceClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        zipfileClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        unixClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        nolockClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dotlockClose(pCursor);
+      }
   }
   
   *ppExpr = pRet;
@@ -339,7 +908,199 @@ static int getNextString(
     for(ii=0; rc==SQLITE_OK; ii++){
       const char *zByte;
       int nByte = 0, iBegin = 0, iEnd = 0, iPos = 0;
-      rc = pModule->xNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_0_enum], sizeof(pModule->xNext_signature)) == 0) {
+        rc = 0;
+      }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_amatchNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = amatchNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_binfoNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = binfoNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_bytecodevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = bytecodevtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                           &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_carrayNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = carrayNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_cidxNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = cidxNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_closureNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = closureNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_completionNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = completionNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_csvtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = csvtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbdataNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = dbdataNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_dbpageNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = dbpageNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_deltaparsevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = deltaparsevtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                             &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_echoNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = echoNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_expertNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = expertNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_explainNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = explainNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fsNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fsNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fsdirNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fsdirNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fstreeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fstreeNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3NextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fts3NextMethod(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3auxNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fts3auxNextMethod(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                            &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3termNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fts3termNextMethod(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                             &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fts3tokNextMethod_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fts3tokNextMethod(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                            &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_fuzzerNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = fuzzerNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_intarrayNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = intarrayNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_jsonEachNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = jsonEachNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_memstatNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = memstatNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      else
+        if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_porterNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+          rc = porterNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+        }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_pragmaVtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = pragmaVtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_prefixesNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = prefixesNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_qpvtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = qpvtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_rtreeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = rtreeNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_schemaNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = schemaNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_seriesNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = seriesNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      else
+        if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_simpleNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+          rc = simpleNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+        }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_spellfix1Next_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = spellfix1Next(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_statNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = statNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_stmtNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = stmtNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_tclNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = tclNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_tclvarNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = tclvarNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_templatevtabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = templatevtabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd,
+      //                           &iPos);
+      //   }
+      else
+        if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_unicodeNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+          rc = unicodeNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+        }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_unionNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = unionNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vlogNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = vlogNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vstattabNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = vstattabNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_vtablogNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = vtablogNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_wholenumberNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = wholenumberNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
+      // else
+      //   if (memcmp(pModule->xNext_signature, xNext_signatures[xNext_zipfileNext_enum], sizeof(pModule->xNext_signature)) == 0) {
+      //     rc = zipfileNext(pCursor, &zByte, &nByte, &iBegin, &iEnd, &iPos);
+      //   }
       if( rc==SQLITE_OK ){
         Fts3PhraseToken *pToken;
 
@@ -395,7 +1156,109 @@ static int getNextString(
 
  getnextstring_out:
   if( pCursor ){
-    pModule->xClose(pCursor);
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        bytecodevtabClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        completionClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dbdataClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dbpageClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        expertClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fsdirClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3CloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3auxCloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+        fts3tokCloseMethod(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        jsonEachClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        memdbClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        memjrnlClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        porterClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        pragmaVtabClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        recoverVfsClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        rtreeClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        seriesClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        simpleClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        statClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        stmtClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        unicodeClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        vfstraceClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        zipfileClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        unixClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        nolockClose(pCursor);
+      }
+    else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+        dotlockClose(pCursor);
+      }
   }
   sqlite3_free(zTemp);
   if( rc!=SQLITE_OK ){
@@ -1268,7 +2131,7 @@ static void fts3ExprTestCommon(
   }else if( rc==SQLITE_NOMEM || !(zBuf = exprToString(pExpr, 0)) ){
     sqlite3_result_error_nomem(context);
   }else{
-    sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(zBuf);
   }
 
@@ -1276,7 +2139,41 @@ static void fts3ExprTestCommon(
 
 exprtest_out:
   if( pTokenizer ){
-    rc = pTokenizer->pModule->xDestroy(pTokenizer);
+    if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_0_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_dbpageDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = dbpageDisconnect(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fsdirDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = fsdirDisconnect(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_fts3tokDisconnectMethod_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = fts3tokDisconnectMethod(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_pcache1Destroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = pcache1Destroy(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_rtreeDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = rtreeDestroy(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_simpleDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = simpleDestroy(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_statDisconnect_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = statDisconnect(pTokenizer);
+      }
+    else
+      if (memcmp(pTokenizer->pModule->xDestroy_signature, xDestroy_signatures[xDestroy_unicodeDestroy_enum], sizeof(pTokenizer->pModule->xDestroy_signature)) == 0) {
+        rc = unicodeDestroy(pTokenizer);
+      }
   }
   sqlite3_free(azCol);
 }
@@ -1302,12 +2199,10 @@ static void fts3ExprTestRebalance(
 */
 int sqlite3Fts3ExprInitTestInterface(sqlite3 *db, Fts3Hash *pHash){
   int rc = sqlite3_create_function(
-      db, "fts3_exprtest", -1, SQLITE_UTF8, (void*)pHash, fts3ExprTest, 0, 0
-  );
+      db, "fts3_exprtest", -1, SQLITE_UTF8, (void*)pHash, fts3ExprTest, xSFunc_signatures[xSFunc_fts3ExprTest_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   if( rc==SQLITE_OK ){
     rc = sqlite3_create_function(db, "fts3_exprtest_rebalance", 
-        -1, SQLITE_UTF8, (void*)pHash, fts3ExprTestRebalance, 0, 0
-    );
+        -1, SQLITE_UTF8, (void*)pHash, fts3ExprTestRebalance, xSFunc_signatures[xSFunc_fts3ExprTestRebalance_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   return rc;
 }

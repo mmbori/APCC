@@ -49,7 +49,7 @@ struct IcuCursor {
 /*
 ** Create a new tokenizer instance.
 */
-static int icuCreate(
+int icuCreate(
   int argc,                            /* Number of entries in argv[] */
   const char * const *argv,            /* Tokenizer creation arguments */
   sqlite3_tokenizer **ppTokenizer      /* OUT: Created tokenizer */
@@ -79,7 +79,7 @@ static int icuCreate(
 /*
 ** Destroy a tokenizer
 */
-static int icuDestroy(sqlite3_tokenizer *pTokenizer){
+int icuDestroy(sqlite3_tokenizer *pTokenizer){
   IcuTokenizer *p = (IcuTokenizer *)pTokenizer;
   sqlite3_free(p);
   return SQLITE_OK;
@@ -91,7 +91,7 @@ static int icuDestroy(sqlite3_tokenizer *pTokenizer){
 ** used to incrementally tokenize this string is returned in 
 ** *ppCursor.
 */
-static int icuOpen(
+int icuOpen(
   sqlite3_tokenizer *pTokenizer,         /* The tokenizer */
   const char *zInput,                    /* Input string */
   int nInput,                            /* Length of zInput in bytes */
@@ -163,7 +163,7 @@ static int icuOpen(
 /*
 ** Close a tokenization cursor previously opened by a call to icuOpen().
 */
-static int icuClose(sqlite3_tokenizer_cursor *pCursor){
+int icuClose(sqlite3_tokenizer_cursor *pCursor){
   IcuCursor *pCsr = (IcuCursor *)pCursor;
   ubrk_close(pCsr->pIter);
   sqlite3_free(pCsr->zBuffer);
@@ -174,7 +174,7 @@ static int icuClose(sqlite3_tokenizer_cursor *pCursor){
 /*
 ** Extract the next token from a tokenization cursor.
 */
-static int icuNext(
+int icuNext(
   sqlite3_tokenizer_cursor *pCursor,  /* Cursor returned by simpleOpen */
   const char **ppToken,               /* OUT: *ppToken is the token text */
   int *pnBytes,                       /* OUT: Number of bytes in token */
@@ -247,12 +247,12 @@ static const sqlite3_tokenizer_module icuTokenizerModule = {
   icuClose,                    /* xClose      */
   icuNext,                     /* xNext       */
   0,                           /* xLanguageid */
-
-  .xCreate_signature = xCreate_icuCreate,
-  .xDestroy_signature = xDestroy_icuDestroy,
-  .xOpen_signature = xOpen_icuOpen,
-  .xClose_signature = xClose_icuClose,
-  .xNext_signature = xNext_icuNext
+,
+  .xCreate_signature = xCreate_signatures[xCreate_icuCreate_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_icuDestroy_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_icuOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_icuClose_enum],
+  .xNext_signature = xNext_signatures[xNext_icuNext_enum]
 };
 
 /*

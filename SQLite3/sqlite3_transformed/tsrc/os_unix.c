@@ -422,11 +422,8 @@ static int unixGetpagesize(void);
 */
 static struct unix_syscall {
   const char *zName;            /* Name of the system call */
-  void (*pCurrent)(void); /* Current value of the system call */
-  void (*pDefault)(void); /* Default value */
-
-  int pCurrent_signature;
-  int pDefault_signature;
+  sqlite3_syscall_ptr pCurrent; /* Current value of the system call */
+  sqlite3_syscall_ptr pDefault; /* Default value */
 } aSyscall[] = {
   { "open",         (sqlite3_syscall_ptr)posixOpen,  0  },
 #define osOpen      ((int(*)(const char*,int,int))aSyscall[0].pCurrent)
@@ -618,7 +615,7 @@ static int robustFchown(int fd, uid_t uid, gid_t gid){
 ** system call pointer, or SQLITE_NOTFOUND if there is no configurable
 ** system call named zName.
 */
-static int unixSetSystemCall(
+int unixSetSystemCall(
   sqlite3_vfs *pNotUsed,        /* The VFS pointer.  Not used */
   const char *zName,            /* Name of system call to override */
   sqlite3_syscall_ptr pNewFunc  /* Pointer to new system call value */
@@ -661,7 +658,7 @@ static int unixSetSystemCall(
 ** recognized system call name.  NULL is also returned if the system call
 ** is currently undefined.
 */
-static sqlite3_syscall_ptr unixGetSystemCall(
+sqlite3_syscall_ptr unixGetSystemCall(
   sqlite3_vfs *pNotUsed,
   const char *zName
 ){
@@ -680,7 +677,7 @@ static sqlite3_syscall_ptr unixGetSystemCall(
 ** is the last system call or if zName is not the name of a valid
 ** system call.
 */
-static const char *unixNextSystemCall(sqlite3_vfs *p, const char *zName){
+const char *unixNextSystemCall(sqlite3_vfs *p, const char *zName){
   int i = -1;
 
   UNUSED_PARAMETER(p);
@@ -726,9 +723,9 @@ static int robust_open(const char *z, int f, mode_t m){
   mode_t m2 = m ? m : SQLITE_DEFAULT_FILE_PERMISSIONS;
   while(1){
 #if defined(O_CLOEXEC)
-    fd = osOpen(z,f|O_CLOEXEC,m2);
+    fd = posixOpen(z,f|O_CLOEXEC,m2);
 #else
-    fd = osOpen(z,f,m2);
+    fd = posixOpen(z,f,m2);
 #endif
     if( fd<0 ){
       if( errno==EINTR ) continue;
@@ -736,26 +733,26 @@ static int robust_open(const char *z, int f, mode_t m){
     }
     if( fd>=SQLITE_MINIMUM_FILE_DESCRIPTOR ) break;
     if( (f & (O_EXCL|O_CREAT))==(O_EXCL|O_CREAT) ){
-      (void)osUnlink(z);
+      (void)unlink(z);
     }
-    osClose(fd);
+    close(fd);
     sqlite3_log(SQLITE_WARNING,
                 "attempt to open \"%s\" as file descriptor %d", z, fd);
     fd = -1;
-    if( osOpen("/dev/null", O_RDONLY, m)<0 ) break;
+    if( posixOpen("/dev/null", O_RDONLY, m)<0 ) break;
   }
   if( fd>=0 ){
     if( m!=0 ){
       struct stat statbuf;
-      if( osFstat(fd, &statbuf)==0
+      if( fstat(fd, &statbuf)==0
        && statbuf.st_size==0
        && (statbuf.st_mode&0777)!=m
       ){
-        osFchmod(fd, m);
+        fchmod(fd, m);
       }
     }
 #if defined(FD_CLOEXEC) && (!defined(O_CLOEXEC) || O_CLOEXEC==0)
-    osFcntl(fd, F_SETFD, osFcntl(fd, F_GETFD, 0) | FD_CLOEXEC);
+    fcntl(fd, F_SETFD, fcntl(fd, F_GETFD, 0) | FD_CLOEXEC);
 #endif
   }
   return fd;
@@ -897,7 +894,7 @@ static int robust_ftruncate(int h, sqlite3_int64 sz){
     rc = SQLITE_OK;
   }else
 #endif
-  do{ rc = osFtruncate(h,sz); }while( rc<0 && errno==EINTR );
+  do{ rc = ftruncate(h,sz); }while( rc<0 && errno==EINTR );
   return rc;
 }
 
@@ -1341,7 +1338,7 @@ static int unixLogErrorAtLine(
 ** and move on.
 */
 static void robust_close(unixFile *pFile, int h, int lineno){
-  if( osClose(h) ){
+  if( close(h) ){
     unixLogErrorAtLine(SQLITE_IOERR_CLOSE, "close",
                        pFile ? pFile->zPath : 0, lineno);
   }
@@ -1430,7 +1427,7 @@ static int findInodeInfo(
   ** create a unique name for the file.
   */
   fd = pFile->h;
-  rc = osFstat(fd, &statbuf);
+  rc = fstat(fd, &statbuf);
   if( rc!=0 ){
     storeLastErrno(pFile, errno);
 #if defined(EOVERFLOW) && defined(SQLITE_DISABLE_LFS)
@@ -1516,7 +1513,7 @@ static int fileHasMoved(unixFile *pFile){
 #else
   struct stat buf;
   return pFile->pInode!=0 &&
-      (osStat(pFile->zPath, &buf)!=0
+      (stat(pFile->zPath, &buf)!=0
          || (u64)buf.st_ino!=pFile->pInode->fileId.ino);
 #endif
 }
@@ -1538,7 +1535,7 @@ static void verifyDbFile(unixFile *pFile){
   /* These verifications occurs for the main database only */
   if( pFile->ctrlFlags & UNIXFILE_NOLOCK ) return;
 
-  rc = osFstat(pFile->h, &buf);
+  rc = fstat(pFile->h, &buf);
   if( rc!=0 ){
     sqlite3_log(SQLITE_WARNING, "cannot fstat db file %s", pFile->zPath);
     return;
@@ -1589,7 +1586,7 @@ int unixCheckReservedLock(sqlite3_file *id, int *pResOut){
     lock.l_start = RESERVED_BYTE;
     lock.l_len = 1;
     lock.l_type = F_WRLCK;
-    if( osFcntl(pFile->h, F_GETLK, &lock) ){
+    if( fcntl(pFile->h, F_GETLK, &lock) ){
       rc = SQLITE_IOERR_CHECKRESERVEDLOCK;
       storeLastErrno(pFile, errno);
     } else if( lock.l_type!=F_UNLCK ){
@@ -1606,7 +1603,7 @@ int unixCheckReservedLock(sqlite3_file *id, int *pResOut){
 }
 
 /* Forward declaration*/
-static int unixSleep(sqlite3_vfs*,int);
+int unixSleep(sqlite3_vfs*,int);
 
 /*
 ** Set a posix-advisory-lock.
@@ -1634,7 +1631,7 @@ static int osSetPosixAdvisoryLock(
   if( pFile->iBusyTimeout==0 ){
     /* unixFile->iBusyTimeout is set to 0. In this case, attempt a 
     ** non-blocking lock. */
-    rc = osFcntl(h,F_SETLK,pLock);
+    rc = fcntl(h,F_SETLK,pLock);
   }else{
     /* unixFile->iBusyTimeout is set to greater than zero. In this case,
     ** attempt a blocking-lock with a unixFile->iBusyTimeout ms timeout.
@@ -1653,13 +1650,13 @@ static int osSetPosixAdvisoryLock(
 #ifdef SQLITE_TEST
     int tm = pFile->iBusyTimeout;
     while( tm>0 ){
-      rc = osFcntl(h,F_SETLK,pLock);
+      rc = fcntl(h,F_SETLK,pLock);
       if( rc==0 ) break;
       unixSleep(0,1000);
       tm--;
     }
 #else
-    rc = osFcntl(h,F_SETLK,pLock);
+    rc = fcntl(h,F_SETLK,pLock);
     pFile->iBusyTimeout = 0;
 #endif
     /* End of code to replace with real blocking-locks code. */
@@ -1714,7 +1711,7 @@ static int unixFileLock(unixFile *pFile, struct flock *pLock){
     if( pFile->bBlockOnConnect && pLock->l_type==F_RDLCK 
      && pLock->l_start==SHARED_FIRST && pLock->l_len==SHARED_SIZE
     ){
-      rc = osFcntl(pFile->h, F_SETLKW, pLock);
+      rc = fcntl(pFile->h, F_SETLKW, pLock);
     }else
 #endif
     rc = osSetPosixAdvisoryLock(pFile->h, pLock, pFile);
@@ -2164,7 +2161,7 @@ int unixUnlock(sqlite3_file *id, int eFileLock){
 }
 
 #if SQLITE_MAX_MMAP_SIZE>0
-static int unixMapfile(unixFile *pFd, i64 nByte);
+int unixMapfile(unixFile *pFd, i64 nByte);
 static void unixUnmapfile(unixFile *pFd);
 #endif
 
@@ -2331,7 +2328,7 @@ int dotlockCheckReservedLock(sqlite3_file *id, int *pResOut) {
   if( pFile->eFileLock>=SHARED_LOCK ){
     *pResOut = 0;
   }else{
-    *pResOut = osAccess((const char*)pFile->lockingContext, 0)==0;
+    *pResOut = access((const char*)pFile->lockingContext, 0)==0;
   }
   OSTRACE(("TEST WR-LOCK %d %d %d (dotlock)\n", pFile->h, 0, *pResOut));
   return SQLITE_OK;
@@ -2385,7 +2382,7 @@ int dotlockLock(sqlite3_file *id, int eFileLock) {
   }
 
   /* grab an exclusive lock */
-  rc = osMkdir(zLockFile, 0777);
+  rc = mkdir(zLockFile, 0777);
   if( rc<0 ){
     /* failed to open/create the lock directory */
     int tErrno = errno;
@@ -2420,8 +2417,8 @@ int dotlockUnlock(sqlite3_file *id, int eFileLock) {
   int rc;
 
   assert( pFile );
-  OSTRACE(("UNLOCK  %d %d was %d pid=%d (dotlock)\n", pFile->h, eFileLock,
-           pFile->eFileLock, osGetpid(0)));
+  // OSTRACE(("UNLOCK  %d %d was %d pid=%d (dotlock)\n", pFile->h, eFileLock,
+  //          pFile->eFileLock, getpid(0)));
   assert( eFileLock<=SHARED_LOCK );
 
   /* no-op if possible */
@@ -2439,7 +2436,7 @@ int dotlockUnlock(sqlite3_file *id, int eFileLock) {
 
   /* To fully unlock the database, delete the lock file */
   assert( eFileLock==NO_LOCK );
-  rc = osRmdir(zLockFile);
+  rc = rmdir(zLockFile);
   if( rc<0 ){
     int tErrno = errno;
     if( tErrno==ENOENT ){
@@ -3384,7 +3381,12 @@ static int seekAndRead(unixFile *id, sqlite3_int64 offset, void *pBuf, int cnt){
 ** bytes were read successfully and SQLITE_IOERR if anything goes
 ** wrong.
 */
-int unixRead(sqlite3_file *id, void *pBuf, int amt, sqlite3_int64 offset){
+int unixRead(
+  sqlite3_file *id,
+  void *pBuf,
+  int amt,
+  sqlite3_int64 offset
+){
   unixFile *pFile = (unixFile *)id;
   int got;
   assert( id );
@@ -3510,8 +3512,12 @@ static int seekAndWrite(unixFile *id, i64 offset, const void *pBuf, int cnt){
 ** Write data from a buffer into a file.  Return SQLITE_OK on success
 ** or some other error code on failure.
 */
-int unixWrite(sqlite3_file *id, const void *pBuf, int amt,
-              sqlite3_int64 offset){
+int unixWrite(
+  sqlite3_file *id,
+  const void *pBuf,
+  int amt,
+  sqlite3_int64 offset
+){
   unixFile *pFile = (unixFile*)id;
   int wrote = 0;
   assert( id );
@@ -3792,7 +3798,7 @@ int unixSync(sqlite3_file *id, int flags){
   SimulateDiskfullError( return SQLITE_FULL );
 
   assert( pFile );
-  OSTRACE(("SYNC    %-3d\n", pFile->h));
+  // OSTRACE(("SYNC    %-3d\n", pFile->h));
   rc = full_fsync(pFile->h, isFullsync, isDataOnly);
   SimulateIOError( rc=1 );
   if( rc ){
@@ -3806,9 +3812,9 @@ int unixSync(sqlite3_file *id, int flags){
   */
   if( pFile->ctrlFlags & UNIXFILE_DIRSYNC ){
     int dirfd;
-    OSTRACE(("DIRSYNC %s (have_fullfsync=%d fullsync=%d)\n", pFile->zPath,
-            HAVE_FULLFSYNC, isFullsync));
-    rc = osOpenDirectory(pFile->zPath, &dirfd);
+    // OSTRACE(("DIRSYNC %s (have_fullfsync=%d fullsync=%d)\n", pFile->zPath,
+    //         HAVE_FULLFSYNC, isFullsync));
+    rc = openDirectory(pFile->zPath, &dirfd);
     if( rc==SQLITE_OK ){
       full_fsync(dirfd, 0, 0);
       robust_close(pFile, dirfd, __LINE__);
@@ -3878,7 +3884,7 @@ int unixFileSize(sqlite3_file *id, i64 *pSize){
   int rc;
   struct stat buf;
   assert( id );
-  rc = osFstat(((unixFile*)id)->h, &buf);
+  rc = fstat(((unixFile*)id)->h, &buf);
   SimulateIOError( rc=1 );
   if( rc!=0 ){
     storeLastErrno((unixFile*)id, errno);
@@ -3917,7 +3923,7 @@ static int fcntlSizeHint(unixFile *pFile, i64 nByte){
     i64 nSize;                    /* Required file size */
     struct stat buf;              /* Used to hold return values of fstat() */
  
-    if( osFstat(pFile->h, &buf) ){
+    if( fstat(pFile->h, &buf) ){
       return SQLITE_IOERR_FSTAT;
     }
 
@@ -3930,7 +3936,7 @@ static int fcntlSizeHint(unixFile *pFile, i64 nByte){
       ** or an error number on  failure". See the manpage for details. */
       int err;
       do{
-        err = osFallocate(pFile->h, buf.st_size, nSize-buf.st_size);
+        err = posix_fallocate(pFile->h, buf.st_size, nSize-buf.st_size);
       }while( err==EINTR );
       if( err && err!=EINVAL ) return SQLITE_IOERR_WRITE;
 #else
@@ -4005,21 +4011,21 @@ int unixFileControl(sqlite3_file *id, int op, void *pArg){
   switch( op ){
 #if defined(__linux__) && defined(SQLITE_ENABLE_BATCH_ATOMIC_WRITE)
     case SQLITE_FCNTL_BEGIN_ATOMIC_WRITE: {
-      int rc = osIoctl(pFile->h, F2FS_IOC_START_ATOMIC_WRITE);
+      int rc = ioctl(pFile->h, F2FS_IOC_START_ATOMIC_WRITE);
       return rc ? SQLITE_IOERR_BEGIN_ATOMIC : SQLITE_OK;
     }
     case SQLITE_FCNTL_COMMIT_ATOMIC_WRITE: {
-      int rc = osIoctl(pFile->h, F2FS_IOC_COMMIT_ATOMIC_WRITE);
+      int rc = ioctl(pFile->h, F2FS_IOC_COMMIT_ATOMIC_WRITE);
       return rc ? SQLITE_IOERR_COMMIT_ATOMIC : SQLITE_OK;
     }
     case SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE: {
-      int rc = osIoctl(pFile->h, F2FS_IOC_ABORT_VOLATILE_WRITE);
+      int rc = ioctl(pFile->h, F2FS_IOC_ABORT_VOLATILE_WRITE);
       return rc ? SQLITE_IOERR_ROLLBACK_ATOMIC : SQLITE_OK;
     }
 #endif /* __linux__ && SQLITE_ENABLE_BATCH_ATOMIC_WRITE */
 
     case SQLITE_FCNTL_NULL_IO: {
-      osClose(pFile->h);
+      close(pFile->h);
       pFile->h = -1;
       return SQLITE_OK;
     }
@@ -4426,7 +4432,7 @@ static int unixFcntlExternalReader(unixFile *pFile, int *piOut){
     f.l_len = SQLITE_SHM_NLOCK - 3;
 
     sqlite3_mutex_enter(pShmNode->pShmMutex);
-    if( osFcntl(pShmNode->hShm, F_GETLK, &f)<0 ){
+    if( fcntl(pShmNode->hShm, F_GETLK, &f)<0 ){
       rc = SQLITE_IOERR_LOCK;
     }else{
       *piOut = (f.l_type!=F_UNLCK);
@@ -4491,7 +4497,7 @@ static int unixShmSystemLock(
     f.l_whence = SEEK_SET;
     f.l_start = ofst;
     f.l_len = n;
-    res = osSetPosixAdvisoryLock(pShmNode->hShm, &f, pFile);
+    res = fcntl(pShmNode->hShm, &f, pFile);
     if( res==-1 ){
 #if defined(SQLITE_ENABLE_SETLK_TIMEOUT) && SQLITE_ENABLE_SETLK_TIMEOUT==1
       rc = (pFile->iBusyTimeout ? SQLITE_BUSY_TIMEOUT : SQLITE_BUSY);
@@ -4566,7 +4572,7 @@ static void unixShmPurge(unixFile *pFd){
 #endif
     for(i=0; i<p->nRegion; i+=nShmPerMap){
       if( p->hShm>=0 ){
-        osMunmap(p->apRegion[i], p->szRegion);
+        munmap(p->apRegion[i], p->szRegion);
       }else{
         sqlite3_free(p->apRegion[i]);
       }
@@ -4616,7 +4622,7 @@ static int unixLockSharedMemory(unixFile *pDbFd, unixShmNode *pShmNode){
   lock.l_start = UNIX_SHM_DMS;
   lock.l_len = 1;
   lock.l_type = F_WRLCK;
-  if( osFcntl(pShmNode->hShm, F_GETLK, &lock)!=0 ) {
+  if( fcntl(pShmNode->hShm, F_GETLK, &lock)!=0 ) {
     rc = SQLITE_IOERR_LOCK;
   }else if( lock.l_type==F_UNLCK ){
     if( pShmNode->isReadonly ){
@@ -4723,7 +4729,7 @@ static int unixOpenSharedMemory(unixFile *pDbFd){
     ** a new *-shm file is created, an attempt will be made to create it
     ** with the same permissions.
     */
-    if( osFstat(pDbFd->h, &sStat) ){
+    if( fstat(pDbFd->h, &sStat) ){
       rc = SQLITE_IOERR_FSTAT;
       goto shm_open_err;
     }
@@ -4846,8 +4852,13 @@ shm_open_err:
 ** address space (if it is not already), *pp is set to point to the mapped
 ** memory and SQLITE_OK returned.
 */
-int unixShmMap(sqlite3_file *fd, int iRegion, int szRegion, int bExtend,
-               void volatile **pp){
+int unixShmMap(
+  sqlite3_file *fd,               /* Handle open on database file */
+  int iRegion,                    /* Region to retrieve */
+  int szRegion,                   /* Size of regions */
+  int bExtend,                    /* True to extend file if necessary */
+  void volatile **pp              /* OUT: Mapped memory */
+){
   unixFile *pDbFd = (unixFile*)fd;
   unixShm *p;
   unixShmNode *pShmNode;
@@ -4889,7 +4900,7 @@ int unixShmMap(sqlite3_file *fd, int iRegion, int szRegion, int bExtend,
       ** Check to see if it has been allocated (i.e. if the wal-index file is
       ** large enough to contain the requested region).
       */
-      if( osFstat(pShmNode->hShm, &sStat) ){
+      if( fstat(pShmNode->hShm, &sStat) ){
         rc = SQLITE_IOERR_SHMSIZE;
         goto shmpage_out;
       }
@@ -5019,7 +5030,12 @@ static int assertLockingArrayOk(unixShmNode *pShmNode){
 ** to shared and back or from unlocked to exclusive and back.  But one may
 ** not go from shared to exclusive or from exclusive to shared.
 */
-int unixShmLock(sqlite3_file *fd, int ofst, int n, int flags){
+int unixShmLock(
+  sqlite3_file *fd,          /* Database file holding the shared memory */
+  int ofst,                  /* First lock to acquire or release */
+  int n,                     /* Number of locks to acquire or release */
+  int flags                  /* What to do with the lock */
+){
   unixFile *pDbFd = (unixFile*)fd;      /* Connection holding shared memory */
   unixShm *p;                           /* The shared memory being locked */
   unixShmNode *pShmNode;                /* The underlying file iNode */
@@ -5214,7 +5230,9 @@ int unixShmLock(sqlite3_file *fd, int ofst, int n, int flags){
 ** All loads and stores begun before the barrier must complete before
 ** any load or store begun after the barrier.
 */
-void unixShmBarrier(sqlite3_file *fd){
+void unixShmBarrier(
+  sqlite3_file *fd                /* Database file holding the shared memory */
+){
   UNUSED_PARAMETER(fd);
   sqlite3MemoryBarrier();         /* compiler-defined memory barrier */
   assert( fd->pMethods->xLock==nolockLock
@@ -5231,7 +5249,10 @@ void unixShmBarrier(sqlite3_file *fd){
 ** If there is no shared memory associated with the connection then this
 ** routine is a harmless no-op.
 */
-int unixShmUnmap(sqlite3_file *fd, int deleteFlag){
+int unixShmUnmap(
+  sqlite3_file *fd,               /* The underlying database file */
+  int deleteFlag                  /* Delete shared-memory if true */
+){
   unixShm *p;                     /* The connection to be closed */
   unixShmNode *pShmNode;          /* The underlying shared-memory file */
   unixShm **pp;                   /* For looping over sibling connections */
@@ -5264,7 +5285,7 @@ int unixShmUnmap(sqlite3_file *fd, int deleteFlag){
   pShmNode->nRef--;
   if( pShmNode->nRef==0 ){
     if( deleteFlag && pShmNode->hShm>=0 ){
-      osUnlink(pShmNode->zFilename);
+      unlink(pShmNode->zFilename);
     }
     unixShmPurge(pDbFd);
   }
@@ -5288,7 +5309,7 @@ int unixShmUnmap(sqlite3_file *fd, int deleteFlag){
 static void unixUnmapfile(unixFile *pFd){
   assert( pFd->nFetchOut==0 );
   if( pFd->pMapRegion ){
-    osMunmap(pFd->pMapRegion, pFd->mmapSizeActual);
+    munmap(pFd->pMapRegion, pFd->mmapSizeActual);
     pFd->pMapRegion = 0;
     pFd->mmapSize = 0;
     pFd->mmapSizeActual = 0;
@@ -5336,24 +5357,24 @@ static void unixRemapfile(
 #if HAVE_MREMAP
     i64 nReuse = pFd->mmapSize;
 #else
-    const int szSyspage = osGetpagesize();
+    const int szSyspage = unixGetpagesize();
     i64 nReuse = (pFd->mmapSize & ~(szSyspage-1));
 #endif
     u8 *pReq = &pOrig[nReuse];
 
     /* Unmap any pages of the existing mapping that cannot be reused. */
     if( nReuse!=nOrig ){
-      osMunmap(pReq, nOrig-nReuse);
+      munmap(pReq, nOrig-nReuse);
     }
 
 #if HAVE_MREMAP
-    pNew = osMremap(pOrig, nReuse, nNew, MREMAP_MAYMOVE);
+    pNew = mremap(pOrig, nReuse, nNew, MREMAP_MAYMOVE);
     zErr = "mremap";
 #else
-    pNew = osMmap(pReq, nNew-nReuse, flags, MAP_SHARED, h, nReuse);
+    pNew = mmap(pReq, nNew-nReuse, flags, MAP_SHARED, h, nReuse);
     if( pNew!=MAP_FAILED ){
       if( pNew!=pReq ){
-        osMunmap(pNew, nNew - nReuse);
+        munmap(pNew, nNew - nReuse);
         pNew = 0;
       }else{
         pNew = pOrig;
@@ -5363,7 +5384,7 @@ static void unixRemapfile(
 
     /* The attempt to extend the existing mapping failed. Free it. */
     if( pNew==MAP_FAILED || pNew==0 ){
-      osMunmap(pOrig, nReuse);
+      munmap(pOrig, nReuse);
     }
   }
 
@@ -5402,14 +5423,14 @@ static void unixRemapfile(
 ** recreated as a result of outstanding references) or an SQLite error
 ** code otherwise.
 */
-static int unixMapfile(unixFile *pFd, i64 nMap){
+int unixMapfile(unixFile *pFd, i64 nMap){
   assert( nMap>=0 || pFd->nFetchOut==0 );
   assert( nMap>0 || (pFd->mmapSize==0 && pFd->pMapRegion==0) );
   if( pFd->nFetchOut>0 ) return SQLITE_OK;
 
   if( nMap<0 ){
     struct stat statbuf;          /* Low-level file information */
-    if( osFstat(pFd->h, &statbuf) ){
+    if( fstat(pFd->h, &statbuf) ){
       return SQLITE_IOERR_FSTAT;
     }
     nMap = statbuf.st_size;
@@ -5557,13 +5578,31 @@ static const sqlite3_io_methods METHOD = {                                   \
    CKLOCK,                     /* xCheckReservedLock */                      \
    unixFileControl,            /* xFileControl */                            \
    unixSectorSize,             /* xSectorSize */                             \
-   unixDeviceCharacteristics,  /* xDeviceCapabilities */                     \
+   unixDeviceCharacteristics,  /* xDeviceCharacteristics */                     \
    SHMMAP,                     /* xShmMap */                                 \
    unixShmLock,                /* xShmLock */                                \
    unixShmBarrier,             /* xShmBarrier */                             \
    unixShmUnmap,               /* xShmUnmap */                               \
    unixFetch,                  /* xFetch */                                  \
    unixUnfetch,                /* xUnfetch */                                \
+   xClose_signatures[xClose_##CLOSE##_enum],\
+   xRead_signatures[xRead_unixRead_enum],\
+   xWrite_signatures[xWrite_unixWrite_enum],\
+   xTruncate_signatures[xTruncate_unixTruncate_enum],\
+   xSync_signatures[xSync_unixSync_enum],\
+   xFileSize_signatures[xFileSize_unixFileSize_enum],\
+   xLock_signatures[xLock_##LOCK##_enum],\
+   xUnlock_signatures[xUnlock_##UNLOCK##_enum],\
+   xCheckReservedLock_signatures[xCheckReservedLock_##CKLOCK##_enum],\
+   xFileControl_signatures[xFileControl_unixFileControl_enum],\
+   xSectorSize_signatures[xSectorSize_unixSectorSize_enum],\
+   xDeviceCharacteristics_signatures[xDeviceCharacteristics_unixDeviceCharacteristics_enum],\
+   xShmMap_signatures[xShmMap_##SHMMAP##_enum], \
+   xShmLock_signatures[xShmLock_unixShmLock_enum], \
+   xShmBarrier_signatures[xShmBarrier_unixShmBarrier_enum],\
+   xShmUnmap_signatures[xShmUnmap_unixShmUnmap_enum],\
+   xFetch_signatures[xFetch_unixFetch_enum],\
+   xUnfetch_signatures[xUnfetch_unixUnfetch_enum]\
 };                                                                           \
 static const sqlite3_io_methods *FINDER##Impl(const char *z, unixFile *p){   \
   UNUSED_PARAMETER(z); UNUSED_PARAMETER(p);                                  \
@@ -5821,7 +5860,7 @@ static int fillInUnixFile(
   /* No locking occurs in temporary files */
   assert( zFilename!=0 || (ctrlFlags & UNIXFILE_NOLOCK)!=0 );
 
-  OSTRACE(("OPEN    %-3d %s\n", h, zFilename));
+  // OSTRACE(("OPEN    %-3d %s\n", h, zFilename));
   pNew->h = h;
   pNew->pVfs = pVfs;
   pNew->zPath = zFilename;
@@ -6018,9 +6057,9 @@ static const char *unixTempFileDir(void){
 #if OS_VXWORKS
      && zDir[0]=='/'
 #endif
-     && osStat(zDir, &buf)==0
+     && stat(zDir, &buf)==0
      && S_ISDIR(buf.st_mode)
-     && osAccess(zDir, 03)==0
+     && access(zDir, 03)==0
     ){
       return zDir;
     }
@@ -6063,7 +6102,7 @@ static int unixGetTempname(int nBuf, char *zBuf){
         rc = SQLITE_ERROR;
         break;
       }
-    }while( osAccess(zBuf,0)==0 );
+    }while( access(zBuf,0)==0 );
   }
   sqlite3_mutex_leave(sqlite3MutexAlloc(SQLITE_MUTEX_STATIC_TEMPDIR));
   return rc;
@@ -6115,7 +6154,7 @@ static UnixUnusedFd *findReusableFd(const char *zPath, int flags){
   **
   ** Even if a subsequent open() call does succeed, the consequences of
   ** not searching for a reusable file descriptor are not dire.  */
-  if( inodeList!=0 && 0==osStat(zPath, &sStat) ){
+  if( inodeList!=0 && 0==stat(zPath, &sStat) ){
     unixInodeInfo *pInode;
 
     pInode = inodeList;
@@ -6152,7 +6191,7 @@ static int getFileMode(
 ){
   struct stat sStat;              /* Output of stat() on database file */
   int rc = SQLITE_OK;
-  if( 0==osStat(zFile, &sStat) ){
+  if( 0==stat(zFile, &sStat) ){
     *pMode = sStat.st_mode & 0777;
     *pUid = sStat.st_uid;
     *pGid = sStat.st_gid;
@@ -6263,7 +6302,7 @@ static int findCreateFileMode(
 ** interface, add the DELETEONCLOSE flag to those specified above for
 ** OpenExclusive().
 */
-static int unixOpen(
+int unixOpen(
   sqlite3_vfs *pVfs,           /* The VFS for which this is the xOpen method */
   const char *zPath,           /* Pathname of file to be opened */
   sqlite3_file *pFile,         /* The file descriptor to be filled in */
@@ -6343,8 +6382,8 @@ static int unixOpen(
   ** the same instant might all reset the PRNG.  But multiple resets
   ** are harmless.
   */
-  if( randomnessPid!=osGetpid(0) ){
-    randomnessPid = osGetpid(0);
+  if( randomnessPid!=getpid() ){
+    randomnessPid = getpid();
     sqlite3_randomness(0,0);
   }
   memset(p, 0, sizeof(unixFile));
@@ -6410,7 +6449,7 @@ static int unixOpen(
     OSTRACE(("OPENX   %-3d %s 0%o\n", fd, zName, openFlags));
     assert( !isExclusive || (openFlags & O_CREAT)!=0 );
     if( fd<0 ){
-      if( isNewJrnl && errno==EACCES && osAccess(zName, F_OK) ){
+      if( isNewJrnl && errno==EACCES && access(zName, F_OK) ){
         /* If unable to create a journal because the directory is not
         ** writable, change the error code to indicate that. */
         rc = SQLITE_READONLY_DIRECTORY;
@@ -6474,7 +6513,7 @@ static int unixOpen(
       return SQLITE_NOMEM_BKPT;
     }
 #else
-    osUnlink(zName);
+    unlink(zName);
 #endif
   }
 #if SQLITE_ENABLE_LOCKING_STYLE
@@ -6558,7 +6597,7 @@ open_finished:
 ** Delete the file at zPath. If the dirSync argument is true, fsync()
 ** the directory after deleting the file.
 */
-static int unixDelete(
+int unixDelete(
   sqlite3_vfs *NotUsed,     /* VFS containing this as the xDelete method */
   const char *zPath,        /* Name of file to be deleted */
   int dirSync               /* If true, fsync() directory after deleting file */
@@ -6566,10 +6605,10 @@ static int unixDelete(
   int rc = SQLITE_OK;
   UNUSED_PARAMETER(NotUsed);
   SimulateIOError(return SQLITE_IOERR_DELETE);
-  if( osUnlink(zPath)==(-1) ){
+  if( unlink(zPath)==(-1) ){
     if( errno==ENOENT
 #if OS_VXWORKS
-        || osAccess(zPath,0)!=0
+        || access(zPath,0)!=0
 #endif
     ){
       rc = SQLITE_IOERR_DELETE_NOENT;
@@ -6581,7 +6620,7 @@ static int unixDelete(
 #ifndef SQLITE_DISABLE_DIRSYNC
   if( (dirSync & 1)!=0 ){
     int fd;
-    rc = osOpenDirectory(zPath, &fd);
+    rc = openDirectory(zPath, &fd);
     if( rc==SQLITE_OK ){
       if( full_fsync(fd,0,0) ){
         rc = unixLogError(SQLITE_IOERR_DIR_FSYNC, "fsync", zPath);
@@ -6606,7 +6645,7 @@ static int unixDelete(
 **
 ** Otherwise return 0.
 */
-static int unixAccess(
+int unixAccess(
   sqlite3_vfs *NotUsed,   /* The VFS containing this xAccess method */
   const char *zPath,      /* Path of the file to examine */
   int flags,              /* What do we want to learn about the zPath file? */
@@ -6622,10 +6661,10 @@ static int unixAccess(
 
   if( flags==SQLITE_ACCESS_EXISTS ){
     struct stat buf;
-    *pResOut = 0==osStat(zPath, &buf) &&
+    *pResOut = 0==stat(zPath, &buf) &&
                 (!S_ISREG(buf.st_mode) || buf.st_size>0);
   }else{
-    *pResOut = osAccess(zPath, W_OK|R_OK)==0;
+    *pResOut = access(zPath, W_OK|R_OK)==0;
   }
   return SQLITE_OK;
 }
@@ -6678,7 +6717,7 @@ static void appendOnePathElement(
     struct stat buf;
     pPath->zOut[pPath->nUsed] = 0;
     zIn = pPath->zOut;
-    if( osLstat(zIn, &buf)!=0 ){
+    if( lstat(zIn, &buf)!=0 ){
       if( errno!=ENOENT ){
         pPath->rc = unixLogError(SQLITE_CANTOPEN_BKPT, "lstat", zIn);
       }
@@ -6689,7 +6728,7 @@ static void appendOnePathElement(
         pPath->rc = SQLITE_CANTOPEN_BKPT;
         return;
       }
-      got = osReadlink(zIn, zLnk, sizeof(zLnk)-2);
+      got = readlink(zIn, zLnk, sizeof(zLnk)-2);
       if( got<=0 || got>=(ssize_t)sizeof(zLnk)-2 ){
         pPath->rc = unixLogError(SQLITE_CANTOPEN_BKPT, "readlink", zIn);
         return;
@@ -6733,7 +6772,7 @@ static void appendAllPathElements(
 ** (in this case, MAX_PATHNAME bytes). The full-path is written to
 ** this buffer before returning.
 */
-static int unixFullPathname(
+int unixFullPathname(
   sqlite3_vfs *pVfs,            /* Pointer to vfs object */
   const char *zPath,            /* Possibly relative input path */
   int nOut,                     /* Size of output buffer in bytes */
@@ -6748,7 +6787,7 @@ static int unixFullPathname(
   path.zOut = zOut;
   if( zPath[0]!='/' ){
     char zPwd[SQLITE_MAX_PATHLEN+2];
-    if( osGetcwd(zPwd, sizeof(zPwd)-2)==0 ){
+    if( getcwd(zPwd, sizeof(zPwd)-2)==0 ){
       return unixLogError(SQLITE_CANTOPEN_BKPT, "getcwd", zPath);
     }
     appendAllPathElements(&path, zPwd);
@@ -6766,7 +6805,7 @@ static int unixFullPathname(
 ** within the shared library, and closing the shared library.
 */
 #include <dlfcn.h>
-static void *unixDlOpen(sqlite3_vfs *NotUsed, const char *zFilename){
+void *unixDlOpen(sqlite3_vfs *NotUsed, const char *zFilename){
   UNUSED_PARAMETER(NotUsed);
   return dlopen(zFilename, RTLD_NOW | RTLD_GLOBAL);
 }
@@ -6778,7 +6817,7 @@ static void *unixDlOpen(sqlite3_vfs *NotUsed, const char *zFilename){
 ** is available, zBufOut is left unmodified and SQLite uses a default
 ** error message.
 */
-static void unixDlError(sqlite3_vfs *NotUsed, int nBuf, char *zBufOut){
+void unixDlError(sqlite3_vfs *NotUsed, int nBuf, char *zBufOut){
   const char *zErr;
   UNUSED_PARAMETER(NotUsed);
   unixEnterMutex();
@@ -6788,7 +6827,7 @@ static void unixDlError(sqlite3_vfs *NotUsed, int nBuf, char *zBufOut){
   }
   unixLeaveMutex();
 }
-static void (*unixDlSym(sqlite3_vfs *NotUsed, void *p, const char*zSym))(void){
+void (*unixDlSym(sqlite3_vfs *NotUsed, void *p, const char*zSym))(void){
   /*
   ** GCC with -pedantic-errors says that C90 does not allow a void* to be
   ** cast into a pointer to a function.  And yet the library dlsym() routine
@@ -6811,7 +6850,7 @@ static void (*unixDlSym(sqlite3_vfs *NotUsed, void *p, const char*zSym))(void){
   x = (void(*(*)(void*,const char*))(void))dlsym;
   return (*x)(p, zSym);
 }
-static void unixDlClose(sqlite3_vfs *NotUsed, void *pHandle){
+void unixDlClose(sqlite3_vfs *NotUsed, void *pHandle){
   UNUSED_PARAMETER(NotUsed);
   dlclose(pHandle);
 }
@@ -6825,7 +6864,7 @@ static void unixDlClose(sqlite3_vfs *NotUsed, void *pHandle){
 /*
 ** Write nBuf bytes of random data to the supplied buffer zBuf.
 */
-static int unixRandomness(sqlite3_vfs *NotUsed, int nBuf, char *zBuf){
+int unixRandomness(sqlite3_vfs *NotUsed, int nBuf, char *zBuf){
   UNUSED_PARAMETER(NotUsed);
   assert((size_t)nBuf>=(sizeof(time_t)+sizeof(int)));
 
@@ -6872,7 +6911,7 @@ static int unixRandomness(sqlite3_vfs *NotUsed, int nBuf, char *zBuf){
 ** might be greater than or equal to the argument, but not less
 ** than the argument.
 */
-static int unixSleep(sqlite3_vfs *NotUsed, int microseconds){
+int unixSleep(sqlite3_vfs *NotUsed, int microseconds){
 #if !defined(HAVE_NANOSLEEP) || HAVE_NANOSLEEP+0
   struct timespec sp;
   sp.tv_sec = microseconds / 1000000;
@@ -6918,7 +6957,7 @@ int sqlite3_current_time = 0;  /* Fake system time in seconds since 1970. */
 ** On success, return SQLITE_OK.  Return SQLITE_ERROR if the time and date
 ** cannot be found.
 */
-static int unixCurrentTimeInt64(sqlite3_vfs *NotUsed, sqlite3_int64 *piNow){
+int unixCurrentTimeInt64(sqlite3_vfs *NotUsed, sqlite3_int64 *piNow){
   static const sqlite3_int64 unixEpoch = 24405875*(sqlite3_int64)8640000;
   int rc = SQLITE_OK;
 #if defined(NO_GETTOD)
@@ -6950,7 +6989,7 @@ static int unixCurrentTimeInt64(sqlite3_vfs *NotUsed, sqlite3_int64 *piNow){
 ** current time and date as a Julian Day number into *prNow and
 ** return 0.  Return 1 if the time and date cannot be found.
 */
-static int unixCurrentTime(sqlite3_vfs *NotUsed, double *prNow){
+int unixCurrentTime(sqlite3_vfs *NotUsed, double *prNow){
   sqlite3_int64 i = 0;
   int rc;
   UNUSED_PARAMETER(NotUsed);
@@ -6968,7 +7007,7 @@ static int unixCurrentTime(sqlite3_vfs *NotUsed, double *prNow){
 ** during SQLite operation.  Only the integer return code is currently
 ** used.
 */
-static int unixGetLastError(sqlite3_vfs *NotUsed, int NotUsed2, char *NotUsed3){
+int unixGetLastError(sqlite3_vfs *NotUsed, int NotUsed2, char *NotUsed3){
   UNUSED_PARAMETER(NotUsed);
   UNUSED_PARAMETER(NotUsed2);
   UNUSED_PARAMETER(NotUsed3);
@@ -7444,7 +7483,37 @@ static int proxyConchLock(unixFile *pFile, uuid_t myHostID, int lockType){
 
   memset(&conchModTime, 0, sizeof(conchModTime));
   do {
-    rc = conchFile->pMethod->xLock((sqlite3_file*)conchFile, lockType);
+    if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = apndLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = memdbLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = recoverVfsLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = vfstraceLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = unixLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = nolockLock((sqlite3_file *)conchFile, lockType);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+        rc = dotlockLock((sqlite3_file *)conchFile, lockType);
+      }
     nTries ++;
     if( rc==SQLITE_BUSY ){
       /* If the lock failed (busy):
@@ -7495,10 +7564,70 @@ static int proxyConchLock(unixFile *pFile, uuid_t myHostID, int lockType){
       if( 0==proxyBreakConchLock(pFile, myHostID) ){
         rc = SQLITE_OK;
         if( lockType==EXCLUSIVE_LOCK ){
-          rc = conchFile->pMethod->xLock((sqlite3_file*)conchFile, SHARED_LOCK);
+          if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+            rc = 0;
+          }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = apndLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = memdbLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = recoverVfsLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = vfstraceLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = unixLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = nolockLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = dotlockLock((sqlite3_file *)conchFile, SHARED_LOCK);
+            }
         }
         if( !rc ){
-          rc = conchFile->pMethod->xLock((sqlite3_file*)conchFile, lockType);
+          if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+            rc = 0;
+          }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = apndLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = memdbLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = recoverVfsLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = vfstraceLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = unixLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = nolockLock((sqlite3_file *)conchFile, lockType);
+            }
+          else
+            if (memcmp(conchFile->pMethod->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(conchFile->pMethod->xLock_signature)) == 0) {
+              rc = dotlockLock((sqlite3_file *)conchFile, lockType);
+            }
         }
       }
     }
@@ -7671,7 +7800,37 @@ static int proxyTakeConch(unixFile *pFile){
           }
         }
       }
-      conchFile->pMethod->xUnlock((sqlite3_file*)conchFile, SHARED_LOCK);
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          apndUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          memdbUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          recoverVfsUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          vfstraceUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          unixUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          nolockUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          dotlockUnlock((sqlite3_file *)conchFile, SHARED_LOCK);
+        }
     
     end_takeconch:
       OSTRACE(("TRANSPROXY: CLOSE  %d\n", pFile->h));
@@ -7722,7 +7881,37 @@ static int proxyTakeConch(unixFile *pFile){
           afpCtx->dbPath = pCtx->lockProxyPath;
         }
       } else {
-        conchFile->pMethod->xUnlock((sqlite3_file*)conchFile, NO_LOCK);
+        if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            apndUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            memdbUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            recoverVfsUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            vfstraceUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            unixUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            nolockUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
+        else
+          if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+            dotlockUnlock((sqlite3_file *)conchFile, NO_LOCK);
+          }
       }
       OSTRACE(("TAKECONCH  %d %s\n", conchFile->h,
                rc==SQLITE_OK?"ok":"failed"));
@@ -7746,7 +7935,37 @@ static int proxyReleaseConch(unixFile *pFile){
            (pCtx->lockProxyPath ? pCtx->lockProxyPath : ":auto:"),
            osGetpid(0)));
   if( pCtx->conchHeld>0 ){
-    rc = conchFile->pMethod->xUnlock((sqlite3_file*)conchFile, NO_LOCK);
+    if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = apndUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = memdbUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = recoverVfsUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = vfstraceUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = unixUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = nolockUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
+    else
+      if (memcmp(conchFile->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(conchFile->pMethod->xUnlock_signature)) == 0) {
+        rc = dotlockUnlock((sqlite3_file *)conchFile, NO_LOCK);
+      }
   }
   pCtx->conchHeld = 0;
   OSTRACE(("RELEASECONCH  %d %s\n", conchFile->h,
@@ -7820,7 +8039,113 @@ static int switchLockProxyPath(unixFile *pFile, const char *path) {
     pCtx->lockProxy=NULL;
     pCtx->conchHeld = 0;
     if( lockProxy!=NULL ){
-      rc=lockProxy->pMethod->xClose((sqlite3_file *)lockProxy);
+      if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+        rc = apndClose((sqlite3_file *)lockProxy);
+      }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = bytecodevtabClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = completionClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dbdataClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dbpageClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = expertClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fsdirClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3CloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3auxCloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3tokCloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = jsonEachClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = memdbClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = memjrnlClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = porterClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = pragmaVtabClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = recoverVfsClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = rtreeClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = seriesClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = simpleClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = statClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = stmtClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = unicodeClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = vfstraceClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = zipfileClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = unixClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = nolockClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dotlockClose((sqlite3_file *)lockProxy);
+        }
       if( rc ) return rc;
       sqlite3_free(lockProxy);
     }
@@ -7939,7 +8264,113 @@ static int proxyTransformUnixFile(unixFile *pFile, const char *path) {
     pFile->pMethod = &proxyIoMethods;
   }else{
     if( pCtx->conchFile ){
-      pCtx->conchFile->pMethod->xClose((sqlite3_file *)pCtx->conchFile);
+      if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+        apndClose((sqlite3_file *)pCtx->conchFile);
+      }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          bytecodevtabClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          completionClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          dbdataClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          dbpageClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          expertClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          fsdirClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          fts3CloseMethod((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          fts3auxCloseMethod((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          fts3tokCloseMethod((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          jsonEachClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          memdbClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          memjrnlClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          porterClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          pragmaVtabClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          recoverVfsClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          rtreeClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          seriesClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          simpleClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          statClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          stmtClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          unicodeClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          vfstraceClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          zipfileClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          unixClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          nolockClose((sqlite3_file *)pCtx->conchFile);
+        }
+      else
+        if (memcmp(pCtx->conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pCtx->conchFile->pMethod->xClose_signature)) == 0) {
+          dotlockClose((sqlite3_file *)pCtx->conchFile);
+        }
       sqlite3_free(pCtx->conchFile);
     }
     sqlite3DbFree(0, pCtx->lockProxyPath);
@@ -8036,7 +8467,33 @@ static int proxyCheckReservedLock(sqlite3_file *id, int *pResOut) {
     proxyLockingContext *pCtx = (proxyLockingContext *)pFile->lockingContext;
     if( pCtx->conchHeld>0 ){
       unixFile *proxy = pCtx->lockProxy;
-      return proxy->pMethod->xCheckReservedLock((sqlite3_file*)proxy, pResOut);
+      if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_0_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+        return 0;
+      }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_apndCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return apndCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_recoverVfsCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return recoverVfsCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_vfstraceCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return vfstraceCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_unixCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return unixCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_nolockCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return nolockCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
+      else
+        if (memcmp(proxy->pMethod->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_dotlockCheckReservedLock_enum], sizeof(proxy->pMethod->xCheckReservedLock_signature)) == 0) {
+          return dotlockCheckReservedLock((sqlite3_file *)proxy, pResOut);
+        }
     }else{ /* conchHeld < 0 is lockless */
       pResOut=0;
     }
@@ -8075,7 +8532,37 @@ static int proxyLock(sqlite3_file *id, int eFileLock) {
     proxyLockingContext *pCtx = (proxyLockingContext *)pFile->lockingContext;
     if( pCtx->conchHeld>0 ){
       unixFile *proxy = pCtx->lockProxy;
-      rc = proxy->pMethod->xLock((sqlite3_file*)proxy, eFileLock);
+      if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = apndLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = memdbLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = recoverVfsLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = vfstraceLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = unixLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = nolockLock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(proxy->pMethod->xLock_signature)) == 0) {
+          rc = dotlockLock((sqlite3_file *)proxy, eFileLock);
+        }
       pFile->eFileLock = proxy->eFileLock;
     }else{
       /* conchHeld < 0 is lockless */
@@ -8099,7 +8586,37 @@ static int proxyUnlock(sqlite3_file *id, int eFileLock) {
     proxyLockingContext *pCtx = (proxyLockingContext *)pFile->lockingContext;
     if( pCtx->conchHeld>0 ){
       unixFile *proxy = pCtx->lockProxy;
-      rc = proxy->pMethod->xUnlock((sqlite3_file*)proxy, eFileLock);
+      if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = apndUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = memdbUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = recoverVfsUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = vfstraceUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = unixUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = nolockUnlock((sqlite3_file *)proxy, eFileLock);
+        }
+      else
+        if (memcmp(proxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(proxy->pMethod->xUnlock_signature)) == 0) {
+          rc = dotlockUnlock((sqlite3_file *)proxy, eFileLock);
+        }
       pFile->eFileLock = proxy->eFileLock;
     }else{
       /* conchHeld < 0 is lockless */
@@ -8120,9 +8637,145 @@ static int proxyClose(sqlite3_file *id) {
     int rc = SQLITE_OK;
 
     if( lockProxy ){
-      rc = lockProxy->pMethod->xUnlock((sqlite3_file*)lockProxy, NO_LOCK);
+      if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = apndUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = memdbUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = recoverVfsUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = vfstraceUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = unixUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = nolockUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(lockProxy->pMethod->xUnlock_signature)) == 0) {
+          rc = dotlockUnlock((sqlite3_file *)lockProxy, NO_LOCK);
+        }
       if( rc ) return rc;
-      rc = lockProxy->pMethod->xClose((sqlite3_file*)lockProxy);
+      if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+        rc = apndClose((sqlite3_file *)lockProxy);
+      }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = bytecodevtabClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = completionClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dbdataClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dbpageClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = expertClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fsdirClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3CloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3auxCloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = fts3tokCloseMethod((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = jsonEachClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = memdbClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = memjrnlClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = porterClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = pragmaVtabClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = recoverVfsClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = rtreeClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = seriesClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = simpleClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = statClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = stmtClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = unicodeClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = vfstraceClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = zipfileClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = unixClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = nolockClose((sqlite3_file *)lockProxy);
+        }
+      else
+        if (memcmp(lockProxy->pMethod->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(lockProxy->pMethod->xClose_signature)) == 0) {
+          rc = dotlockClose((sqlite3_file *)lockProxy);
+        }
       if( rc ) return rc;
       sqlite3_free(lockProxy);
       pCtx->lockProxy = 0;
@@ -8132,7 +8785,113 @@ static int proxyClose(sqlite3_file *id) {
         rc = proxyReleaseConch(pFile);
         if( rc ) return rc;
       }
-      rc = conchFile->pMethod->xClose((sqlite3_file*)conchFile);
+      if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+        rc = apndClose((sqlite3_file *)conchFile);
+      }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = bytecodevtabClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = completionClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = dbdataClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = dbpageClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = expertClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = fsdirClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = fts3CloseMethod((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = fts3auxCloseMethod((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = fts3tokCloseMethod((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = jsonEachClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = memdbClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = memjrnlClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = porterClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = pragmaVtabClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = recoverVfsClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = rtreeClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = seriesClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = simpleClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = statClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = stmtClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = unicodeClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = vfstraceClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = zipfileClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = unixClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = nolockClose((sqlite3_file *)conchFile);
+        }
+      else
+        if (memcmp(conchFile->pMethod->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(conchFile->pMethod->xClose_signature)) == 0) {
+          rc = dotlockClose((sqlite3_file *)conchFile);
+        }
       if( rc ) return rc;
       sqlite3_free(conchFile);
     }
@@ -8143,7 +8902,113 @@ static int proxyClose(sqlite3_file *id) {
     pFile->lockingContext = pCtx->oldLockingContext;
     pFile->pMethod = pCtx->pOldMethod;
     sqlite3_free(pCtx);
-    return pFile->pMethod->xClose(id);
+    if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+      return apndClose(id);
+    }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return bytecodevtabClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return completionClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return dbdataClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return dbpageClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return expertClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return fsdirClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return fts3CloseMethod(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return fts3auxCloseMethod(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return fts3tokCloseMethod(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return jsonEachClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return memdbClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return memjrnlClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return porterClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return pragmaVtabClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return recoverVfsClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return rtreeClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return seriesClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return simpleClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return statClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return stmtClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return unicodeClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return vfstraceClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return zipfileClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return unixClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return nolockClose(id);
+      }
+    else
+      if (memcmp(pFile->pMethod->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pFile->pMethod->xClose_signature)) == 0) {
+        return dotlockClose(id);
+      }
   }
   return SQLITE_OK;
 }
@@ -8217,7 +9082,39 @@ int sqlite3_os_init(void){
     unixSetSystemCall,    /* xSetSystemCall */              \
     unixGetSystemCall,    /* xGetSystemCall */              \
     unixNextSystemCall,   /* xNextSystemCall */             \
+    xOpen_signatures[xOpen_unixOpen_enum],                  \
+    xDelete_signatures[xDelete_unixDelete_enum],\
+    xAccess_signatures[xAccess_unixAccess_enum],\
+    xFullPathname_signatures[xFullPathname_unixFullPathname_enum],\
+    xDlOpen_signatures[xDlOpen_unixDlOpen_enum],\
+    xDlError_signatures[xDlError_unixDlError_enum],\
+    xDlSym_signatures[xDlSym_unixDlSym_enum],\
+    xDlClose_signatures[xDlClose_unixDlClose_enum],\
+    xRandomness_signatures[xRandomness_unixRandomness_enum],\
+    xSleep_signatures[xSleep_unixSleep_enum],\
+    xCurrentTime_signatures[xCurrentTime_unixCurrentTime_enum],\
+    xGetLastError_signatures[xGetLastError_unixGetLastError_enum],\
+    xCurrentTimeInt64_signatures[xCurrentTimeInt64_unixCurrentTimeInt64_enum],\
+    xSetSystemCall_signatures[xSetSystemCall_unixSetSystemCall_enum],\
+    xGetSystemCall_signatures[xGetSystemCall_unixGetSystemCall_enum],\
+    xNextSystemCall_signatures[xNextSystemCall_unixNextSystemCall_enum]\
   }
+  // xDelete_signatures[xDelete_unixDelete_enum],
+    // xAccess_signatures[xAccess_unixAccess_enum],
+    // xFullPathname_signatures[xFullPathname_unixFullPathname_enum],
+    // xDlOpen_signatures[xDlOpen_unixDlOpen_enum],
+    // xDlError_signatures[xDlError_unixDlError_enum],
+    // xDlSym_signatures[xDlSym_unixDlSym_enum],
+    // xDlClose_signatures[xDlClose_unixDlClose_enum],
+    // xRandomness_signatures[xRandomness_unixRandomness_enum],
+    // xSleep_signatures[xSleep_unixSleep_enum],
+    // xCurrentTime_signatures[xCurrentTime_unixCurrentTime_enum],
+    // xGetLastError_signatures[xGetLastError_unixGetLastError_enum],
+    // xCurrentTimeInt64_signatures[xCurrentTimeInt64_unixCurrentTimeInt64_enum],
+    // xSetSystemCall_signatures[xSetSystemCall_unixSetSystemCall_enum],
+    // xGetSystemCall_signatures[xGetSystemCall_unixGetSystemCall_enum],
+    // xNextSystemCall_signatures[xNextSystemCall_unixNextSystemCall_enum]
+
 
   /*
   ** All default VFSes for unix are contained in the following array.

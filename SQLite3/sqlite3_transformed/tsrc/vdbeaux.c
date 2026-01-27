@@ -1530,7 +1530,7 @@ void sqlite3VdbeReleaseRegisters(
 /*
 ** Change the value of the P4 operand for a specific instruction.
 ** This routine is useful when a large program is loaded from a
-** static array using sqlite3VdbeAddOpList but we want to make a
+** array using sqlite3VdbeAddOpList but we want to make a
 ** few minor changes to the program.
 **
 ** If n>=0 then the P4 operand is dynamic, meaning that a copy of
@@ -2454,12 +2454,14 @@ int sqlite3VdbeList(
         sqlite3VdbeMemSetInt64(pMem, pOp->p1);
         sqlite3VdbeMemSetInt64(pMem+1, pOp->p2);
         sqlite3VdbeMemSetInt64(pMem+2, pOp->p3);
-        sqlite3VdbeMemSetStr(pMem+3, zP4, -1, SQLITE_UTF8, sqlite3_free);
+        sqlite3VdbeMemSetStr(pMem + 3, zP4, -1, SQLITE_UTF8, sqlite3_free,
+                             xDel_signatures[xDel_sqlite3_free_enum]);
         assert( p->nResColumn==4 );
       }else{
         sqlite3VdbeMemSetInt64(pMem+0, i);
-        sqlite3VdbeMemSetStr(pMem+1, (char*)sqlite3OpcodeName(pOp->opcode),
-                             -1, SQLITE_UTF8, SQLITE_STATIC);
+        sqlite3VdbeMemSetStr(pMem + 1, (char *)sqlite3OpcodeName(pOp->opcode),
+                             -1, SQLITE_UTF8, SQLITE_STATIC,
+                             xDel_signatures[xDel_SQLITE_STATIC_enum]);
         sqlite3VdbeMemSetInt64(pMem+2, pOp->p1);
         sqlite3VdbeMemSetInt64(pMem+3, pOp->p2);
         sqlite3VdbeMemSetInt64(pMem+4, pOp->p3);
@@ -2468,12 +2470,14 @@ int sqlite3VdbeList(
 #ifdef SQLITE_ENABLE_EXPLAIN_COMMENTS
         {
           char *zCom = sqlite3VdbeDisplayComment(db, pOp, zP4);
-          sqlite3VdbeMemSetStr(pMem+7, zCom, -1, SQLITE_UTF8, sqlite3_free);
+          sqlite3VdbeMemSetStr(pMem + 7, zCom, -1, SQLITE_UTF8, sqlite3_free,
+                               xDel_signatures[xDel_sqlite3_free_enum]);
         }
 #else
         sqlite3VdbeMemSetNull(pMem+7);
 #endif
-        sqlite3VdbeMemSetStr(pMem+5, zP4, -1, SQLITE_UTF8, sqlite3_free);
+        sqlite3VdbeMemSetStr(pMem + 5, zP4, -1, SQLITE_UTF8, sqlite3_free,
+                             xDel_signatures[xDel_sqlite3_free_enum]);
         assert( p->nResColumn==8 );
       }
       p->pResultRow = pMem;
@@ -2779,7 +2783,113 @@ void sqlite3VdbeFreeCursorNN(Vdbe *p, VdbeCursor *pCx){
       const sqlite3_module *pModule = pVCur->pVtab->pModule;
       assert( pVCur->pVtab->nRef>0 );
       pVCur->pVtab->nRef--;
-      pModule->xClose(pVCur);
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      apndClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      bytecodevtabClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      completionClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      dbdataClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      dbpageClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      expertClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      fsdirClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+      fts3CloseMethod(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+      fts3auxCloseMethod(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(pModule->xClose_signature)) == 0) {
+      fts3tokCloseMethod(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      jsonEachClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      memdbClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      memjrnlClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      porterClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      pragmaVtabClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      recoverVfsClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      rtreeClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      seriesClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      simpleClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      statClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      stmtClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      unicodeClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      vfstraceClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      zipfileClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      unixClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      nolockClose(pVCur);
+      }
+      else
+      if (memcmp(pModule->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(pModule->xClose_signature)) == 0) {
+      dotlockClose(pVCur);
+      }
       break;
     }
 #endif
@@ -2889,7 +2999,8 @@ int sqlite3VdbeSetColName(
   int idx,                         /* Index of column zName applies to */
   int var,                         /* One of the COLNAME_* constants */
   const char *zName,               /* Pointer to buffer containing name */
-  void (*xDel)(void*)              /* Memory management strategy for zName */
+  void (*xDel)(void*),
+  int *xDel_signature              /* Memory management strategy for zName */
 ){
   int rc;
   Mem *pColName;
@@ -2901,7 +3012,7 @@ int sqlite3VdbeSetColName(
   }
   assert( p->aColName!=0 );
   pColName = &(p->aColName[idx+var*p->nResAlloc]);
-  rc = sqlite3VdbeMemSetStr(pColName, zName, -1, SQLITE_UTF8, xDel);
+  rc = sqlite3VdbeMemSetStr(pColName, zName, -1, SQLITE_UTF8, xDel, xDel_signature);
   assert( rc!=0 || !zName || (pColName->flags&MEM_Term)!=0 );
   return rc;
 }
@@ -2976,7 +3087,18 @@ static int vdbeCommit(sqlite3 *db, Vdbe *p){
 
   /* If there are any write-transactions at all, invoke the commit hook */
   if( needXcommit && db->xCommitCallback ){
-    rc = db->xCommitCallback(db->pCommitArg);
+    // rc = db->xCommitCallback(db->pCommitArg);
+    if (memcmp(db->xCommitCallback_signature, xCommitCallback_signatures[xCommitCallback_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    // else if (memcmp(db->xCommitCallback_signature, xCommitCallback_signatures[xCommitCallback_sql_trace_callback_enum], sizeof(int[4])) == 0) {
+    //     rc = sql_trace_callback(db->pCommitArg);
+    // }
+    // else if (memcmp(db->xCommitCallback_signature, xCommitCallback_signatures[xCommitCallback_sqlite3WalDefaultHook_enum], sizeof(int[4])) == 0) {
+    //     rc = sqlite3WalDefaultHook(db->pCommitArg);
+    // }
+
+
     if( rc ){
       return SQLITE_CONSTRAINT_COMMITHOOK;
     }
@@ -3536,7 +3658,9 @@ int sqlite3VdbeTransferError(Vdbe *p){
     db->bBenignMalloc++;
     sqlite3BeginBenignMalloc();
     if( db->pErr==0 ) db->pErr = sqlite3ValueNew(db);
-    sqlite3ValueSetStr(db->pErr, -1, p->zErrMsg, SQLITE_UTF8, SQLITE_TRANSIENT);
+    sqlite3ValueSetStr(db->pErr, -1, p->zErrMsg, SQLITE_UTF8,
+                       SQLITE_TRANSIENT,
+                       xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3EndBenignMalloc();
     db->bBenignMalloc--;
   }else if( db->pErr ){
@@ -3710,6 +3834,12 @@ void sqlite3VdbeDeleteAuxData(sqlite3 *db, AuxData **pp, int iOp, int mask){
       testcase( pAux->iAuxArg==31 );
       if( pAux->xDeleteAux ){
         pAux->xDeleteAux(pAux->pAux);
+        // if (memcmp(pAux->xDeleteAux_signature, xDeleteAux_signatures[xDeleteAux_jsonCacheDeleteGeneric_enum], sizeof(int[4])) == 0) {
+        //   jsonCacheDeleteGeneric(pAux->pAux);
+        // }
+        // else if (memcmp(pAux->xDeleteAux_signature, xDeleteAux_signatures[xDeleteAux_sqlite3_free_enum], sizeof(int[4])) == 0) {
+        //   sqlite3_free(pAux->pAux);
+        // }
       }
       *pp = pAux->pNextAux;
       sqlite3DbFree(db, pAux);

@@ -30,7 +30,8 @@
 int sqlite3_exec(
   sqlite3 *db,                /* The database on which the SQL executes */
   const char *zSql,           /* The SQL to be executed */
-  int (*xCallback)(void*,int,char**, char**), /* Invoke this callback routine */
+  int (*sqlite3_callback)(void*,int,char**, char**), /* Invoke this callback routine */
+  int *sqlite3_callback_signature,
   void *pArg,                 /* First argument to xCallback() */
   char **pzErrMsg             /* Write error messages here */
 ){
@@ -67,7 +68,7 @@ int sqlite3_exec(
       rc = sqlite3_step(pStmt);
 
       /* Invoke the callback function if required */
-      if( xCallback && (SQLITE_ROW==rc || 
+      if( sqlite3_callback && (SQLITE_ROW==rc || 
           (SQLITE_DONE==rc && !callbackIsInit
                            && db->flags&SQLITE_NullCallback)) ){
         if( !callbackIsInit ){
@@ -95,7 +96,7 @@ int sqlite3_exec(
           }
           azVals[i] = 0;
         }
-        if( xCallback(pArg, nCol, azVals, azCols) ){
+        if( sqlite3_callback(pArg, nCol, azVals, azCols) ){
           /* EVIDENCE-OF: R-38229-40159 If the callback function to
           ** sqlite3_exec() returns non-zero, then sqlite3_exec() will
           ** return SQLITE_ABORT. */

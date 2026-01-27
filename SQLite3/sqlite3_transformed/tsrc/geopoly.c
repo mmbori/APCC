@@ -365,7 +365,7 @@ static void geopolyBlobFunc(
   (void)argc;
   if( p ){
     sqlite3_result_blob(context, p->hdr, 
-       4+8*p->nVertex, SQLITE_TRANSIENT);
+       4+8*p->nVertex, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(p);
   }
 }
@@ -392,7 +392,7 @@ static void geopolyJsonFunc(
       sqlite3_str_appendf(x, "[%!g,%!g],", GeoX(p,i), GeoY(p,i));
     }
     sqlite3_str_appendf(x, "[%!g,%!g]]", GeoX(p,0), GeoY(p,0));
-    sqlite3_result_text(context, sqlite3_str_finish(x), -1, sqlite3_free);
+    sqlite3_result_text(context, sqlite3_str_finish(x), -1, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
     sqlite3_free(p);
   }
 }
@@ -429,7 +429,7 @@ static void geopolySvgFunc(
       }
     }
     sqlite3_str_appendf(x, "></polyline>");
-    sqlite3_result_text(context, sqlite3_str_finish(x), -1, sqlite3_free);
+    sqlite3_result_text(context, sqlite3_str_finish(x), -1, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
     sqlite3_free(p);
   }
 }
@@ -475,7 +475,7 @@ static void geopolyXformFunc(
       GeoY(p,ii) = y1;
     }
     sqlite3_result_blob(context, p->hdr, 
-       4+8*p->nVertex, SQLITE_TRANSIENT);
+       4+8*p->nVertex, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(p);
   }
 }
@@ -555,7 +555,7 @@ static void geopolyCcwFunc(
       }
     }
     sqlite3_result_blob(context, p->hdr, 
-       4+8*p->nVertex, SQLITE_TRANSIENT);
+       4+8*p->nVertex, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(p);
   }            
 }
@@ -615,7 +615,7 @@ static void geopolyRegularFunc(
     GeoX(p,i) = x - r*geopolySine(rAngle-0.5*GEOPOLY_PI);
     GeoY(p,i) = y + r*geopolySine(rAngle);
   }
-  sqlite3_result_blob(context, p->hdr, 4+8*n, SQLITE_TRANSIENT);
+  sqlite3_result_blob(context, p->hdr, 4+8*n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   sqlite3_free(p);
 }
 
@@ -709,7 +709,7 @@ static void geopolyBBoxFunc(
   (void)argc;
   if( p ){
     sqlite3_result_blob(context, p->hdr, 
-       4+8*p->nVertex, SQLITE_TRANSIENT);
+       4+8*p->nVertex, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(p);
   }
 }
@@ -761,7 +761,7 @@ static void geopolyBBoxFinal(
   p = geopolyBBox(context, 0, pBBox->a, 0);
   if( p ){
     sqlite3_result_blob(context, p->hdr, 
-       4+8*p->nVertex, SQLITE_TRANSIENT);
+       4+8*p->nVertex, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     sqlite3_free(p);
   }
 }
@@ -967,7 +967,7 @@ static void geopolyAddSegments(
 /*
 ** Merge two lists of sorted events by X coordinate
 */
-static GeoEvent *geopolyEventMerge(GeoEvent *pLeft, GeoEvent *pRight){
+GeoEvent *geopolyEventMerge(GeoEvent *pLeft, GeoEvent *pRight){
   GeoEvent head, *pLast;
   head.pNext = 0;
   pLast = &head;
@@ -1323,7 +1323,7 @@ geopolyInit_fail:
 /* 
 ** GEOPOLY virtual table module xCreate method.
 */
-static int geopolyCreate(
+int geopolyCreate(
   sqlite3 *db,
   void *pAux,
   int argc, const char *const*argv,
@@ -1336,7 +1336,7 @@ static int geopolyCreate(
 /* 
 ** GEOPOLY virtual table module xConnect method.
 */
-static int geopolyConnect(
+int geopolyConnect(
   sqlite3 *db,
   void *pAux,
   int argc, const char *const*argv,
@@ -1359,7 +1359,7 @@ static int geopolyConnect(
 **                that contains polygon argv[0]
 **      4         full table scan
 */
-static int geopolyFilter(
+int geopolyFilter(
   sqlite3_vtab_cursor *pVtabCursor,     /* The cursor to initialize */
   int idxNum,                           /* Query plan */
   const char *idxStr,                   /* Not Used */
@@ -1492,7 +1492,7 @@ geopoly_filter_end:
 **     4        "fullscan"    full-table scan.
 **   ------------------------------------------------
 */
-static int geopolyBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
+int geopolyBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
   int ii;
   int iRowidTerm = -1;
   int iFuncTerm = -1;
@@ -1545,7 +1545,7 @@ static int geopolyBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
 /* 
 ** GEOPOLY virtual table module xColumn method.
 */
-static int geopolyColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
+int geopolyColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
   Rtree *pRtree = (Rtree *)cur->pVtab;
   RtreeCursor *pCsr = (RtreeCursor *)cur;
   RtreeSearchPoint *p = rtreeSearchPointFirst(pCsr);
@@ -1600,7 +1600,7 @@ static int geopolyColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
 **     argv[2] = new value for _shape
 **     argv[3] = new value for first application-defined column....
 */
-static int geopolyUpdate(
+int geopolyUpdate(
   sqlite3_vtab *pVtab, 
   int nData, 
   sqlite3_value **aData, 
@@ -1736,7 +1736,7 @@ geopoly_update_end:
 ** Report that geopoly_overlap() is an overloaded function suitable
 ** for use in xBestIndex.
 */
-static int geopolyFindFunction(
+int geopolyFindFunction(
   sqlite3_vtab *pVtab,
   int nArg,
   const char *zName,
@@ -1785,6 +1785,29 @@ static sqlite3_module geopolyModule = {
   0,                          /* xRollbackTo */
   rtreeShadowName,            /* xShadowName */
   rtreeIntegrity              /* xIntegrity */
+,
+  .xCreate_signature = xCreate_signatures[xCreate_geopolyCreate_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_geopolyConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_geopolyBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_rtreeDisconnect_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_rtreeDestroy_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_rtreeOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_rtreeClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_geopolyFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_rtreeNext_enum],
+  .xEof_signature = xEof_signatures[xEof_rtreeEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_geopolyColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_rtreeRowid_enum],
+  .xUpdate_signature = xUpdate_signatures[xUpdate_geopolyUpdate_enum],
+  .xBegin_signature = xBegin_signatures[xBegin_rtreeBeginTransaction_enum],
+  .xSync_signature = xSync_signatures[xSync_rtreeEndTransaction_enum],
+  .xCommit_signature = xCommit_signatures[xCommit_rtreeEndTransaction_enum],
+  .xRollback_signature = xRollback_signatures[xRollback_rtreeEndTransaction_enum],
+  .xFindFunction_signature = xFindFunction_signatures[xFindFunction_geopolyFindFunction_enum],
+  .xRename_signature = xRename_signatures[xRename_rtreeRename_enum],
+  .xSavepoint_signature = xSavepoint_signatures[xSavepoint_rtreeSavepoint_enum],
+  .xShadowName_signature = xShadowName_signatures[xShadowName_rtreeShadowName_enum],
+  .xIntegrity_signature = xIntegrity_signatures[xIntegrity_rtreeIntegrity_enum]
 };
 
 static int sqlite3_geopoly_init(sqlite3 *db){
@@ -1825,15 +1848,15 @@ static int sqlite3_geopoly_init(sqlite3 *db){
     }
     rc = sqlite3_create_function(db, aFunc[i].zName, aFunc[i].nArg,
                                  enc, 0,
-                                 aFunc[i].xFunc, 0, 0);
+                                 aFunc[i].xFunc, xSFunc_signatures[xSFunc_xSFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   for(i=0; i<sizeof(aAgg)/sizeof(aAgg[0]) && rc==SQLITE_OK; i++){
     rc = sqlite3_create_function(db, aAgg[i].zName, 1, 
               SQLITE_UTF8|SQLITE_DETERMINISTIC|SQLITE_INNOCUOUS, 0,
-              0, aAgg[i].xStep, aAgg[i].xFinal);
+              0, xSFunc_signatures[xSFunc_0_enum], aAgg[i].xStep, xStep_signatures[xStep_xStep_enum], aAgg[i].xFinal, xFinal_signatures[xFinal_xFinal_enum]);
   }
   if( rc==SQLITE_OK ){
-    rc = sqlite3_create_module_v2(db, "geopoly", &geopolyModule, 0, 0);
+    rc = sqlite3_create_module_v2(db, "geopoly", &geopolyModule, 0, 0, xDestroy_signatures[xDestroy_0_enum]);
   }
   return rc;
 }

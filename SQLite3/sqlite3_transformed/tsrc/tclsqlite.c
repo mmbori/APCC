@@ -669,7 +669,7 @@ static void SQLITE_TCLAPI DbDeleteCmd(void *db){
 ** This routine is called when a database file is locked while trying
 ** to execute SQL.
 */
-int DbBusyHandler(void *cd, int nTries){
+static int DbBusyHandler(void *cd, int nTries){
   SqliteDb *pDb = (SqliteDb*)cd;
   int rc;
   char zVal[30];
@@ -705,7 +705,7 @@ int DbProgressHandler(void *cd){
 ** This routine is called by the SQLite trace handler whenever a new
 ** block of SQL is executed.  The TCL script in pDb->zTrace is executed.
 */
-void DbTraceHandler(void *cd, const char *zSql){
+static void DbTraceHandler(void *cd, const char *zSql){
   SqliteDb *pDb = (SqliteDb*)cd;
   Tcl_DString str;
 
@@ -725,7 +725,12 @@ void DbTraceHandler(void *cd, const char *zSql){
 ** The TCL script in pDb->zTraceV2 is executed, with the arguments for
 ** the event appended to it (as list elements).
 */
-int DbTraceV2Handler(unsigned type, void *cd, void *pd, void *xd){
+static int DbTraceV2Handler(
+  unsigned type, /* One of the SQLITE_TRACE_* event types. */
+  void *cd,      /* The original context data pointer. */
+  void *pd,      /* Primary event data, depends on event type. */
+  void *xd       /* Extra event data, depends on event type. */
+){
   SqliteDb *pDb = (SqliteDb*)cd;
   Tcl_Obj *pCmd;
 
@@ -795,7 +800,7 @@ int DbTraceV2Handler(unsigned type, void *cd, void *pd, void *xd){
 ** This routine is called by the SQLite profile handler after a statement
 ** SQL has executed.  The TCL script in pDb->zProfile is evaluated.
 */
-void DbProfileHandler(void *cd, const char *zSql, sqlite_uint64 tm){
+static void DbProfileHandler(void *cd, const char *zSql, sqlite_uint64 tm){
   SqliteDb *pDb = (SqliteDb*)cd;
   Tcl_DString str;
   char zTm[100];
@@ -817,7 +822,7 @@ void DbProfileHandler(void *cd, const char *zSql, sqlite_uint64 tm){
 ** if it throws an exception, the transaction is rolled back instead
 ** of being committed.
 */
-int DbCommitHandler(void *cd){
+static int DbCommitHandler(void *cd){
   SqliteDb *pDb = (SqliteDb*)cd;
   int rc;
 
@@ -828,7 +833,7 @@ int DbCommitHandler(void *cd){
   return 0;
 }
 
-static void DbRollbackHandler(void *clientData){
+void DbRollbackHandler(void *clientData){
   SqliteDb *pDb = (SqliteDb*)clientData;
   assert(pDb->pRollbackHook);
   if( TCL_OK!=Tcl_EvalObjEx(pDb->interp, pDb->pRollbackHook, 0) ){
@@ -957,7 +962,12 @@ static void DbUpdateHandler(
   Tcl_DecrRefCount(pCmd);
 }
 
-void tclCollateNeeded(void *pCtx, sqlite3 *db, int enc, const char *zName){
+void tclCollateNeeded(
+  void *pCtx,
+  sqlite3 *db,
+  int enc,
+  const char *zName
+){
   SqliteDb *pDb = (SqliteDb *)pCtx;
   Tcl_Obj *pScript = Tcl_DuplicateObj(pDb->pCollateNeeded);
   Tcl_IncrRefCount(pScript);
@@ -970,7 +980,13 @@ void tclCollateNeeded(void *pCtx, sqlite3 *db, int enc, const char *zName){
 ** This routine is called to evaluate an SQL collation function implemented
 ** using TCL script.
 */
-int tclSqlCollate(void *pCtx, int nA, const void *zA, int nB, const void *zB){
+static int tclSqlCollate(
+  void *pCtx,
+  int nA,
+  const void *zA,
+  int nB,
+  const void *zB
+){
   SqlCollate *p = (SqlCollate *)pCtx;
   Tcl_Obj *pCmd;
 
@@ -987,7 +1003,7 @@ int tclSqlCollate(void *pCtx, int nA, const void *zA, int nB, const void *zB){
 ** This routine is called to evaluate an SQL function implemented
 ** using TCL script.
 */
-void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
+static void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value**argv){
   SqlFunc *p = sqlite3_user_data(context);
   Tcl_Obj *pCmd;
   int i;
@@ -1105,7 +1121,7 @@ void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
     switch( eType ){
       case SQLITE_BLOB: {
         data = Tcl_GetByteArrayFromObj(pVar, &n);
-        sqlite3_result_blob(context, data, n, SQLITE_TRANSIENT);
+        sqlite3_result_blob(context, data, n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
         break;
       }
       case SQLITE_INTEGER: {
@@ -1126,7 +1142,7 @@ void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
       }
       default: {
         data = (unsigned char *)Tcl_GetStringFromObj(pVar, &n);
-        sqlite3_result_text64(context, (char *)data, n, SQLITE_TRANSIENT,
+        sqlite3_result_text64(context, (char *)data, n, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], 
                               SQLITE_UTF8);
         break;
       }
@@ -1142,8 +1158,14 @@ void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
 ** on the interpreter.  The reply is examined to determine if the
 ** authentication fails or succeeds.
 */
-int auth_callback(void *pArg, int code, const char *zArg1, const char *zArg2,
-                  const char *zArg3, const char *zArg4){
+int auth_callback(
+  void *pArg,
+  int code,
+  const char *zArg1,
+  const char *zArg2,
+  const char *zArg3,
+  const char *zArg4
+){
   const char *zCode;
   Tcl_DString str;
   int rc;
@@ -1293,7 +1315,7 @@ static int SQLITE_TCLAPI DbTransPostCmd(
   zEnd = azEnd[(rc==TCL_ERROR)*2 + (pDb->nTransaction==0)];
 
   pDb->disableAuth++;
-  if( sqlite3_exec(pDb->db, zEnd, 0, 0, 0) ){
+  if( sqlite3_exec(pDb->db, zEnd, 0, callback_signatures[callback_0_enum], 0, 0) ){
       /* This is a tricky scenario to handle. The most likely cause of an
       ** error is that the exec() above was an attempt to commit the
       ** top-level transaction that returned SQLITE_BUSY. Or, less likely,
@@ -1308,7 +1330,7 @@ static int SQLITE_TCLAPI DbTransPostCmd(
       Tcl_AppendResult(interp, sqlite3_errmsg(pDb->db), (char*)0);
       rc = TCL_ERROR;
     }
-    sqlite3_exec(pDb->db, "ROLLBACK", 0, 0, 0);
+    sqlite3_exec(pDb->db, "ROLLBACK", 0, callback_signatures[callback_0_enum], 0, 0);
   }
   pDb->disableAuth--;
 
@@ -1512,7 +1534,7 @@ static int dbPrepareAndBind(
           sqlite3_bind_int64(pStmt, i, v);
         }else{
           data = (unsigned char *)Tcl_GetStringFromObj(pVar, &n);
-          sqlite3_bind_text64(pStmt, i, (char *)data, n, SQLITE_STATIC,
+          sqlite3_bind_text64(pStmt, i, (char *)data, n, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum],
                               SQLITE_UTF8);
           Tcl_IncrRefCount(pVar);
           pPreStmt->apParm[iParm++] = pVar;
@@ -2009,7 +2031,7 @@ static void DbHookCmd(
   sqlite3_preupdate_hook(db, (pDb->pPreUpdateHook?DbPreUpdateHandler:0), pDb);
 #endif
   sqlite3_update_hook(db, (pDb->pUpdateHook?DbUpdateHandler:0), pDb);
-  sqlite3_rollback_hook(db, (pDb->pRollbackHook?DbRollbackHandler:0), pDb);
+  sqlite3_rollback_hook(db, (pDb->pRollbackHook?DbRollbackHandler:0), (pDb->pRollbackHook?[xRollbackCallback_DbRollbackHandler_enum]:[xRollbackCallback_0_enum])pDb);
   sqlite3_wal_hook(db, (pDb->pWalHook?DbWalHandler:0), pDb);
 }
 
@@ -2129,9 +2151,9 @@ static int SQLITE_TCLAPI DbObjCmd(
            void*,int,const char*,const char*,
            const char*,const char*);
         pDb->interp = interp;
-        sqlite3_set_authorizer(pDb->db,(sqlite3_auth_cb)auth_callback,pDb);
+        sqlite3_set_authorizer(pDb->db,(sqlite3_auth_cb)auth_callback,xAuth_signatures[xAuth_auth_callback_enum], pDb);
       }else{
-        sqlite3_set_authorizer(pDb->db, 0, 0);
+        sqlite3_set_authorizer(pDb->db, 0, xAuth_signatures[xAuth_0_enum], 0);
       }
     }
 #endif
@@ -2259,9 +2281,9 @@ static int SQLITE_TCLAPI DbObjCmd(
       }
       if( pDb->zBusy ){
         pDb->interp = interp;
-        sqlite3_busy_handler(pDb->db, DbBusyHandler, pDb);
+        sqlite3_busy_handler(pDb->db, DbBusyHandler, xBusy_signatures[xBusy_DbBusyHandler_enum], pDb);
       }else{
-        sqlite3_busy_handler(pDb->db, 0, 0);
+        sqlite3_busy_handler(pDb->db, 0, xBusy_signatures[xBusy_0_enum], 0);
       }
     }
     break;
@@ -2651,7 +2673,7 @@ static int SQLITE_TCLAPI DbObjCmd(
     }
     str = Tcl_NewObj();
     Tcl_IncrRefCount(str);
-    (void)sqlite3_exec(pDb->db, "BEGIN", 0, 0, 0);
+    (void)sqlite3_exec(pDb->db, "BEGIN", 0, callback_signatures[callback_0_enum], 0, 0);
     zCommit = "COMMIT";
     while( Tcl_GetsObj(in, str)>=0 ) {
       char *z;
@@ -2690,7 +2712,7 @@ static int SQLITE_TCLAPI DbObjCmd(
         ){
           sqlite3_bind_null(pStmt, i+1);
         }else{
-          sqlite3_bind_text(pStmt, i+1, azCol[i], -1, SQLITE_STATIC);
+          sqlite3_bind_text(pStmt, i+1, azCol[i], -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
         }
       }
       sqlite3_step(pStmt);
@@ -2706,7 +2728,7 @@ static int SQLITE_TCLAPI DbObjCmd(
     free(azCol);
     Tcl_Close(interp, in);
     sqlite3_finalize(pStmt);
-    (void)sqlite3_exec(pDb->db, zCommit, 0, 0, 0);
+    (void)sqlite3_exec(pDb->db, zCommit, 0, callback_signatures[callback_0_enum], 0, 0);
 
     if( zCommit[0] == 'C' ){
       /* success, set result as number of lines processed */
@@ -3040,7 +3062,7 @@ deserialize_error:
     pFunc->useEvalObjv = safeToUseEvalObjv(pScript);
     pFunc->eType = eType;
     rc = sqlite3_create_function(pDb->db, zName, nArg, flags,
-        pFunc, tclSqlFunc, 0, 0);
+        pFunc, tclSqlFunc, xSFunc_signatures[xSFunc_tclSqlFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
     if( rc!=SQLITE_OK ){
       rc = TCL_ERROR;
       Tcl_SetResult(interp, (char *)sqlite3_errmsg(pDb->db), TCL_VOLATILE);
@@ -3163,7 +3185,7 @@ deserialize_error:
         Tcl_AppendResult(interp, pDb->zProgress, (char*)0);
       }
 #ifndef SQLITE_OMIT_PROGRESS_CALLBACK
-      sqlite3_progress_handler(pDb->db, 0, 0, 0);
+      sqlite3_progress_handler(pDb->db, 0, 0, xProgress_signatures[xProgress_0_enum], 0);
 #endif
     }else if( objc==4 ){
       char *zProgress;
@@ -3185,9 +3207,9 @@ deserialize_error:
 #ifndef SQLITE_OMIT_PROGRESS_CALLBACK
       if( pDb->zProgress ){
         pDb->interp = interp;
-        sqlite3_progress_handler(pDb->db, N, DbProgressHandler, pDb);
+        sqlite3_progress_handler(pDb->db, N, DbProgressHandler, xProgress_signatures[xProgress_DbProgressHandler_enum], pDb);
       }else{
-        sqlite3_progress_handler(pDb->db, 0, 0, 0);
+        sqlite3_progress_handler(pDb->db, 0, 0, xProgress_signatures[xProgress_0_enum], 0);
       }
 #endif
     }else{
@@ -3228,9 +3250,9 @@ deserialize_error:
     !defined(SQLITE_OMIT_DEPRECATED)
       if( pDb->zProfile ){
         pDb->interp = interp;
-        sqlite3_profile(pDb->db, DbProfileHandler, pDb);
+        sqlite3_profile(pDb->db, DbProfileHandler, xProfile_signaturex[xProfile_DbProfileHandler_enum], pDb);
       }else{
-        sqlite3_profile(pDb->db, 0, 0);
+        sqlite3_profile(pDb->db, 0, xProfile_signaturex[xProfile_0_enum], 0);
       }
 #endif
     }
@@ -3521,9 +3543,9 @@ deserialize_error:
 #if !defined(SQLITE_OMIT_TRACE) && !defined(SQLITE_OMIT_FLOATING_POINT)
       if( pDb->zTraceV2 ){
         pDb->interp = interp;
-        sqlite3_trace_v2(pDb->db, (unsigned)wMask, DbTraceV2Handler, pDb);
+        sqlite3_trace_v2(pDb->db, (unsigned)wMask, DbTraceV2Handler, callback_signatures[callback_DbTraceV2Handler_enum], pDb);
       }else{
-        sqlite3_trace_v2(pDb->db, 0, 0, 0);
+        sqlite3_trace_v2(pDb->db, 0, 0, callback_signatures[callback_0_enum], 0);
       }
 #endif
     }
@@ -3571,7 +3593,7 @@ deserialize_error:
 
     /* Run the SQLite BEGIN command to open a transaction or savepoint. */
     pDb->disableAuth++;
-    rc = sqlite3_exec(pDb->db, zBegin, 0, 0, 0);
+    rc = sqlite3_exec(pDb->db, zBegin, 0, callback_signatures[callback_0_enum], 0, 0);
     pDb->disableAuth--;
     if( rc!=SQLITE_OK ){
       Tcl_AppendResult(interp, sqlite3_errmsg(pDb->db), (char*)0);

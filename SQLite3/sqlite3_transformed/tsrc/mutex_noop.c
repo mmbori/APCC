@@ -37,7 +37,7 @@
 */
 int noopMutexInit(void){ return SQLITE_OK; }
 int noopMutexEnd(void){ return SQLITE_OK; }
-sqlite3_mutex * noopMutexAlloc(int id){ 
+sqlite3_mutex *noopMutexAlloc(int id){ 
   UNUSED_PARAMETER(id);
   return (sqlite3_mutex*)8; 
 }
@@ -62,15 +62,13 @@ sqlite3_mutex_methods const *sqlite3NoopMutex(void){
     0,
     0,
   
-  .xMutexInit_signature = xMutexInit_noopMutexInit,
-  .xMutexEnd_signature = xMutexEnd_noopMutexEnd,
-  .xMutexAlloc_signature = xMutexAlloc_noopMutexAlloc,
-  .xMutexFree_signature = xMutexFree_noopMutexFree,
-  .xMutexEnter_signature = xMutexEnter_noopMutexEnter,
-  .xMutexTry_signature = xMutexTry_noopMutexTry,
-  .xMutexLeave_signature = xMutexLeave_noopMutexLeave,
-  .xMutexHeld_signature = xMutexHeld_0,
-  .xMutexNotheld_signature = xMutexNotheld_0
+  .xMutexInit_signature = xMutexInit_signatures[xMutexInit_noopMutexInit_enum],
+  .xMutexEnd_signature = xMutexEnd_signatures[xMutexEnd_noopMutexEnd_enum],
+  .xMutexAlloc_signature = xMutexAlloc_signatures[xMutexAlloc_noopMutexAlloc_enum],
+  .xMutexFree_signature = xMutexFree_signatures[xMutexFree_noopMutexFree_enum],
+  .xMutexEnter_signature = xMutexEnter_signatures[xMutexEnter_noopMutexEnter_enum],
+  .xMutexTry_signature = xMutexTry_signatures[xMutexTry_noopMutexTry_enum],
+  .xMutexLeave_signature = xMutexLeave_signatures[xMutexLeave_noopMutexLeave_enum]
 };
 
   return &sMutex;
@@ -96,11 +94,11 @@ typedef struct sqlite3_debug_mutex {
 ** The sqlite3_mutex_held() and sqlite3_mutex_notheld() routine are
 ** intended for use inside assert() statements.
 */
-static int debugMutexHeld(sqlite3_mutex *pX){
+int debugMutexHeld(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   return p==0 || p->cnt>0;
 }
-static int debugMutexNotheld(sqlite3_mutex *pX){
+int debugMutexNotheld(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   return p==0 || p->cnt==0;
 }
@@ -108,15 +106,15 @@ static int debugMutexNotheld(sqlite3_mutex *pX){
 /*
 ** Initialize and deinitialize the mutex subsystem.
 */
-static int debugMutexInit(void){ return SQLITE_OK; }
-static int debugMutexEnd(void){ return SQLITE_OK; }
+int debugMutexInit(void){ return SQLITE_OK; }
+int debugMutexEnd(void){ return SQLITE_OK; }
 
 /*
 ** The sqlite3_mutex_alloc() routine allocates a new
 ** mutex and returns a pointer to it.  If it returns NULL
 ** that means that a mutex could not be allocated. 
 */
-static sqlite3_mutex *debugMutexAlloc(int id){
+sqlite3_mutex *debugMutexAlloc(int id){
   static sqlite3_debug_mutex aStatic[SQLITE_MUTEX_STATIC_VFS3 - 1];
   sqlite3_debug_mutex *pNew = 0;
   switch( id ){
@@ -147,7 +145,7 @@ static sqlite3_mutex *debugMutexAlloc(int id){
 /*
 ** This routine deallocates a previously allocated mutex.
 */
-static void debugMutexFree(sqlite3_mutex *pX){
+void debugMutexFree(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   assert( p->cnt==0 );
   if( p->id==SQLITE_MUTEX_RECURSIVE || p->id==SQLITE_MUTEX_FAST ){
@@ -170,12 +168,12 @@ static void debugMutexFree(sqlite3_mutex *pX){
 ** can enter.  If the same thread tries to enter any other kind of mutex
 ** more than once, the behavior is undefined.
 */
-static void debugMutexEnter(sqlite3_mutex *pX){
+void debugMutexEnter(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   assert( p->id==SQLITE_MUTEX_RECURSIVE || debugMutexNotheld(pX) );
   p->cnt++;
 }
-static int debugMutexTry(sqlite3_mutex *pX){
+int debugMutexTry(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   assert( p->id==SQLITE_MUTEX_RECURSIVE || debugMutexNotheld(pX) );
   p->cnt++;
@@ -188,7 +186,7 @@ static int debugMutexTry(sqlite3_mutex *pX){
 ** is undefined if the mutex is not currently entered or
 ** is not currently allocated.  SQLite will never do either.
 */
-static void debugMutexLeave(sqlite3_mutex *pX){
+void debugMutexLeave(sqlite3_mutex *pX){
   sqlite3_debug_mutex *p = (sqlite3_debug_mutex*)pX;
   assert( debugMutexHeld(pX) );
   p->cnt--;
@@ -208,15 +206,15 @@ sqlite3_mutex_methods const *sqlite3NoopMutex(void){
     debugMutexHeld,
     debugMutexNotheld
   ,
-  .xMutexInit_signature = xMutexInit_debugMutexInit,
-  .xMutexEnd_signature = xMutexEnd_debugMutexEnd,
-  .xMutexAlloc_signature = xMutexAlloc_debugMutexAlloc,
-  .xMutexFree_signature = xMutexFree_debugMutexFree,
-  .xMutexEnter_signature = xMutexEnter_debugMutexEnter,
-  .xMutexTry_signature = xMutexTry_debugMutexTry,
-  .xMutexLeave_signature = xMutexLeave_debugMutexLeave,
-  .xMutexHeld_signature = xMutexHeld_debugMutexHeld,
-  .xMutexNotheld_signature = xMutexNotheld_debugMutexNotheld
+  .xMutexInit_signature = xMutexInit_signatures[xMutexInit_debugMutexInit_enum],
+  .xMutexEnd_signature = xMutexEnd_signatures[xMutexEnd_debugMutexEnd_enum],
+  .xMutexAlloc_signature = xMutexAlloc_signatures[xMutexAlloc_debugMutexAlloc_enum],
+  .xMutexFree_signature = xMutexFree_signatures[xMutexFree_debugMutexFree_enum],
+  .xMutexEnter_signature = xMutexEnter_signatures[xMutexEnter_debugMutexEnter_enum],
+  .xMutexTry_signature = xMutexTry_signatures[xMutexTry_debugMutexTry_enum],
+  .xMutexLeave_signature = xMutexLeave_signatures[xMutexLeave_debugMutexLeave_enum],
+  .xMutexHeld_signature = xMutexHeld_signatures[xMutexHeld_debugMutexHeld_enum],
+  .xMutexNotheld_signature = xMutexNotheld_signatures[xMutexNotheld_debugMutexNotheld_enum]
 };
 
   return &sMutex;

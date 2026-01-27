@@ -1013,12 +1013,16 @@ static void sqlite3ProcessReturningSubqueries(
   Walker w;
   memset(&w, 0, sizeof(w));
   w.xExprCallback = sqlite3ExprWalkNoop;
+  w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3ExprWalkNoop_enum];
   w.xSelectCallback = sqlite3ReturningSubqueryCorrelated;
+  w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3ReturningSubqueryCorrelated_enum];
   w.u.pTab = pTab;
   sqlite3WalkExprList(&w, pEList);
   if( w.eCode ){
     w.xExprCallback = sqlite3ReturningSubqueryVarSelect;
+    w.xExprCallback_signature = xExprCallback_signatures[xExprCallback_sqlite3ReturningSubqueryVarSelect_enum];
     w.xSelectCallback = sqlite3SelectWalkNoop;
+    w.xSelectCallback_signature = xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum];
     sqlite3WalkExprList(&w, pEList);
   }
 }

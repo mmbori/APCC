@@ -137,7 +137,7 @@ int pthreadMutexEnd(void){ return SQLITE_OK; }
 ** might return such a mutex in response to SQLITE_MUTEX_FAST.
 **
 ** The other allowed parameters to sqlite3_mutex_alloc() each return
-** a pointer to a static preexisting mutex.  Six static mutexes are
+** a pointer to a preexisting mutex.  Six mutexes are
 ** used by the current version of SQLite.  Future versions of SQLite
 ** may add additional static mutexes.  Static mutexes are for internal
 ** use by SQLite only.  Applications that use SQLite mutexes should
@@ -150,7 +150,7 @@ int pthreadMutexEnd(void){ return SQLITE_OK; }
 ** mutex types, the same mutex is returned on every call that has
 ** the same type number.
 */
-sqlite3_mutex * pthreadMutexAlloc(int iType){
+sqlite3_mutex *pthreadMutexAlloc(int iType){
   static sqlite3_mutex staticMutexes[] = {
     SQLITE3_MUTEX_INITIALIZER(2),
     SQLITE3_MUTEX_INITIALIZER(3),
@@ -387,13 +387,13 @@ sqlite3_mutex_methods const *sqlite3DefaultMutex(void){
     0
 #endif
   ,
-  .xMutexInit_signature = xMutexInit_pthreadMutexInit,
-  .xMutexEnd_signature = xMutexEnd_pthreadMutexEnd,
-  .xMutexAlloc_signature = xMutexAlloc_pthreadMutexAlloc,
-  .xMutexFree_signature = xMutexFree_pthreadMutexFree,
-  .xMutexEnter_signature = xMutexEnter_pthreadMutexEnter,
-  .xMutexTry_signature = xMutexTry_pthreadMutexTry,
-  .xMutexLeave_signature = xMutexLeave_pthreadMutexLeave
+  .xMutexInit_signature = xMutexInit_signatures[xMutexInit_pthreadMutexInit_enum],
+  .xMutexEnd_signature = xMutexEnd_signatures[xMutexEnd_pthreadMutexEnd_enum],
+  .xMutexAlloc_signature = xMutexAlloc_signatures[xMutexAlloc_pthreadMutexAlloc_enum],
+  .xMutexFree_signature = xMutexFree_signatures[xMutexFree_pthreadMutexFree_enum],
+  .xMutexEnter_signature = xMutexEnter_signatures[xMutexEnter_pthreadMutexEnter_enum],
+  .xMutexTry_signature = xMutexTry_signatures[xMutexTry_pthreadMutexTry_enum],
+  .xMutexLeave_signature = xMutexLeave_signatures[xMutexLeave_pthreadMutexLeave_enum]
 };
 
   return &sMutex;

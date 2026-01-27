@@ -434,9 +434,9 @@ struct sqlite3rbu {
 
   /* Used in RBU vacuum mode only */
   int nRbu;                       /* Number of RBU VFS in the stack */
-  rbu_file *pRbuFd;               /* Fd for main db of dbRbu */
-
-  int xRename_signature;
+  rbu_file *pRbuFd;
+  int *xRename_signature;
+               /* Fd for main db of dbRbu */
 };
 
 /*
@@ -735,7 +735,7 @@ static void rbuFossilDeltaFunc(
       sqlite3_free(aOut);
       sqlite3_result_error(context, "corrupt fossil delta", -1);
     }else{
-      sqlite3_result_blob(context, aOut, nOut, sqlite3_free);
+      sqlite3_result_blob(context, aOut, nOut, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
     }
   }
 }
@@ -898,7 +898,7 @@ static int rbuObjIterNext(sqlite3rbu *p, RbuObjIter *pIter){
           "DROP TRIGGER IF EXISTS temp.rbu_update1_tr;"
           "DROP TRIGGER IF EXISTS temp.rbu_update2_tr;"
           "DROP TRIGGER IF EXISTS temp.rbu_delete_tr;"
-          , 0, 0, &p->zErrmsg
+          , 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg
       );
     }
 
@@ -919,7 +919,7 @@ static int rbuObjIterNext(sqlite3rbu *p, RbuObjIter *pIter){
       }else{
         if( pIter->zIdx==0 ){
           sqlite3_stmt *pIdx = pIter->pIdxIter;
-          rc = sqlite3_bind_text(pIdx, 1, pIter->zTbl, -1, SQLITE_STATIC);
+          rc = sqlite3_bind_text(pIdx, 1, pIter->zTbl, -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
         }
         if( rc==SQLITE_OK ){
           rc = sqlite3_step(pIter->pIdxIter);
@@ -981,14 +981,14 @@ static void rbuTargetNameFunc(
     if( rbuIsVacuum(p) ){
       assert( argc==2 || argc==1 );
       if( argc==1 || 0==sqlite3_value_int(argv[1]) ){
-        sqlite3_result_text(pCtx, zIn, -1, SQLITE_STATIC);
+        sqlite3_result_text(pCtx, zIn, -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
       }
     }else{
       if( strlen(zIn)>4 && memcmp("data", zIn, 4)==0 ){
         int i;
         for(i=4; zIn[i]>='0' && zIn[i]<='9'; i++);
         if( zIn[i]=='_' && zIn[i+1] ){
-          sqlite3_result_text(pCtx, &zIn[i+1], -1, SQLITE_STATIC);
+          sqlite3_result_text(pCtx, &zIn[i+1], -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
         }
       }
     }
@@ -1072,7 +1072,7 @@ static int rbuMPrintfExec(sqlite3rbu *p, sqlite3 *db, const char *zFmt, ...){
     if( zSql==0 ){
       p->rc = SQLITE_NOMEM;
     }else{
-      p->rc = sqlite3_exec(db, zSql, 0, 0, &p->zErrmsg);
+      p->rc = sqlite3_exec(db, zSql, 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
     }
   }
   sqlite3_free(zSql);
@@ -2255,7 +2255,7 @@ static char *rbuObjIterGetIndexWhere(sqlite3rbu *p, RbuObjIter *pIter){
   }
   if( rc==SQLITE_OK ){
     int rc2;
-    rc = sqlite3_bind_text(pStmt, 1, pIter->zIdx, -1, SQLITE_STATIC);
+    rc = sqlite3_bind_text(pStmt, 1, pIter->zIdx, -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
     if( rc==SQLITE_OK && SQLITE_ROW==sqlite3_step(pStmt) ){
       char *zSql = (char*)sqlite3_column_text(pStmt, 0);
       if( zSql ){
@@ -2923,21 +2923,16 @@ static void rbuOpenDatabase(sqlite3rbu *p, sqlite3 *dbMain, int *pbRetry){
 
   if( p->rc==SQLITE_OK ){
     p->rc = sqlite3_create_function(p->dbMain, 
-        "rbu_tmp_insert", -1, SQLITE_UTF8, (void*)p, rbuTmpInsertFunc, 0, 0
-    );
+        "rbu_tmp_insert", -1, SQLITE_UTF8, (void*)p, rbuTmpInsertFunc, xSFunc_signatures[xSFunc_rbuTmpInsertFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 
   if( p->rc==SQLITE_OK ){
     p->rc = sqlite3_create_function(p->dbMain, 
-        "rbu_fossil_delta", 2, SQLITE_UTF8, 0, rbuFossilDeltaFunc, 0, 0
-    );
-  }
+        "rbu_fossil_delta", 2, SQLITE_UTF8, 0, rbuFossilDeltaFunc, xSFunc_signatures[xSFunc_rbuFossilDeltaFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
 
   if( p->rc==SQLITE_OK ){
     p->rc = sqlite3_create_function(p->dbRbu, 
-        "rbu_target_name", -1, SQLITE_UTF8, (void*)p, rbuTargetNameFunc, 0, 0
-    );
-  }
+        "rbu_target_name", -1, SQLITE_UTF8, (void*)p, rbuTargetNameFunc, xSFunc_signatures[xSFunc_rbuTargetNameFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
 
   if( p->rc==SQLITE_OK ){
     p->rc = sqlite3_file_control(p->dbMain, "main", SQLITE_FCNTL_RBU, (void*)p);
@@ -3005,7 +3000,21 @@ static i64 rbuShmChecksum(sqlite3rbu *p){
   if( p->rc==SQLITE_OK ){
     sqlite3_file *pDb = p->pTargetFd->pReal;
     u32 volatile *ptr;
-    p->rc = pDb->pMethods->xShmMap(pDb, 0, 32*1024, 0, (void volatile**)&ptr);
+    if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_0_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+      p->rc = 0;
+    }
+    else
+      if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_apndShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+        p->rc = apndShmMap(pDb, 0, 32 * 1024, 0, (void volatile **)&ptr);
+      }
+    else
+      if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_recoverVfsShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+        p->rc = recoverVfsShmMap(pDb, 0, 32 * 1024, 0, (void volatile **)&ptr);
+      }
+    else
+      if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_unixShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+        p->rc = unixShmMap(pDb, 0, 32 * 1024, 0, (void volatile **)&ptr);
+      }
     if( p->rc==SQLITE_OK ){
       iRet = (i64)(((u64)ptr[10] << 32) + ptr[11]);
     }
@@ -3037,7 +3046,7 @@ static void rbuSetupCheckpoint(sqlite3rbu *p, RbuState *pState){
   if( pState==0 ){
     p->eStage = 0;
     if( p->rc==SQLITE_OK ){
-      p->rc = sqlite3_exec(p->dbMain, "SELECT * FROM sqlite_schema", 0, 0, 0);
+      p->rc = sqlite3_exec(p->dbMain, "SELECT * FROM sqlite_schema", 0, callback_signatures[callback_0_enum], 0, 0);
     }
   }
 
@@ -3092,7 +3101,25 @@ static void rbuSetupCheckpoint(sqlite3rbu *p, RbuState *pState){
       sqlite3_file *pDb = p->pTargetFd->pReal;
       sqlite3_file *pWal = p->pTargetFd->pWalFd->pReal;
       assert( p->nPagePerSector==0 );
-      nSectorSize = pDb->pMethods->xSectorSize(pDb);
+      if (memcmp(pDb->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_0_enum], sizeof(pDb->pMethods->xSectorSize_signature)) == 0) {
+        nSectorSize = 0;
+      }
+      else
+        if (memcmp(pDb->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_apndSectorSize_enum], sizeof(pDb->pMethods->xSectorSize_signature)) == 0) {
+          nSectorSize = apndSectorSize(pDb);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_recoverVfsSectorSize_enum], sizeof(pDb->pMethods->xSectorSize_signature)) == 0) {
+          nSectorSize = recoverVfsSectorSize(pDb);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_vfstraceSectorSize_enum], sizeof(pDb->pMethods->xSectorSize_signature)) == 0) {
+          nSectorSize = vfstraceSectorSize(pDb);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_unixSectorSize_enum], sizeof(pDb->pMethods->xSectorSize_signature)) == 0) {
+          nSectorSize = unixSectorSize(pDb);
+        }
       if( nSectorSize>p->pgsz ){
         p->nPagePerSector = nSectorSize / p->pgsz;
       }else{
@@ -3103,7 +3130,53 @@ static void rbuSetupCheckpoint(sqlite3rbu *p, RbuState *pState){
       ** directory in which the target database and the wal file reside, in 
       ** case it has not been synced since the rename() call in 
       ** rbuMoveOalFile(). */
-      p->rc = pWal->pMethods->xSync(pWal, SQLITE_SYNC_NORMAL);
+      if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+        p->rc = 0;
+      }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = apndSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = dbpageSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_echoSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = echoSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = fts3SyncMethod(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_memdbSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = memdbSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_memjrnlSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = memjrnlSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_recoverVfsSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = recoverVfsSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = rtreeEndTransaction(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_vfstraceSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = vfstraceSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_vtablogSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = vtablogSync(pWal, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pWal->pMethods->xSync_signature, xSync_signatures[xSync_unixSync_enum], sizeof(pWal->pMethods->xSync_signature)) == 0) {
+          p->rc = unixSync(pWal, SQLITE_SYNC_NORMAL);
+        }
     }
   }
 }
@@ -3162,11 +3235,59 @@ static void rbuCheckpointFrame(sqlite3rbu *p, RbuFrame *pFrame){
 
   assert( p->rc==SQLITE_OK );
   iOff = (i64)(pFrame->iWalFrame-1) * (p->pgsz + 24) + 32 + 24;
-  p->rc = pWal->pMethods->xRead(pWal, p->aBuf, p->pgsz, iOff);
+  if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_apndRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+    p->rc = apndRead(pWal, p->aBuf, p->pgsz, iOff);
+  }
+  else
+    if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_memdbRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+      p->rc = memdbRead(pWal, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_memjrnlRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+      p->rc = memjrnlRead(pWal, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_recoverVfsRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+      p->rc = recoverVfsRead(pWal, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_vfstraceRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+      p->rc = vfstraceRead(pWal, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pWal->pMethods->xRead_signature, xRead_signatures[xRead_unixRead_enum], sizeof(pWal->pMethods->xRead_signature)) == 0) {
+      p->rc = unixRead(pWal, p->aBuf, p->pgsz, iOff);
+    }
   if( p->rc ) return;
 
   iOff = (i64)(pFrame->iDbPage-1) * p->pgsz;
-  p->rc = pDb->pMethods->xWrite(pDb, p->aBuf, p->pgsz, iOff);
+  if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_apndWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+    p->rc = apndWrite(pDb, p->aBuf, p->pgsz, iOff);
+  }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_kvstorageWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = kvstorageWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_memdbWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = memdbWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_memjrnlWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = memjrnlWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_recoverVfsWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = recoverVfsWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_vfstraceWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = vfstraceWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
+  else
+    if (memcmp(pDb->pMethods->xWrite_signature, xWrite_signatures[xWrite_unixWrite_enum], sizeof(pDb->pMethods->xWrite_signature)) == 0) {
+      p->rc = unixWrite(pDb, p->aBuf, p->pgsz, iOff);
+    }
 }
 
 /*
@@ -3186,9 +3307,69 @@ static int rbuLockDatabase(sqlite3 *db){
   sqlite3_file_control(db, "main", RBU_ZIPVFS_CTRL_FILE_POINTER, &fd);
   if( fd ){
     sqlite3_file_control(db, "main", SQLITE_FCNTL_FILE_POINTER, &fd);
-    rc = fd->pMethods->xLock(fd, SQLITE_LOCK_SHARED);
+    if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = apndLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = memdbLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = recoverVfsLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = vfstraceLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = unixLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = nolockLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = dotlockLock(fd, SQLITE_LOCK_SHARED);
+      }
     if( rc==SQLITE_OK ){
-      rc = fd->pMethods->xUnlock(fd, SQLITE_LOCK_NONE);
+      if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = apndUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = memdbUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = recoverVfsUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = vfstraceUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = unixUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = nolockUnlock(fd, SQLITE_LOCK_NONE);
+        }
+      else
+        if (memcmp(fd->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(fd->pMethods->xUnlock_signature)) == 0) {
+          rc = dotlockUnlock(fd, SQLITE_LOCK_NONE);
+        }
     }
     sqlite3_file_control(db, "main", RBU_ZIPVFS_CTRL_FILE_POINTER, &fd);
   }else{
@@ -3196,9 +3377,69 @@ static int rbuLockDatabase(sqlite3 *db){
   }
 
   if( rc==SQLITE_OK && fd->pMethods ){
-    rc = fd->pMethods->xLock(fd, SQLITE_LOCK_SHARED);
+    if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = apndLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = memdbLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = recoverVfsLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = vfstraceLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = unixLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = nolockLock(fd, SQLITE_LOCK_SHARED);
+      }
+    else
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = dotlockLock(fd, SQLITE_LOCK_SHARED);
+      }
     if( rc==SQLITE_OK ){
-      rc = fd->pMethods->xLock(fd, SQLITE_LOCK_EXCLUSIVE);
+      if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = apndLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = memdbLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = recoverVfsLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = vfstraceLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = unixLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = nolockLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
+      else
+        if (memcmp(fd->pMethods->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(fd->pMethods->xLock_signature)) == 0) {
+          rc = dotlockLock(fd, SQLITE_LOCK_EXCLUSIVE);
+        }
     }
   }
   return rc;
@@ -3287,7 +3528,29 @@ static void rbuMoveOalFile(sqlite3rbu *p){
     }
 
     if( p->rc==SQLITE_OK ){
-      p->rc = p->xRename(p->pRenameArg, zOal, zWal);
+      if (memcmp(p->xRename_signature, xRename_signatures[xRename_0_enum], sizeof(p->xRename_signature)) == 0) {
+        p->rc = 0;
+      }
+      else
+        if (memcmp(p->xRename_signature, xRename_signatures[xRename_echoRename_enum], sizeof(p->xRename_signature)) == 0) {
+          p->rc = echoRename(p->pRenameArg, zOal, zWal);
+        }
+      else
+        if (memcmp(p->xRename_signature, xRename_signatures[xRename_fts3RenameMethod_enum], sizeof(p->xRename_signature)) == 0) {
+          p->rc = fts3RenameMethod(p->pRenameArg, zOal, zWal);
+        }
+      else
+        if (memcmp(p->xRename_signature, xRename_signatures[xRename_rtreeRename_enum], sizeof(p->xRename_signature)) == 0) {
+          p->rc = rtreeRename(p->pRenameArg, zOal, zWal);
+        }
+      else
+        if (memcmp(p->xRename_signature, xRename_signatures[xRename_spellfix1Rename_enum], sizeof(p->xRename_signature)) == 0) {
+          p->rc = spellfix1Rename(p->pRenameArg, zOal, zWal);
+        }
+      else
+        if (memcmp(p->xRename_signature, xRename_signatures[xRename_vtablogRename_enum], sizeof(p->xRename_signature)) == 0) {
+          p->rc = vtablogRename(p->pRenameArg, zOal, zWal);
+        }
     }
 
     if( p->rc!=SQLITE_OK 
@@ -3646,7 +3909,7 @@ static void rbuCreateTargetSchema(sqlite3rbu *p){
   sqlite3_stmt *pInsert = 0;
 
   assert( rbuIsVacuum(p) );
-  p->rc = sqlite3_exec(p->dbMain, "PRAGMA writable_schema=1", 0,0, &p->zErrmsg);
+  p->rc = sqlite3_exec(p->dbMain, "PRAGMA writable_schema=1", 0,callback_signatures[callback_0_enum], 0, &p->zErrmsg);
   if( p->rc==SQLITE_OK ){
     p->rc = prepareAndCollectError(p->dbRbu, &pSql, &p->zErrmsg, 
       "SELECT sql FROM sqlite_schema WHERE sql!='' AND rootpage!=0"
@@ -3657,7 +3920,7 @@ static void rbuCreateTargetSchema(sqlite3rbu *p){
 
   while( p->rc==SQLITE_OK && sqlite3_step(pSql)==SQLITE_ROW ){
     const char *zSql = (const char*)sqlite3_column_text(pSql, 0);
-    p->rc = sqlite3_exec(p->dbMain, zSql, 0, 0, &p->zErrmsg);
+    p->rc = sqlite3_exec(p->dbMain, zSql, 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
   }
   rbuFinalize(p, pSql);
   if( p->rc!=SQLITE_OK ) return;
@@ -3742,10 +4005,10 @@ int sqlite3rbu_step(sqlite3rbu *p){
           rbuSaveState(p, RBU_STAGE_MOVE);
           rbuIncrSchemaCookie(p);
           if( p->rc==SQLITE_OK ){
-            p->rc = sqlite3_exec(p->dbMain, "COMMIT", 0, 0, &p->zErrmsg);
+            p->rc = sqlite3_exec(p->dbMain, "COMMIT", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
           }
           if( p->rc==SQLITE_OK ){
-            p->rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, 0, &p->zErrmsg);
+            p->rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
           }
           p->eStage = RBU_STAGE_MOVE;
         }
@@ -3766,12 +4029,72 @@ int sqlite3rbu_step(sqlite3rbu *p){
             sqlite3_file *pDb = p->pTargetFd->pReal;
   
             /* Sync the db file */
-            p->rc = pDb->pMethods->xSync(pDb, SQLITE_SYNC_NORMAL);
+            if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+              p->rc = 0;
+            }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = apndSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = dbpageSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_echoSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = echoSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = fts3SyncMethod(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memdbSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = memdbSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memjrnlSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = memjrnlSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_recoverVfsSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = recoverVfsSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = rtreeEndTransaction(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vfstraceSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = vfstraceSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vtablogSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = vtablogSync(pDb, SQLITE_SYNC_NORMAL);
+              }
+            else
+              if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_unixSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+                p->rc = unixSync(pDb, SQLITE_SYNC_NORMAL);
+              }
   
             /* Update nBackfill */
             if( p->rc==SQLITE_OK ){
               void volatile *ptr;
-              p->rc = pDb->pMethods->xShmMap(pDb, 0, 32*1024, 0, &ptr);
+              if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_0_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+                p->rc = 0;
+              }
+              else
+                if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_apndShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+                  p->rc = apndShmMap(pDb, 0, 32 * 1024, 0, &ptr);
+                }
+              else
+                if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_recoverVfsShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+                  p->rc = recoverVfsShmMap(pDb, 0, 32 * 1024, 0, &ptr);
+                }
+              else
+                if (memcmp(pDb->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_unixShmMap_enum], sizeof(pDb->pMethods->xShmMap_signature)) == 0) {
+                  p->rc = unixShmMap(pDb, 0, 32 * 1024, 0, &ptr);
+                }
               if( p->rc==SQLITE_OK ){
                 ((u32 volatile*)ptr)[24] = p->iMaxFrame;
               }
@@ -3877,7 +4200,33 @@ static void rbuDeleteOalFile(sqlite3rbu *p){
     sqlite3_vfs *pVfs = 0;
     sqlite3_file_control(p->dbMain, "main", SQLITE_FCNTL_VFS_POINTER, &pVfs);
     assert( pVfs && p->rc==SQLITE_OK && p->zErrmsg==0 );
-    pVfs->xDelete(pVfs, zOal, 0);
+    if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+      0;
+    }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        apndDelete(pVfs, zOal, 0);
+      }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        f5tOrigintextDelete(pVfs, zOal, 0);
+      }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        f5tTokenizerDelete(pVfs, zOal, 0);
+      }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        kvstorageDelete(pVfs, zOal, 0);
+      }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        vfstraceDelete(pVfs, zOal, 0);
+      }
+    else
+      if (memcmp(pVfs->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pVfs->xDelete_signature)) == 0) {
+        unixDelete(pVfs, zOal, 0);
+      }
     sqlite3_free(zOal);
   }
 }
@@ -3979,8 +4328,7 @@ static void rbuInitPhaseOneSteps(sqlite3rbu *p){
     p->nPhaseOneStep = -1;
 
     p->rc = sqlite3_create_function(p->dbRbu, 
-        "rbu_index_cnt", 1, SQLITE_UTF8, (void*)p, rbuIndexCntFunc, 0, 0
-    );
+        "rbu_index_cnt", 1, SQLITE_UTF8, (void*)p, rbuIndexCntFunc, xSFunc_signatures[xSFunc_rbuIndexCntFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   
     /* Check for the rbu_count table. If it does not exist, or if an error
     ** occurs, nPhaseOneStep will be left set to -1. */
@@ -4109,7 +4457,7 @@ static sqlite3rbu *openRbuHandle(
     if( p->rc==SQLITE_OK ){
       if( p->eStage==RBU_STAGE_OAL ){
         sqlite3 *db = p->dbMain;
-        p->rc = sqlite3_exec(p->dbRbu, "BEGIN", 0, 0, &p->zErrmsg);
+        p->rc = sqlite3_exec(p->dbRbu, "BEGIN", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
 
         /* Point the object iterator at the first object */
         if( p->rc==SQLITE_OK ){
@@ -4130,7 +4478,7 @@ static sqlite3rbu *openRbuHandle(
           /* Open transactions both databases. The *-oal file is opened or
           ** created at this point. */
           if( p->rc==SQLITE_OK ){
-            p->rc = sqlite3_exec(db, "BEGIN IMMEDIATE", 0, 0, &p->zErrmsg);
+            p->rc = sqlite3_exec(db, "BEGIN IMMEDIATE", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
           }
 
           /* Check if the main database is a zipvfs db. If it is, set the upper
@@ -4140,7 +4488,7 @@ static sqlite3rbu *openRbuHandle(
             int frc = sqlite3_file_control(db, "main", SQLITE_FCNTL_ZIPVFS, 0);
             if( frc==SQLITE_OK ){
               p->rc = sqlite3_exec(
-                db, "PRAGMA journal_mode=off",0,0,&p->zErrmsg);
+                db, "PRAGMA journal_mode=off",0,callback_signatures[callback_0_enum], 0,&p->zErrmsg);
             }
           }
 
@@ -4258,19 +4606,65 @@ int sqlite3rbu_close(sqlite3rbu *p, char **pzErrmsg){
 
     /* Commit the transaction to the *-oal file. */
     if( p->rc==SQLITE_OK && p->eStage==RBU_STAGE_OAL ){
-      p->rc = sqlite3_exec(p->dbMain, "COMMIT", 0, 0, &p->zErrmsg);
+      p->rc = sqlite3_exec(p->dbMain, "COMMIT", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
     }
 
     /* Sync the db file if currently doing an incremental checkpoint */
     if( p->rc==SQLITE_OK && p->eStage==RBU_STAGE_CKPT ){
       sqlite3_file *pDb = p->pTargetFd->pReal;
-      p->rc = pDb->pMethods->xSync(pDb, SQLITE_SYNC_NORMAL);
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        p->rc = 0;
+      }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = apndSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = dbpageSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_echoSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = echoSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = fts3SyncMethod(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memdbSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = memdbSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memjrnlSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = memjrnlSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_recoverVfsSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = recoverVfsSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = rtreeEndTransaction(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vfstraceSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = vfstraceSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vtablogSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = vtablogSync(pDb, SQLITE_SYNC_NORMAL);
+        }
+      else
+        if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_unixSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+          p->rc = unixSync(pDb, SQLITE_SYNC_NORMAL);
+        }
     }
 
     rbuSaveState(p, p->eStage);
 
     if( p->rc==SQLITE_OK && p->eStage==RBU_STAGE_OAL ){
-      p->rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, 0, &p->zErrmsg);
+      p->rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, callback_signatures[callback_0_enum], 0, &p->zErrmsg);
     }
 
     /* Close any open statement handles. */
@@ -4282,7 +4676,7 @@ int sqlite3rbu_close(sqlite3rbu *p, char **pzErrmsg){
     ** specifying the current target and state databases to start a new
     ** vacuum from scratch.  */
     if( rbuIsVacuum(p) && p->rc!=SQLITE_OK && p->dbRbu ){
-      int rc2 = sqlite3_exec(p->dbRbu, "DELETE FROM stat.rbu_state", 0, 0, 0);
+      int rc2 = sqlite3_exec(p->dbRbu, "DELETE FROM stat.rbu_state", 0, callback_signatures[callback_0_enum], 0, 0);
       if( p->rc==SQLITE_DONE && rc2!=SQLITE_OK ) p->rc = rc2;
     }
 
@@ -4393,13 +4787,59 @@ int sqlite3rbu_savestate(sqlite3rbu *p){
   assert( p->eStage>=RBU_STAGE_OAL && p->eStage<=RBU_STAGE_DONE );
   if( p->eStage==RBU_STAGE_OAL ){
     assert( rc!=SQLITE_DONE );
-    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbMain, "COMMIT", 0, 0, 0);
+    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbMain, "COMMIT", 0, callback_signatures[callback_0_enum], 0, 0);
   }
 
   /* Sync the db file */
   if( rc==SQLITE_OK && p->eStage==RBU_STAGE_CKPT ){
     sqlite3_file *pDb = p->pTargetFd->pReal;
-    rc = pDb->pMethods->xSync(pDb, SQLITE_SYNC_NORMAL);
+    if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = apndSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = dbpageSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_echoSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = echoSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = fts3SyncMethod(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memdbSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = memdbSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_memjrnlSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = memjrnlSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_recoverVfsSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = recoverVfsSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = rtreeEndTransaction(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vfstraceSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = vfstraceSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_vtablogSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = vtablogSync(pDb, SQLITE_SYNC_NORMAL);
+      }
+    else
+      if (memcmp(pDb->pMethods->xSync_signature, xSync_signatures[xSync_unixSync_enum], sizeof(pDb->pMethods->xSync_signature)) == 0) {
+        rc = unixSync(pDb, SQLITE_SYNC_NORMAL);
+      }
   }
 
   p->rc = rc;
@@ -4408,12 +4848,12 @@ int sqlite3rbu_savestate(sqlite3rbu *p){
 
   if( p->eStage==RBU_STAGE_OAL ){
     assert( rc!=SQLITE_DONE );
-    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, 0, 0);
+    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbRbu, "COMMIT", 0, callback_signatures[callback_0_enum], 0, 0);
     if( rc==SQLITE_OK ){ 
       const char *zBegin = rbuIsVacuum(p) ? "BEGIN" : "BEGIN IMMEDIATE";
-      rc = sqlite3_exec(p->dbRbu, zBegin, 0, 0, 0);
+      rc = sqlite3_exec(p->dbRbu, zBegin, 0, callback_signatures[callback_0_enum], 0, 0);
     }
-    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbMain, "BEGIN IMMEDIATE", 0, 0,0);
+    if( rc==SQLITE_OK ) rc = sqlite3_exec(p->dbMain, "BEGIN IMMEDIATE", 0,callback_signatures[callback_0_enum],  0,0);
   }
 
   p->rc = rc;
@@ -4458,10 +4898,12 @@ static int xDefaultRename(void *pArg, const char *zOld, const char *zNew){
 void sqlite3rbu_rename_handler(
   sqlite3rbu *pRbu, 
   void *pArg,
-  int (*xRename)(void *pArg, const char *zOld, const char *zNew)
+  int (*xRename)(void *pArg, const char *zOld, const char *zNew),
+  int *xRename_signature
 ){
   if( xRename ){
     pRbu->xRename = xRename;
+    pRbu->xRename_signature = xRename_signature;
     pRbu->pRenameArg = pArg;
   }else{
     pRbu->xRename = xDefaultRename;
@@ -4620,7 +5062,7 @@ static rbu_file *rbuFindMaindb(rbu_vfs *pRbuVfs, const char *zWal, int bRbu){
 /*
 ** Close an rbu file.
 */
-static int rbuVfsClose(sqlite3_file *pFile){
+int rbuVfsClose(sqlite3_file *pFile){
   rbu_file *p = (rbu_file*)pFile;
   int rc;
   int i;
@@ -4638,7 +5080,21 @@ static int rbuVfsClose(sqlite3_file *pFile){
     rbuMainlistRemove(p);
     rbuUnlockShm(p);
     if( pMeth->iVersion>1 && pMeth->xShmUnmap ){
-      pMeth->xShmUnmap(p->pReal, 0);
+      if (memcmp(pMeth->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_0_enum], sizeof(pMeth->xShmUnmap_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pMeth->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_apndShmUnmap_enum], sizeof(pMeth->xShmUnmap_signature)) == 0) {
+          apndShmUnmap(p->pReal, 0);
+        }
+      else
+        if (memcmp(pMeth->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_recoverVfsShmUnmap_enum], sizeof(pMeth->xShmUnmap_signature)) == 0) {
+          recoverVfsShmUnmap(p->pReal, 0);
+        }
+      else
+        if (memcmp(pMeth->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_unixShmUnmap_enum], sizeof(pMeth->xShmUnmap_signature)) == 0) {
+          unixShmUnmap(p->pReal, 0);
+        }
     }
   }
   else if( (p->openFlags & SQLITE_OPEN_DELETEONCLOSE) && p->pRbu ){
@@ -4647,7 +5103,113 @@ static int rbuVfsClose(sqlite3_file *pFile){
   assert( p->pMainNext==0 && p->pRbuVfs->pMain!=p );
 
   /* Close the underlying file handle */
-  rc = p->pReal->pMethods->xClose(p->pReal);
+  if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_apndClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+    rc = apndClose(p->pReal);
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_bytecodevtabClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = bytecodevtabClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_completionClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = completionClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_dbdataClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = dbdataClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_dbpageClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = dbpageClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_expertClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = expertClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_fsdirClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = fsdirClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_fts3CloseMethod_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = fts3CloseMethod(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_fts3auxCloseMethod_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = fts3auxCloseMethod(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_fts3tokCloseMethod_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = fts3tokCloseMethod(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_jsonEachClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = jsonEachClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_memdbClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = memdbClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_memjrnlClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = memjrnlClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_porterClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = porterClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_pragmaVtabClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = pragmaVtabClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_recoverVfsClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = recoverVfsClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_rtreeClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = rtreeClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_seriesClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = seriesClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_simpleClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = simpleClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_statClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = statClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_stmtClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = stmtClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_unicodeClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = unicodeClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_vfstraceClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = vfstraceClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_zipfileClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = zipfileClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_unixClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = unixClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_nolockClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = nolockClose(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xClose_signature, xClose_signatures[xClose_dotlockClose_enum], sizeof(p->pReal->pMethods->xClose_signature)) == 0) {
+      rc = dotlockClose(p->pReal);
+    }
   return rc;
 }
 
@@ -4682,7 +5244,7 @@ static void rbuPutU16(u8 *aBuf, u16 iVal){
 /*
 ** Read data from an rbuVfs-file.
 */
-static int rbuVfsRead(
+int rbuVfsRead(
   sqlite3_file *pFile, 
   void *zBuf, 
   int iAmt, 
@@ -4703,7 +5265,29 @@ static int rbuVfsRead(
       rc = SQLITE_OK;
       memset(zBuf, 0, iAmt);
     }else{
-      rc = p->pReal->pMethods->xRead(p->pReal, zBuf, iAmt, iOfst);
+      if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_apndRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+        rc = apndRead(p->pReal, zBuf, iAmt, iOfst);
+      }
+      else
+        if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_memdbRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+          rc = memdbRead(p->pReal, zBuf, iAmt, iOfst);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_memjrnlRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+          rc = memjrnlRead(p->pReal, zBuf, iAmt, iOfst);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_recoverVfsRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+          rc = recoverVfsRead(p->pReal, zBuf, iAmt, iOfst);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_vfstraceRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+          rc = vfstraceRead(p->pReal, zBuf, iAmt, iOfst);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xRead_signature, xRead_signatures[xRead_unixRead_enum], sizeof(p->pReal->pMethods->xRead_signature)) == 0) {
+          rc = unixRead(p->pReal, zBuf, iAmt, iOfst);
+        }
 #if 1
       /* If this is being called to read the first page of the target 
       ** database as part of an rbu vacuum operation, synthesize the 
@@ -4715,7 +5299,29 @@ static int rbuVfsRead(
           && pRbu->rc==SQLITE_OK
       ){
         sqlite3_file *pFd = (sqlite3_file*)pRbu->pRbuFd;
-        rc = pFd->pMethods->xRead(pFd, zBuf, iAmt, iOfst);
+        if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_apndRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+          rc = apndRead(pFd, zBuf, iAmt, iOfst);
+        }
+        else
+          if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_memdbRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+            rc = memdbRead(pFd, zBuf, iAmt, iOfst);
+          }
+        else
+          if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_memjrnlRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+            rc = memjrnlRead(pFd, zBuf, iAmt, iOfst);
+          }
+        else
+          if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_recoverVfsRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+            rc = recoverVfsRead(pFd, zBuf, iAmt, iOfst);
+          }
+        else
+          if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_vfstraceRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+            rc = vfstraceRead(pFd, zBuf, iAmt, iOfst);
+          }
+        else
+          if (memcmp(pFd->pMethods->xRead_signature, xRead_signatures[xRead_unixRead_enum], sizeof(pFd->pMethods->xRead_signature)) == 0) {
+            rc = unixRead(pFd, zBuf, iAmt, iOfst);
+          }
         if( rc==SQLITE_OK ){
           u8 *aBuf = (u8*)zBuf;
           u32 iRoot = rbuGetU32(&aBuf[52]) ? 1 : 0;
@@ -4748,7 +5354,7 @@ static int rbuVfsRead(
 /*
 ** Write data to an rbuVfs-file.
 */
-static int rbuVfsWrite(
+int rbuVfsWrite(
   sqlite3_file *pFile, 
   const void *zBuf, 
   int iAmt, 
@@ -4776,7 +5382,33 @@ static int rbuVfsWrite(
         }
       }
     }
-    rc = p->pReal->pMethods->xWrite(p->pReal, zBuf, iAmt, iOfst);
+    if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_apndWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+      rc = apndWrite(p->pReal, zBuf, iAmt, iOfst);
+    }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_kvstorageWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = kvstorageWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_memdbWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = memdbWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_memjrnlWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = memjrnlWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_recoverVfsWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = recoverVfsWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_vfstraceWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = vfstraceWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xWrite_signature, xWrite_signatures[xWrite_unixWrite_enum], sizeof(p->pReal->pMethods->xWrite_signature)) == 0) {
+        rc = unixWrite(p->pReal, zBuf, iAmt, iOfst);
+      }
     if( rc==SQLITE_OK && iOfst==0 && (p->openFlags & SQLITE_OPEN_MAIN_DB) ){
       /* These look like magic numbers. But they are stable, as they are part
       ** of the definition of the SQLite file format, which may not change. */
@@ -4791,19 +5423,49 @@ static int rbuVfsWrite(
 /*
 ** Truncate an rbuVfs-file.
 */
-static int rbuVfsTruncate(sqlite3_file *pFile, sqlite_int64 size){
+int rbuVfsTruncate(sqlite3_file *pFile, sqlite_int64 size){
   rbu_file *p = (rbu_file*)pFile;
   if( (p->openFlags & SQLITE_OPEN_DELETEONCLOSE) && p->pRbu ){
     int rc = rbuUpdateTempSize(p, size);
     if( rc!=SQLITE_OK ) return rc;
   }
-  return p->pReal->pMethods->xTruncate(p->pReal, size);
+  if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_apndTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+    return apndTruncate(p->pReal, size);
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_memdbTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return memdbTruncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_memjrnlTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return memjrnlTruncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_pcache1Truncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return pcache1Truncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_pcachetraceTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return pcachetraceTruncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_recoverVfsTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return recoverVfsTruncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_vfstraceTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return vfstraceTruncate(p->pReal, size);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xTruncate_signature, xTruncate_signatures[xTruncate_unixTruncate_enum], sizeof(p->pReal->pMethods->xTruncate_signature)) == 0) {
+      return unixTruncate(p->pReal, size);
+    }
 }
 
 /*
 ** Sync an rbuVfs-file.
 */
-static int rbuVfsSync(sqlite3_file *pFile, int flags){
+int rbuVfsSync(sqlite3_file *pFile, int flags){
   rbu_file *p = (rbu_file *)pFile;
   if( p->pRbu && p->pRbu->eStage==RBU_STAGE_CAPTURE ){
     if( p->openFlags & SQLITE_OPEN_MAIN_DB ){
@@ -4811,16 +5473,84 @@ static int rbuVfsSync(sqlite3_file *pFile, int flags){
     }
     return SQLITE_OK;
   }
-  return p->pReal->pMethods->xSync(p->pReal, flags);
+  if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_0_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_apndSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return apndSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_dbpageSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return dbpageSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_echoSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return echoSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_fts3SyncMethod_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return fts3SyncMethod(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_memdbSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return memdbSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_memjrnlSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return memjrnlSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_recoverVfsSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return recoverVfsSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_rtreeEndTransaction_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return rtreeEndTransaction(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_vfstraceSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return vfstraceSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_vtablogSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return vtablogSync(p->pReal, flags);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSync_signature, xSync_signatures[xSync_unixSync_enum], sizeof(p->pReal->pMethods->xSync_signature)) == 0) {
+      return unixSync(p->pReal, flags);
+    }
 }
 
 /*
 ** Return the current file-size of an rbuVfs-file.
 */
-static int rbuVfsFileSize(sqlite3_file *pFile, sqlite_int64 *pSize){
+int rbuVfsFileSize(sqlite3_file *pFile, sqlite_int64 *pSize){
   rbu_file *p = (rbu_file *)pFile;
   int rc;
-  rc = p->pReal->pMethods->xFileSize(p->pReal, pSize);
+  if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_apndFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+    rc = apndFileSize(p->pReal, pSize);
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_memdbFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+      rc = memdbFileSize(p->pReal, pSize);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_memjrnlFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+      rc = memjrnlFileSize(p->pReal, pSize);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_recoverVfsFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+      rc = recoverVfsFileSize(p->pReal, pSize);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_vfstraceFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+      rc = vfstraceFileSize(p->pReal, pSize);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xFileSize_signature, xFileSize_signatures[xFileSize_unixFileSize_enum], sizeof(p->pReal->pMethods->xFileSize_signature)) == 0) {
+      rc = unixFileSize(p->pReal, pSize);
+    }
 
   /* If this is an RBU vacuum operation and this is the target database,
   ** pretend that it has at least one page. Otherwise, SQLite will not
@@ -4838,7 +5568,7 @@ static int rbuVfsFileSize(sqlite3_file *pFile, sqlite_int64 *pSize){
 /*
 ** Lock an rbuVfs-file.
 */
-static int rbuVfsLock(sqlite3_file *pFile, int eLock){
+int rbuVfsLock(sqlite3_file *pFile, int eLock){
   rbu_file *p = (rbu_file*)pFile;
   sqlite3rbu *pRbu = p->pRbu;
   int rc = SQLITE_OK;
@@ -4851,7 +5581,37 @@ static int rbuVfsLock(sqlite3_file *pFile, int eLock){
     ** prevents it from checkpointing the database from sqlite3_close(). */
     rc = SQLITE_BUSY;
   }else{
-    rc = p->pReal->pMethods->xLock(p->pReal, eLock);
+    if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_0_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_apndLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = apndLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_memdbLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = memdbLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_recoverVfsLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = recoverVfsLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_vfstraceLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = vfstraceLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_unixLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = unixLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_nolockLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = nolockLock(p->pReal, eLock);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xLock_signature, xLock_signatures[xLock_dotlockLock_enum], sizeof(p->pReal->pMethods->xLock_signature)) == 0) {
+        rc = dotlockLock(p->pReal, eLock);
+      }
   }
 
   return rc;
@@ -4860,23 +5620,79 @@ static int rbuVfsLock(sqlite3_file *pFile, int eLock){
 /*
 ** Unlock an rbuVfs-file.
 */
-static int rbuVfsUnlock(sqlite3_file *pFile, int eLock){
+int rbuVfsUnlock(sqlite3_file *pFile, int eLock){
   rbu_file *p = (rbu_file *)pFile;
-  return p->pReal->pMethods->xUnlock(p->pReal, eLock);
+  if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_0_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_apndUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return apndUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_memdbUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return memdbUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_recoverVfsUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return recoverVfsUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_vfstraceUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return vfstraceUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_unixUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return unixUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_nolockUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return nolockUnlock(p->pReal, eLock);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xUnlock_signature, xUnlock_signatures[xUnlock_dotlockUnlock_enum], sizeof(p->pReal->pMethods->xUnlock_signature)) == 0) {
+      return dotlockUnlock(p->pReal, eLock);
+    }
 }
 
 /*
 ** Check if another file-handle holds a RESERVED lock on an rbuVfs-file.
 */
-static int rbuVfsCheckReservedLock(sqlite3_file *pFile, int *pResOut){
+int rbuVfsCheckReservedLock(sqlite3_file *pFile, int *pResOut){
   rbu_file *p = (rbu_file *)pFile;
-  return p->pReal->pMethods->xCheckReservedLock(p->pReal, pResOut);
+  if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_0_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_apndCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return apndCheckReservedLock(p->pReal, pResOut);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_recoverVfsCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return recoverVfsCheckReservedLock(p->pReal, pResOut);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_vfstraceCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return vfstraceCheckReservedLock(p->pReal, pResOut);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_unixCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return unixCheckReservedLock(p->pReal, pResOut);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_nolockCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return nolockCheckReservedLock(p->pReal, pResOut);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xCheckReservedLock_signature, xCheckReservedLock_signatures[xCheckReservedLock_dotlockCheckReservedLock_enum], sizeof(p->pReal->pMethods->xCheckReservedLock_signature)) == 0) {
+      return dotlockCheckReservedLock(p->pReal, pResOut);
+    }
 }
 
 /*
 ** File control method. For custom operations on an rbuVfs-file.
 */
-static int rbuVfsFileControl(sqlite3_file *pFile, int op, void *pArg){
+int rbuVfsFileControl(sqlite3_file *pFile, int op, void *pArg){
   rbu_file *p = (rbu_file *)pFile;
   int (*xControl)(sqlite3_file*,int,void*) = p->pReal->pMethods->xFileControl;
   int rc;
@@ -4932,23 +5748,63 @@ static int rbuVfsFileControl(sqlite3_file *pFile, int op, void *pArg){
 /*
 ** Return the sector-size in bytes for an rbuVfs-file.
 */
-static int rbuVfsSectorSize(sqlite3_file *pFile){
+int rbuVfsSectorSize(sqlite3_file *pFile){
   rbu_file *p = (rbu_file *)pFile;
-  return p->pReal->pMethods->xSectorSize(p->pReal);
+  if (memcmp(p->pReal->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_0_enum], sizeof(p->pReal->pMethods->xSectorSize_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_apndSectorSize_enum], sizeof(p->pReal->pMethods->xSectorSize_signature)) == 0) {
+      return apndSectorSize(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_recoverVfsSectorSize_enum], sizeof(p->pReal->pMethods->xSectorSize_signature)) == 0) {
+      return recoverVfsSectorSize(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_vfstraceSectorSize_enum], sizeof(p->pReal->pMethods->xSectorSize_signature)) == 0) {
+      return vfstraceSectorSize(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xSectorSize_signature, xSectorSize_signatures[xSectorSize_unixSectorSize_enum], sizeof(p->pReal->pMethods->xSectorSize_signature)) == 0) {
+      return unixSectorSize(p->pReal);
+    }
 }
 
 /*
 ** Return the device characteristic flags supported by an rbuVfs-file.
 */
-static int rbuVfsDeviceCharacteristics(sqlite3_file *pFile){
+int rbuVfsDeviceCharacteristics(sqlite3_file *pFile){
   rbu_file *p = (rbu_file *)pFile;
-  return p->pReal->pMethods->xDeviceCharacteristics(p->pReal);
+  if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_0_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_apndDeviceCharacteristics_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      return apndDeviceCharacteristics(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_memdbDeviceCharacteristics_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      return memdbDeviceCharacteristics(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_recoverVfsDeviceCharacteristics_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      return recoverVfsDeviceCharacteristics(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_vfstraceDeviceCharacteristics_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      return vfstraceDeviceCharacteristics(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xDeviceCharacteristics_signature, xDeviceCharacteristics_signatures[xDeviceCharacteristics_unixDeviceCharacteristics_enum], sizeof(p->pReal->pMethods->xDeviceCharacteristics_signature)) == 0) {
+      return unixDeviceCharacteristics(p->pReal);
+    }
 }
 
 /*
 ** Take or release a shared-memory lock.
 */
-static int rbuVfsShmLock(sqlite3_file *pFile, int ofst, int n, int flags){
+int rbuVfsShmLock(sqlite3_file *pFile, int ofst, int n, int flags){
   rbu_file *p = (rbu_file*)pFile;
   sqlite3rbu *pRbu = p->pRbu;
   int rc = SQLITE_OK;
@@ -4973,7 +5829,21 @@ static int rbuVfsShmLock(sqlite3_file *pFile, int ofst, int n, int flags){
       bCapture = 1;
     }
     if( bCapture==0 || 0==(flags & SQLITE_SHM_UNLOCK) ){
-      rc = p->pReal->pMethods->xShmLock(p->pReal, ofst, n, flags);
+      if (memcmp(p->pReal->pMethods->xShmLock_signature, xShmLock_signatures[xShmLock_0_enum], sizeof(p->pReal->pMethods->xShmLock_signature)) == 0) {
+        rc = 0;
+      }
+      else
+        if (memcmp(p->pReal->pMethods->xShmLock_signature, xShmLock_signatures[xShmLock_apndShmLock_enum], sizeof(p->pReal->pMethods->xShmLock_signature)) == 0) {
+          rc = apndShmLock(p->pReal, ofst, n, flags);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xShmLock_signature, xShmLock_signatures[xShmLock_recoverVfsShmLock_enum], sizeof(p->pReal->pMethods->xShmLock_signature)) == 0) {
+          rc = recoverVfsShmLock(p->pReal, ofst, n, flags);
+        }
+      else
+        if (memcmp(p->pReal->pMethods->xShmLock_signature, xShmLock_signatures[xShmLock_unixShmLock_enum], sizeof(p->pReal->pMethods->xShmLock_signature)) == 0) {
+          rc = unixShmLock(p->pReal, ofst, n, flags);
+        }
       if( bCapture && rc==SQLITE_OK ){
         pRbu->mLock |= ((1<<n) - 1) << ofst;
       }
@@ -4986,7 +5856,7 @@ static int rbuVfsShmLock(sqlite3_file *pFile, int ofst, int n, int flags){
 /*
 ** Obtain a pointer to a mapping of a single 32KiB page of the *-shm file.
 */
-static int rbuVfsShmMap(
+int rbuVfsShmMap(
   sqlite3_file *pFile, 
   int iRegion, 
   int szRegion, 
@@ -5035,7 +5905,21 @@ static int rbuVfsShmMap(
     }
   }else{
     assert( p->apShm==0 );
-    rc = p->pReal->pMethods->xShmMap(p->pReal, iRegion, szRegion, isWrite, pp);
+    if (memcmp(p->pReal->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_0_enum], sizeof(p->pReal->pMethods->xShmMap_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(p->pReal->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_apndShmMap_enum], sizeof(p->pReal->pMethods->xShmMap_signature)) == 0) {
+        rc = apndShmMap(p->pReal, iRegion, szRegion, isWrite, pp);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_recoverVfsShmMap_enum], sizeof(p->pReal->pMethods->xShmMap_signature)) == 0) {
+        rc = recoverVfsShmMap(p->pReal, iRegion, szRegion, isWrite, pp);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xShmMap_signature, xShmMap_signatures[xShmMap_unixShmMap_enum], sizeof(p->pReal->pMethods->xShmMap_signature)) == 0) {
+        rc = unixShmMap(p->pReal, iRegion, szRegion, isWrite, pp);
+      }
   }
 
   return rc;
@@ -5044,15 +5928,29 @@ static int rbuVfsShmMap(
 /*
 ** Memory barrier.
 */
-static void rbuVfsShmBarrier(sqlite3_file *pFile){
+void rbuVfsShmBarrier(sqlite3_file *pFile){
   rbu_file *p = (rbu_file *)pFile;
-  p->pReal->pMethods->xShmBarrier(p->pReal);
+  if (memcmp(p->pReal->pMethods->xShmBarrier_signature, xShmBarrier_signatures[xShmBarrier_0_enum], sizeof(p->pReal->pMethods->xShmBarrier_signature)) == 0) {
+    0;
+  }
+  else
+    if (memcmp(p->pReal->pMethods->xShmBarrier_signature, xShmBarrier_signatures[xShmBarrier_apndShmBarrier_enum], sizeof(p->pReal->pMethods->xShmBarrier_signature)) == 0) {
+      apndShmBarrier(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xShmBarrier_signature, xShmBarrier_signatures[xShmBarrier_recoverVfsShmBarrier_enum], sizeof(p->pReal->pMethods->xShmBarrier_signature)) == 0) {
+      recoverVfsShmBarrier(p->pReal);
+    }
+  else
+    if (memcmp(p->pReal->pMethods->xShmBarrier_signature, xShmBarrier_signatures[xShmBarrier_unixShmBarrier_enum], sizeof(p->pReal->pMethods->xShmBarrier_signature)) == 0) {
+      unixShmBarrier(p->pReal);
+    }
 }
 
 /*
 ** The xShmUnmap method.
 */
-static int rbuVfsShmUnmap(sqlite3_file *pFile, int delFlag){
+int rbuVfsShmUnmap(sqlite3_file *pFile, int delFlag){
   rbu_file *p = (rbu_file*)pFile;
   int rc = SQLITE_OK;
   int eStage = (p->pRbu ? p->pRbu->eStage : 0);
@@ -5063,7 +5961,21 @@ static int rbuVfsShmUnmap(sqlite3_file *pFile, int delFlag){
   }else{
     /* Release the checkpointer and writer locks */
     rbuUnlockShm(p);
-    rc = p->pReal->pMethods->xShmUnmap(p->pReal, delFlag);
+    if (memcmp(p->pReal->pMethods->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_0_enum], sizeof(p->pReal->pMethods->xShmUnmap_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(p->pReal->pMethods->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_apndShmUnmap_enum], sizeof(p->pReal->pMethods->xShmUnmap_signature)) == 0) {
+        rc = apndShmUnmap(p->pReal, delFlag);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_recoverVfsShmUnmap_enum], sizeof(p->pReal->pMethods->xShmUnmap_signature)) == 0) {
+        rc = recoverVfsShmUnmap(p->pReal, delFlag);
+      }
+    else
+      if (memcmp(p->pReal->pMethods->xShmUnmap_signature, xShmUnmap_signatures[xShmUnmap_unixShmUnmap_enum], sizeof(p->pReal->pMethods->xShmUnmap_signature)) == 0) {
+        rc = unixShmUnmap(p->pReal, delFlag);
+      }
   }
   return rc;
 }
@@ -5071,7 +5983,7 @@ static int rbuVfsShmUnmap(sqlite3_file *pFile, int delFlag){
 /*
 ** Open an rbu file handle.
 */
-static int rbuVfsOpen(
+int rbuVfsOpen(
   sqlite3_vfs *pVfs,
   const char *zName,
   sqlite3_file *pFile,
@@ -5098,24 +6010,22 @@ static int rbuVfsOpen(
     rbuVfsShmUnmap,               /* xShmUnmap */
     0, 0                          /* xFetch, xUnfetch */
   ,
-  .xClose_signature = xClose_rbuVfsClose,
-  .xRead_signature = xRead_rbuVfsRead,
-  .xWrite_signature = xWrite_rbuVfsWrite,
-  .xTruncate_signature = xTruncate_rbuVfsTruncate,
-  .xSync_signature = xSync_rbuVfsSync,
-  .xFileSize_signature = xFileSize_rbuVfsFileSize,
-  .xLock_signature = xLock_rbuVfsLock,
-  .xUnlock_signature = xUnlock_rbuVfsUnlock,
-  .xCheckReservedLock_signature = xCheckReservedLock_rbuVfsCheckReservedLock,
-  .xFileControl_signature = xFileControl_rbuVfsFileControl,
-  .xSectorSize_signature = xSectorSize_rbuVfsSectorSize,
-  .xDeviceCharacteristics_signature = xDeviceCharacteristics_rbuVfsDeviceCharacteristics,
-  .xShmMap_signature = xShmMap_rbuVfsShmMap,
-  .xShmLock_signature = xShmLock_rbuVfsShmLock,
-  .xShmBarrier_signature = xShmBarrier_rbuVfsShmBarrier,
-  .xShmUnmap_signature = xShmUnmap_rbuVfsShmUnmap,
-  .xFetch_signature = xFetch_0,
-  .xUnfetch_signature = xUnfetch_0
+  .xClose_signature = xClose_signatures[xClose_rbuVfsClose_enum],
+  .xRead_signature = xRead_signatures[xRead_rbuVfsRead_enum],
+  .xWrite_signature = xWrite_signatures[xWrite_rbuVfsWrite_enum],
+  .xTruncate_signature = xTruncate_signatures[xTruncate_rbuVfsTruncate_enum],
+  .xSync_signature = xSync_signatures[xSync_rbuVfsSync_enum],
+  .xFileSize_signature = xFileSize_signatures[xFileSize_rbuVfsFileSize_enum],
+  .xLock_signature = xLock_signatures[xLock_rbuVfsLock_enum],
+  .xUnlock_signature = xUnlock_signatures[xUnlock_rbuVfsUnlock_enum],
+  .xCheckReservedLock_signature = xCheckReservedLock_signatures[xCheckReservedLock_rbuVfsCheckReservedLock_enum],
+  .xFileControl_signature = xFileControl_signatures[xFileControl_rbuVfsFileControl_enum],
+  .xSectorSize_signature = xSectorSize_signatures[xSectorSize_rbuVfsSectorSize_enum],
+  .xDeviceCharacteristics_signature = xDeviceCharacteristics_signatures[xDeviceCharacteristics_rbuVfsDeviceCharacteristics_enum],
+  .xShmMap_signature = xShmMap_signatures[xShmMap_rbuVfsShmMap_enum],
+  .xShmLock_signature = xShmLock_signatures[xShmLock_rbuVfsShmLock_enum],
+  .xShmBarrier_signature = xShmBarrier_signatures[xShmBarrier_rbuVfsShmBarrier_enum],
+  .xShmUnmap_signature = xShmUnmap_signatures[xShmUnmap_rbuVfsShmUnmap_enum]
 };
   static sqlite3_io_methods rbuvfs_io_methods1 = {
     1,                            /* iVersion */
@@ -5133,24 +6043,18 @@ static int rbuVfsOpen(
     rbuVfsDeviceCharacteristics,  /* xDeviceCharacteristics */
     0, 0, 0, 0, 0, 0
   ,
-  .xClose_signature = xClose_rbuVfsClose,
-  .xRead_signature = xRead_rbuVfsRead,
-  .xWrite_signature = xWrite_rbuVfsWrite,
-  .xTruncate_signature = xTruncate_rbuVfsTruncate,
-  .xSync_signature = xSync_rbuVfsSync,
-  .xFileSize_signature = xFileSize_rbuVfsFileSize,
-  .xLock_signature = xLock_rbuVfsLock,
-  .xUnlock_signature = xUnlock_rbuVfsUnlock,
-  .xCheckReservedLock_signature = xCheckReservedLock_rbuVfsCheckReservedLock,
-  .xFileControl_signature = xFileControl_rbuVfsFileControl,
-  .xSectorSize_signature = xSectorSize_rbuVfsSectorSize,
-  .xDeviceCharacteristics_signature = xDeviceCharacteristics_rbuVfsDeviceCharacteristics,
-  .xShmMap_signature = xShmMap_0,
-  .xShmLock_signature = xShmLock_0,
-  .xShmBarrier_signature = xShmBarrier_0,
-  .xShmUnmap_signature = xShmUnmap_0,
-  .xFetch_signature = xFetch_0,
-  .xUnfetch_signature = xUnfetch_0
+  .xClose_signature = xClose_signatures[xClose_rbuVfsClose_enum],
+  .xRead_signature = xRead_signatures[xRead_rbuVfsRead_enum],
+  .xWrite_signature = xWrite_signatures[xWrite_rbuVfsWrite_enum],
+  .xTruncate_signature = xTruncate_signatures[xTruncate_rbuVfsTruncate_enum],
+  .xSync_signature = xSync_signatures[xSync_rbuVfsSync_enum],
+  .xFileSize_signature = xFileSize_signatures[xFileSize_rbuVfsFileSize_enum],
+  .xLock_signature = xLock_signatures[xLock_rbuVfsLock_enum],
+  .xUnlock_signature = xUnlock_signatures[xUnlock_rbuVfsUnlock_enum],
+  .xCheckReservedLock_signature = xCheckReservedLock_signatures[xCheckReservedLock_rbuVfsCheckReservedLock_enum],
+  .xFileControl_signature = xFileControl_signatures[xFileControl_rbuVfsFileControl_enum],
+  .xSectorSize_signature = xSectorSize_signatures[xSectorSize_rbuVfsSectorSize_enum],
+  .xDeviceCharacteristics_signature = xDeviceCharacteristics_signatures[xDeviceCharacteristics_rbuVfsDeviceCharacteristics_enum]
 };
 
 
@@ -5206,7 +6110,211 @@ static int rbuVfsOpen(
   }
 
   if( rc==SQLITE_OK ){
-    rc = pRealVfs->xOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+    if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_amatchOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+      rc = amatchOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+    }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_apndOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = apndOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_binfoOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = binfoOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_bytecodevtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = bytecodevtabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_carrayOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = carrayOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_cidxOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = cidxOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_closureOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = closureOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_completionOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = completionOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_csvtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = csvtabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_dbdataOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = dbdataOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_dbpageOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = dbpageOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_deltaparsevtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = deltaparsevtabOpen(pRealVfs, zOpen, pFd->pReal, oflags,
+                                pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_echoOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = echoOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_expertOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = expertOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_explainOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = explainOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fsOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fsOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fsdirOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fsdirOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fstreeOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fstreeOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fts3OpenMethod_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fts3OpenMethod(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fts3auxOpenMethod_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fts3auxOpenMethod(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fts3termOpenMethod_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fts3termOpenMethod(pRealVfs, zOpen, pFd->pReal, oflags,
+                                pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fts3tokOpenMethod_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fts3tokOpenMethod(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_fuzzerOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = fuzzerOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_intarrayOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = intarrayOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = jsonEachOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpenEach_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = jsonEachOpenEach(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_jsonEachOpenTree_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = jsonEachOpenTree(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_memdbOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = memdbOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_memstatOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = memstatOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_porterOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = porterOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_pragmaVtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = pragmaVtabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_prefixesOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = prefixesOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_qpvtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = qpvtabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_rtreeOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = rtreeOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_schemaOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = schemaOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_seriesOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = seriesOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_simpleOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = simpleOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_spellfix1Open_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = spellfix1Open(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_statOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = statOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_stmtOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = stmtOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_tclOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = tclOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_tclvarOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = tclvarOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_templatevtabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = templatevtabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_unicodeOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = unicodeOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_unionOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = unionOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_vfstraceOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = vfstraceOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_vstattabOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = vstattabOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_vtablogOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = vtablogOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_wholenumberOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = wholenumberOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_zipfileOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = zipfileOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
+    else
+      if (memcmp(pRealVfs->xOpen_signature, xOpen_signatures[xOpen_unixOpen_enum], sizeof(pRealVfs->xOpen_signature)) == 0) {
+        rc = unixOpen(pRealVfs, zOpen, pFd->pReal, oflags, pOutFlags);
+      }
   }
   if( pFd->pReal->pMethods ){
     const sqlite3_io_methods *pMeth = pFd->pReal->pMethods;
@@ -5231,16 +6339,42 @@ static int rbuVfsOpen(
 /*
 ** Delete the file located at zPath.
 */
-static int rbuVfsDelete(sqlite3_vfs *pVfs, const char *zPath, int dirSync){
+int rbuVfsDelete(sqlite3_vfs *pVfs, const char *zPath, int dirSync){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xDelete(pRealVfs, zPath, dirSync);
+  if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_0_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_apndDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return apndDelete(pRealVfs, zPath, dirSync);
+    }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_f5tOrigintextDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return f5tOrigintextDelete(pRealVfs, zPath, dirSync);
+    }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_f5tTokenizerDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return f5tTokenizerDelete(pRealVfs, zPath, dirSync);
+    }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_kvstorageDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return kvstorageDelete(pRealVfs, zPath, dirSync);
+    }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_vfstraceDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return vfstraceDelete(pRealVfs, zPath, dirSync);
+    }
+  else
+    if (memcmp(pRealVfs->xDelete_signature, xDelete_signatures[xDelete_unixDelete_enum], sizeof(pRealVfs->xDelete_signature)) == 0) {
+      return unixDelete(pRealVfs, zPath, dirSync);
+    }
 }
 
 /*
 ** Test for access permissions. Return true if the requested permission
 ** is available, or false otherwise.
 */
-static int rbuVfsAccess(
+int rbuVfsAccess(
   sqlite3_vfs *pVfs, 
   const char *zPath, 
   int flags, 
@@ -5250,7 +6384,21 @@ static int rbuVfsAccess(
   sqlite3_vfs *pRealVfs = pRbuVfs->pRealVfs;
   int rc;
 
-  rc = pRealVfs->xAccess(pRealVfs, zPath, flags, pResOut);
+  if (memcmp(pRealVfs->xAccess_signature, xAccess_signatures[xAccess_apndAccess_enum], sizeof(pRealVfs->xAccess_signature)) == 0) {
+    rc = apndAccess(pRealVfs, zPath, flags, pResOut);
+  }
+  else
+    if (memcmp(pRealVfs->xAccess_signature, xAccess_signatures[xAccess_memdbAccess_enum], sizeof(pRealVfs->xAccess_signature)) == 0) {
+      rc = memdbAccess(pRealVfs, zPath, flags, pResOut);
+    }
+  else
+    if (memcmp(pRealVfs->xAccess_signature, xAccess_signatures[xAccess_vfstraceAccess_enum], sizeof(pRealVfs->xAccess_signature)) == 0) {
+      rc = vfstraceAccess(pRealVfs, zPath, flags, pResOut);
+    }
+  else
+    if (memcmp(pRealVfs->xAccess_signature, xAccess_signatures[xAccess_unixAccess_enum], sizeof(pRealVfs->xAccess_signature)) == 0) {
+      rc = unixAccess(pRealVfs, zPath, flags, pResOut);
+    }
 
   /* If this call is to check if a *-wal file associated with an RBU target
   ** database connection exists, and the RBU update is in RBU_STAGE_OAL,
@@ -5288,14 +6436,28 @@ static int rbuVfsAccess(
 ** to the pathname in zPath. zOut is guaranteed to point to a buffer
 ** of at least (DEVSYM_MAX_PATHNAME+1) bytes.
 */
-static int rbuVfsFullPathname(
+int rbuVfsFullPathname(
   sqlite3_vfs *pVfs, 
   const char *zPath, 
   int nOut, 
   char *zOut
 ){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xFullPathname(pRealVfs, zPath, nOut, zOut);
+  if (memcmp(pRealVfs->xFullPathname_signature, xFullPathname_signatures[xFullPathname_apndFullPathname_enum], sizeof(pRealVfs->xFullPathname_signature)) == 0) {
+    return apndFullPathname(pRealVfs, zPath, nOut, zOut);
+  }
+  else
+    if (memcmp(pRealVfs->xFullPathname_signature, xFullPathname_signatures[xFullPathname_memdbFullPathname_enum], sizeof(pRealVfs->xFullPathname_signature)) == 0) {
+      return memdbFullPathname(pRealVfs, zPath, nOut, zOut);
+    }
+  else
+    if (memcmp(pRealVfs->xFullPathname_signature, xFullPathname_signatures[xFullPathname_vfstraceFullPathname_enum], sizeof(pRealVfs->xFullPathname_signature)) == 0) {
+      return vfstraceFullPathname(pRealVfs, zPath, nOut, zOut);
+    }
+  else
+    if (memcmp(pRealVfs->xFullPathname_signature, xFullPathname_signatures[xFullPathname_unixFullPathname_enum], sizeof(pRealVfs->xFullPathname_signature)) == 0) {
+      return unixFullPathname(pRealVfs, zPath, nOut, zOut);
+    }
 }
 
 #ifndef SQLITE_OMIT_LOAD_EXTENSION
@@ -5304,7 +6466,17 @@ static int rbuVfsFullPathname(
 */
 static void *rbuVfsDlOpen(sqlite3_vfs *pVfs, const char *zPath){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xDlOpen(pRealVfs, zPath);
+  if (memcmp(pRealVfs->xDlOpen_signature, xDlOpen_signatures[xDlOpen_apndDlOpen_enum], sizeof(pRealVfs->xDlOpen_signature)) == 0) {
+    return apndDlOpen(pRealVfs, zPath);
+  }
+  else
+    if (memcmp(pRealVfs->xDlOpen_signature, xDlOpen_signatures[xDlOpen_memdbDlOpen_enum], sizeof(pRealVfs->xDlOpen_signature)) == 0) {
+      return memdbDlOpen(pRealVfs, zPath);
+    }
+  else
+    if (memcmp(pRealVfs->xDlOpen_signature, xDlOpen_signatures[xDlOpen_unixDlOpen_enum], sizeof(pRealVfs->xDlOpen_signature)) == 0) {
+      return unixDlOpen(pRealVfs, zPath);
+    }
 }
 
 /*
@@ -5312,15 +6484,29 @@ static void *rbuVfsDlOpen(sqlite3_vfs *pVfs, const char *zPath){
 ** utf-8 string describing the most recent error encountered associated 
 ** with dynamic libraries.
 */
-static void rbuVfsDlError(sqlite3_vfs *pVfs, int nByte, char *zErrMsg){
+void rbuVfsDlError(sqlite3_vfs *pVfs, int nByte, char *zErrMsg){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  pRealVfs->xDlError(pRealVfs, nByte, zErrMsg);
+  if (memcmp(pRealVfs->xDlError_signature, xDlError_signatures[xDlError_0_enum], sizeof(pRealVfs->xDlError_signature)) == 0) {
+    0;
+  }
+  else
+    if (memcmp(pRealVfs->xDlError_signature, xDlError_signatures[xDlError_apndDlError_enum], sizeof(pRealVfs->xDlError_signature)) == 0) {
+      apndDlError(pRealVfs, nByte, zErrMsg);
+    }
+  else
+    if (memcmp(pRealVfs->xDlError_signature, xDlError_signatures[xDlError_memdbDlError_enum], sizeof(pRealVfs->xDlError_signature)) == 0) {
+      memdbDlError(pRealVfs, nByte, zErrMsg);
+    }
+  else
+    if (memcmp(pRealVfs->xDlError_signature, xDlError_signatures[xDlError_unixDlError_enum], sizeof(pRealVfs->xDlError_signature)) == 0) {
+      unixDlError(pRealVfs, nByte, zErrMsg);
+    }
 }
 
 /*
 ** Return a pointer to the symbol zSymbol in the dynamic library pHandle.
 */
-static void (*rbuVfsDlSym(
+void (*rbuVfsDlSym(
   sqlite3_vfs *pVfs, 
   void *pArg, 
   const char *zSym
@@ -5332,9 +6518,23 @@ static void (*rbuVfsDlSym(
 /*
 ** Close the dynamic library handle pHandle.
 */
-static void rbuVfsDlClose(sqlite3_vfs *pVfs, void *pHandle){
+void rbuVfsDlClose(sqlite3_vfs *pVfs, void *pHandle){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  pRealVfs->xDlClose(pRealVfs, pHandle);
+  if (memcmp(pRealVfs->xDlClose_signature, xDlClose_signatures[xDlClose_0_enum], sizeof(pRealVfs->xDlClose_signature)) == 0) {
+    0;
+  }
+  else
+    if (memcmp(pRealVfs->xDlClose_signature, xDlClose_signatures[xDlClose_apndDlClose_enum], sizeof(pRealVfs->xDlClose_signature)) == 0) {
+      apndDlClose(pRealVfs, pHandle);
+    }
+  else
+    if (memcmp(pRealVfs->xDlClose_signature, xDlClose_signatures[xDlClose_memdbDlClose_enum], sizeof(pRealVfs->xDlClose_signature)) == 0) {
+      memdbDlClose(pRealVfs, pHandle);
+    }
+  else
+    if (memcmp(pRealVfs->xDlClose_signature, xDlClose_signatures[xDlClose_unixDlClose_enum], sizeof(pRealVfs->xDlClose_signature)) == 0) {
+      unixDlClose(pRealVfs, pHandle);
+    }
 }
 #endif /* SQLITE_OMIT_LOAD_EXTENSION */
 
@@ -5344,30 +6544,76 @@ static void rbuVfsDlClose(sqlite3_vfs *pVfs, void *pHandle){
 */
 static int rbuVfsRandomness(sqlite3_vfs *pVfs, int nByte, char *zBufOut){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xRandomness(pRealVfs, nByte, zBufOut);
+  if (memcmp(pRealVfs->xRandomness_signature, xRandomness_signatures[xRandomness_apndRandomness_enum], sizeof(pRealVfs->xRandomness_signature)) == 0) {
+    return apndRandomness(pRealVfs, nByte, zBufOut);
+  }
+  else
+    if (memcmp(pRealVfs->xRandomness_signature, xRandomness_signatures[xRandomness_memdbRandomness_enum], sizeof(pRealVfs->xRandomness_signature)) == 0) {
+      return memdbRandomness(pRealVfs, nByte, zBufOut);
+    }
+  else
+    if (memcmp(pRealVfs->xRandomness_signature, xRandomness_signatures[xRandomness_vfstraceRandomness_enum], sizeof(pRealVfs->xRandomness_signature)) == 0) {
+      return vfstraceRandomness(pRealVfs, nByte, zBufOut);
+    }
+  else
+    if (memcmp(pRealVfs->xRandomness_signature, xRandomness_signatures[xRandomness_unixRandomness_enum], sizeof(pRealVfs->xRandomness_signature)) == 0) {
+      return unixRandomness(pRealVfs, nByte, zBufOut);
+    }
 }
 
 /*
 ** Sleep for nMicro microseconds. Return the number of microseconds 
 ** actually slept.
 */
-static int rbuVfsSleep(sqlite3_vfs *pVfs, int nMicro){
+int rbuVfsSleep(sqlite3_vfs *pVfs, int nMicro){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xSleep(pRealVfs, nMicro);
+  if (memcmp(pRealVfs->xSleep_signature, xSleep_signatures[xSleep_0_enum], sizeof(pRealVfs->xSleep_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pRealVfs->xSleep_signature, xSleep_signatures[xSleep_apndSleep_enum], sizeof(pRealVfs->xSleep_signature)) == 0) {
+      return apndSleep(pRealVfs, nMicro);
+    }
+  else
+    if (memcmp(pRealVfs->xSleep_signature, xSleep_signatures[xSleep_memdbSleep_enum], sizeof(pRealVfs->xSleep_signature)) == 0) {
+      return memdbSleep(pRealVfs, nMicro);
+    }
+  else
+    if (memcmp(pRealVfs->xSleep_signature, xSleep_signatures[xSleep_vfstraceSleep_enum], sizeof(pRealVfs->xSleep_signature)) == 0) {
+      return vfstraceSleep(pRealVfs, nMicro);
+    }
+  else
+    if (memcmp(pRealVfs->xSleep_signature, xSleep_signatures[xSleep_unixSleep_enum], sizeof(pRealVfs->xSleep_signature)) == 0) {
+      return unixSleep(pRealVfs, nMicro);
+    }
 }
 
 /*
 ** Return the current time as a Julian Day number in *pTimeOut.
 */
-static int rbuVfsCurrentTime(sqlite3_vfs *pVfs, double *pTimeOut){
+int rbuVfsCurrentTime(sqlite3_vfs *pVfs, double *pTimeOut){
   sqlite3_vfs *pRealVfs = ((rbu_vfs*)pVfs)->pRealVfs;
-  return pRealVfs->xCurrentTime(pRealVfs, pTimeOut);
+  if (memcmp(pRealVfs->xCurrentTime_signature, xCurrentTime_signatures[xCurrentTime_0_enum], sizeof(pRealVfs->xCurrentTime_signature)) == 0) {
+    return 0;
+  }
+  else
+    if (memcmp(pRealVfs->xCurrentTime_signature, xCurrentTime_signatures[xCurrentTime_apndCurrentTime_enum], sizeof(pRealVfs->xCurrentTime_signature)) == 0) {
+      return apndCurrentTime(pRealVfs, pTimeOut);
+    }
+  else
+    if (memcmp(pRealVfs->xCurrentTime_signature, xCurrentTime_signatures[xCurrentTime_vfstraceCurrentTime_enum], sizeof(pRealVfs->xCurrentTime_signature)) == 0) {
+      return vfstraceCurrentTime(pRealVfs, pTimeOut);
+    }
+  else
+    if (memcmp(pRealVfs->xCurrentTime_signature, xCurrentTime_signatures[xCurrentTime_unixCurrentTime_enum], sizeof(pRealVfs->xCurrentTime_signature)) == 0) {
+      return unixCurrentTime(pRealVfs, pTimeOut);
+    }
 }
 
 /*
 ** No-op.
 */
-static int rbuVfsGetLastError(sqlite3_vfs *pVfs, int a, char *b){
+int rbuVfsGetLastError(sqlite3_vfs *pVfs, int a, char *b){
   UNUSED_PARAMETER(pVfs);
   UNUSED_PARAMETER(a);
   UNUSED_PARAMETER(b);
@@ -5423,19 +6669,16 @@ int sqlite3rbu_create_vfs(const char *zName, const char *zParent){
     0,                            /* xCurrentTimeInt64 (version 2) */
     0, 0, 0                       /* Unimplemented version 3 methods */
   ,
-  .xOpen_signature = xOpen_rbuVfsOpen,
-  .xDelete_signature = xDelete_rbuVfsDelete,
-  .xAccess_signature = xAccess_rbuVfsAccess,
-  .xFullPathname_signature = xFullPathname_rbuVfsFullPathname,
-  .xDlError_signature = xDlError_rbuVfsDlError,
-  .xDlSym_signature = xDlSym_rbuVfsDlSym,
-  .xDlClose_signature = xDlClose_rbuVfsDlClose,
-  .xSleep_signature = xSleep_0,
-  .xCurrentTime_signature = xCurrentTime_0,
-  .xGetLastError_signature = xGetLastError_0,
-  .xSetSystemCall_signature = xSetSystemCall_rbuVfsSleep,
-  .xGetSystemCall_signature = xGetSystemCall_rbuVfsCurrentTime,
-  .xNextSystemCall_signature = xNextSystemCall_rbuVfsGetLastError
+  .xOpen_signature = xOpen_signatures[xOpen_rbuVfsOpen_enum],
+  .xDelete_signature = xDelete_signatures[xDelete_rbuVfsDelete_enum],
+  .xAccess_signature = xAccess_signatures[xAccess_rbuVfsAccess_enum],
+  .xFullPathname_signature = xFullPathname_signatures[xFullPathname_rbuVfsFullPathname_enum],
+  .xDlError_signature = xDlError_signatures[xDlError_rbuVfsDlError_enum],
+  .xDlSym_signature = xDlSym_signatures[xDlSym_rbuVfsDlSym_enum],
+  .xDlClose_signature = xDlClose_signatures[xDlClose_rbuVfsDlClose_enum],
+  .xSetSystemCall_signature = xSetSystemCall_signatures[xSetSystemCall_rbuVfsSleep_enum],
+  .xGetSystemCall_signature = xGetSystemCall_signatures[xGetSystemCall_rbuVfsCurrentTime_enum],
+  .xNextSystemCall_signature = xNextSystemCall_signatures[xNextSystemCall_rbuVfsGetLastError_enum]
 };
 
   rbu_vfs *pNew = 0;              /* Newly allocated VFS */

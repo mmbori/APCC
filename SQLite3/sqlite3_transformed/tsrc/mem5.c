@@ -146,7 +146,7 @@ static SQLITE_WSD struct Mem5Global {
 ** Unlink the chunk at mem5.aPool[i] from list it is currently
 ** on.  It should be found on mem5.aiFreelist[iLogsize].
 */
-static void memsys5Unlink(int i, int iLogsize){
+void memsys5Unlink(int i, int iLogsize){
   int next, prev;
   assert( i>=0 && i<mem5.nBlock );
   assert( iLogsize>=0 && iLogsize<=LOGMAX );
@@ -198,7 +198,7 @@ static void memsys5Leave(void){
 ** Return the size of an outstanding allocation, in bytes.
 ** This only works for chunks that are currently checked out.
 */
-static int memsys5Size(void *p){
+int memsys5Size(void *p){
   int iSize, i;
   assert( p!=0 );
   i = (int)(((u8 *)p-mem5.zPool)/mem5.szAtom);
@@ -353,7 +353,7 @@ static void memsys5FreeUnsafe(void *pOld){
 /*
 ** Allocate nBytes of memory.
 */
-static void *memsys5Malloc(int nBytes){
+void *memsys5Malloc(int nBytes){
   sqlite3_int64 *p = 0;
   if( nBytes>0 ){
     memsys5Enter();
@@ -369,7 +369,7 @@ static void *memsys5Malloc(int nBytes){
 ** The outer layer memory allocator prevents this routine from
 ** being called with pPrior==0.
 */
-static void memsys5Free(void *pPrior){
+void memsys5Free(void *pPrior){
   assert( pPrior!=0 );
   memsys5Enter();
   memsys5FreeUnsafe(pPrior);
@@ -388,7 +388,7 @@ static void memsys5Free(void *pPrior){
 ** (an allocation larger than 0x40000000) was requested and this
 ** routine should return 0 without freeing pPrior.
 */
-static void *memsys5Realloc(void *pPrior, int nBytes){
+void *memsys5Realloc(void *pPrior, int nBytes){
   int nOld;
   void *p;
   assert( pPrior!=0 );
@@ -418,7 +418,7 @@ static void *memsys5Realloc(void *pPrior, int nBytes){
 ** 32-bit signed integer.  Hence the largest allocation is 0x40000000
 ** or 1073741824 bytes.
 */
-static int memsys5Roundup(int n){
+int memsys5Roundup(int n){
   int iFullSz;
   if( n<=mem5.szAtom*2 ){
     if( n<=mem5.szAtom ) return mem5.szAtom;
@@ -456,7 +456,7 @@ static int memsys5Log(int iValue){
 ** This routine is not threadsafe.  The caller must be holding a mutex
 ** to prevent multiple threads from entering at the same time.
 */
-static int memsys5Init(void *NotUsed){
+int memsys5Init(void *NotUsed){
   int ii;            /* Loop counter */
   int nByte;         /* Number of bytes of memory available to this allocator */
   u8 *zByte;         /* Memory usable by this allocator */
@@ -514,7 +514,7 @@ static int memsys5Init(void *NotUsed){
 /*
 ** Deinitialize this module.
 */
-static void memsys5Shutdown(void *NotUsed){
+void memsys5Shutdown(void *NotUsed){
   UNUSED_PARAMETER(NotUsed);
   mem5.mutex = 0;
   return;
@@ -578,6 +578,14 @@ const sqlite3_mem_methods *sqlite3MemGetMemsys5(void){
      memsys5Init,
      memsys5Shutdown,
      0
+  ,
+  .xMalloc_signature = xMalloc_signatures[xMalloc_memsys5Malloc_enum],
+  .xFree_signature = xFree_signatures[xFree_memsys5Free_enum],
+  .xRealloc_signature = xRealloc_signatures[xRealloc_memsys5Realloc_enum],
+  .xSize_signature = xSize_signatures[xSize_memsys5Size_enum],
+  .xRoundup_signature = xRoundup_signatures[xRoundup_memsys5Roundup_enum],
+  .xInit_signature = xInit_signatures[xInit_memsys5Init_enum],
+  .xShutdown_signature = xShutdown_signatures[xShutdown_memsys5Shutdown_enum]
 };
   return &memsys5Methods;
 }

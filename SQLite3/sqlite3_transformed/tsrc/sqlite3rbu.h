@@ -568,7 +568,8 @@ SQLITE_API int sqlite3rbu_state(sqlite3rbu *pRbu);
 SQLITE_API void sqlite3rbu_rename_handler(
   sqlite3rbu *pRbu, 
   void *pArg,
-  int (*xRename)(void *pArg, const char *zOld, const char *zNew)
+  int (*xRename)(void *pArg, const char *zOld, const char *zNew),
+  int *xRename_signature
 );
 
 

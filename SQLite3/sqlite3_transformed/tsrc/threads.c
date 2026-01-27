@@ -44,15 +44,16 @@ struct SQLiteThread {
   int done;                      /* Set to true when thread finishes */
   void *pOut;                    /* Result returned by the thread */
   void *(*xTask)(void*);         /* The thread routine */
-  void *pIn;                     /* Argument to the thread */
-
-  int xTask_signature;
+  void *pIn;
+  int *xTask_signature;
+                     /* Argument to the thread */
 };
 
 /* Create a new thread */
 int sqlite3ThreadCreate(
   SQLiteThread **ppThread,  /* OUT: Write the thread object here */
   void *(*xTask)(void*),    /* Routine to run in a separate thread */
+  int *xTask_signature,
   void *pIn                 /* Argument passed into xTask() */
 ){
   SQLiteThread *p;
@@ -148,6 +149,7 @@ static unsigned __stdcall sqlite3ThreadProc(
 int sqlite3ThreadCreate(
   SQLiteThread **ppThread,  /* OUT: Write the thread object here */
   void *(*xTask)(void*),    /* Routine to run in a separate thread */
+  int *xTask_signature,
   void *pIn                 /* Argument passed into xTask() */
 ){
   SQLiteThread *p;
@@ -228,6 +230,7 @@ struct SQLiteThread {
 int sqlite3ThreadCreate(
   SQLiteThread **ppThread,  /* OUT: Write the thread object here */
   void *(*xTask)(void*),    /* Routine to run in a separate thread */
+  int *xTask_signature,
   void *pIn                 /* Argument passed into xTask() */
 ){
   SQLiteThread *p;

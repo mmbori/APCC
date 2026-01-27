@@ -75,7 +75,8 @@ int sqlite3PcacheOpen(
   int szPage,                    /* Size of every page */
   int szExtra,                   /* Extra space associated with each page */
   int bPurgeable,                /* True if pages are on backing store */
-  int (*xStress)(void*, PgHdr*), /* Call to try to make pages clean */
+  int (*xStress)(void*, PgHdr*),
+  int *xStress_signature, /* Call to try to make pages clean */
   void *pStress,                 /* Argument to xStress */
   PCache *pToInit                /* Preallocated space for the PCache */
 );
@@ -136,7 +137,8 @@ int sqlite3PcachePagecount(PCache*);
 ** interface is only available if SQLITE_CHECK_PAGES is defined when the 
 ** library is built.
 */
-void sqlite3PcacheIterateDirty(PCache *pCache, void (*xIter)(PgHdr *));
+void sqlite3PcacheIterateDirty(PCache *pCache, void (*xIter)(PgHdr *),
+int *xIter_signature);
 #endif
 
 #if defined(SQLITE_DEBUG)

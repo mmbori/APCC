@@ -299,11 +299,10 @@ struct SortSubtask {
   VdbeSorter *pSorter;            /* Sorter that owns this sub-task */
   UnpackedRecord *pUnpacked;      /* Space to unpack a record */
   SorterList list;                /* List for thread to write to a PMA */
-  int (*xCompare)(SortSubtask*,int*,const void*,int,const void*,int);         /* Compare function to use */
+  SorterCompare xCompare;         /* Compare function to use */
   SorterFile file;                /* Temp file for level-0 PMAs */
   SorterFile file2;               /* Space for other PMAs */
-
-  int xCompare_signature;
+  int *xCompare_signature;
 };
 
 
@@ -1150,10 +1149,11 @@ static int vdbeSorterJoinThread(SortSubtask *pTask){
 static int vdbeSorterCreateThread(
   SortSubtask *pTask,             /* Thread will use this task object */
   void *(*xTask)(void*),          /* Routine to run in a separate thread */
+  int *xTask_signature,
   void *pIn                       /* Argument passed into xTask() */
 ){
   assert( pTask->pThread==0 && pTask->bDone==0 );
-  return sqlite3ThreadCreate(&pTask->pThread, xTask, pIn);
+  return sqlite3ThreadCreate(&pTask->pThread, xTask, xTask_signature, pIn);
 }
 
 /*
@@ -1374,6 +1374,12 @@ static SorterRecord *vdbeSorterMerge(
     res = pTask->xCompare(
         pTask, &bCached, SRVAL(p1), p1->nVal, SRVAL(p2), p2->nVal
     );
+    // if( pTask->pSorter->typeMask==SORTER_TYPE_INTEGER ){
+    //   res = vdbeSorterCompareInt(pTask, &bCached, SRVAL(p1), p1->nVal, SRVAL(p2), p2->nVal);
+    // } else if( pTask->pSorter->typeMask==SORTER_TYPE_TEXT ){
+    //   res = vdbeSorterCompareText(pTask, &bCached, SRVAL(p1), p1->nVal, SRVAL(p2), p2->nVal);
+    // }
+
 
     if( res<=0 ){
       *pp = p1;
@@ -1700,7 +1706,7 @@ static int vdbeMergeEngineStep(
 /*
 ** The main routine for background threads that write level-0 PMAs.
 */
-static void *vdbeSorterFlushThread(void *pCtx){
+void *vdbeSorterFlushThread(void *pCtx){
   SortSubtask *pTask = (SortSubtask*)pCtx;
   int rc;                         /* Return code */
   assert( pTask->bDone==0 );
@@ -1773,7 +1779,7 @@ static int vdbeSorterFlushPMA(VdbeSorter *pSorter){
         if( !pSorter->list.aMemory ) return SQLITE_NOMEM_BKPT;
       }
 
-      rc = vdbeSorterCreateThread(pTask, vdbeSorterFlushThread, pCtx);
+      rc = vdbeSorterCreateThread(pTask, vdbeSorterFlushThread, xTask_signatures[xTask_vdbeSorterFlushThread_enum], pCtx);
     }
   }
 
@@ -1938,7 +1944,7 @@ static int vdbeIncrPopulate(IncrMerger *pIncr){
 ** The main routine for background threads that populate aFile[1] of
 ** multi-threaded IncrMerger objects.
 */
-static void *vdbeIncrPopulateThread(void *pCtx){
+void *vdbeIncrPopulateThread(void *pCtx){
   IncrMerger *pIncr = (IncrMerger*)pCtx;
   void *pRet = SQLITE_INT_TO_PTR( vdbeIncrPopulate(pIncr) );
   pIncr->pTask->bDone = 1;
@@ -1951,7 +1957,7 @@ static void *vdbeIncrPopulateThread(void *pCtx){
 static int vdbeIncrBgPopulate(IncrMerger *pIncr){
   void *p = (void*)pIncr;
   assert( pIncr->bUseThread );
-  return vdbeSorterCreateThread(pIncr->pTask, vdbeIncrPopulateThread, p);
+  return vdbeSorterCreateThread(pIncr->pTask, vdbeIncrPopulateThread, xTask_signatures[xTask_vdbeIncrPopulateThread_enum], p);
 }
 #endif
 
@@ -2084,6 +2090,12 @@ static void vdbeMergeEngineCompare(
     res = pTask->xCompare(
         pTask, &bCached, p1->aKey, p1->nKey, p2->aKey, p2->nKey
     );
+    // if( pTask->pSorter->typeMask==SORTER_TYPE_INTEGER ){
+    //   res = vdbeSorterCompareInt(pTask, &bCached, SRVAL(p1), p1->nVal, SRVAL(p2), p2->nVal);
+    // } else if( pTask->pSorter->typeMask==SORTER_TYPE_TEXT ){
+    //   res = vdbeSorterCompareText(pTask, &bCached, SRVAL(p1), p1->nVal, SRVAL(p2), p2->nVal);
+    // }
+    
     if( res<=0 ){
       iRes = i1;
     }else{
@@ -2274,7 +2286,7 @@ static int vdbePmaReaderIncrMergeInit(PmaReader *pReadr, int eMode){
 ** The main routine for vdbePmaReaderIncrMergeInit() operations run in
 ** background threads.
 */
-static void *vdbePmaReaderBgIncrInit(void *pCtx){
+void *vdbePmaReaderBgIncrInit(void *pCtx){
   PmaReader *pReader = (PmaReader*)pCtx;
   void *pRet = SQLITE_INT_TO_PTR(
                   vdbePmaReaderIncrMergeInit(pReader,INCRINIT_TASK)
@@ -2303,7 +2315,7 @@ static int vdbePmaReaderIncrInit(PmaReader *pReadr, int eMode){
     assert( pIncr->bUseThread==0 || eMode==INCRINIT_TASK );
     if( pIncr->bUseThread ){
       void *pCtx = (void*)pReadr;
-      rc = vdbeSorterCreateThread(pIncr->pTask, vdbePmaReaderBgIncrInit, pCtx);
+      rc = vdbeSorterCreateThread(pIncr->pTask, vdbePmaReaderBgIncrInit, xTask_signatures[xTask_vdbePmaReaderBgIncrInit_enum], pCtx);
     }else
 #endif
     {
@@ -2527,6 +2539,24 @@ static int vdbeSorterSetupMerge(VdbeSorter *pSorter){
   SorterCompare xCompare = vdbeSorterGetCompare(pSorter);
   for(i=0; i<pSorter->nTask; i++){
     pSorter->aTask[i].xCompare = xCompare;
+    if (xCompare == binCollFunc) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_binCollFunc_enum];
+    }
+    else if (xCompare == decimalCollFunc) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_decimalCollFunc_enum];
+    }
+    else if (xCompare == dummyCompare) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_dummyCompare_enum];
+    }
+    else if (xCompare == nocaseCollatingFunc) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_nocaseCollatingFunc_enum];
+    }
+    else if (xCompare == rtrimCollFunc) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_rtrimCollFunc_enum];
+    }
+    else if (xCompare == uintCollFunc) {
+      pSorter->aTask[i].xCompare_signature = xCompare_signatures[xCompare_uintCollFunc_enum];
+    }
   }
 #endif
 

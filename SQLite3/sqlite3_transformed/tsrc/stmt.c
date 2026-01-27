@@ -73,8 +73,13 @@ struct stmt_cursor {
 **    (2) Tell SQLite (via the sqlite3_declare_vtab() interface) what the
 **        result set of queries against stmt will look like.
 */
-int stmtConnect(sqlite3 *db, void *pAux, int argc, const char * const *argv,
-                sqlite3_vtab **ppVtab, char **pzErr){
+int stmtConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   stmt_vtab *pNew;
   int rc;
 
@@ -165,11 +170,16 @@ int stmtNext(sqlite3_vtab_cursor *cur){
 ** Return values of columns for the row at which the stmt_cursor
 ** is currently pointing.
 */
-int stmtColumn(sqlite3_vtab_cursor *cur, sqlite3_context *ctx, int i){
+int stmtColumn(
+  sqlite3_vtab_cursor *cur,   /* The cursor */
+  sqlite3_context *ctx,       /* First argument to sqlite3_result_...() */
+  int i                       /* Which column to return */
+){
   stmt_cursor *pCur = (stmt_cursor*)cur;
   StmtRow *pRow = pCur->pRow;
   if( i==STMT_COLUMN_SQL ){
-    sqlite3_result_text(ctx, pRow->zSql, -1, SQLITE_TRANSIENT);
+    sqlite3_result_text(ctx, pRow->zSql, -1, SQLITE_TRANSIENT,
+                        xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else{
     sqlite3_result_int(ctx, pRow->aCol[i]);
   }
@@ -201,8 +211,11 @@ int stmtEof(sqlite3_vtab_cursor *cur){
 ** once prior to any call to stmtColumn() or stmtRowid() or 
 ** stmtEof().
 */
-int stmtFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
-               const char *idxStr, int argc, sqlite3_value **argv){
+int stmtFilter(
+  sqlite3_vtab_cursor *pVtabCursor, 
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   stmt_cursor *pCur = (stmt_cursor *)pVtabCursor;
   sqlite3_stmt *p = 0;
   sqlite3_int64 iRowid = 1;
@@ -263,7 +276,10 @@ int stmtFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
 ** a query plan for each invocation and compute an estimated cost for that
 ** plan.
 */
-int stmtBestIndex(sqlite3_vtab *tab, sqlite3_index_info *pIdxInfo){
+int stmtBestIndex(
+  sqlite3_vtab *tab,
+  sqlite3_index_info *pIdxInfo
+){
   (void)tab;
   pIdxInfo->estimatedCost = (double)500;
   pIdxInfo->estimatedRows = 500;
@@ -301,30 +317,16 @@ static sqlite3_module stmtModule = {
   0,                         /* xShadowName */
   0                          /* xIntegrity */
 ,
-  .xCreate_signature = xCreate_0,
-  .xConnect_signature = xConnect_stmtConnect,
-  .xBestIndex_signature = xBestIndex_stmtBestIndex,
-  .xDisconnect_signature = xDisconnect_stmtDisconnect,
-  .xDestroy_signature = xDestroy_0,
-  .xOpen_signature = xOpen_stmtOpen,
-  .xClose_signature = xClose_stmtClose,
-  .xFilter_signature = xFilter_stmtFilter,
-  .xNext_signature = xNext_stmtNext,
-  .xEof_signature = xEof_stmtEof,
-  .xColumn_signature = xColumn_stmtColumn,
-  .xRowid_signature = xRowid_stmtRowid,
-  .xUpdate_signature = xUpdate_0,
-  .xBegin_signature = xBegin_0,
-  .xSync_signature = xSync_0,
-  .xCommit_signature = xCommit_0,
-  .xRollback_signature = xRollback_0,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_0,
-  .xSavepoint_signature = xSavepoint_0,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_0,
-  .xIntegrity_signature = xIntegrity_0
+  .xConnect_signature = xConnect_signatures[xConnect_stmtConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_stmtBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_stmtDisconnect_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_stmtOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_stmtClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_stmtFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_stmtNext_enum],
+  .xEof_signature = xEof_signatures[xEof_stmtEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_stmtColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_stmtRowid_enum]
 };
 
 #endif /* SQLITE_OMIT_VIRTUALTABLE */

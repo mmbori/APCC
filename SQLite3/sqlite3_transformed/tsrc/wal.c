@@ -2100,15 +2100,38 @@ void sqlite3WalDb(Wal *pWal, sqlite3 *db){
 */
 static int walBusyLock(
   Wal *pWal,                      /* WAL connection */
-  int (*xBusy)(void*),            /* Function to call when busy */
+  int (*xBusy)(void*),
+  int *xBusy_signature,            /* Function to call when busy */
   void *pBusyArg,                 /* Context argument for xBusyHandler */
   int lockIdx,                    /* Offset of first byte to lock */
   int n                           /* Number of bytes to lock */
 ){
   int rc;
-  do {
-    rc = walLockExclusive(pWal, lockIdx, n);
-  }while( xBusy && rc==SQLITE_BUSY && xBusy(pBusyArg) );
+  // do {
+  //   rc = walLockExclusive(pWal, lockIdx, n);
+  // }while( xBusy && rc==SQLITE_BUSY && xBusy(pBusyArg) );
+
+  if (memcmp(xBusy_signature, xBusy_signatures[xBusy_0_enum], sizeof(xBusy_signature)) == 0) {
+    do {
+      rc = walLockExclusive(pWal, lockIdx, n);
+    }while( xBusy && rc==SQLITE_BUSY);
+  }
+  else if (memcmp(xBusy_signature, xBusy_signatures[xBusy_btreeInvokeBusyHandler_enum], sizeof(xBusy_signature)) == 0) {
+    do {
+      rc = walLockExclusive(pWal, lockIdx, n);
+    }while( xBusy && rc==SQLITE_BUSY && btreeInvokeBusyHandler(pBusyArg) );
+  }
+  else if (memcmp(xBusy_signature, xBusy_signatures[xBusy_sqliteDefaultBusyCallback_enum], sizeof(xBusy_signature)) == 0) {
+    do {
+      rc = walLockExclusive(pWal, lockIdx, n);
+    }while( xBusy && rc==SQLITE_BUSY && sqliteDefaultBusyCallback(pBusyArg) );
+  }
+  else if (memcmp(xBusy_signature, xBusy_signatures[xBusy_xBusyHandler_enum], sizeof(xBusy_signature)) == 0) {
+    do {
+      rc = walLockExclusive(pWal, lockIdx, n);
+    }while( xBusy && rc==SQLITE_BUSY && btreeInvokeBusyHandler(pBusyArg) );
+  }
+
 #ifdef SQLITE_ENABLE_SETLK_TIMEOUT
   if( rc==SQLITE_BUSY_TIMEOUT ){
     walDisableBlocking(pWal);
@@ -2194,7 +2217,8 @@ static int walCheckpoint(
   Wal *pWal,                      /* Wal connection */
   sqlite3 *db,                    /* Check for interrupts on this handle */
   int eMode,                      /* One of PASSIVE, FULL or RESTART */
-  int (*xBusy)(void*),            /* Function to call when busy */
+  int (*xBusy)(void*),
+  int *xBusy_signature,            /* Function to call when busy */
   void *pBusyArg,                 /* Context argument for xBusyHandler */
   int sync_flags,                 /* Flags for OsSync() (or 0) */
   u8 *zBuf                        /* Temporary buffer to use */
@@ -2230,7 +2254,7 @@ static int walCheckpoint(
       u32 y = AtomicLoad(pInfo->aReadMark+i); SEH_INJECT_FAULT;
       if( mxSafeFrame>y ){
         assert( y<=pWal->hdr.mxFrame );
-        rc = walBusyLock(pWal, xBusy, pBusyArg, WAL_READ_LOCK(i), 1);
+        rc = walBusyLock(pWal, xBusy, xBusy_signature, pBusyArg, WAL_READ_LOCK(i), 1);
         if( rc==SQLITE_OK ){
           u32 iMark = (i==1 ? mxSafeFrame : READMARK_NOT_USED);
           AtomicStore(pInfo->aReadMark+i, iMark); SEH_INJECT_FAULT;
@@ -2251,7 +2275,7 @@ static int walCheckpoint(
     }
 
     if( pIter
-     && (rc = walBusyLock(pWal,xBusy,pBusyArg,WAL_READ_LOCK(0),1))==SQLITE_OK
+     && (rc = walBusyLock(pWal,xBusy,xBusy_signature,pBusyArg,WAL_READ_LOCK(0),1))==SQLITE_OK
     ){
       u32 nBackfill = pInfo->nBackfill;
       pInfo->nBackfillAttempted = mxSafeFrame; SEH_INJECT_FAULT;
@@ -2344,7 +2368,7 @@ static int walCheckpoint(
       u32 salt1;
       sqlite3_randomness(4, &salt1);
       assert( pInfo->nBackfill==pWal->hdr.mxFrame );
-      rc = walBusyLock(pWal, xBusy, pBusyArg, WAL_READ_LOCK(1), WAL_NREADER-1);
+      rc = walBusyLock(pWal, xBusy, xBusy_signature, pBusyArg, WAL_READ_LOCK(1), WAL_NREADER-1);
       if( rc==SQLITE_OK ){
         if( eMode==SQLITE_CHECKPOINT_TRUNCATE ){
           /* IMPLEMENTATION-OF: R-44699-57140 This mode works the same way as
@@ -2512,8 +2536,7 @@ int sqlite3WalClose(
         pWal->exclusiveMode = WAL_EXCLUSIVE_MODE;
       }
       rc = sqlite3WalCheckpoint(pWal, db,
-          SQLITE_CHECKPOINT_PASSIVE, 0, 0, sync_flags, nBuf, zBuf, 0, 0
-      );
+          SQLITE_CHECKPOINT_PASSIVE, 0, xBusy_signatures[xBusy_0_enum], 0, sync_flags, nBuf, zBuf, 0, 0);
       if( rc==SQLITE_OK ){
         int bPersist = -1;
         sqlite3OsFileControlHint(
@@ -3748,7 +3771,8 @@ int sqlite3WalEndWriteTransaction(Wal *pWal){
 ** Otherwise, if the callback function does not return an error, this
 ** function returns SQLITE_OK.
 */
-int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno), void *pUndoCtx){
+int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno),
+int *xUndo_signature, void *pUndoCtx){
   int rc = SQLITE_OK;
   if( ALWAYS(pWal->writeLock) ){
     Pgno iMax = pWal->hdr.mxFrame;
@@ -3776,7 +3800,7 @@ int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno), void *pUndoCtx){
         ** committed. As a result, the call to xUndo may not fail.
         */
         assert( walFramePgno(pWal, iFrame)!=1 );
-        rc = xUndo(pUndoCtx, walFramePgno(pWal, iFrame));
+        rc = pagerUndoCallback(pUndoCtx, walFramePgno(pWal, iFrame));
       }
       if( iMax!=pWal->hdr.mxFrame ) walCleanupHash(pWal);
     }
@@ -4279,7 +4303,8 @@ int sqlite3WalCheckpoint(
   Wal *pWal,                      /* Wal connection */
   sqlite3 *db,                    /* Check this handle's interrupt flag */
   int eMode,                      /* PASSIVE, FULL, RESTART, or TRUNCATE */
-  int (*xBusy)(void*),            /* Function to call when busy */
+  int (*xBusy)(void*),
+  int *xBusy_signature,            /* Function to call when busy */
   void *pBusyArg,                 /* Context argument for xBusyHandler */
   int sync_flags,                 /* Flags to sync db file with (or 0) */
   int nBuf,                       /* Size of temporary buffer */
@@ -4332,7 +4357,7 @@ int sqlite3WalCheckpoint(
       ** lock is successfully obtained.
       */
       if( eMode!=SQLITE_CHECKPOINT_PASSIVE ){
-        rc = walBusyLock(pWal, xBusy2, pBusyArg, WAL_WRITE_LOCK, 1);
+        rc = walBusyLock(pWal, xBusy2, xBusy_signatures[xBusy_xBusy_enum], pBusyArg, WAL_WRITE_LOCK, 1);
         if( rc==SQLITE_OK ){
           pWal->writeLock = 1;
         }else if( rc==SQLITE_BUSY ){
@@ -4368,7 +4393,12 @@ int sqlite3WalCheckpoint(
       if( pWal->hdr.mxFrame && walPagesize(pWal)!=nBuf ){
         rc = SQLITE_CORRUPT_BKPT;
       }else if( eMode2!=SQLITE_CHECKPOINT_NOOP ){
-        rc = walCheckpoint(pWal, db, eMode2, xBusy2, pBusyArg, sync_flags,zBuf);
+        if (xBusy2 == 0) {
+          rc = walCheckpoint(pWal, db, eMode2, xBusy2, xBusy_signatures[xBusy_0_enum], pBusyArg, sync_flags,zBuf);
+        }
+        else {
+          rc = walCheckpoint(pWal, db, eMode2, xBusy2, xBusy_signatures[xBusy_xBusy_enum], pBusyArg, sync_flags,zBuf);
+        }
       }
 
       /* If no error occurred, set the output variables. */

@@ -530,7 +530,8 @@ char *sqlite3Utf16to8(sqlite3 *db, const void *z, int nByte, u8 enc){
   Mem m;
   memset(&m, 0, sizeof(m));
   m.db = db;
-  sqlite3VdbeMemSetStr(&m, z, nByte, enc, SQLITE_STATIC);
+  sqlite3VdbeMemSetStr(&m, z, nByte, enc, SQLITE_STATIC,
+                       xDel_signatures[xDel_SQLITE_STATIC_enum]);
   sqlite3VdbeChangeEncoding(&m, SQLITE_UTF8);
   if( db->mallocFailed ){
     sqlite3VdbeMemRelease(&m);

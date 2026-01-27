@@ -94,7 +94,7 @@ static void typeofFunc(
   ** the datatype code for the initial datatype of the sqlite3_value object
   ** V. The returned value is one of SQLITE_INTEGER, SQLITE_FLOAT,
   ** SQLITE_TEXT, SQLITE_BLOB, or SQLITE_NULL. */
-  sqlite3_result_text(context, azType[i], -1, SQLITE_STATIC);
+  sqlite3_result_text(context, azType[i], -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 }
 
 /* subtype(X)
@@ -328,7 +328,7 @@ static void printfFunc(
     sqlite3_str_appendf(&str, zFormat, &x);
     n = str.nChar;
     sqlite3_result_text(context, sqlite3StrAccumFinish(&str), n,
-                        SQLITE_DYNAMIC);
+                        SQLITE_DYNAMIC, xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   }
 }
 
@@ -422,7 +422,7 @@ static void substrFunc(
     for(z2=z; *z2 && p2; p2--){
       SQLITE_SKIP_UTF8(z2);
     }
-    sqlite3_result_text64(context, (char*)z, z2-z, SQLITE_TRANSIENT,
+    sqlite3_result_text64(context, (char*)z, z2-z, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], 
                           SQLITE_UTF8);
   }else{
     if( p1>=len ){
@@ -431,7 +431,7 @@ static void substrFunc(
       p2 = len-p1;
       assert( p2>0 );
     }
-    sqlite3_result_blob64(context, (char*)&z[p1], (u64)p2, SQLITE_TRANSIENT);
+    sqlite3_result_blob64(context, (char*)&z[p1], (u64)p2, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }
 }
 
@@ -516,7 +516,7 @@ static void upperFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
       for(i=0; i<n; i++){
         z1[i] = (char)sqlite3Toupper(z2[i]);
       }
-      sqlite3_result_text(context, z1, n, sqlite3_free);
+      sqlite3_result_text(context, z1, n, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
     }
   }
 }
@@ -535,7 +535,7 @@ static void lowerFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
       for(i=0; i<n; i++){
         z1[i] = sqlite3Tolower(z2[i]);
       }
-      sqlite3_result_text(context, z1, n, sqlite3_free);
+      sqlite3_result_text(context, z1, n, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
     }
   }
 }
@@ -595,7 +595,7 @@ static void randomBlob(
   p = contextMalloc(context, n);
   if( p ){
     sqlite3_randomness(n, p);
-    sqlite3_result_blob(context, (char*)p, n, sqlite3_free);
+    sqlite3_result_blob(context, (char*)p, n, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   }
 }
 
@@ -904,7 +904,11 @@ int sqlite3_like_count = 0;
 ** This same function (with a different compareInfo structure) computes
 ** the GLOB operator.
 */
-void likeFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
+static void likeFunc(
+  sqlite3_context *context,
+  int argc,
+  sqlite3_value **argv
+){
   const unsigned char *zA, *zB;
   u32 escape;
   int nPat;
@@ -995,7 +999,7 @@ static void versionFunc(
   UNUSED_PARAMETER2(NotUsed, NotUsed2);
   /* IMP: R-48699-48617 This function is an SQL wrapper around the
   ** sqlite3_libversion() C-interface. */
-  sqlite3_result_text(context, sqlite3_libversion(), -1, SQLITE_STATIC);
+  sqlite3_result_text(context, sqlite3_libversion(), -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 }
 
 /*
@@ -1011,7 +1015,7 @@ static void sourceidFunc(
   UNUSED_PARAMETER2(NotUsed, NotUsed2);
   /* IMP: R-24470-31136 This function is an SQL wrapper around the
   ** sqlite3_sourceid() C interface. */
-  sqlite3_result_text(context, sqlite3_sourceid(), -1, SQLITE_STATIC);
+  sqlite3_result_text(context, sqlite3_sourceid(), -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 }
 
 /*
@@ -1071,7 +1075,7 @@ static void compileoptiongetFunc(
   ** is a wrapper around the sqlite3_compileoption_get() C/C++ function.
   */
   n = sqlite3_value_int(argv[0]);
-  sqlite3_result_text(context, sqlite3_compileoption_get(n), -1, SQLITE_STATIC);
+  sqlite3_result_text(context, sqlite3_compileoption_get(n), -1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
 }
 #endif /* SQLITE_OMIT_COMPILEOPTION_DIAGS */
 
@@ -1234,7 +1238,8 @@ static void unistrFunc(
     }
   }
   zOut[j] = 0;
-  sqlite3_result_text64(context, zOut, j, sqlite3_free, SQLITE_UTF8);
+  sqlite3_result_text64(context, zOut, j, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum], 
+SQLITE_UTF8);
   return;
 
 unistr_error:
@@ -1266,7 +1271,7 @@ static void quoteFunc(sqlite3_context *context, int argc, sqlite3_value **argv){
   sqlite3StrAccumInit(&str, db, 0, 0, db->aLimit[SQLITE_LIMIT_LENGTH]);
   sqlite3QuoteValue(&str,argv[0],SQLITE_PTR_TO_INT(sqlite3_user_data(context)));
   sqlite3_result_text(context, sqlite3StrAccumFinish(&str), str.nChar,
-                      SQLITE_DYNAMIC);
+                      SQLITE_DYNAMIC, xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   if( str.accError!=SQLITE_OK ){
     sqlite3_result_null(context);
     sqlite3_result_error_code(context, str.accError);
@@ -1327,7 +1332,7 @@ static void charFunc(
     }                                                    \
   }
   *zOut = 0;
-  sqlite3_result_text64(context, (char*)z, zOut-z, sqlite3_free, SQLITE_UTF8);
+  sqlite3_result_text64(context, (char*)z, zOut-z, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum], SQLITE_UTF8);
 }
 
 /*
@@ -1356,7 +1361,7 @@ static void hexFunc(
     }
     *z = 0;
     sqlite3_result_text64(context, zHex, (u64)(z-zHex),
-                          sqlite3_free, SQLITE_UTF8);
+                          sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum], SQLITE_UTF8);
   }
 }
 
@@ -1441,7 +1446,7 @@ static void unhexFunc(
   }
 
  unhex_done:
-  sqlite3_result_blob(pCtx, pBlob, (p - pBlob), sqlite3_free);
+  sqlite3_result_blob(pCtx, pBlob, (p - pBlob), sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   return;
 
  unhex_null:
@@ -1508,7 +1513,7 @@ static void replaceFunc(
   }
   if( zPattern[0]==0 ){
     assert( sqlite3_value_type(argv[1])!=SQLITE_NULL );
-    sqlite3_result_text(context, (const char*)zStr, nStr, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, (const char*)zStr, nStr, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     return;
   }
   nPattern = sqlite3_value_bytes(argv[1]);
@@ -1562,7 +1567,7 @@ static void replaceFunc(
   j += nStr - i;
   assert( j<=nOut );
   zOut[j] = 0;
-  sqlite3_result_text(context, (char*)zOut, j, sqlite3_free);
+  sqlite3_result_text(context, (char*)zOut, j, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
 }
 
 /*
@@ -1647,7 +1652,7 @@ static void trimFunc(
       sqlite3_free(azChar);
     }
   }
-  sqlite3_result_text(context, (char*)zIn, nIn, SQLITE_TRANSIENT);
+  sqlite3_result_text(context, (char*)zIn, nIn, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
 }
 
 /* The core implementation of the CONCAT(...) and CONCAT_WS(SEP,...)
@@ -1692,7 +1697,7 @@ static void concatFuncCore(
   }
   z[j] = 0;
   assert( j<=n );
-  sqlite3_result_text64(context, z, j, sqlite3_free, SQLITE_UTF8);
+  sqlite3_result_text64(context, z, j, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum], SQLITE_UTF8);
 }
 
 /*
@@ -1800,11 +1805,11 @@ static void soundexFunc(
       zResult[j++] = '0';
     }
     zResult[j] = 0;
-    sqlite3_result_text(context, zResult, 4, SQLITE_TRANSIENT);
+    sqlite3_result_text(context, zResult, 4, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
   }else{
     /* IMP: R-64894-50321 The string "?000" is returned if the argument
     ** is NULL or contains no ASCII alphabetic characters. */
-    sqlite3_result_text(context, "?000", 4, SQLITE_STATIC);
+    sqlite3_result_text(context, "?000", 4, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
   }
 }
 #endif /* SQLITE_SOUNDEX */
@@ -2313,10 +2318,10 @@ static void groupConcatValue(sqlite3_context *context){
     }else if( pAccum->accError==SQLITE_NOMEM ){
       sqlite3_result_error_nomem(context);
     }else if( pGCC->nAccum>0 && pAccum->nChar==0 ){
-      sqlite3_result_text(context, "", 1, SQLITE_STATIC);
+      sqlite3_result_text(context, "", 1, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
     }else{   
       const char *zText = sqlite3_str_value(pAccum);
-      sqlite3_result_text(context, zText, pAccum->nChar, SQLITE_TRANSIENT);
+      sqlite3_result_text(context, zText, pAccum->nChar, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }
   }
 }
@@ -2355,8 +2360,8 @@ void sqlite3RegisterLikeFunctions(sqlite3 *db, int caseSensitive){
     flags = SQLITE_FUNC_LIKE;
   }
   for(nArg=2; nArg<=3; nArg++){
-    sqlite3CreateFunc(db, "like", nArg, SQLITE_UTF8, pInfo, likeFunc, 
-                      0, 0, 0, 0, 0);
+    sqlite3CreateFunc(db, "like", nArg, SQLITE_UTF8, pInfo, likeFunc, xSFunc_signatures[xSFunc_likeFunc_enum], 
+                      0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum], 0, xValue_signatures[xValue_0_enum], 0, xInverse_signatures[xInverse_0_enum], 0);
     pDef = sqlite3FindFunction(db, "like", nArg, SQLITE_UTF8, 0);
     pDef->funcFlags |= flags;
     pDef->funcFlags &= ~SQLITE_FUNC_UNSAFE;
@@ -2666,7 +2671,7 @@ static void fpdecodeFunc(
   }else{
     sqlite3_snprintf(sizeof(zBuf), zBuf, "%c%.*s/%d", s.sign, s.n, s.z, s.iDP);
   }
-  sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT);
+  sqlite3_result_text(context, zBuf, -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
 }
 #endif /* SQLITE_DEBUG */
 
@@ -2739,7 +2744,7 @@ static void parseuriFunc(
         }
       }
     }
-    sqlite3_result_text(ctx, sqlite3_str_finish(pResult), -1, sqlite3_free);
+    sqlite3_result_text(ctx, sqlite3_str_finish(pResult), -1, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
   }
   sqlite3_free_filename(zFile);
   sqlite3_free(zErr);

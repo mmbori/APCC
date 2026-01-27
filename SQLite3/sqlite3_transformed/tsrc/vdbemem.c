@@ -281,7 +281,44 @@ SQLITE_NOINLINE int sqlite3VdbeMemGrow(Mem *pMem, int n, int bPreserve){
   }
   if( (pMem->flags&MEM_Dyn)!=0 ){
     assert( pMem->xDel!=0 && pMem->xDel!=SQLITE_DYNAMIC );
-    pMem->xDel((void *)(pMem->z));
+    // pMem->xDel((void *)(pMem->z));
+    if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_SQLITE_DYNAMIC_enum], sizeof(int[4])) == 0) {
+        SQLITE_DYNAMIC((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_SQLITE_STATIC_enum], sizeof(int[4])) == 0) {
+        SQLITE_STATIC((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], sizeof(int[4])) == 0) {
+        SQLITE_TRANSIENT((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+        rtreeMatchArgFree((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3RCStrUnref_enum], sizeof(int[4])) == 0) {
+        sqlite3RCStrUnref((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3SchemaClear_enum], sizeof(int[4])) == 0) {
+        sqlite3SchemaClear((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeValueListFree((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3_free_enum], sizeof(int[4])) == 0) {
+        sqlite3_free((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_statAccumDestructor_enum], sizeof(int[4])) == 0) {
+        statAccumDestructor((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3RowSetDelete_enum], sizeof(int[4])) == 0) {
+        sqlite3RowSetDelete((void *)(pMem->z));
+    }
+    else if (memcmp(pMem->xDel_signature, xDel_signatures[xDel_sqlite3VdbeFrameMemDel_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeFrameMemDel((void *)(pMem->z));
+    }
+
   }
 
   pMem->z = pMem->zMalloc;
@@ -537,6 +574,7 @@ int sqlite3VdbeMemAggValue(Mem *pAccum, Mem *pOut, FuncDef *pFunc){
   ctx.pFunc = pFunc;
   ctx.enc = ENC(pAccum->db);
   pFunc->xValue(&ctx);
+
   return ctx.isError;
 }
 #endif /* SQLITE_OMIT_WINDOWFUNC */
@@ -560,7 +598,44 @@ static SQLITE_NOINLINE void vdbeMemClearExternAndSetNull(Mem *p){
   }
   if( p->flags&MEM_Dyn ){
     assert( p->xDel!=SQLITE_DYNAMIC && p->xDel!=0 );
-    p->xDel((void *)p->z);
+    // p->xDel((void *)p->z);
+    if (memcmp(p->xDel_signature, xDel_signatures[xDel_0_enum], sizeof(int[4])) == 0) {
+      ;
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_SQLITE_DYNAMIC_enum], sizeof(int[4])) == 0) {
+        SQLITE_DYNAMIC((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_SQLITE_STATIC_enum], sizeof(int[4])) == 0) {
+        SQLITE_STATIC((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], sizeof(int[4])) == 0) {
+        SQLITE_TRANSIENT((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+        rtreeMatchArgFree((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3RCStrUnref_enum], sizeof(int[4])) == 0) {
+        sqlite3RCStrUnref((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3SchemaClear_enum], sizeof(int[4])) == 0) {
+        sqlite3SchemaClear((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeValueListFree((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3_free_enum], sizeof(int[4])) == 0) {
+        sqlite3_free((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_statAccumDestructor_enum], sizeof(int[4])) == 0) {
+        statAccumDestructor((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3RowSetDelete_enum], sizeof(int[4])) == 0) {
+        sqlite3RowSetDelete((void *)p->z);
+    }
+    else if (memcmp(p->xDel_signature, xDel_signatures[xDel_sqlite3VdbeFrameMemDel_enum], sizeof(int[4])) == 0) {
+        sqlite3VdbeFrameMemDel((void *)p->z);
+    }
+
   }
   p->flags = MEM_Null;
 }
@@ -961,7 +1036,8 @@ void sqlite3VdbeMemSetPointer(
   Mem *pMem,
   void *pPtr,
   const char *zPType,
-  void (*xDestructor)(void*)
+  void (*xDestructor)(void*),
+  int *xDestructor_signature
 ){
   assert( pMem->flags==MEM_Null );
   vdbeMemClear(pMem);
@@ -1015,6 +1091,7 @@ int sqlite3VdbeMemSetRowSet(Mem *pMem){
   pMem->z = (char*)p;
   pMem->flags = MEM_Blob|MEM_Dyn;
   pMem->xDel = sqlite3RowSetDelete;
+  pMem->xDel_signature = xDel_signatures[xDel_sqlite3RowSetDelete_enum];
   return SQLITE_OK;
 }
 
@@ -1163,7 +1240,8 @@ int sqlite3VdbeMemSetStr(
   const char *z,      /* String pointer */
   i64 n,              /* Bytes in string, or negative */
   u8 enc,             /* Encoding of z.  0 for BLOBs */
-  void (*xDel)(void*) /* Destructor function */
+  void (*xDel)(void*),
+  int *xDel_signature /* Destructor function */
 ){
   i64 nByte = n;      /* New value for pMem->n */
   int iLimit;         /* Maximum allowed string or blob size */
@@ -1204,7 +1282,45 @@ int sqlite3VdbeMemSetStr(
       if( xDel==SQLITE_DYNAMIC ){
         sqlite3DbFree(pMem->db, (void*)z);
       }else{
-        xDel((void*)z);
+        if (memcmp(xDel_signature, xDel_signatures[xDel_0_enum], sizeof(xDel_signature)) == 0) {
+          0;
+        }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_SQLITE_DYNAMIC_enum], sizeof(xDel_signature)) == 0) {
+            SQLITE_DYNAMIC((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_SQLITE_STATIC_enum], sizeof(xDel_signature)) == 0) {
+            SQLITE_STATIC((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_SQLITE_TRANSIENT_enum], sizeof(xDel_signature)) == 0) {
+            SQLITE_TRANSIENT((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_rtreeMatchArgFree_enum], sizeof(xDel_signature)) == 0) {
+            rtreeMatchArgFree((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_sqlite3RCStrUnref_enum], sizeof(xDel_signature)) == 0) {
+            sqlite3RCStrUnref((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_sqlite3SchemaClear_enum], sizeof(xDel_signature)) == 0) {
+            sqlite3SchemaClear((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_sqlite3VdbeValueListFree_enum], sizeof(xDel_signature)) == 0) {
+            sqlite3VdbeValueListFree((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_sqlite3_free_enum], sizeof(xDel_signature)) == 0) {
+            sqlite3_free((void *)z);
+          }
+        else
+          if (memcmp(xDel_signature, xDel_signatures[xDel_statAccumDestructor_enum], sizeof(xDel_signature)) == 0) {
+            statAccumDestructor((void *)z);
+          }
       }
     }
     sqlite3VdbeMemSetNull(pMem);
@@ -1235,6 +1351,7 @@ int sqlite3VdbeMemSetStr(
       pMem->szMalloc = sqlite3DbMallocSize(pMem->db, pMem->zMalloc);
     }else{
       pMem->xDel = xDel;
+      pMem->xDel_signature = xDel_signature;
       flags |= ((xDel==SQLITE_STATIC)?MEM_Static:MEM_Dyn);
     }
   }
@@ -1387,7 +1504,8 @@ const void *sqlite3ValueText(sqlite3_value* pVal, u8 enc){
 ** TODO:  Maybe someday promote this interface into a published API so
 ** that third-party extensions can get access to it?
 */
-int sqlite3ValueIsOfClass(const sqlite3_value *pVal, void(*xFree)(void*)){
+int sqlite3ValueIsOfClass(const sqlite3_value *pVal, void(*xFree)(void*),
+int *xFree_signature){
   if( ALWAYS(pVal!=0)
    && ALWAYS((pVal->flags & (MEM_Str|MEM_Blob))!=0)
    && (pVal->flags & MEM_Dyn)!=0
@@ -1553,7 +1671,25 @@ static int valueFromFunction(
   ctx.pOut = pVal;
   ctx.pFunc = pFunc;
   ctx.enc = ENC(db);
-  pFunc->xSFunc(&ctx, nVal, apVal);
+  if (memcmp(pFunc->xSFunc_signature, xSFunc_signatures[xSFunc_attachFunc_enum], sizeof(pFunc->xSFunc_signature)) == 0) {
+    attachFunc(&ctx, nVal, apVal);
+  }
+  else
+    if (memcmp(pFunc->xSFunc_signature, xSFunc_signatures[xSFunc_detachFunc_enum], sizeof(pFunc->xSFunc_signature)) == 0) {
+      detachFunc(&ctx, nVal, apVal);
+    }
+  else
+    if (memcmp(pFunc->xSFunc_signature, xSFunc_signatures[xSFunc_statGet_enum], sizeof(pFunc->xSFunc_signature)) == 0) {
+      statGet(&ctx, nVal, apVal);
+    }
+  else
+    if (memcmp(pFunc->xSFunc_signature, xSFunc_signatures[xSFunc_statInit_enum], sizeof(pFunc->xSFunc_signature)) == 0) {
+      statInit(&ctx, nVal, apVal);
+    }
+  else
+    if (memcmp(pFunc->xSFunc_signature, xSFunc_signatures[xSFunc_statPush_enum], sizeof(pFunc->xSFunc_signature)) == 0) {
+      statPush(&ctx, nVal, apVal);
+    }
   if( ctx.isError ){
     rc = ctx.isError;
     sqlite3ErrorMsg(pCtx->pParse, "%s", sqlite3_value_text(pVal));
@@ -1670,7 +1806,8 @@ static int valueFromExpr(
       }else{
         zVal = sqlite3MPrintf(db, "%s%s", zNeg, pExpr->u.zToken);
         if( zVal==0 ) goto no_mem;
-        sqlite3ValueSetStr(pVal, -1, zVal, SQLITE_UTF8, SQLITE_DYNAMIC);
+        sqlite3ValueSetStr(pVal, -1, zVal, SQLITE_UTF8, SQLITE_DYNAMIC,
+                           xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
       }
     }
     if( affinity==SQLITE_AFF_BLOB ){
@@ -1732,8 +1869,8 @@ static int valueFromExpr(
     zVal = &pExpr->u.zToken[2];
     nVal = sqlite3Strlen30(zVal)-1;
     assert( zVal[nVal]=='\'' );
-    sqlite3VdbeMemSetStr(pVal, sqlite3HexToBlob(db, zVal, nVal), nVal/2,
-                         0, SQLITE_DYNAMIC);
+    sqlite3VdbeMemSetStr(pVal, sqlite3HexToBlob(db, zVal, nVal), nVal / 2, 0, SQLITE_DYNAMIC,
+                         xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   }
 #endif
 #ifdef SQLITE_ENABLE_STAT4
@@ -2013,9 +2150,10 @@ void sqlite3ValueSetStr(
   int n,                /* Length of string z */
   const void *z,        /* Text of the new string */
   u8 enc,               /* Encoding to use */
-  void (*xDel)(void*)   /* Destructor for the string */
+  void (*xDel)(void*),
+  int *xDel_signature   /* Destructor for the string */
 ){
-  if( v ) sqlite3VdbeMemSetStr((Mem *)v, z, n, enc, xDel);
+  if( v ) sqlite3VdbeMemSetStr((Mem *)v, z, n, enc, xDel, xDel_signature);
 }
 
 /*

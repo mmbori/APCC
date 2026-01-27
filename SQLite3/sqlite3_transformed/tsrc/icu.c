@@ -298,7 +298,7 @@ static void icuRegexpFunc(sqlite3_context *p, int nArg, sqlite3_value **apArg){
     pExpr = uregex_open(zPattern, -1, 0, 0, &status);
 
     if( U_SUCCESS(status) ){
-      sqlite3_set_auxdata(p, 0, pExpr, icuRegexpDelete);
+      sqlite3_set_auxdata(p, 0, pExpr, icuRegexpDelete, xDelete_signatures[xDelete_icuRegexpDelete_enum]);
       pExpr = sqlite3_get_auxdata(p, 0);
     }
     if( !pExpr ){
@@ -380,7 +380,7 @@ static void icuCaseFunc16(sqlite3_context *p, int nArg, sqlite3_value **apArg){
   }
   nOut = nInput = sqlite3_value_bytes16(apArg[0]);
   if( nOut==0 ){
-    sqlite3_result_text16(p, "", 0, SQLITE_STATIC);
+    sqlite3_result_text16(p, "", 0, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
     return;
   }
 
@@ -400,7 +400,7 @@ static void icuCaseFunc16(sqlite3_context *p, int nArg, sqlite3_value **apArg){
     }
 
     if( U_SUCCESS(status) ){
-      sqlite3_result_text16(p, zOutput, nOut, xFree);
+      sqlite3_result_text16(p, zOutput, nOut, xFree, xDel_signatures[xDel_xFree_enum]);
     }else if( status==U_BUFFER_OVERFLOW_ERROR ){
       assert( cnt==0 );
       continue;
@@ -427,7 +427,7 @@ static void icuCollationDel(void *pCtx){
 ** Collation sequence comparison function. The pCtx argument points to
 ** a UCollator structure previously allocated using ucol_open().
 */
-static int icuCollationColl(
+int icuCollationColl(
   void *pCtx,
   int nLeft,
   const void *zLeft,
@@ -520,8 +520,7 @@ static void icuLoadCollation(
     }
   }
   rc = sqlite3_create_collation_v2(db, zName, SQLITE_UTF16, (void *)pUCollator, 
-      icuCollationColl, icuCollationDel
-  );
+      icuCollationColl, xCompare_signatures[xCompare__enum], icuCollationDel, xDestroy_signatures[xDestroy_icuCollationDel_enum]);
   if( rc!=SQLITE_OK ){
     ucol_close(pUCollator);
     sqlite3_result_error(p, "Error registering collation function", -1);
@@ -539,9 +538,9 @@ int sqlite3IcuInit(sqlite3 *db){
     unsigned int enc;                         /* Optimal text encoding */
     unsigned char iContext;                   /* sqlite3_user_data() context */
     void (*xFunc)(sqlite3_context*,int,sqlite3_value**);
-  
-    int xFunc_signature;
-} scalars[] = {
+  int *xFunc_signature;
+
+  } scalars[] = {
     {"icu_load_collation",2,SQLITE_UTF8|SQLITE_DIRECTONLY,1, icuLoadCollation},
     {"icu_load_collation",3,SQLITE_UTF8|SQLITE_DIRECTONLY,1, icuLoadCollation},
 #if !defined(SQLITE_CORE) || defined(SQLITE_ENABLE_ICU)
@@ -566,8 +565,7 @@ int sqlite3IcuInit(sqlite3 *db){
     rc = sqlite3_create_function(
         db, p->zName, p->nArg, p->enc, 
         p->iContext ? (void*)db : (void*)0,
-        p->xFunc, 0, 0
-    );
+        p->xFunc, xSFunc_signatures[xSFunc_xSFunc_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
 
   return rc;

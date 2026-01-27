@@ -34,11 +34,11 @@
 # define sqlite3WalDbsize(y)                     0
 # define sqlite3WalBeginWriteTransaction(y)      0
 # define sqlite3WalEndWriteTransaction(x)        0
-# define sqlite3WalUndo(x,y,z)                   0
+# define sqlite3WalUndo(x,y,z, y_signature)                   0
 # define sqlite3WalSavepoint(y,z)
 # define sqlite3WalSavepointUndo(y,z)            0
 # define sqlite3WalFrames(u,v,w,x,y,z)           0
-# define sqlite3WalCheckpoint(q,r,s,t,u,v,w,x,y,z) 0
+# define sqlite3WalCheckpoint(q,r,s,t,t_signature, u,v,w,x,y,z, t_signature) 0
 # define sqlite3WalCallback(z)                   0
 # define sqlite3WalExclusiveMode(y,z)            0
 # define sqlite3WalHeapMemory(z)                 0
@@ -84,7 +84,8 @@ int sqlite3WalBeginWriteTransaction(Wal *pWal);
 int sqlite3WalEndWriteTransaction(Wal *pWal);
 
 /* Undo any frames written (but not committed) to the log */
-int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno), void *pUndoCtx);
+int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno),
+int *xUndo_signature, void *pUndoCtx);
 
 /* Return an integer that records the current (uncommitted) write
 ** position in the WAL */
@@ -102,7 +103,8 @@ int sqlite3WalCheckpoint(
   Wal *pWal,                      /* Write-ahead log connection */
   sqlite3 *db,                    /* Check this handle's interrupt flag */
   int eMode,                      /* One of PASSIVE, FULL and RESTART */
-  int (*xBusy)(void*),            /* Function to call when busy */
+  int (*xBusy)(void*),
+  int *xBusy_signature,            /* Function to call when busy */
   void *pBusyArg,                 /* Context argument for xBusyHandler */
   int sync_flags,                 /* Flags to sync db file with (or 0) */
   int nBuf,                       /* Size of buffer nBuf */

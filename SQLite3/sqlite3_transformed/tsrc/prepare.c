@@ -366,14 +366,14 @@ int sqlite3InitOne(sqlite3 *db, int iDb, char **pzErrMsg, u32 mFlags){
         db->aDb[iDb].zDbSName, zSchemaTabName);
 #ifndef SQLITE_OMIT_AUTHORIZATION
     {
-      int (*xAuth)(void*,int,const char*,const char*,const char*,
-                             const char*);
+      sqlite3_xauth xAuth;
       xAuth = db->xAuth;
       db->xAuth = 0;
 #endif
-      rc = sqlite3_exec(db, zSql, sqlite3InitCallback, &initData, 0);
+      rc = sqlite3_exec(db, zSql, sqlite3InitCallback, callback_signatures[callback_sqlite3InitCallback_enum], &initData, 0);
 #ifndef SQLITE_OMIT_AUTHORIZATION
       db->xAuth = xAuth;
+      db->xAuth_signature = db->xAuth_signature;
     }
 #endif
     if( rc==SQLITE_OK ) rc = initData.rc;
@@ -580,7 +580,35 @@ void sqlite3ParseObjectReset(Parse *pParse){
   while( pParse->pCleanup ){
     ParseCleanup *pCleanup = pParse->pCleanup;
     pParse->pCleanup = pCleanup->pNext;
-    pCleanup->xCleanup(db, pCleanup->pPtr);
+    // pCleanup->xCleanup(db, pCleanup->pPtr);
+    if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_agginfoFree_enum], sizeof(int[4])) == 0) {
+      agginfoFree(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DbFree_enum], sizeof(int[4])) == 0) {
+        sqlite3DbFree(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DeleteReturning_enum], sizeof(int[4])) == 0) {
+        sqlite3DeleteReturning(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DeleteTableGeneric_enum], sizeof(int[4])) == 0) {
+        sqlite3DeleteTableGeneric(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3ExprDeleteGeneric_enum], sizeof(int[4])) == 0) {
+        sqlite3ExprDeleteGeneric(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum], sizeof(int[4])) == 0) {
+        sqlite3ExprListDeleteGeneric(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3SelectDeleteGeneric_enum], sizeof(int[4])) == 0) {
+        sqlite3SelectDeleteGeneric(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3WithDeleteGeneric_enum], sizeof(int[4])) == 0) {
+        sqlite3WithDeleteGeneric(db, pCleanup->pPtr);
+    }
+    else if (memcmp(pCleanup->xCleanup_signature, xCleanup_signatures[xCleanup_whereIndexedExprCleanup_enum], sizeof(int[4])) == 0) {
+        whereIndexedExprCleanup(db, pCleanup->pPtr);
+    }
+    
     sqlite3DbNNFreeNN(db, pCleanup);
   }
   if( pParse->aLabel ) sqlite3DbNNFreeNN(db, pParse->aLabel);
@@ -625,6 +653,7 @@ void sqlite3ParseObjectReset(Parse *pParse){
 void *sqlite3ParserAddCleanup(
   Parse *pParse,                      /* Destroy when this Parser finishes */
   void (*xCleanup)(sqlite3*,void*),   /* The cleanup routine */
+  int *xCleanup_signature,
   void *pPtr                          /* Pointer to object to be cleaned up */
 ){
   ParseCleanup *pCleanup;
@@ -639,8 +668,43 @@ void *sqlite3ParserAddCleanup(
     pParse->pCleanup = pCleanup;
     pCleanup->pPtr = pPtr;
     pCleanup->xCleanup = xCleanup;
+    pCleanup->xCleanup_signature = xCleanup_signature;
   }else{
-    xCleanup(pParse->db, pPtr);
+    if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_agginfoFree_enum], sizeof(xCleanup_signature)) == 0) {
+      agginfoFree(pParse->db, pPtr);
+    }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DbFree_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3DbFree(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DeleteReturning_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3DeleteReturning(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3DeleteTableGeneric_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3DeleteTableGeneric(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3ExprDeleteGeneric_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3ExprDeleteGeneric(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3ExprListDeleteGeneric_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3ExprListDeleteGeneric(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3SelectDeleteGeneric_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3SelectDeleteGeneric(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_sqlite3WithDeleteGeneric_enum], sizeof(xCleanup_signature)) == 0) {
+        sqlite3WithDeleteGeneric(pParse->db, pPtr);
+      }
+    else
+      if (memcmp(xCleanup_signature, xCleanup_signatures[xCleanup_whereIndexedExprCleanup_enum], sizeof(xCleanup_signature)) == 0) {
+        whereIndexedExprCleanup(pParse->db, pPtr);
+      }
     pPtr = 0;
 #if defined(SQLITE_DEBUG) || defined(SQLITE_COVERAGE_TEST)
     pParse->earlyCleanup = 1;

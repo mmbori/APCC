@@ -1150,9 +1150,11 @@ void sqlite3ResultStrAccum(sqlite3_context *pCtx, StrAccum *p){
     sqlite3_result_error_code(pCtx, p->accError);
     sqlite3_str_reset(p);
   }else if( isMalloced(p) ){
-    sqlite3_result_text(pCtx, p->zText, p->nChar, SQLITE_DYNAMIC);
+    sqlite3_result_text(pCtx, p->zText, p->nChar, SQLITE_DYNAMIC,
+                        xDel_signatures[xDel_SQLITE_DYNAMIC_enum]);
   }else{
-    sqlite3_result_text(pCtx, "", 0, SQLITE_STATIC);
+    sqlite3_result_text(pCtx, "", 0, SQLITE_STATIC,
+                        xDel_signatures[xDel_SQLITE_STATIC_enum]);
     sqlite3_str_reset(p);
   }
 }
@@ -1380,7 +1382,7 @@ char *sqlite3_snprintf(int n, char *zBuf, const char *zFormat, ...){
 ** We house it in a separate routine from sqlite3_log() to avoid using
 ** stack space on small-stack systems when logging is disabled.
 **
-** sqlite3_log() must render into a static buffer.  It cannot dynamically
+** sqlite3_log() must render into a buffer.  It cannot dynamically
 ** allocate memory because it might be called while the memory allocator
 ** mutex is held.
 **

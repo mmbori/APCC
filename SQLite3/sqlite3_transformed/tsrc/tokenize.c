@@ -726,7 +726,8 @@ int sqlite3RunParser(Parse *pParse, const char *zSql){
 #ifdef sqlite3Parser_ENGINEALWAYSONSTACK
   sqlite3ParserFinalize(pEngine);
 #else
-  sqlite3ParserFree(pEngine, sqlite3_free);
+  sqlite3ParserFree(pEngine, sqlite3_free,
+                    freeProc_signatures[freeProc_sqlite3_free_enum]);
 #endif
   if( db->mallocFailed ){
     pParse->rc = SQLITE_NOMEM_BKPT;

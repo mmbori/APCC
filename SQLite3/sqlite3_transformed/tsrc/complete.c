@@ -276,7 +276,8 @@ int sqlite3_complete16(const void *zSql){
   if( rc ) return rc;
 #endif
   pVal = sqlite3ValueNew(0);
-  sqlite3ValueSetStr(pVal, -1, zSql, SQLITE_UTF16NATIVE, SQLITE_STATIC);
+  sqlite3ValueSetStr(pVal, -1, zSql, SQLITE_UTF16NATIVE, SQLITE_STATIC,
+                     xDel_signatures[xDel_SQLITE_STATIC_enum]);
   zSql8 = sqlite3ValueText(pVal, SQLITE_UTF8);
   if( zSql8 ){
     rc = sqlite3_complete(zSql8);

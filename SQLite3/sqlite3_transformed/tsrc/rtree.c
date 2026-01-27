@@ -349,10 +349,10 @@ struct RtreeConstraint {
     int (*xGeom)(sqlite3_rtree_geometry*,int,RtreeDValue*,int*);
     int (*xQueryFunc)(sqlite3_rtree_query_info*);
   } u;
-  sqlite3_rtree_query_info *pInfo;  /* xGeom and xQueryFunc argument */
-
-  int xGeom_signature;
-  int xQueryFunc_signature;
+  sqlite3_rtree_query_info *pInfo;
+  int *xGeom_signature;
+  int *xQueryFunc_signature;
+  /* xGeom and xQueryFunc argument */
 };
 
 /* Possible values for RtreeConstraint.op */
@@ -414,10 +414,10 @@ struct RtreeGeomCallback {
   int (*xQueryFunc)(sqlite3_rtree_query_info*);
   void (*xDestructor)(void*);
   void *pContext;
+  int *xGeom_signature;
+  int *xQueryFunc_signature;
+  int *xDestructor_signature;
 
-  int xGeom_signature;
-  int xQueryFunc_signature;
-  int xDestructor_signature;
 };
 
 /*
@@ -529,7 +529,7 @@ struct RtreeMatchArg {
 ** Functions to deserialize a 16 bit integer, 32 bit real number and
 ** 64 bit integer. The deserialized value is returned.
 */
-static int readInt16(u8 *p){
+int readInt16(u8 *p){
   return (p[0]<<8) + p[1];
 }
 static void readCoord(u8 *p, RtreeCoord *pCoord){
@@ -900,7 +900,7 @@ static int nodeWrite(Rtree *pRtree, RtreeNode *pNode){
     }else{
       sqlite3_bind_null(p, 1);
     }
-    sqlite3_bind_blob(p, 2, pNode->zData, pRtree->iNodeSize, SQLITE_STATIC);
+    sqlite3_bind_blob(p, 2, pNode->zData, pRtree->iNodeSize, SQLITE_STATIC, xDel_signatures[xDel_SQLITE_STATIC_enum]);
     sqlite3_step(p);
     pNode->isDirty = 0;
     rc = sqlite3_reset(p);
@@ -1004,16 +1004,26 @@ static int rtreeInit(
 /* 
 ** Rtree virtual table module xCreate method.
 */
-int rtreeCreate(sqlite3 *db, void *pAux, int argc, const char * const *argv,
-                sqlite3_vtab **ppVtab, char **pzErr){
+int rtreeCreate(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   return rtreeInit(db, pAux, argc, argv, ppVtab, pzErr, 1);
 }
 
 /* 
 ** Rtree virtual table module xConnect method.
 */
-int rtreeConnect(sqlite3 *db, void *pAux, int argc, const char * const *argv,
-                 sqlite3_vtab **ppVtab, char **pzErr){
+int rtreeConnect(
+  sqlite3 *db,
+  void *pAux,
+  int argc, const char *const*argv,
+  sqlite3_vtab **ppVtab,
+  char **pzErr
+){
   return rtreeInit(db, pAux, argc, argv, ppVtab, pzErr, 0);
 }
 
@@ -1075,7 +1085,7 @@ int rtreeDestroy(sqlite3_vtab *pVtab){
     rc = SQLITE_NOMEM;
   }else{
     nodeBlobReset(pRtree);
-    rc = sqlite3_exec(pRtree->db, zCreate, 0, 0, 0);
+    rc = sqlite3_exec(pRtree->db, zCreate, 0, callback_signatures[callback_0_enum], 0, 0);
     sqlite3_free(zCreate);
   }
   if( rc==SQLITE_OK ){
@@ -1118,7 +1128,7 @@ static void resetCursor(RtreeCursor *pCsr){
     for(i=0; i<pCsr->nConstraint; i++){
       sqlite3_rtree_query_info *pInfo = pCsr->aConstraint[i].pInfo;
       if( pInfo ){
-        if( pInfo->xDelUser ) pInfo->xDelUser(pInfo->pUser);
+        // if( pInfo->xDelUser ) pInfo->xDelUser(pInfo->pUser);
         sqlite3_free(pInfo);
       }
     }
@@ -1863,8 +1873,11 @@ int sqlite3IntFloatCompare(i64,double);
 /* 
 ** Rtree virtual table module xFilter method.
 */
-int rtreeFilter(sqlite3_vtab_cursor *pVtabCursor, int idxNum,
-                const char *idxStr, int argc, sqlite3_value **argv){
+int rtreeFilter(
+  sqlite3_vtab_cursor *pVtabCursor, 
+  int idxNum, const char *idxStr,
+  int argc, sqlite3_value **argv
+){
   Rtree *pRtree = (Rtree *)pVtabCursor->pVtab;
   RtreeCursor *pCsr = (RtreeCursor *)pVtabCursor;
   RtreeNode *pRoot = 0;
@@ -3093,8 +3106,12 @@ static int rtreeConstraintError(Rtree *pRtree, int iCol){
 /*
 ** The xUpdate method for rtree module virtual tables.
 */
-int rtreeUpdate(sqlite3_vtab *pVtab, int nData, sqlite3_value **aData,
-                sqlite_int64 *pRowid){
+int rtreeUpdate(
+  sqlite3_vtab *pVtab, 
+  int nData, 
+  sqlite3_value **aData, 
+  sqlite_int64 *pRowid
+){
   Rtree *pRtree = (Rtree *)pVtab;
   int rc = SQLITE_OK;
   RtreeCell cell;                 /* New cell to insert if nData>1 */
@@ -3273,7 +3290,7 @@ int rtreeRename(sqlite3_vtab *pVtab, const char *zNewName){
   );
   if( zSql ){
     nodeBlobReset(pRtree);
-    rc = sqlite3_exec(pRtree->db, zSql, 0, 0, 0);
+    rc = sqlite3_exec(pRtree->db, zSql, 0, callback_signatures[callback_0_enum], 0, 0);
     sqlite3_free(zSql);
   }
   return rc;
@@ -3354,7 +3371,7 @@ int rtreeShadowName(const char *zName){
 }
 
 /* Forward declaration */
-int rtreeIntegrity(sqlite3_vtab *, const char *, const char *, int, char **);
+int rtreeIntegrity(sqlite3_vtab*, const char*, const char*, int, char**);
 
 static sqlite3_module rtreeModule = {
   4,                          /* iVersion */
@@ -3383,30 +3400,27 @@ static sqlite3_module rtreeModule = {
   rtreeShadowName,            /* xShadowName */
   rtreeIntegrity              /* xIntegrity */
 ,
-  .xCreate_signature = xCreate_rtreeCreate,
-  .xConnect_signature = xConnect_rtreeConnect,
-  .xBestIndex_signature = xBestIndex_rtreeBestIndex,
-  .xDisconnect_signature = xDisconnect_rtreeDisconnect,
-  .xDestroy_signature = xDestroy_rtreeDestroy,
-  .xOpen_signature = xOpen_rtreeOpen,
-  .xClose_signature = xClose_rtreeClose,
-  .xFilter_signature = xFilter_rtreeFilter,
-  .xNext_signature = xNext_rtreeNext,
-  .xEof_signature = xEof_rtreeEof,
-  .xColumn_signature = xColumn_rtreeColumn,
-  .xRowid_signature = xRowid_rtreeRowid,
-  .xUpdate_signature = xUpdate_rtreeUpdate,
-  .xBegin_signature = xBegin_rtreeBeginTransaction,
-  .xSync_signature = xSync_rtreeEndTransaction,
-  .xCommit_signature = xCommit_rtreeEndTransaction,
-  .xRollback_signature = xRollback_rtreeRollback,
-  .xFindFunction_signature = xFindFunction_0,
-  .xRename_signature = xRename_rtreeRename,
-  .xSavepoint_signature = xSavepoint_rtreeSavepoint,
-  .xRelease_signature = xRelease_0,
-  .xRollbackTo_signature = xRollbackTo_0,
-  .xShadowName_signature = xShadowName_rtreeShadowName,
-  .xIntegrity_signature = xIntegrity_rtreeIntegrity
+  .xCreate_signature = xCreate_signatures[xCreate_rtreeCreate_enum],
+  .xConnect_signature = xConnect_signatures[xConnect_rtreeConnect_enum],
+  .xBestIndex_signature = xBestIndex_signatures[xBestIndex_rtreeBestIndex_enum],
+  .xDisconnect_signature = xDisconnect_signatures[xDisconnect_rtreeDisconnect_enum],
+  .xDestroy_signature = xDestroy_signatures[xDestroy_rtreeDestroy_enum],
+  .xOpen_signature = xOpen_signatures[xOpen_rtreeOpen_enum],
+  .xClose_signature = xClose_signatures[xClose_rtreeClose_enum],
+  .xFilter_signature = xFilter_signatures[xFilter_rtreeFilter_enum],
+  .xNext_signature = xNext_signatures[xNext_rtreeNext_enum],
+  .xEof_signature = xEof_signatures[xEof_rtreeEof_enum],
+  .xColumn_signature = xColumn_signatures[xColumn_rtreeColumn_enum],
+  .xRowid_signature = xRowid_signatures[xRowid_rtreeRowid_enum],
+  .xUpdate_signature = xUpdate_signatures[xUpdate_rtreeUpdate_enum],
+  .xBegin_signature = xBegin_signatures[xBegin_rtreeBeginTransaction_enum],
+  .xSync_signature = xSync_signatures[xSync_rtreeEndTransaction_enum],
+  .xCommit_signature = xCommit_signatures[xCommit_rtreeEndTransaction_enum],
+  .xRollback_signature = xRollback_signatures[xRollback_rtreeRollback_enum],
+  .xRename_signature = xRename_signatures[xRename_rtreeRename_enum],
+  .xSavepoint_signature = xSavepoint_signatures[xSavepoint_rtreeSavepoint_enum],
+  .xShadowName_signature = xShadowName_signatures[xShadowName_rtreeShadowName_enum],
+  .xIntegrity_signature = xIntegrity_signatures[xIntegrity_rtreeIntegrity_enum]
 };
 
 static int rtreeSqlInit(
@@ -3463,7 +3477,7 @@ static int rtreeSqlInit(
     if( !zCreate ){
       return SQLITE_NOMEM;
     }
-    rc = sqlite3_exec(db, zCreate, 0, 0, 0);
+    rc = sqlite3_exec(db, zCreate, 0, callback_signatures[callback_0_enum], 0, 0);
     sqlite3_free(zCreate);
     if( rc!=SQLITE_OK ){
       return rc;
@@ -3771,7 +3785,7 @@ rtreeInit_fail:
 ** list, containing the 8-byte rowid/pageno followed by the 
 ** <num-dimension>*2 coordinates.
 */
-void rtreenode(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
+static void rtreenode(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
   RtreeNode node;
   Rtree tree;
   int ii;
@@ -3811,7 +3825,7 @@ void rtreenode(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
   }
   errCode = sqlite3_str_errcode(pOut);
   sqlite3_result_error_code(ctx, errCode);
-  sqlite3_result_text(ctx, sqlite3_str_finish(pOut), -1, sqlite3_free);
+  sqlite3_result_text(ctx, sqlite3_str_finish(pOut), -1, sqlite3_free, xDel_signatures[xDel_sqlite3_free_enum]);
 }
 
 /* This routine implements an SQL function that returns the "depth" parameter
@@ -3823,7 +3837,7 @@ void rtreenode(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
 ** node always has nodeno=1, so the example above is the primary use for this
 ** routine.  This routine is intended for testing and analysis only.
 */
-void rtreedepth(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
+static void rtreedepth(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
   UNUSED_PARAMETER(nArg);
   if( sqlite3_value_type(apArg[0])!=SQLITE_BLOB 
    || sqlite3_value_bytes(apArg[0])<2
@@ -4232,8 +4246,13 @@ static int rtreeCheckTable(
 /*
 ** Implementation of the xIntegrity method for Rtree.
 */
-int rtreeIntegrity(sqlite3_vtab *pVtab, const char *zSchema,
-                   const char *zName, int isQuick, char **pzErr){
+int rtreeIntegrity(
+  sqlite3_vtab *pVtab,   /* The virtual table to check */
+  const char *zSchema,   /* Schema in which the virtual table lives */
+  const char *zName,     /* Name of the virtual table */
+  int isQuick,           /* True for a quick_check */
+  char **pzErr           /* Write results here */
+){
   Rtree *pRtree = (Rtree*)pVtab;
   int rc;
   assert( pzErr!=0 && *pzErr==0 );
@@ -4282,7 +4301,11 @@ int rtreeIntegrity(sqlite3_vtab *pVtab, const char *zSchema,
 **      there is a non-leaf cell that corresponds to each entry in the 
 **      %_parent table.
 */
-void rtreecheck(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
+static void rtreecheck(
+  sqlite3_context *ctx, 
+  int nArg, 
+  sqlite3_value **apArg
+){
   if( nArg!=1 && nArg!=2 ){
     sqlite3_result_error(ctx, 
         "wrong number of arguments to function rtreecheck()", -1
@@ -4300,7 +4323,7 @@ void rtreecheck(sqlite3_context *ctx, int nArg, sqlite3_value **apArg){
     }
     rc = rtreeCheckTable(sqlite3_context_db_handle(ctx), zDb, zTab, &zReport);
     if( rc==SQLITE_OK ){
-      sqlite3_result_text(ctx, zReport ? zReport : "ok", -1, SQLITE_TRANSIENT);
+      sqlite3_result_text(ctx, zReport ? zReport : "ok", -1, SQLITE_TRANSIENT, xDel_signatures[xDel_SQLITE_TRANSIENT_enum]);
     }else{
       sqlite3_result_error_code(ctx, rc);
     }
@@ -4322,12 +4345,12 @@ int sqlite3RtreeInit(sqlite3 *db){
   const int utf8 = SQLITE_UTF8;
   int rc;
 
-  rc = sqlite3_create_function(db, "rtreenode", 2, utf8, 0, rtreenode, 0, 0);
+  rc = sqlite3_create_function(db, "rtreenode", 2, utf8, 0, rtreenode, xSFunc_signatures[xSFunc_rtreenode_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   if( rc==SQLITE_OK ){
-    rc = sqlite3_create_function(db, "rtreedepth", 1, utf8, 0,rtreedepth, 0, 0);
+    rc = sqlite3_create_function(db, "rtreedepth", 1, utf8, 0,rtreedepth, xSFunc_signatures[xSFunc_rtreedepth_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   if( rc==SQLITE_OK ){
-    rc = sqlite3_create_function(db, "rtreecheck", -1, utf8, 0,rtreecheck, 0,0);
+    rc = sqlite3_create_function(db, "rtreecheck", -1, utf8, 0,rtreecheck, xSFunc_signatures[xSFunc_rtreecheck_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum]);
   }
   if( rc==SQLITE_OK ){
 #ifdef SQLITE_RTREE_INT_ONLY
@@ -4335,11 +4358,11 @@ int sqlite3RtreeInit(sqlite3 *db){
 #else
     void *c = (void *)RTREE_COORD_REAL32;
 #endif
-    rc = sqlite3_create_module_v2(db, "rtree", &rtreeModule, c, 0);
+    rc = sqlite3_create_module_v2(db, "rtree", &rtreeModule, c, 0, xDestroy_signatures[xDestroy_0_enum]);
   }
   if( rc==SQLITE_OK ){
     void *c = (void *)RTREE_COORD_INT32;
-    rc = sqlite3_create_module_v2(db, "rtree_i32", &rtreeModule, c, 0);
+    rc = sqlite3_create_module_v2(db, "rtree_i32", &rtreeModule, c, 0, xDestroy_signatures[xDestroy_0_enum]);
   }
 #ifdef SQLITE_ENABLE_GEOPOLY
   if( rc==SQLITE_OK ){
@@ -4389,7 +4412,7 @@ void rtreeMatchArgFree(void *pArg){
 ** the RtreeMatchArg object, and use the RtreeMatchArg object to figure
 ** out which elements of the R-Tree should be returned by the query.
 */
-void geomCallback(sqlite3_context *ctx, int nArg, sqlite3_value **aArg){
+static void geomCallback(sqlite3_context *ctx, int nArg, sqlite3_value **aArg){
   RtreeGeomCallback *pGeomCtx = (RtreeGeomCallback *)sqlite3_user_data(ctx);
   RtreeMatchArg *pBlob;
   sqlite3_int64 nBlob;
@@ -4418,7 +4441,7 @@ void geomCallback(sqlite3_context *ctx, int nArg, sqlite3_value **aArg){
       sqlite3_result_error_nomem(ctx);
       rtreeMatchArgFree(pBlob);
     }else{
-      sqlite3_result_pointer(ctx, pBlob, "RtreeMatchArg", rtreeMatchArgFree);
+      sqlite3_result_pointer(ctx, pBlob, "RtreeMatchArg", rtreeMatchArgFree, xDestructor_signatures[xDestructor_rtreeMatchArgFree_enum]);
     }
   }
 }
@@ -4429,7 +4452,8 @@ void geomCallback(sqlite3_context *ctx, int nArg, sqlite3_value **aArg){
 int sqlite3_rtree_geometry_callback(
   sqlite3 *db,                  /* Register SQL function on this connection */
   const char *zGeom,            /* Name of the new SQL function */
-  int (*xGeom)(sqlite3_rtree_geometry*,int,RtreeDValue*,int*), /* Callback */
+  int (*xGeom)(sqlite3_rtree_geometry*,int,RtreeDValue*,int*),
+  int *xGeom_signature, /* Callback */
   void *pContext                /* Extra data associated with the callback */
 ){
   RtreeGeomCallback *pGeomCtx;      /* Context object for new user-function */
@@ -4438,12 +4462,12 @@ int sqlite3_rtree_geometry_callback(
   pGeomCtx = (RtreeGeomCallback *)sqlite3_malloc(sizeof(RtreeGeomCallback));
   if( !pGeomCtx ) return SQLITE_NOMEM;
   pGeomCtx->xGeom = xGeom;
+  pGeomCtx->xGeom_signature = xGeom_signature;
   pGeomCtx->xQueryFunc = 0;
   pGeomCtx->xDestructor = 0;
   pGeomCtx->pContext = pContext;
   return sqlite3_create_function_v2(db, zGeom, -1, SQLITE_ANY, 
-      (void *)pGeomCtx, geomCallback, 0, 0, rtreeFreeCallback
-  );
+      (void *)pGeomCtx, geomCallback, xSFunc_signatures[xSFunc_geomCallback_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum], rtreeFreeCallback, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum]);
 }
 
 /*
@@ -4453,25 +4477,42 @@ int sqlite3_rtree_geometry_callback(
 int sqlite3_rtree_query_callback(
   sqlite3 *db,                 /* Register SQL function on this connection */
   const char *zQueryFunc,      /* Name of new SQL function */
-  int (*xQueryFunc)(sqlite3_rtree_query_info*), /* Callback */
+  int (*xQueryFunc)(sqlite3_rtree_query_info*),
+  int *xQueryFunc_signature, /* Callback */
   void *pContext,              /* Extra data passed into the callback */
-  void (*xDestructor)(void*)   /* Destructor for the extra data */
+  void (*xDestructor)(void*),
+  int *xDestructor_signature   /* Destructor for the extra data */
 ){
   RtreeGeomCallback *pGeomCtx;      /* Context object for new user-function */
 
   /* Allocate and populate the context object. */
   pGeomCtx = (RtreeGeomCallback *)sqlite3_malloc(sizeof(RtreeGeomCallback));
   if( !pGeomCtx ){
-    if( xDestructor ) xDestructor(pContext);
+    if( xDestructor ) {
+      // xDestructor(pContext);
+      if (memcmp(xDestructor_signature, xDestructor_signatures[xDestructor_0_enum], sizeof(int[4])) == 0) {
+      ;
+      }
+      else if (memcmp(xDestructor_signature, xDestructor_signatures[xDestructor_rtreeMatchArgFree_enum], sizeof(int[4])) == 0) {
+          rtreeMatchArgFree(pContext);
+      }
+      else if (memcmp(xDestructor_signature, xDestructor_signatures[xDestructor_sqlite3VdbeValueListFree_enum], sizeof(int[4])) == 0) {
+          sqlite3VdbeValueListFree(pContext);
+      }
+      else if (memcmp(xDestructor_signature, xDestructor_signatures[xDestructor_sqlite3NoopDestructor_enum], sizeof(int[4])) == 0) {
+          sqlite3NoopDestructor(pContext);
+      }
+    }
     return SQLITE_NOMEM;
   }
   pGeomCtx->xGeom = 0;
   pGeomCtx->xQueryFunc = xQueryFunc;
+  pGeomCtx->xQueryFunc_signature = xQueryFunc_signature;
   pGeomCtx->xDestructor = xDestructor;
+  pGeomCtx->xDestructor_signature = xDestructor_signature;
   pGeomCtx->pContext = pContext;
   return sqlite3_create_function_v2(db, zQueryFunc, -1, SQLITE_ANY, 
-      (void *)pGeomCtx, geomCallback, 0, 0, rtreeFreeCallback
-  );
+      (void *)pGeomCtx, geomCallback, xSFunc_signatures[xSFunc_geomCallback_enum], 0, xStep_signatures[xStep_0_enum], 0, xFinal_signatures[xFinal_0_enum], rtreeFreeCallback, xDestroy_signatures[xDestroy_rtreeFreeCallback_enum]);
 }
 
 #ifndef SQLITE_CORE

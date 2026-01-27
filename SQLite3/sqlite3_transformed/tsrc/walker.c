@@ -66,7 +66,104 @@ SQLITE_NOINLINE int sqlite3WalkExprNN(Walker *pWalker, Expr *pExpr){
   testcase( ExprHasProperty(pExpr, EP_TokenOnly) );
   testcase( ExprHasProperty(pExpr, EP_Reduced) );
   while(1){
-    rc = pWalker->xExprCallback(pWalker, pExpr);
+    // rc = pWalker->xExprCallback(pWalker, pExpr);
+    if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_agginfoPersistExprCb_enum], sizeof(int[4])) == 0) {
+      rc = agginfoPersistExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_aggregateIdxEprRefToColCallback_enum], sizeof(int[4])) == 0) {
+        rc = aggregateIdxEprRefToColCallback(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_analyzeAggregate_enum], sizeof(int[4])) == 0) {
+        rc = analyzeAggregate(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_checkConstraintExprNode_enum], sizeof(int[4])) == 0) {
+        rc = checkConstraintExprNode(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_disallowAggregatesInOrderByCb_enum], sizeof(int[4])) == 0) {
+        rc = disallowAggregatesInOrderByCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprColumnFlagUnion_enum], sizeof(int[4])) == 0) {
+        rc = exprColumnFlagUnion(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprIdxCover_enum], sizeof(int[4])) == 0) {
+        rc = exprIdxCover(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprNodeCanReturnSubtype_enum], sizeof(int[4])) == 0) {
+        rc = exprNodeCanReturnSubtype(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprNodeIsConstant_enum], sizeof(int[4])) == 0) {
+        rc = exprNodeIsConstant(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprNodeIsConstantOrGroupBy_enum], sizeof(int[4])) == 0) {
+        rc = exprNodeIsConstantOrGroupBy(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprNodeIsDeterministic_enum], sizeof(int[4])) == 0) {
+        rc = exprNodeIsDeterministic(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_exprRefToSrcList_enum], sizeof(int[4])) == 0) {
+        rc = exprRefToSrcList(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_fixExprCb_enum], sizeof(int[4])) == 0) {
+        rc = fixExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_gatherSelectWindowsCallback_enum], sizeof(int[4])) == 0) {
+        rc = gatherSelectWindowsCallback(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_havingToWhereExprCb_enum], sizeof(int[4])) == 0) {
+        rc = havingToWhereExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_impliesNotNullRow_enum], sizeof(int[4])) == 0) {
+        rc = impliesNotNullRow(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_incrAggDepth_enum], sizeof(int[4])) == 0) {
+        rc = incrAggDepth(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_propagateConstantExprRewrite_enum], sizeof(int[4])) == 0) {
+        rc = propagateConstantExprRewrite(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_recomputeColumnsUsedExpr_enum], sizeof(int[4])) == 0) {
+        rc = recomputeColumnsUsedExpr(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_renameColumnExprCb_enum], sizeof(int[4])) == 0) {
+        rc = renameColumnExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_renameQuotefixExprCb_enum], sizeof(int[4])) == 0) {
+        rc = renameQuotefixExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_renameTableExprCb_enum], sizeof(int[4])) == 0) {
+        rc = renameTableExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_renameUnmapExprCb_enum], sizeof(int[4])) == 0) {
+        rc = renameUnmapExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_renumberCursorsCb_enum], sizeof(int[4])) == 0) {
+        rc = renumberCursorsCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_resolveExprStep_enum], sizeof(int[4])) == 0) {
+        rc = resolveExprStep(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_resolveRemoveWindowsCb_enum], sizeof(int[4])) == 0) {
+        rc = resolveRemoveWindowsCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_selectCheckOnClausesExpr_enum], sizeof(int[4])) == 0) {
+        rc = selectCheckOnClausesExpr(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_selectWindowRewriteExprCb_enum], sizeof(int[4])) == 0) {
+        rc = selectWindowRewriteExprCb(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_sqlite3ExprWalkNoop_enum], sizeof(int[4])) == 0) {
+        rc = sqlite3ExprWalkNoop(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_sqlite3ReturningSubqueryVarSelect_enum], sizeof(int[4])) == 0) {
+        rc = sqlite3ReturningSubqueryVarSelect(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_sqlite3WindowExtraAggFuncDepth_enum], sizeof(int[4])) == 0) {
+        rc = sqlite3WindowExtraAggFuncDepth(pWalker, pExpr);
+    }
+    else if (memcmp(pWalker->xExprCallback_signature, xExprCallback_signatures[xExprCallback_whereIsCoveringIndexWalkCallback_enum], sizeof(int[4])) == 0) {
+        rc = whereIsCoveringIndexWalkCallback(pWalker, pExpr);
+    }
+
     if( rc ) return rc & WRC_Abort;
     if( !ExprHasProperty(pExpr,(EP_TokenOnly|EP_Leaf)) ){
       assert( pExpr->x.pList==0 || pExpr->pRight==0 );
@@ -208,7 +305,73 @@ int sqlite3WalkSelect(Walker *pWalker, Select *p){
   if( p==0 ) return WRC_Continue;
   if( pWalker->xSelectCallback==0 ) return WRC_Continue;
   do{
-    rc = pWalker->xSelectCallback(pWalker, p);
+    if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_0_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+      rc = 0;
+    }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_convertCompoundSelectToSubquery_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = convertCompoundSelectToSubquery(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_exprSelectWalkTableConstant_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = exprSelectWalkTableConstant(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_fixSelectCb_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = fixSelectCb(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_gatherSelectWindowsSelectCallback_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = gatherSelectWindowsSelectCallback(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_renameColumnSelectCb_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = renameColumnSelectCb(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_renameTableSelectCb_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = renameTableSelectCb(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_renameUnmapSelectCb_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = renameUnmapSelectCb(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_resolveSelectStep_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = resolveSelectStep(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_selectCheckOnClausesSelect_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = selectCheckOnClausesSelect(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_selectExpander_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = selectExpander(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_selectRefEnter_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = selectRefEnter(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_selectWindowRewriteSelectCb_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = selectWindowRewriteSelectCb(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_sqlite3ReturningSubqueryCorrelated_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = sqlite3ReturningSubqueryCorrelated(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkFail_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = sqlite3SelectWalkFail(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_sqlite3SelectWalkNoop_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = sqlite3SelectWalkNoop(pWalker, p);
+      }
+    else
+      if (memcmp(pWalker->xSelectCallback_signature, xSelectCallback_signatures[xSelectCallback_sqlite3WalkerDepthIncrease_enum], sizeof(pWalker->xSelectCallback_signature)) == 0) {
+        rc = sqlite3WalkerDepthIncrease(pWalker, p);
+      }
     if( rc ) return rc & WRC_Abort;
     if( sqlite3WalkSelectExpr(pWalker, p)
      || sqlite3WalkSelectFrom(pWalker, p)
@@ -216,7 +379,29 @@ int sqlite3WalkSelect(Walker *pWalker, Select *p){
       return WRC_Abort;
     }
     if( pWalker->xSelectCallback2 ){
-      pWalker->xSelectCallback2(pWalker, p);
+      if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_0_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+        0;
+      }
+      else
+        if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_selectAddSubqueryTypeInfo_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+          selectAddSubqueryTypeInfo(pWalker, p);
+        }
+      else
+        if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_selectRefLeave_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+          selectRefLeave(pWalker, p);
+        }
+      else
+        if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_sqlite3SelectPopWith_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+          sqlite3SelectPopWith(pWalker, p);
+        }
+      else
+        if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_sqlite3WalkWinDefnDummyCallback_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+          sqlite3WalkWinDefnDummyCallback(pWalker, p);
+        }
+      else
+        if (memcmp(pWalker->xSelectCallback2_signature, xSelectCallback2_signatures[xSelectCallback2_sqlite3WalkerDepthDecrease_enum], sizeof(pWalker->xSelectCallback2_signature)) == 0) {
+          sqlite3WalkerDepthDecrease(pWalker, p);
+        }
     }
     p = p->pPrior;
   }while( p!=0 );
