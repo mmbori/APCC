@@ -1,0 +1,111 @@
+[
+  {
+    "fp_name": "f",
+    "fp_sequence": 1,
+    "fn_name": "Configtable_clear",
+    "assigned_fn": [],
+    "line": [
+      "void Configtable_clear(int(*)(struct config *));"
+    ],
+    "file": "lemon.c"
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "ParseFree",
+    "assigned_fn": [],
+    "line": [
+      "void ParseFree(",
+      "void *p,                    /* The parser to be deleted */",
+      "void (*freeProc)(void*)     /* Function used to reclaim memory */",
+      "){"
+    ],
+    "file": "lempar.c"
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "configparserFree",
+    "assigned_fn": [],
+    "line": [
+      "void configparserFree(void *p, void (*freeProc)(void*));"
+    ],
+    "file": "configfile.h"
+  },
+  {
+    "fp_name": "errfunc",
+    "fp_sequence": 3,
+    "fn_name": "glob",
+    "assigned_fn": [],
+    "line": [
+      "static int glob(const char *pattern, int flags,",
+      "int (*errfunc) (const char *epath, int eerrno),",
+      "glob_t * const gl)",
+      "{"
+    ],
+    "file": "configfile.c"
+  },
+  {
+    "fp_name": "http_response_loop",
+    "fp_sequence": 2,
+    "fn_name": "h2_process_streams",
+    "assigned_fn": [],
+    "line": [
+      "h2_process_streams (connection * const con,",
+      "handler_t(*http_response_loop)(request_st *),",
+      "int(*connection_handle_write)(request_st *, connection *))",
+      "{"
+    ],
+    "file": "h2.c"
+  },
+  {
+    "fp_name": "connection_handle_write",
+    "fp_sequence": 3,
+    "fn_name": "h2_process_streams",
+    "assigned_fn": [],
+    "line": [
+      "h2_process_streams (connection * const con,",
+      "handler_t(*http_response_loop)(request_st *),",
+      "int(*connection_handle_write)(request_st *, connection *))",
+      "{"
+    ],
+    "file": "h2.c"
+  },
+  {
+    "fp_name": "cmp",
+    "fp_sequence": 3,
+    "fn_name": "merge",
+    "assigned_fn": [],
+    "line": [
+      "static char *merge(",
+      "char *a,",
+      "char *b,",
+      "int (*cmp)(const char*,const char*),",
+      "int offset",
+      "){"
+    ],
+    "file": "lemon.c"
+  },
+  {
+    "fp_name": "cmp",
+    "fp_sequence": 3,
+    "fn_name": "msort",
+    "assigned_fn": [],
+    "line": [
+      "ap = (struct action *)msort((char *)ap,(char **)&ap->next,",
+      "(int(*)(const char*,const char*))actioncmp);"
+    ],
+    "file": "lemon.c"
+  },
+  {
+    "fp_name": "cb",
+    "fp_sequence": 1,
+    "fn_name": "sys_setjmp_eval3",
+    "assigned_fn": [],
+    "line": [
+      "off_t sys_setjmp_eval3(off_t(*cb)(void *, const void *, off_t), void *dst, const void *src, off_t len)",
+      "{"
+    ],
+    "file": "sys-setjmp.c"
+  }
+]

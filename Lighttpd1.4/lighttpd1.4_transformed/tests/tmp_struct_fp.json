@@ -1,0 +1,854 @@
+[
+  {
+    "fp_name": "backend_error",
+    "struct_name": "gw_handler_ctx",
+    "struct_aliases": [
+      "gw_handler_ctx"
+    ],
+    "fp_index": 29,
+    "assigned_fn": [
+      "wstunnel_backend_error"
+    ]
+  },
+  {
+    "fp_name": "basic",
+    "struct_name": "http_auth_backend_t",
+    "struct_aliases": [
+      "http_auth_backend_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "mod_authn_dbi_basic",
+      "mod_authn_file_htdigest_basic",
+      "mod_authn_file_htpasswd_basic",
+      "mod_authn_file_plain_basic",
+      "mod_authn_gssapi_basic",
+      "mod_authn_ldap_basic",
+      "mod_authn_pam_basic",
+      "mod_authn_sasl_basic"
+    ]
+  },
+  {
+    "fp_name": "check_timeout",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "checkfn",
+    "struct_name": "http_auth_scheme_t",
+    "struct_aliases": [
+      "http_auth_scheme_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "mod_auth_check_basic",
+      "mod_auth_check_digest",
+      "mod_auth_check_extern",
+      "mod_authn_gssapi_check"
+    ]
+  },
+  {
+    "fp_name": "cleanup",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 21,
+    "assigned_fn": [
+      "gw_free",
+      "mod_accesslog_free",
+      "mod_auth_free",
+      "mod_authn_dbi_cleanup",
+      "mod_authn_ldap_free",
+      "mod_authn_sasl_free",
+      "mod_cgi_free",
+      "mod_deflate_free",
+      "mod_dirlisting_free",
+      "mod_evhost_free",
+      "mod_expire_free",
+      "mod_extforward_free",
+      "mod_gnutls_free",
+      "mod_magnet_free",
+      "mod_maxminddb_free",
+      "mod_mbedtls_free",
+      "mod_nss_free",
+      "mod_openssl_free",
+      "mod_proxy_free",
+      "mod_redirect_free",
+      "mod_rewrite_free",
+      "mod_rrd_free",
+      "mod_simple_vhost_free",
+      "mod_ssi_free",
+      "mod_userdir_free",
+      "mod_vhostdb_cleanup",
+      "mod_vhostdb_free",
+      "mod_webdav_free"
+    ]
+  },
+  {
+    "fp_name": "copy",
+    "struct_name": "data_methods",
+    "struct_aliases": [
+      "data_methods"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NULL",
+      "array_data_array_copy",
+      "array_data_integer_copy",
+      "array_data_string_copy",
+      "data_config_copy"
+    ]
+  },
+  {
+    "fp_name": "create_env",
+    "struct_name": "gw_handler_ctx",
+    "struct_aliases": [
+      "gw_handler_ctx"
+    ],
+    "fp_index": 26,
+    "assigned_fn": [
+      "ajp13_create_env",
+      "fcgi_create_env",
+      "proxy_create_env",
+      "proxy_create_env_connect",
+      "scgi_create_env",
+      "sockproxy_create_env_connect",
+      "wstunnel_create_env"
+    ]
+  },
+  {
+    "fp_name": "digest",
+    "struct_name": "http_auth_backend_t",
+    "struct_aliases": [
+      "http_auth_backend_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "mod_authn_dbi_digest",
+      "mod_authn_file_htdigest_digest",
+      "mod_authn_file_plain_digest"
+    ]
+  },
+  {
+    "fp_name": "event_del",
+    "struct_name": "fdevents",
+    "struct_aliases": [
+      "fdevents"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "fdevent_freebsd_kqueue_event_del",
+      "fdevent_linux_sysepoll_event_del",
+      "fdevent_poll_event_del",
+      "fdevent_select_event_del",
+      "fdevent_solaris_devpoll_event_del",
+      "fdevent_solaris_port_event_del"
+    ]
+  },
+  {
+    "fp_name": "event_set",
+    "struct_name": "fdevents",
+    "struct_aliases": [
+      "fdevents"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "fdevent_freebsd_kqueue_event_set",
+      "fdevent_linux_sysepoll_event_set",
+      "fdevent_poll_event_set",
+      "fdevent_select_event_set",
+      "fdevent_solaris_devpoll_event_set",
+      "fdevent_solaris_port_event_set"
+    ]
+  },
+  {
+    "fp_name": "fn",
+    "struct_name": "s_options",
+    "struct_aliases": [
+      "s_options"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NULL",
+      "array_fn",
+      "config_fn",
+      "fn",
+      "http_response_config",
+      "http_response_prepare_docroot",
+      "http_response_prepare_fin",
+      "http_response_prepare_physical",
+      "http_response_prepare_subrequest_start",
+      "integer_fn",
+      "string_fn"
+    ]
+  },
+  {
+    "fp_name": "free",
+    "struct_name": "data_methods",
+    "struct_aliases": [
+      "data_methods"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "array_data_array_free",
+      "array_data_integer_free",
+      "array_data_string_free",
+      "data_auth_free",
+      "data_config_free",
+      "fdevent_freebsd_kqueue_free",
+      "fdevent_linux_sysepoll_free",
+      "fdevent_poll_free",
+      "fdevent_solaris_devpoll_free",
+      "fdevent_solaris_port_free"
+    ]
+  },
+  {
+    "fp_name": "goaway_graceful",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "handle_connection_accept",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "mod_extforward_handle_con_accept",
+      "mod_gnutls_handle_con_accept",
+      "mod_mbedtls_handle_con_accept",
+      "mod_nss_handle_con_accept",
+      "mod_openssl_handle_con_accept",
+      "mod_sockproxy_connection_accept"
+    ]
+  },
+  {
+    "fp_name": "handle_connection_close",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 13,
+    "assigned_fn": [
+      "mod_extforward_handle_con_close",
+      "mod_gnutls_handle_con_close",
+      "mod_maxminddb_handle_con_close",
+      "mod_mbedtls_handle_con_close",
+      "mod_nss_handle_con_close",
+      "mod_openssl_handle_con_close"
+    ]
+  },
+  {
+    "fp_name": "handle_connection_shut_wr",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "mod_gnutls_handle_con_shut_wr",
+      "mod_mbedtls_handle_con_shut_wr",
+      "mod_nss_handle_con_shut_wr",
+      "mod_openssl_handle_con_shut_wr"
+    ]
+  },
+  {
+    "fp_name": "handle_docroot",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "mod_evhost_uri_handler",
+      "mod_simple_vhost_docroot",
+      "mod_vhostdb_handle_docroot"
+    ]
+  },
+  {
+    "fp_name": "handle_physical",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "mod_alias_physical_handler",
+      "mod_magnet_physical",
+      "mod_rewrite_physical",
+      "mod_userdir_docroot_handler",
+      "mod_webdav_physical_handler"
+    ]
+  },
+  {
+    "fp_name": "handle_request_done",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "log_access_write",
+      "mod_rrd_account",
+      "mod_status_account"
+    ]
+  },
+  {
+    "fp_name": "handle_request_env",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "mod_extforward_handle_request_env",
+      "mod_gnutls_handle_request_env",
+      "mod_maxminddb_request_env_handler",
+      "mod_mbedtls_handle_request_env",
+      "mod_nss_handle_request_env",
+      "mod_openssl_handle_request_env",
+      "mod_setenv_handle_request_env"
+    ]
+  },
+  {
+    "fp_name": "handle_request_reset",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "cgi_connection_close_callback",
+      "gw_handle_request_reset",
+      "mod_authn_gssapi_handle_reset",
+      "mod_deflate_cleanup",
+      "mod_dirlisting_reset",
+      "mod_extforward_restore",
+      "mod_gnutls_handle_request_reset",
+      "mod_mbedtls_handle_request_reset",
+      "mod_nss_handle_request_reset",
+      "mod_openssl_handle_request_reset",
+      "mod_rewrite_con_reset",
+      "mod_setenv_handle_request_reset",
+      "mod_ssi_handle_request_reset",
+      "mod_vhostdb_handle_request_reset",
+      "mod_webdav_handle_reset"
+    ]
+  },
+  {
+    "fp_name": "handle_response_start",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "mod_deflate_handle_response_start",
+      "mod_expire_handler",
+      "mod_magnet_response_start",
+      "mod_setenv_handle_response_start"
+    ]
+  },
+  {
+    "fp_name": "handle_sighup",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "handle_subrequest",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "gw_handle_subrequest",
+      "mod_cgi_handle_subrequest",
+      "mod_dirlisting_subrequest",
+      "mod_echo_handle_subrequest",
+      "mod_magnet_handle_subrequest",
+      "mod_ssi_handle_subrequest",
+      "mod_webdav_subrequest_handler"
+    ]
+  },
+  {
+    "fp_name": "handle_subrequest_start",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "cgi_is_handled",
+      "fcgi_check_extension_2",
+      "mod_access_uri_handler",
+      "mod_dirlisting_subrequest_start",
+      "mod_indexfile_subrequest",
+      "mod_ssi_physical_path",
+      "mod_staticfile_subrequest",
+      "scgi_check_extension_2"
+    ]
+  },
+  {
+    "fp_name": "handle_trigger",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "cgi_trigger_cb",
+      "gw_handle_trigger",
+      "log_access_periodic_flush",
+      "mod_auth_periodic",
+      "mod_gnutls_handle_trigger",
+      "mod_mbedtls_handle_trigger",
+      "mod_nss_handle_trigger",
+      "mod_openssl_handle_trigger",
+      "mod_rrd_trigger",
+      "mod_status_trigger",
+      "mod_vhostdb_periodic",
+      "mod_wstunnel_handle_trigger"
+    ]
+  },
+  {
+    "fp_name": "handle_uri_clean",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "ajp13_check_extension",
+      "fcgi_check_extension_1",
+      "mod_access_uri_handler",
+      "mod_auth_uri_handler",
+      "mod_echo_handle_uri_clean",
+      "mod_magnet_uri_handler",
+      "mod_proxy_check_extension",
+      "mod_redirect_uri_handler",
+      "mod_setenv_uri_handler",
+      "mod_skeleton_uri_handler",
+      "mod_status_handler",
+      "mod_webdav_uri_handler",
+      "mod_wstunnel_check_extension",
+      "scgi_check_extension_1"
+    ]
+  },
+  {
+    "fp_name": "handle_uri_raw",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "mod_extforward_uri_handler",
+      "mod_gnutls_handle_uri_raw",
+      "mod_mbedtls_handle_uri_raw",
+      "mod_nss_handle_uri_raw",
+      "mod_openssl_handle_uri_raw",
+      "mod_rewrite_uri_handler"
+    ]
+  },
+  {
+    "fp_name": "handle_waitpid",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 16,
+    "assigned_fn": [
+      "cgi_waitpid_cb",
+      "gw_handle_waitpid_cb",
+      "mod_rrd_waitpid_cb"
+    ]
+  },
+  {
+    "fp_name": "handler_ctx_free",
+    "struct_name": "gw_handler_ctx",
+    "struct_aliases": [
+      "gw_handler_ctx"
+    ],
+    "fp_index": 30,
+    "assigned_fn": [
+      "wstunnel_handler_ctx_free"
+    ]
+  },
+  {
+    "fp_name": "headers",
+    "struct_name": "http_response_opts",
+    "struct_aliases": [
+      "http_response_opts",
+      "http_response_opts_t"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "0",
+      "cgi_response_headers",
+      "fcgi_response_headers",
+      "proxy_response_headers"
+    ]
+  },
+  {
+    "fp_name": "init",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "gw_init",
+      "mod_access_init",
+      "mod_accesslog_init",
+      "mod_alias_init",
+      "mod_auth_init",
+      "mod_authn_dbi_init",
+      "mod_authn_file_init",
+      "mod_authn_gssapi_init",
+      "mod_authn_ldap_init",
+      "mod_authn_pam_init",
+      "mod_authn_sasl_init",
+      "mod_cgi_init",
+      "mod_deflate_init",
+      "mod_dirlisting_init",
+      "mod_echo_init",
+      "mod_evhost_init",
+      "mod_expire_init",
+      "mod_extforward_init",
+      "mod_gnutls_init",
+      "mod_h2_init",
+      "mod_indexfile_init",
+      "mod_magnet_init",
+      "mod_maxminddb_init",
+      "mod_mbedtls_init",
+      "mod_nss_init",
+      "mod_openssl_init",
+      "mod_proxy_init",
+      "mod_redirect_init",
+      "mod_rewrite_init",
+      "mod_rrd_init",
+      "mod_setenv_init",
+      "mod_simple_vhost_init",
+      "mod_skeleton_init",
+      "mod_ssi_init",
+      "mod_staticfile_init",
+      "mod_status_init",
+      "mod_userdir_init",
+      "mod_vhostdb_init",
+      "mod_webdav_init",
+      "mod_wstunnel_init"
+    ]
+  },
+  {
+    "fp_name": "insert_dup",
+    "struct_name": "data_methods",
+    "struct_aliases": [
+      "data_methods"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "array_data_string_insert_dup"
+    ]
+  },
+  {
+    "fp_name": "network_backend_write",
+    "struct_name": "server",
+    "struct_aliases": [
+      "server"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "network_write_chunkqueue_sendfile",
+      "network_write_chunkqueue_writev"
+    ]
+  },
+  {
+    "fp_name": "network_read",
+    "struct_name": "connection",
+    "struct_aliases": [
+      "connection"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "connection_read_cq",
+      "connection_read_cq_ssl",
+      "h2_read_client_connection_preface",
+      "mod_extforward_network_read",
+      "network_read",
+      "server_oneshot_read_cq"
+    ]
+  },
+  {
+    "fp_name": "network_write",
+    "struct_name": "connection",
+    "struct_aliases": [
+      "connection"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "connection_write_cq",
+      "connection_write_cq_ssl",
+      "connection_write_cq_ssl_ktls"
+    ]
+  },
+  {
+    "fp_name": "parse",
+    "struct_name": "http_response_opts",
+    "struct_aliases": [
+      "http_response_opts",
+      "http_response_opts_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "ajp13_recv_parse",
+      "fcgi_recv_parse",
+      "wstunnel_recv_parse"
+    ]
+  },
+  {
+    "fp_name": "plugin_init",
+    "struct_name": "plugin_load_functions",
+    "struct_aliases": [
+      "plugin_load_functions"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "plugins_request_reset",
+    "struct_name": "server",
+    "struct_aliases": [
+      "server"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "plugins_call_handle_request_reset"
+    ]
+  },
+  {
+    "fp_name": "poll",
+    "struct_name": "fdevents",
+    "struct_aliases": [
+      "fdevents"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "fdevent_freebsd_kqueue_poll",
+      "fdevent_linux_sysepoll_poll",
+      "fdevent_poll_poll",
+      "fdevent_select_poll",
+      "fdevent_solaris_devpoll_poll",
+      "fdevent_solaris_port_poll"
+    ]
+  },
+  {
+    "fp_name": "priv_defaults",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "mod_gnutls_set_defaults",
+      "mod_mbedtls_set_defaults",
+      "mod_nss_set_defaults",
+      "mod_openssl_set_defaults"
+    ]
+  },
+  {
+    "fp_name": "process_streams",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "query",
+    "struct_name": "http_vhostdb_backend_t",
+    "struct_aliases": [
+      "http_vhostdb_backend_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "mod_vhostdb_dbi_query",
+      "mod_vhostdb_ldap_query",
+      "mod_vhostdb_mysql_query",
+      "mod_vhostdb_pgsql_query",
+      "query"
+    ]
+  },
+  {
+    "fp_name": "refchg",
+    "struct_name": "type",
+    "struct_aliases": [
+      "type",
+      "chunk"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "0",
+      "stat_cache_entry_refchg"
+    ]
+  },
+  {
+    "fp_name": "reqbody_read",
+    "struct_name": "connection",
+    "struct_aliases": [
+      "connection"
+    ],
+    "fp_index": 16,
+    "assigned_fn": [
+      "h1_reqbody_read",
+      "h2_recv_reqbody"
+    ]
+  },
+  {
+    "fp_name": "request_env",
+    "struct_name": "server",
+    "struct_aliases": [
+      "server"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "plugins_call_handle_request_env"
+    ]
+  },
+  {
+    "fp_name": "saved_network_read",
+    "struct_name": "handler_ctx",
+    "struct_aliases": [
+      "handler_ctx"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "send_100_continue",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "send_1xx",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "set_defaults",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 19,
+    "assigned_fn": [
+      "mod_access_set_defaults",
+      "mod_accesslog_set_defaults",
+      "mod_ajp13_set_defaults",
+      "mod_alias_set_defaults",
+      "mod_auth_set_defaults",
+      "mod_authn_dbi_set_defaults",
+      "mod_authn_file_set_defaults",
+      "mod_authn_gssapi_set_defaults",
+      "mod_authn_ldap_set_defaults",
+      "mod_authn_pam_set_defaults",
+      "mod_authn_sasl_set_defaults",
+      "mod_cgi_set_defaults",
+      "mod_deflate_set_defaults",
+      "mod_dirlisting_set_defaults",
+      "mod_evhost_set_defaults",
+      "mod_expire_set_defaults",
+      "mod_extforward_set_defaults",
+      "mod_fastcgi_set_defaults",
+      "mod_indexfile_set_defaults",
+      "mod_magnet_set_defaults",
+      "mod_maxminddb_set_defaults",
+      "mod_proxy_set_defaults",
+      "mod_redirect_set_defaults",
+      "mod_rewrite_set_defaults",
+      "mod_rrd_set_defaults",
+      "mod_scgi_set_defaults",
+      "mod_setenv_set_defaults",
+      "mod_simple_vhost_set_defaults",
+      "mod_skeleton_set_defaults",
+      "mod_sockproxy_set_defaults",
+      "mod_ssi_set_defaults",
+      "mod_staticfile_set_defaults",
+      "mod_status_set_defaults",
+      "mod_userdir_set_defaults",
+      "mod_vhostdb_set_defaults",
+      "mod_webdav_set_defaults",
+      "mod_wstunnel_set_defaults"
+    ]
+  },
+  {
+    "fp_name": "stdin_append",
+    "struct_name": "gw_handler_ctx",
+    "struct_aliases": [
+      "gw_handler_ctx"
+    ],
+    "fp_index": 25,
+    "assigned_fn": [
+      "ajp13_stdin_append",
+      "fcgi_stdin_append",
+      "proxy_stdin_append",
+      "wstunnel_stdin_append"
+    ]
+  },
+  {
+    "fp_name": "upgrade_h2",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "upgrade_h2c",
+    "struct_name": "http_dispatch",
+    "struct_aliases": [
+      "http_dispatch"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "worker_init",
+    "struct_name": "plugin",
+    "struct_aliases": [
+      "plugin"
+    ],
+    "fp_index": 20,
+    "assigned_fn": [
+      "mod_webdav_worker_init"
+    ]
+  }
+]
