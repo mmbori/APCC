@@ -1,0 +1,1 @@
+compress_output(j_compress_ptr cinfo , _JSAMPIMAGE input_buf);

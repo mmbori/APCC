@@ -1,0 +1,1 @@
+new_color_map_1_quant(j_decompress_ptr cinfo);

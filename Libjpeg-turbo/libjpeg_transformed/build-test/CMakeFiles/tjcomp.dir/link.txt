@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -g -DNDEBUG CMakeFiles/tjcomp.dir/src/tjcomp.c.o -o tjcomp  -Wl,-rpath,/home/bhsu/libjpeg-turbo_tmp/build-test libturbojpeg.so.0.4.0

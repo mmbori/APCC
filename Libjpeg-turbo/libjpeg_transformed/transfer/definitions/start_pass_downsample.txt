@@ -1,0 +1,1 @@
+start_pass_downsample(j_compress_ptr cinfo);

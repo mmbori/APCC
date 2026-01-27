@@ -1,0 +1,1 @@
+empty_mem_output_buffer(j_compress_ptr cinfo);

@@ -1,0 +1,1 @@
+/usr/bin/cc -g -O2 -O3 -g -DNDEBUG CMakeFiles/rdjpgcom.dir/src/rdjpgcom.c.o -o rdjpgcom

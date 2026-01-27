@@ -1,0 +1,1 @@
+null_method(j_compress_ptr cinfo);

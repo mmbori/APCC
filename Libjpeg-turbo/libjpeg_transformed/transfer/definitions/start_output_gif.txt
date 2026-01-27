@@ -1,0 +1,1 @@
+start_output_gif(j_decompress_ptr cinfo , djpeg_dest_ptr dinfo);

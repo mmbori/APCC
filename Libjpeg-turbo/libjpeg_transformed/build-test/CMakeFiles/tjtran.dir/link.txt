@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -g -DNDEBUG CMakeFiles/tjtran.dir/src/tjtran.c.o -o tjtran  -Wl,-rpath,/home/bhsu/libjpeg-turbo_tmp/build-test libturbojpeg.so.0.4.0

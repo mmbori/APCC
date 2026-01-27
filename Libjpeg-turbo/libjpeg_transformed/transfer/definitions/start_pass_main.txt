@@ -1,0 +1,1 @@
+start_pass_main(j_decompress_ptr cinfo , J_BUF_MODE pass_mode);

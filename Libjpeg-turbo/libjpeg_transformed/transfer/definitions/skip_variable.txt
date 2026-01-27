@@ -1,0 +1,1 @@
+skip_variable(j_decompress_ptr cinfo);

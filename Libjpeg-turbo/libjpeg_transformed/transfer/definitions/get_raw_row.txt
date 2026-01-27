@@ -1,0 +1,1 @@
+get_raw_row(j_compress_ptr cinfo , cjpeg_source_ptr sinfo);

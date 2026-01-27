@@ -1,0 +1,1 @@
+/usr/bin/cc -g -O2 -O3 -g -DNDEBUG "CMakeFiles/example-static.dir/src/example.c.o" -o example-static  libjpeg.a

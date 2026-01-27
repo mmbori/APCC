@@ -1,0 +1,1 @@
+encode_mcu_AC_first_prepare(const JCOEF *block , const int *jpeg_natural_order_start , int Sl , int Al , UJCOEF *values , size_t *bits);

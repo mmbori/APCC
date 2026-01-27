@@ -1,0 +1,1 @@
+encode_mcus_gather(j_compress_ptr cinfo , JDIFFIMAGE diff_buf , JDIMENSION MCU_row_num , JDIMENSION MCU_col_num , JDIMENSION nMCU);

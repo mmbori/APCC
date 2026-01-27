@@ -1,0 +1,1154 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/uname"
+      - "/home/bhsu/cmake-3.xx.y/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/sbin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      The system is: Linux - 6.6.87.2-microsoft-standard-WSL2 - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompiler.cmake:54 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:61 (_cmake_find_compiler)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_ASM_NASM_COMPILER"
+    description: "ASM_NASM compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nasm"
+      - "yasm"
+    candidate_directories:
+      - "/usr/bin/"
+    searched_directories:
+      - "/usr/bin/nasm"
+      - "/usr/bin/yasm"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Clang using "--version" did not match "(clang version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ARMClang using "--version" did not match "armclang":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is OrangeC using "--version" did not match "occ \\(OrangeC\\) Version":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is HP using "-V" did not match "HP C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Intel using "--version" did not match "(ICC)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is IntelLLVM using "--version" did not match "(Intel[^
+      ]+oneAPI)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is SunPro using "-V" did not match "Sun C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is XL using "-qversion" did not match "XL C":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is MSVC using "-?" did not match "Microsoft.*Macro Assembler":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is TI using "-h" did not match "Texas Instruments":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is TIClang using "--version" did not match "(TI (.*) Clang Compiler)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is IAR using "" did not match "IAR Assembler":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Diab using "-V" did not match "Wind River Systems":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ARMCC using "" did not match "(ARM Compiler)|(ARM Assembler)|(Arm Compiler)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is NASM using "-v" did not match "(NASM version)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is YASM using "--version" did not match "(yasm)":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is ADSP using "-version" did not match "Analog Devices":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is QCC using "-V" did not match "gcc_nto":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Tasking using "--version" did not match "TASKING":
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    message: |
+      Checking whether the ASM_NASM compiler is Renesas using "-v" did not match "(RX Family C/C\\+\\+ Compiler)|(RL78 Family Compiler)|(RH850 Family Compiler)":
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/ar"
+      - "/home/bhsu/cmake-3.xx.y/bin/ar"
+      - "/usr/local/sbin/ar"
+      - "/usr/local/bin/ar"
+      - "/usr/sbin/ar"
+    found: "/usr/bin/ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/ranlib"
+      - "/home/bhsu/cmake-3.xx.y/bin/ranlib"
+      - "/usr/local/sbin/ranlib"
+      - "/usr/local/bin/ranlib"
+      - "/usr/sbin/ranlib"
+    found: "/usr/bin/ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/strip"
+      - "/home/bhsu/cmake-3.xx.y/bin/strip"
+      - "/usr/local/sbin/strip"
+      - "/usr/local/bin/strip"
+      - "/usr/sbin/strip"
+    found: "/usr/bin/strip"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/ld"
+      - "/home/bhsu/cmake-3.xx.y/bin/ld"
+      - "/usr/local/sbin/ld"
+      - "/usr/local/bin/ld"
+      - "/usr/sbin/ld"
+    found: "/usr/bin/ld"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/nm"
+      - "/home/bhsu/cmake-3.xx.y/bin/nm"
+      - "/usr/local/sbin/nm"
+      - "/usr/local/bin/nm"
+      - "/usr/sbin/nm"
+    found: "/usr/bin/nm"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/objdump"
+      - "/home/bhsu/cmake-3.xx.y/bin/objdump"
+      - "/usr/local/sbin/objdump"
+      - "/usr/local/bin/objdump"
+      - "/usr/sbin/objdump"
+    found: "/usr/bin/objdump"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/objcopy"
+      - "/home/bhsu/cmake-3.xx.y/bin/objcopy"
+      - "/usr/local/sbin/objcopy"
+      - "/usr/local/bin/objcopy"
+      - "/usr/sbin/objcopy"
+    found: "/usr/bin/objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/readelf"
+      - "/home/bhsu/cmake-3.xx.y/bin/readelf"
+      - "/usr/local/sbin/readelf"
+      - "/usr/local/bin/readelf"
+      - "/usr/sbin/readelf"
+    found: "/usr/bin/readelf"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/dlltool"
+      - "/home/bhsu/cmake-3.xx.y/bin/dlltool"
+      - "/usr/local/sbin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/usr/sbin/dlltool"
+      - "/usr/bin/dlltool"
+      - "/sbin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/games/dlltool"
+      - "/usr/local/games/dlltool"
+      - "/usr/lib/wsl/lib/dlltool"
+      - "/mnt/c/WINDOWS/system32/dlltool"
+      - "/mnt/c/WINDOWS/dlltool"
+      - "/mnt/c/WINDOWS/System32/Wbem/dlltool"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/dlltool"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/dlltool"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/dlltool"
+      - "/snap/bin/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/addr2line"
+      - "/home/bhsu/cmake-3.xx.y/bin/addr2line"
+      - "/usr/local/sbin/addr2line"
+      - "/usr/local/bin/addr2line"
+      - "/usr/sbin/addr2line"
+    found: "/usr/bin/addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:267 (include)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineASM_NASMCompiler.cmake:22 (include)"
+      - "CMakeLists.txt:9 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/tapi"
+      - "/home/bhsu/cmake-3.xx.y/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/sbin/tapi"
+      - "/usr/bin/tapi"
+      - "/sbin/tapi"
+      - "/bin/tapi"
+      - "/usr/games/tapi"
+      - "/usr/local/games/tapi"
+      - "/usr/lib/wsl/lib/tapi"
+      - "/mnt/c/WINDOWS/system32/tapi"
+      - "/mnt/c/WINDOWS/tapi"
+      - "/mnt/c/WINDOWS/System32/Wbem/tapi"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/tapi"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/tapi"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/tapi"
+      - "/snap/bin/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+...

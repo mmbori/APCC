@@ -1,0 +1,1 @@
+read_rle_pixel(tga_source_ptr sinfo);

@@ -1,0 +1,1 @@
+simple_upscale(j_decompress_ptr cinfo , JDIFFROW diff_buf , _JSAMPROW output_buf , JDIMENSION width);

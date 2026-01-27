@@ -1,0 +1,1046 @@
+[
+  {
+    "fp_name": "AC_first_prepare",
+    "struct_name": "phuff_entropy_encoder",
+    "struct_aliases": [
+      "phuff_entropy_encoder"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "encode_mcu_AC_first_prepare",
+      "jsimd_encode_mcu_AC_first_prepare"
+    ]
+  },
+  {
+    "fp_name": "AC_refine_prepare",
+    "struct_name": "phuff_entropy_encoder",
+    "struct_aliases": [
+      "phuff_entropy_encoder"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "encode_mcu_AC_refine_prepare",
+      "jsimd_encode_mcu_AC_refine_prepare"
+    ]
+  },
+  {
+    "fp_name": "access_virt_barray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "access_virt_sarray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "alloc_barray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "alloc_large",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "alloc_sarray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "alloc_small",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "calc_buffer_dimensions",
+    "struct_name": "djpeg_dest_struct",
+    "struct_aliases": [
+      "djpeg_dest_struct",
+      "djpeg_dest_ptr"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NULL",
+      "calc_buffer_dimensions_gif",
+      "calc_buffer_dimensions_ppm",
+      "calc_buffer_dimensions_tga"
+    ]
+  },
+  {
+    "fp_name": "close_backing_store",
+    "struct_name": "backing_store_info",
+    "struct_aliases": [
+      "backing_store_info",
+      "backing_store_struct"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "color_convert",
+    "struct_name": "jpeg_color_converter",
+    "struct_aliases": [
+      "jpeg_color_converter"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "color_convert_12",
+    "struct_name": "jpeg_color_converter",
+    "struct_aliases": [
+      "jpeg_color_converter"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "color_quantize",
+    "struct_name": "jpeg_color_quantizer",
+    "struct_aliases": [
+      "jpeg_color_quantizer"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "color_quantize_12",
+    "struct_name": "jpeg_color_quantizer",
+    "struct_aliases": [
+      "jpeg_color_quantizer"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "compress_data",
+    "struct_name": "jpeg_c_coef_controller",
+    "struct_aliases": [
+      "jpeg_c_coef_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "compress_output"
+    ]
+  },
+  {
+    "fp_name": "compress_data_12",
+    "struct_name": "jpeg_c_coef_controller",
+    "struct_aliases": [
+      "jpeg_c_coef_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "compress_output_12"
+    ]
+  },
+  {
+    "fp_name": "consume_data",
+    "struct_name": "jpeg_d_coef_controller",
+    "struct_aliases": [
+      "jpeg_d_coef_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "dummy_consume_data"
+    ]
+  },
+  {
+    "fp_name": "consume_input",
+    "struct_name": "jpeg_input_controller",
+    "struct_aliases": [
+      "jpeg_input_controller"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "consume_markers"
+    ]
+  },
+  {
+    "fp_name": "convsamp",
+    "struct_name": "my_fdct_controller",
+    "struct_aliases": [
+      "my_fdct_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "jsimd_convsamp"
+    ]
+  },
+  {
+    "fp_name": "customFilter",
+    "struct_name": "tjtransform",
+    "struct_aliases": [
+      "tjtransform"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "dct",
+    "struct_name": "my_fdct_controller",
+    "struct_aliases": [
+      "my_fdct_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "_jpeg_fdct_ifast",
+      "_jpeg_fdct_islow",
+      "jsimd_fdct_ifast",
+      "jsimd_fdct_islow"
+    ]
+  },
+  {
+    "fp_name": "decode_mcu",
+    "struct_name": "jpeg_entropy_decoder",
+    "struct_aliases": [
+      "jpeg_entropy_decoder"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "decode_mcu_AC_first",
+      "decode_mcu_AC_refine",
+      "decode_mcu_DC_first",
+      "decode_mcu_DC_refine"
+    ]
+  },
+  {
+    "fp_name": "decode_mcus",
+    "struct_name": "jpeg_entropy_decoder",
+    "struct_aliases": [
+      "jpeg_entropy_decoder"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "decompress_data",
+    "struct_name": "jpeg_d_coef_controller",
+    "struct_aliases": [
+      "jpeg_d_coef_controller"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "decompress_data_12",
+    "struct_name": "jpeg_d_coef_controller",
+    "struct_aliases": [
+      "jpeg_d_coef_controller"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "downsample",
+    "struct_name": "jpeg_downsampler",
+    "struct_aliases": [
+      "jpeg_downsampler"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "downsample_12",
+    "struct_name": "jpeg_downsampler",
+    "struct_aliases": [
+      "jpeg_downsampler"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "emit_message",
+    "struct_name": "my_error_mgr",
+    "struct_aliases": [
+      "my_error_mgr",
+      "my_error_ptr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "fuzzer_emit_message",
+      "my_emit_message"
+    ]
+  },
+  {
+    "fp_name": "empty_output_buffer",
+    "struct_name": "jpeg_destination_mgr",
+    "struct_aliases": [
+      "jpeg_destination_mgr"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "empty_mem_output_buffer"
+    ]
+  },
+  {
+    "fp_name": "encode_mcu",
+    "struct_name": "jpeg_entropy_encoder",
+    "struct_aliases": [
+      "jpeg_entropy_encoder"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "encode_mcu_AC_first",
+      "encode_mcu_AC_refine",
+      "encode_mcu_DC_first",
+      "encode_mcu_DC_refine",
+      "encode_mcu_gather",
+      "encode_mcu_huff"
+    ]
+  },
+  {
+    "fp_name": "encode_mcus",
+    "struct_name": "jpeg_entropy_encoder",
+    "struct_aliases": [
+      "jpeg_entropy_encoder"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "encode_mcus_gather",
+      "encode_mcus_huff"
+    ]
+  },
+  {
+    "fp_name": "error_exit",
+    "struct_name": "jpeg_error_mgr",
+    "struct_aliases": [
+      "jpeg_error_mgr"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "fuzzer_error_exit",
+      "my_error_exit"
+    ]
+  },
+  {
+    "fp_name": "fill_input_buffer",
+    "struct_name": "jpeg_source_mgr",
+    "struct_aliases": [
+      "jpeg_source_mgr"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "fill_mem_input_buffer"
+    ]
+  },
+  {
+    "fp_name": "finish_input",
+    "struct_name": "cjpeg_source_struct",
+    "struct_aliases": [
+      "cjpeg_source_struct",
+      "cjpeg_source_ptr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "finish_input_bmp",
+      "finish_input_gif",
+      "finish_input_ppm",
+      "finish_input_tga"
+    ]
+  },
+  {
+    "fp_name": "finish_input_pass",
+    "struct_name": "jpeg_input_controller",
+    "struct_aliases": [
+      "jpeg_input_controller"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "finish_output",
+    "struct_name": "djpeg_dest_struct",
+    "struct_aliases": [
+      "djpeg_dest_struct",
+      "djpeg_dest_ptr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "finish_output_bmp",
+      "finish_output_gif",
+      "finish_output_ppm",
+      "finish_output_tga"
+    ]
+  },
+  {
+    "fp_name": "finish_output_pass",
+    "struct_name": "jpeg_decomp_master",
+    "struct_aliases": [
+      "jpeg_decomp_master"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "finish_pass",
+    "struct_name": "jpeg_comp_master",
+    "struct_aliases": [
+      "jpeg_comp_master"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "finish_pass1",
+      "finish_pass2",
+      "finish_pass_1_quant",
+      "finish_pass_gather",
+      "finish_pass_gather_phuff",
+      "finish_pass_huff",
+      "finish_pass_master",
+      "finish_pass_phuff"
+    ]
+  },
+  {
+    "fp_name": "float_convsamp",
+    "struct_name": "my_fdct_controller",
+    "struct_aliases": [
+      "my_fdct_controller"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "convsamp_float",
+      "jsimd_convsamp_float"
+    ]
+  },
+  {
+    "fp_name": "float_quantize",
+    "struct_name": "my_fdct_controller",
+    "struct_aliases": [
+      "my_fdct_controller"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "jsimd_quantize_float",
+      "quantize_float"
+    ]
+  },
+  {
+    "fp_name": "format_message",
+    "struct_name": "jpeg_error_mgr",
+    "struct_aliases": [
+      "jpeg_error_mgr"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "forward_DCT",
+    "struct_name": "jpeg_forward_dct",
+    "struct_aliases": [
+      "jpeg_forward_dct"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "forward_DCT_12",
+    "struct_name": "jpeg_forward_dct",
+    "struct_aliases": [
+      "jpeg_forward_dct"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "free_pool",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "get_pixel_rows",
+    "struct_name": "cjpeg_source_struct",
+    "struct_aliases": [
+      "cjpeg_source_struct",
+      "cjpeg_source_ptr"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "get_16bit_row",
+      "get_24bit_row",
+      "get_32bit_row",
+      "get_8bit_gray_row",
+      "get_8bit_row",
+      "get_gray_cmyk_row",
+      "get_gray_rgb_row",
+      "get_interlaced_row",
+      "get_memory_row",
+      "get_raw_row",
+      "get_rgb_cmyk_row",
+      "get_rgb_row",
+      "get_scaled_gray_row",
+      "get_text_gray_cmyk_row",
+      "get_text_gray_rgb_row",
+      "get_text_gray_row",
+      "get_text_rgb_cmyk_row",
+      "get_text_rgb_row",
+      "get_word_gray_cmyk_row",
+      "get_word_gray_rgb_row",
+      "get_word_gray_row",
+      "get_word_rgb_cmyk_row",
+      "get_word_rgb_row",
+      "load_interlaced_image",
+      "preload_image"
+    ]
+  },
+  {
+    "fp_name": "init_destination",
+    "struct_name": "jpeg_destination_mgr",
+    "struct_aliases": [
+      "jpeg_destination_mgr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "init_mem_destination"
+    ]
+  },
+  {
+    "fp_name": "init_source",
+    "struct_name": "jpeg_source_mgr",
+    "struct_aliases": [
+      "jpeg_source_mgr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "init_mem_source"
+    ]
+  },
+  {
+    "fp_name": "new_color_map",
+    "struct_name": "jpeg_color_quantizer",
+    "struct_aliases": [
+      "jpeg_color_quantizer"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "new_color_map_1_quant",
+      "new_color_map_2_quant"
+    ]
+  },
+  {
+    "fp_name": "output_message",
+    "struct_name": "jpeg_error_mgr",
+    "struct_aliases": [
+      "jpeg_error_mgr"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "my_output_message"
+    ]
+  },
+  {
+    "fp_name": "pass_startup",
+    "struct_name": "jpeg_comp_master",
+    "struct_aliases": [
+      "jpeg_comp_master"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "post_process_data",
+    "struct_name": "jpeg_d_post_controller",
+    "struct_aliases": [
+      "jpeg_d_post_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "post_process_data_12",
+    "struct_name": "jpeg_d_post_controller",
+    "struct_aliases": [
+      "jpeg_d_post_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pre_process_data",
+    "struct_name": "jpeg_c_prep_controller",
+    "struct_aliases": [
+      "jpeg_c_prep_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pre_process_data_12",
+    "struct_name": "jpeg_c_prep_controller",
+    "struct_aliases": [
+      "jpeg_c_prep_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "prepare_for_output_pass",
+    "struct_name": "jpeg_decomp_master",
+    "struct_aliases": [
+      "jpeg_decomp_master"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "prepare_for_pass",
+    "struct_name": "jpeg_comp_master",
+    "struct_aliases": [
+      "jpeg_comp_master"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "process_COM",
+    "struct_name": "my_marker_reader",
+    "struct_aliases": [
+      "my_marker_reader"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "print_text_marker",
+      "processor",
+      "skip_variable"
+    ]
+  },
+  {
+    "fp_name": "process_data",
+    "struct_name": "jpeg_c_main_controller",
+    "struct_aliases": [
+      "jpeg_c_main_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "process_data_12",
+    "struct_name": "jpeg_c_main_controller",
+    "struct_aliases": [
+      "jpeg_c_main_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "process_restart",
+    "struct_name": "jpeg_entropy_decoder",
+    "struct_aliases": [
+      "jpeg_entropy_decoder"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "progress_monitor",
+    "struct_name": "jpeg_progress_mgr",
+    "struct_aliases": [
+      "jpeg_progress_mgr"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "my_progress_monitor"
+    ]
+  },
+  {
+    "fp_name": "put_pixel_rows",
+    "struct_name": "djpeg_dest_struct",
+    "struct_aliases": [
+      "djpeg_dest_struct",
+      "djpeg_dest_ptr"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "copy_pixel_rows",
+      "put_LZW_pixel_rows",
+      "put_cmyk",
+      "put_demapped_gray",
+      "put_demapped_rgb",
+      "put_gray_rows",
+      "put_raw_pixel_rows",
+      "put_rgb"
+    ]
+  },
+  {
+    "fp_name": "quantize",
+    "struct_name": "my_fdct_controller",
+    "struct_aliases": [
+      "my_fdct_controller"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "jsimd_quantize"
+    ]
+  },
+  {
+    "fp_name": "read_backing_store",
+    "struct_name": "backing_store_info",
+    "struct_aliases": [
+      "backing_store_info",
+      "backing_store_struct"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "read_markers",
+    "struct_name": "jpeg_marker_reader",
+    "struct_aliases": [
+      "jpeg_marker_reader"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "my_read_markers",
+      "old_read_markers"
+    ]
+  },
+  {
+    "fp_name": "read_pixel",
+    "struct_name": "tga_source_struct",
+    "struct_aliases": [
+      "tga_source_struct",
+      "_tga_source_struct"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "read_non_rle_pixel",
+      "read_rle_pixel"
+    ]
+  },
+  {
+    "fp_name": "read_restart_marker",
+    "struct_name": "jpeg_marker_reader",
+    "struct_aliases": [
+      "jpeg_marker_reader"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "realize_virt_arrays",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "request_virt_barray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "request_virt_sarray",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reset_input_controller",
+    "struct_name": "jpeg_input_controller",
+    "struct_aliases": [
+      "jpeg_input_controller"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reset_marker_reader",
+    "struct_name": "jpeg_marker_reader",
+    "struct_aliases": [
+      "jpeg_marker_reader"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "my_reset_marker_reader",
+      "old_reset_marker_reader"
+    ]
+  },
+  {
+    "fp_name": "resync_to_restart",
+    "struct_name": "jpeg_source_mgr",
+    "struct_aliases": [
+      "jpeg_source_mgr"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "jpeg_resync_to_restart"
+    ]
+  },
+  {
+    "fp_name": "scaler_scale",
+    "struct_name": "jpeg_lossless_compressor",
+    "struct_aliases": [
+      "jpeg_lossless_compressor"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "noscale",
+      "simple_downscale",
+      "simple_upscale"
+    ]
+  },
+  {
+    "fp_name": "self_destruct",
+    "struct_name": "jpeg_memory_mgr",
+    "struct_aliases": [
+      "jpeg_memory_mgr"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "skip_input_data",
+    "struct_name": "jpeg_source_mgr",
+    "struct_aliases": [
+      "jpeg_source_mgr"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_input",
+    "struct_name": "cjpeg_source_struct",
+    "struct_aliases": [
+      "cjpeg_source_struct",
+      "cjpeg_source_ptr"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "start_input_bmp",
+      "start_input_gif",
+      "start_input_ppm",
+      "start_input_tga"
+    ]
+  },
+  {
+    "fp_name": "start_input_pass",
+    "struct_name": "jpeg_input_controller",
+    "struct_aliases": [
+      "jpeg_input_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_output",
+    "struct_name": "djpeg_dest_struct",
+    "struct_aliases": [
+      "djpeg_dest_struct",
+      "djpeg_dest_ptr"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "start_output_bmp",
+      "start_output_gif",
+      "start_output_ppm",
+      "start_output_tga"
+    ]
+  },
+  {
+    "fp_name": "start_output_pass",
+    "struct_name": "jpeg_d_coef_controller",
+    "struct_aliases": [
+      "jpeg_d_coef_controller"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_pass",
+    "struct_name": "jpeg_c_main_controller",
+    "struct_aliases": [
+      "jpeg_c_main_controller"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "null_method",
+      "rgb_ycc_start",
+      "start_pass_1_quant",
+      "start_pass_2_quant",
+      "start_pass_coef",
+      "start_pass_dcolor",
+      "start_pass_diff",
+      "start_pass_downsample",
+      "start_pass_dpost",
+      "start_pass_fdctmgr",
+      "start_pass_huff",
+      "start_pass_huff_decoder",
+      "start_pass_lhuff",
+      "start_pass_lhuff_decoder",
+      "start_pass_lossless",
+      "start_pass_main",
+      "start_pass_merged_upsample",
+      "start_pass_phuff",
+      "start_pass_phuff_decoder",
+      "start_pass_prep",
+      "start_pass_upsample"
+    ]
+  },
+  {
+    "fp_name": "term_destination",
+    "struct_name": "jpeg_destination_mgr",
+    "struct_aliases": [
+      "jpeg_destination_mgr"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "term_mem_destination"
+    ]
+  },
+  {
+    "fp_name": "term_source",
+    "struct_name": "jpeg_source_mgr",
+    "struct_aliases": [
+      "jpeg_source_mgr"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "upmethod",
+    "struct_name": "my_merged_upsampler",
+    "struct_aliases": [
+      "my_merged_upsampler"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "h2v1_merged_upsample",
+      "h2v1_merged_upsample_565",
+      "h2v1_merged_upsample_565D",
+      "h2v2_merged_upsample",
+      "h2v2_merged_upsample_565",
+      "h2v2_merged_upsample_565D",
+      "jsimd_h2v1_merged_upsample",
+      "jsimd_h2v2_merged_upsample"
+    ]
+  },
+  {
+    "fp_name": "upsample",
+    "struct_name": "jpeg_upsampler",
+    "struct_aliases": [
+      "jpeg_upsampler"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "upsample_12",
+    "struct_name": "jpeg_upsampler",
+    "struct_aliases": [
+      "jpeg_upsampler"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_backing_store",
+    "struct_name": "backing_store_info",
+    "struct_aliases": [
+      "backing_store_info",
+      "backing_store_struct"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_file_header",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_file_trailer",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_frame_header",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_marker_byte",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_marker_header",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_scan_header",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "write_tables_only",
+    "struct_name": "jpeg_marker_writer",
+    "struct_aliases": [
+      "jpeg_marker_writer"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  }
+]

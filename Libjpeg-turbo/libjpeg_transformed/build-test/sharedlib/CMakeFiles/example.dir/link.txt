@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -g -DNDEBUG CMakeFiles/example.dir/__/src/example.c.o -o ../example  -Wl,-rpath,/home/bhsu/libjpeg-turbo_tmp/build-test ../libjpeg.so.62.4.0

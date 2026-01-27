@@ -1,0 +1,1 @@
+init_mem_source(j_decompress_ptr cinfo);

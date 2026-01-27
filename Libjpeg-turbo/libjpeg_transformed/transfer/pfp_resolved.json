@@ -1,0 +1,16 @@
+[
+  {
+    "fn_name": "jpeg_set_marker_processor",
+    "fp_name": "routine",
+    "fp_sequence": 3,
+    "assigned_fn": [
+      "print_text_marker"
+    ],
+    "line": [
+      "jpeg_set_marker_processor(j_decompress_ptr cinfo, int marker_code,",
+      "boolean (*routine) (j_decompress_ptr cinfo))",
+      "{"
+    ],
+    "file": "jdmarker.c"
+  }
+]

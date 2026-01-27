@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/bhsu/libjpeg-turbo/build-min/cmake_install.cmake",
+		"/home/bhsu/libjpeg-turbo/build-min/simd/cmake_install.cmake",
+		"/home/bhsu/libjpeg-turbo/build-min/src/md5/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

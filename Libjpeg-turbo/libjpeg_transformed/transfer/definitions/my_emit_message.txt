@@ -1,0 +1,1 @@
+my_emit_message(j_common_ptr cinfo , int msg_level);

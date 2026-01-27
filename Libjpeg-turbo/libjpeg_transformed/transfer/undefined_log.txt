@@ -1,0 +1,91 @@
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_refine':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:981: undefined reference to `jsimd_encode_mcu_AC_refine_prepare'
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_first':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:700: undefined reference to `jsimd_encode_mcu_AC_first_prepare'
+[ 96%] Built target turbojpeg-static
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/example-static.dir/build.make:101: example-static] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:434: CMakeFiles/example-static.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 96%] Linking C executable djpeg-static
+[ 97%] Building C object CMakeFiles/tjbench-static.dir/src/tjbench.c.o
+[ 98%] Building C object CMakeFiles/tjbench-static.dir/src/tjutil.c.o
+[ 98%] Building C object CMakeFiles/tjunittest-static.dir/src/tjunittest.c.o
+[ 99%] Building C object CMakeFiles/tjunittest-static.dir/src/md5/md5hl.c.o
+[ 99%] Building C object CMakeFiles/tjunittest-static.dir/src/tjutil.c.o
+[ 99%] Building C object CMakeFiles/tjunittest-static.dir/src/md5/md5.c.o
+/usr/bin/ld: CMakeFiles/djpeg-static.dir/src/djpeg.c.o: in function `my_emit_message':
+/home/bhsu/libjpeg-turbo_tmp/src/djpeg.c:529: undefined reference to `my_error_exit'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/djpeg.c:537: undefined reference to `my_output_message'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/djpeg.c:526: undefined reference to `fuzzer_error_exit'
+/usr/bin/ld: CMakeFiles/djpeg-static.dir/src/wrapper/wrppm-8.c.o: in function `jinit_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: CMakeFiles/djpeg-static.dir/src/wrapper/wrppm-12.c.o: in function `j12init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: CMakeFiles/djpeg-static.dir/src/wrapper/wrppm-16.c.o: in function `j16init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: CMakeFiles/djpeg-static.dir/src/wrtarga.c.o: in function `jinit_write_targa':
+/home/bhsu/libjpeg-turbo_tmp/src/wrtarga.c:258: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrtarga.c:261: undefined reference to `calc_buffer_dimensions_ppm'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/djpeg-static.dir/build.make:277: djpeg-static] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:370: CMakeFiles/djpeg-static.dir/all] Error 2
+[ 99%] Linking C executable cjpeg-static
+/usr/bin/ld: CMakeFiles/cjpeg-static.dir/src/cjpeg.c.o: in function `my_emit_message':
+/home/bhsu/libjpeg-turbo_tmp/src/cjpeg.c:610: undefined reference to `my_error_exit'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/cjpeg.c:618: undefined reference to `my_output_message'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/cjpeg.c:607: undefined reference to `fuzzer_error_exit'
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_refine':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:981: undefined reference to `jsimd_encode_mcu_AC_refine_prepare'
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_first':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:700: undefined reference to `jsimd_encode_mcu_AC_first_prepare'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/cjpeg-static.dir/build.make:229: cjpeg-static] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:338: CMakeFiles/cjpeg-static.dir/all] Error 2
+[100%] Linking C executable jpegtran-static
+[100%] Linking C executable tjbench-static
+[100%] Linking C executable tjunittest-static
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_refine':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:981: undefined reference to `jsimd_encode_mcu_AC_refine_prepare'
+/usr/bin/ld: libjpeg.a(jcphuff.c.o): in function `encode_mcu_AC_first':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:700: undefined reference to `jsimd_encode_mcu_AC_first_prepare'
+/usr/bin/ld: CMakeFiles/jpegtran-static.dir/src/jpegtran.c.o: in function `my_emit_message':
+/home/bhsu/libjpeg-turbo_tmp/src/jpegtran.c:447: undefined reference to `my_error_exit'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/jpegtran.c:455: undefined reference to `my_output_message'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/jpegtran.c:444: undefined reference to `fuzzer_error_exit'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/jpegtran-static.dir/build.make:149: jpegtran-static] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:402: CMakeFiles/jpegtran-static.dir/all] Error 2
+/usr/bin/ld: /usr/bin/ld: libturbojpeg.a(turbojpeg.c.o): in function `my_emit_message':
+/home/bhsu/libjpeg-turbo_tmp/src/turbojpeg.c:99: undefined reference to `fuzzer_emit_message'
+/usr/bin/ld: libturbojpeg.a(jcphuff.c.o): in function `encode_mcu_AC_refine':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:981: undefined reference to `jsimd_encode_mcu_AC_refine_prepare'
+/usr/bin/ld: libturbojpeg.a(jcphuff.c.o): in function `encode_mcu_AC_first':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:700: undefined reference to `jsimd_encode_mcu_AC_first_prepare'
+libturbojpeg.a(turbojpeg.c.o): in function `my_emit_message':
+/home/bhsu/libjpeg-turbo_tmp/src/turbojpeg.c:99: undefined reference to `fuzzer_emit_message'
+/usr/bin/ld: libturbojpeg.a(wrppm-8.c.o): in function `jinit_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: libturbojpeg.a(wrppm-12.c.o): in function `j12init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: /usr/bin/ld: libturbojpeg.a(wrppm-16.c.o): in function `j16init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+libturbojpeg.a(jcphuff.c.o): in function `encode_mcu_AC_refine':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:981: undefined reference to `jsimd_encode_mcu_AC_refine_prepare'
+/usr/bin/ld: libturbojpeg.a(jcphuff.c.o): in function `encode_mcu_AC_first':
+/home/bhsu/libjpeg-turbo_tmp/src/jcphuff.c:700: undefined reference to `jsimd_encode_mcu_AC_first_prepare'
+/usr/bin/ld: libturbojpeg.a(wrppm-8.c.o): in function `jinit_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: libturbojpeg.a(wrppm-12.c.o): in function `j12init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'
+/usr/bin/ld: libturbojpeg.a(wrppm-16.c.o): in function `j16init_write_ppm':
+/home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:344: undefined reference to `calc_buffer_dimensions_tga'
+/usr/bin/ld: /home/bhsu/libjpeg-turbo_tmp/src/wrapper/../wrppm.c:338: undefined reference to `calc_buffer_dimensions_gif'

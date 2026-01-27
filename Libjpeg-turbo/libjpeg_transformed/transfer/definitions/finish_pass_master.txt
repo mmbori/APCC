@@ -1,0 +1,1 @@
+finish_pass_master(j_compress_ptr cinfo);

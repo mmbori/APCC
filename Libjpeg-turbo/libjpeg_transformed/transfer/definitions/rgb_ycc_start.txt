@@ -1,0 +1,1 @@
+rgb_ycc_start(j_compress_ptr cinfo);

@@ -1,0 +1,1 @@
+start_pass_diff(j_compress_ptr cinfo , J_BUF_MODE pass_mode);

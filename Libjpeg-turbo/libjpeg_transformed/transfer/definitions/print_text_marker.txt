@@ -1,0 +1,1 @@
+print_text_marker(j_decompress_ptr cinfo);

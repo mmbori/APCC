@@ -1,0 +1,1 @@
+start_pass_lossless(j_compress_ptr cinfo);

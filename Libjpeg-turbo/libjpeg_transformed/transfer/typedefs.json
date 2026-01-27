@@ -1,0 +1,18 @@
+{
+  "function_pointer_templates": {
+    "upsample1_ptr": "void (*upsample1_ptr) (j_decompress_ptr cinfo,\n                               jpeg_component_info *compptr,\n                               JSAMPARRAY input_data,\n                               JSAMPARRAY *output_data_ptr)",
+    "predict_difference_method_ptr": "void (*predict_difference_method_ptr) (j_compress_ptr cinfo, int ci,\n                                               _JSAMPROW input_buf,\n                                               _JSAMPROW prev_row,\n                                               JDIFFROW diff_buf,\n                                               JDIMENSION width)",
+    "predict_undifference_method_ptr": "void (*predict_undifference_method_ptr) (j_decompress_ptr cinfo,\n                                                 int comp_index,\n                                                 JDIFFROW diff_buf,\n                                                 JDIFFROW prev_row,\n                                                 JDIFFROW undiff_buf,\n                                                 JDIMENSION width)",
+    "inverse_DCT_method_ptr": "void (*inverse_DCT_method_ptr) (j_decompress_ptr cinfo,\n                                        jpeg_component_info *compptr,\n                                        JCOEFPTR coef_block,\n                                        JSAMPARRAY output_buf,\n                                        JDIMENSION output_col)",
+    "inverse_DCT_12_method_ptr": "void (*inverse_DCT_12_method_ptr) (j_decompress_ptr cinfo,\n                                           jpeg_component_info *compptr,\n                                           JCOEFPTR coef_block,\n                                           J12SAMPARRAY output_buf,\n                                           JDIMENSION output_col)",
+    "downsample1_ptr": "void (*downsample1_ptr) (j_compress_ptr cinfo,\n                                 jpeg_component_info *compptr,\n                                 _JSAMPARRAY input_data,\n                                 _JSAMPARRAY output_data)",
+    "jpeg_marker_parser_method": "boolean (*jpeg_marker_parser_method) (j_decompress_ptr cinfo)",
+    "forward_DCT_method_ptr": "void (*forward_DCT_method_ptr) (DCTELEM *data)",
+    "float_DCT_method_ptr": "void (*float_DCT_method_ptr) (FAST_FLOAT *data)",
+    "convsamp_method_ptr": "void (*convsamp_method_ptr) (_JSAMPARRAY sample_data,\n                                     JDIMENSION start_col,\n                                     DCTELEM *workspace)",
+    "float_convsamp_method_ptr": "void (*float_convsamp_method_ptr) (_JSAMPARRAY sample_data,\n                                           JDIMENSION start_col,\n                                           FAST_FLOAT *workspace)",
+    "quantize_method_ptr": "void (*quantize_method_ptr) (JCOEFPTR coef_block, DCTELEM *divisors,\n                                     DCTELEM *workspace)",
+    "float_quantize_method_ptr": "void (*float_quantize_method_ptr) (JCOEFPTR coef_block,\n                                           FAST_FLOAT *divisors,\n                                           FAST_FLOAT *workspace)"
+  },
+  "function_type_templates": {}
+}

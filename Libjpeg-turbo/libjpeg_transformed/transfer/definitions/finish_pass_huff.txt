@@ -1,0 +1,1 @@
+finish_pass_huff(j_compress_ptr cinfo);

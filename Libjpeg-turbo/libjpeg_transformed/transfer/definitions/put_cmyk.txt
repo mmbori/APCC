@@ -1,0 +1,1 @@
+put_cmyk(j_decompress_ptr cinfo , djpeg_dest_ptr dinfo , JDIMENSION rows_supplied);

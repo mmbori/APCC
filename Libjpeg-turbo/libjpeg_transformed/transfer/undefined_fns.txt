@@ -1,0 +1,9 @@
+jsimd_encode_mcu_AC_refine_prepare
+jsimd_encode_mcu_AC_first_prepare
+my_error_exit
+my_output_message
+fuzzer_error_exit
+calc_buffer_dimensions_tga
+calc_buffer_dimensions_gif
+calc_buffer_dimensions_ppm
+fuzzer_emit_message

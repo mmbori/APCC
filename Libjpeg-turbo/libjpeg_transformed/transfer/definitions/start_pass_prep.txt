@@ -1,0 +1,1 @@
+start_pass_prep(j_compress_ptr cinfo , J_BUF_MODE pass_mode);

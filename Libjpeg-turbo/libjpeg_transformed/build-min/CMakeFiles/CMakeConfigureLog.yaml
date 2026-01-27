@@ -1,0 +1,1874 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/uname"
+      - "/home/bhsu/cmake-3.xx.y/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/sbin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      The system is: Linux - 6.6.87.2-microsoft-standard-WSL2 - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gmake"
+      - "make"
+      - "smake"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/gmake"
+      - "/home/bhsu/cmake-3.xx.y/bin/gmake"
+      - "/usr/local/sbin/gmake"
+      - "/usr/local/bin/gmake"
+      - "/usr/sbin/gmake"
+    found: "/usr/bin/gmake"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER"
+    description: "C compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cc"
+      - "gcc"
+      - "cl"
+      - "bcc"
+      - "xlc"
+      - "icx"
+      - "clang"
+    candidate_directories:
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/home/bhsu/.local/bin/cc"
+      - "/home/bhsu/cmake-3.xx.y/bin/cc"
+      - "/usr/local/sbin/cc"
+      - "/usr/local/bin/cc"
+      - "/usr/sbin/cc"
+    found: "/usr/bin/cc"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCCompilerId.c.in"
+    candidate_directories:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/"
+    found: "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/4.2.2/CompilerIdC/a.out
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "strip"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/strip"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/ld"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "nm"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/nm"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objdump"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/objdump"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "objcopy"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "readelf"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/readelf"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "dlltool"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/dlltool"
+      - "/home/bhsu/.local/bin/dlltool"
+      - "/home/bhsu/cmake-3.xx.y/bin/dlltool"
+      - "/usr/local/sbin/dlltool"
+      - "/usr/local/bin/dlltool"
+      - "/usr/sbin/dlltool"
+      - "/sbin/dlltool"
+      - "/bin/dlltool"
+      - "/usr/games/dlltool"
+      - "/usr/local/games/dlltool"
+      - "/usr/lib/wsl/lib/dlltool"
+      - "/mnt/c/WINDOWS/system32/dlltool"
+      - "/mnt/c/WINDOWS/dlltool"
+      - "/mnt/c/WINDOWS/System32/Wbem/dlltool"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/dlltool"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/dlltool"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/dlltool"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/dlltool"
+      - "/snap/bin/dlltool"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "addr2line"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    found: "/usr/bin/addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/tapi"
+      - "/home/bhsu/.local/bin/tapi"
+      - "/home/bhsu/cmake-3.xx.y/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/usr/sbin/tapi"
+      - "/sbin/tapi"
+      - "/bin/tapi"
+      - "/usr/games/tapi"
+      - "/usr/local/games/tapi"
+      - "/usr/lib/wsl/lib/tapi"
+      - "/mnt/c/WINDOWS/system32/tapi"
+      - "/mnt/c/WINDOWS/tapi"
+      - "/mnt/c/WINDOWS/System32/Wbem/tapi"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/tapi"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/tapi"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/tapi"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/tapi"
+      - "/snap/bin/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_AR"
+    description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ar-11.4"
+      - "gcc-ar-11"
+      - "gcc-ar11"
+      - "gcc-ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ar-11.4"
+      - "/home/bhsu/.local/bin/gcc-ar-11.4"
+      - "/home/bhsu/cmake-3.xx.y/bin/gcc-ar-11.4"
+      - "/usr/local/sbin/gcc-ar-11.4"
+      - "/usr/local/bin/gcc-ar-11.4"
+      - "/usr/sbin/gcc-ar-11.4"
+      - "/sbin/gcc-ar-11.4"
+      - "/bin/gcc-ar-11.4"
+      - "/usr/games/gcc-ar-11.4"
+      - "/usr/local/games/gcc-ar-11.4"
+      - "/usr/lib/wsl/lib/gcc-ar-11.4"
+      - "/mnt/c/WINDOWS/system32/gcc-ar-11.4"
+      - "/mnt/c/WINDOWS/gcc-ar-11.4"
+      - "/mnt/c/WINDOWS/System32/Wbem/gcc-ar-11.4"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/gcc-ar-11.4"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/gcc-ar-11.4"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/gcc-ar-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/gcc-ar-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/gcc-ar-11.4"
+      - "/snap/bin/gcc-ar-11.4"
+    found: "/usr/bin/gcc-ar-11"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_C_COMPILER_RANLIB"
+    description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gcc-ranlib-11.4"
+      - "gcc-ranlib-11"
+      - "gcc-ranlib11"
+      - "gcc-ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/bhsu/.local/bin/"
+      - "/home/bhsu/cmake-3.xx.y/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/usr/lib/wsl/lib/"
+      - "/mnt/c/WINDOWS/system32/"
+      - "/mnt/c/WINDOWS/"
+      - "/mnt/c/WINDOWS/System32/Wbem/"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/"
+      - "/snap/bin/"
+    searched_directories:
+      - "/usr/bin/gcc-ranlib-11.4"
+      - "/home/bhsu/.local/bin/gcc-ranlib-11.4"
+      - "/home/bhsu/cmake-3.xx.y/bin/gcc-ranlib-11.4"
+      - "/usr/local/sbin/gcc-ranlib-11.4"
+      - "/usr/local/bin/gcc-ranlib-11.4"
+      - "/usr/sbin/gcc-ranlib-11.4"
+      - "/sbin/gcc-ranlib-11.4"
+      - "/bin/gcc-ranlib-11.4"
+      - "/usr/games/gcc-ranlib-11.4"
+      - "/usr/local/games/gcc-ranlib-11.4"
+      - "/usr/lib/wsl/lib/gcc-ranlib-11.4"
+      - "/mnt/c/WINDOWS/system32/gcc-ranlib-11.4"
+      - "/mnt/c/WINDOWS/gcc-ranlib-11.4"
+      - "/mnt/c/WINDOWS/System32/Wbem/gcc-ranlib-11.4"
+      - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/gcc-ranlib-11.4"
+      - "/mnt/c/WINDOWS/System32/OpenSSH/gcc-ranlib-11.4"
+      - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/gcc-ranlib-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-11.4"
+      - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin/gcc-ranlib-11.4"
+      - "/snap/bin/gcc-ranlib-11.4"
+    found: "/usr/bin/gcc-ranlib-11"
+    search_context:
+      ENV{PATH}:
+        - "/home/bhsu/.local/bin"
+        - "/home/bhsu/cmake-3.xx.y/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/usr/lib/wsl/lib"
+        - "/mnt/c/WINDOWS/system32"
+        - "/mnt/c/WINDOWS"
+        - "/mnt/c/WINDOWS/System32/Wbem"
+        - "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/"
+        - "/mnt/c/WINDOWS/System32/OpenSSH/"
+        - "/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+        - "/mnt/c/Users/BHSU/AppData/Local/Microsoft/WindowsApps"
+        - "/mnt/c/Users/BHSU/AppData/Local/Programs/Microsoft VS Code/bin"
+        - "/mnt/c/Users/BHSU/AppData/Local/GitHubDesktop/bin"
+        - "/snap/bin"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:16 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3cf40/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_3cf40.dir/build.make CMakeFiles/cmTC_3cf40.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw'
+        Building C object CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -c /snap/cmake/1509/share/cmake-4.2/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04.2' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.2) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/'
+         /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /snap/cmake/1509/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_3cf40.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccEtUUS7.s
+        GNU C17 (Ubuntu 11.4.0-1ubuntu1~22.04.2) version 11.4.0 (x86_64-linux-gnu)
+        	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/11/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-linux-gnu/11/include
+         /usr/local/include
+         /usr/include/x86_64-linux-gnu
+         /usr/include
+        End of search list.
+        GNU C17 (Ubuntu 11.4.0-1ubuntu1~22.04.2) version 11.4.0 (x86_64-linux-gnu)
+        	compiled by GNU C version 11.4.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 4011c2103cba78949d7e02d0f0047a3d
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/'
+         as -v --64 -o CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o /tmp/ccEtUUS7.s
+        GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38
+        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_3cf40
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3cf40.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper
+        OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04.2' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.2) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3cf40' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3cf40.'
+         /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5sHrcU.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3cf40 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        collect2 version 11.4.0
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5sHrcU.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3cf40 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o
+        GNU ld (GNU Binutils for Ubuntu) 2.38
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3cf40' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3cf40.'
+        /usr/bin/cc  -v -Wl,-v CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -o cmTC_3cf40
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-linux-gnu/11/include]
+          add: [/usr/local/include]
+          add: [/usr/include/x86_64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/11/include] ==> [/usr/lib/gcc/x86_64-linux-gnu/11/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/11/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw']
+        ignore line: []
+        ignore line: [Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_3cf40/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_3cf40.dir/build.make CMakeFiles/cmTC_3cf40.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-MtuMRw']
+        ignore line: [Building C object CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -c /snap/cmake/1509/share/cmake-4.2/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04.2' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-nvptx/usr amdgcn-amdhsa=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.2) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu /snap/cmake/1509/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_3cf40.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccEtUUS7.s]
+        ignore line: [GNU C17 (Ubuntu 11.4.0-1ubuntu1~22.04.2) version 11.4.0 (x86_64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/11/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/11/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/x86_64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (Ubuntu 11.4.0-1ubuntu1~22.04.2) version 11.4.0 (x86_64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 11.4.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 4011c2103cba78949d7e02d0f0047a3d]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o /tmp/ccEtUUS7.s]
+        ignore line: [GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_3cf40]
+        ignore line: [/snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3cf40.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.4.0-1ubuntu1~22.04.2' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-nvptx/usr amdgcn-amdhsa=/build/gcc-11-2Y5pKs/gcc-11-11.4.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.2) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/11/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/11/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_3cf40' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_3cf40.']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5sHrcU.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3cf40 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cc5sHrcU.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_3cf40] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/11] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib]
+          arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+          arg [-L/lib/../lib] ==> dir [/lib/../lib]
+          arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+          arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/11/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../..]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [collect2 version 11.4.0]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5sHrcU.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_3cf40 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -v CMakeFiles/cmTC_3cf40.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o]
+        linker tool for 'C': /usr/bin/ld
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o] ==> [/usr/lib/x86_64-linux-gnu/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/11] ==> [/usr/lib/gcc/x86_64-linux-gnu/11]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib] ==> [/usr/lib]
+        collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+        collapse library dir [/lib/../lib] ==> [/lib]
+        collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/11/../../..] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib/x86_64-linux-gnu/Scrt1.o;/usr/lib/x86_64-linux-gnu/crti.o;/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o;/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o;/usr/lib/x86_64-linux-gnu/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/11;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Ubuntu) 2.38
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckIncludeFile.cmake:174 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:462 (check_include_file)"
+      - "CMakeLists.txt:490 (check_type_size)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_00fd5/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_00fd5.dir/build.make CMakeFiles/cmTC_00fd5.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s'
+        Building C object CMakeFiles/cmTC_00fd5.dir/CheckIncludeFile.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_00fd5.dir/CheckIncludeFile.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s/CheckIncludeFile.c
+        Linking C executable cmTC_00fd5
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00fd5.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_00fd5.dir/CheckIncludeFile.c.o -o cmTC_00fd5
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-ZbcO5s'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckIncludeFile.cmake:174 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:463 (check_include_file)"
+      - "CMakeLists.txt:490 (check_type_size)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_50918/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_50918.dir/build.make CMakeFiles/cmTC_50918.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt'
+        Building C object CMakeFiles/cmTC_50918.dir/CheckIncludeFile.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_50918.dir/CheckIncludeFile.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt/CheckIncludeFile.c
+        Linking C executable cmTC_50918
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_50918.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_50918.dir/CheckIncludeFile.c.o -o cmTC_50918
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-oUfsrt'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckIncludeFile.cmake:174 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:464 (check_include_file)"
+      - "CMakeLists.txt:490 (check_type_size)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1f4a5/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_1f4a5.dir/build.make CMakeFiles/cmTC_1f4a5.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv'
+        Building C object CMakeFiles/cmTC_1f4a5.dir/CheckIncludeFile.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_1f4a5.dir/CheckIncludeFile.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv/CheckIncludeFile.c
+        Linking C executable cmTC_1f4a5
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1f4a5.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_1f4a5.dir/CheckIncludeFile.c.o -o cmTC_1f4a5
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-cLFKzv'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:348 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:481 (__check_type_size_impl)"
+      - "CMakeLists.txt:490 (check_type_size)"
+    checks:
+      - "Check size of size_t"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_SIZE_T"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a0f79/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_a0f79.dir/build.make CMakeFiles/cmTC_a0f79.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw'
+        Building C object CMakeFiles/cmTC_a0f79.dir/SIZE_T.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_a0f79.dir/SIZE_T.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw/SIZE_T.c
+        Linking C executable cmTC_a0f79
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a0f79.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_a0f79.dir/SIZE_T.c.o -o cmTC_a0f79
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-46Sllw'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:348 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckTypeSize.cmake:481 (__check_type_size_impl)"
+      - "CMakeLists.txt:491 (check_type_size)"
+    checks:
+      - "Check size of unsigned long"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_UNSIGNED_LONG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b5c23/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b5c23.dir/build.make CMakeFiles/cmTC_b5c23.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w'
+        Building C object CMakeFiles/cmTC_b5c23.dir/UNSIGNED_LONG.c.o
+        /usr/bin/cc    -o CMakeFiles/cmTC_b5c23.dir/UNSIGNED_LONG.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w/UNSIGNED_LONG.c
+        Linking C executable cmTC_b5c23
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b5c23.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_b5c23.dir/UNSIGNED_LONG.c.o -o cmTC_b5c23
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-8oEL8w'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "CMakeLists.txt:494 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_BUILTIN_CTZL"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_BUILTIN_CTZL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_0f033/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_0f033.dir/build.make CMakeFiles/cmTC_0f033.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv'
+        Building C object CMakeFiles/cmTC_0f033.dir/src.c.o
+        /usr/bin/cc -DHAVE_BUILTIN_CTZL   -o CMakeFiles/cmTC_0f033.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv/src.c
+        Linking C executable cmTC_0f033
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f033.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_0f033.dir/src.c.o -o cmTC_0f033
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-5AMDqv'
+        
+      exitCode: 0
+  -
+    kind: "try_run-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceRuns.cmake:95 (try_run)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceRuns.cmake:88 (cmake_check_source_runs)"
+      - "CMakeLists.txt:506 (check_c_source_runs)"
+    checks:
+      - "Performing Test RIGHT_SHIFT_IS_UNSIGNED"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "RIGHT_SHIFT_IS_UNSIGNED_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c8c0f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c8c0f.dir/build.make CMakeFiles/cmTC_c8c0f.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u'
+        Building C object CMakeFiles/cmTC_c8c0f.dir/src.c.o
+        /usr/bin/cc -DRIGHT_SHIFT_IS_UNSIGNED   -o CMakeFiles/cmTC_c8c0f.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u/src.c
+        Linking C executable cmTC_c8c0f
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8c0f.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_c8c0f.dir/src.c.o -o cmTC_c8c0f
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-nBRt5u'
+        
+      exitCode: 0
+    runResult:
+      variable: "RIGHT_SHIFT_IS_UNSIGNED_EXITCODE"
+      cached: true
+      stdout: |
+      stderr: |
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "CMakeLists.txt:529 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HIDDEN_WORKS"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HIDDEN_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8242e/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_8242e.dir/build.make CMakeFiles/cmTC_8242e.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv'
+        Building C object CMakeFiles/cmTC_8242e.dir/src.c.o
+        /usr/bin/cc -DHIDDEN_WORKS   -o CMakeFiles/cmTC_8242e.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv/src.c
+        Linking C executable cmTC_8242e
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8242e.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_8242e.dir/src.c.o -o cmTC_8242e
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-7laOzv'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "CMakeLists.txt:553 (check_c_source_compiles)"
+    checks:
+      - "Performing Test INLINE_WORKS"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "INLINE_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c732f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c732f.dir/build.make CMakeFiles/cmTC_c732f.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw'
+        Building C object CMakeFiles/cmTC_c732f.dir/src.c.o
+        /usr/bin/cc -DINLINE_WORKS   -o CMakeFiles/cmTC_c732f.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw/src.c
+        Linking C executable cmTC_c732f
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c732f.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_c732f.dir/src.c.o -o cmTC_c732f
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-DckORw'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "CMakeLists.txt:570 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_THREAD_LOCAL"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_THREAD_LOCAL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_9114a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_9114a.dir/build.make CMakeFiles/cmTC_9114a.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu'
+        Building C object CMakeFiles/cmTC_9114a.dir/src.c.o
+        /usr/bin/cc -DHAVE_THREAD_LOCAL   -o CMakeFiles/cmTC_9114a.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu/src.c
+        Linking C executable cmTC_9114a
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9114a.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_9114a.dir/src.c.o -o cmTC_9114a
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-LAH9Gu'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "CMakeLists.txt:583 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_VERSION_SCRIPT"
+    directories:
+      source: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct"
+      binary: "/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "HAVE_VERSION_SCRIPT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct'
+        
+        Run Build Command(s): /snap/cmake/1509/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1bda6/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_1bda6.dir/build.make CMakeFiles/cmTC_1bda6.dir/build
+        gmake[1]: Entering directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct'
+        Building C object CMakeFiles/cmTC_1bda6.dir/src.c.o
+        /usr/bin/cc -DHAVE_VERSION_SCRIPT  -Wl,--version-script,/home/bhsu/libjpeg-turbo_tmp/build-min/conftest.map -o CMakeFiles/cmTC_1bda6.dir/src.c.o -c /home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct/src.c
+        Linking C executable cmTC_1bda6
+        /snap/cmake/1509/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1bda6.dir/link.txt --verbose=1
+        /usr/bin/cc  -Wl,--version-script,/home/bhsu/libjpeg-turbo_tmp/build-min/conftest.map CMakeFiles/cmTC_1bda6.dir/src.c.o -o cmTC_1bda6
+        gmake[1]: Leaving directory '/home/bhsu/libjpeg-turbo_tmp/build-min/CMakeFiles/CMakeScratch/TryCompile-NkNEct'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/snap/cmake/1509/share/cmake-4.2/Modules/CheckLanguage.cmake:164 (message)"
+      - "simd/CMakeLists.txt:46 (check_language)"
+    checks:
+      - "Looking for a ASM_NASM compiler"
+    message: |
+      Looking for a ASM_NASM compiler failed with the following output:
+      -- The ASM_NASM compiler identification is unknown
+      -- Didn't find assembler
+      CMake Error at CMakeLists.txt:9 (project):
+        No CMAKE_ASM_NASM_COMPILER could be found.
+      
+        Tell CMake where to find the compiler by setting either the environment
+        variable "ASM_NASM" or the CMake cache entry CMAKE_ASM_NASM_COMPILER to the
+        full path to the compiler, or to the compiler name if it is in the PATH.
+      
+      
+      -- Configuring incomplete, errors occurred!
+      
+...

@@ -1,0 +1,1 @@
+compress_output_12(j_compress_ptr cinfo , J12SAMPIMAGE input_buf);
