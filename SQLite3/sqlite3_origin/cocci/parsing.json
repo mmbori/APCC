@@ -1,0 +1,1353 @@
+[
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 2,
+    "fn_name": "closureAvlDestroy",
+    "assigned_fn": [
+      "xDestroy"
+    ]
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "createCollation",
+    "assigned_fn": [
+      "0",
+      "binCollFunc",
+      "xCompare"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "createCollation",
+    "assigned_fn": [
+      "0",
+      "xDel"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "xSFunc"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "xStep"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "xFinal"
+    ]
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "xValue"
+    ]
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "xInverse"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 11,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "xDestroy"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "createModule",
+    "assigned_fn": [
+      "0",
+      "xDestroy"
+    ]
+  },
+  {
+    "fp_name": "xJump",
+    "fp_sequence": 4,
+    "fn_name": "exprCodeBetween",
+    "assigned_fn": [
+      "0",
+      "sqlite3ExprIfFalse",
+      "sqlite3ExprIfTrue"
+    ]
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "f5tTokenizerReallyTokenize",
+    "assigned_fn": [
+      "p->xToken",
+      "xToken"
+    ]
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "f5tTokenizerTokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 8,
+    "fn_name": "f5tTokenizerTokenize_v2",
+    "assigned_fn": [
+      "xToken"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "fiddle_export_db",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 3,
+    "fn_name": "fts3ExprIterate2",
+    "assigned_fn": [
+      "x"
+    ]
+  },
+  {
+    "fp_name": "xCmp",
+    "fp_sequence": 4,
+    "fn_name": "fts3SegReaderSort",
+    "assigned_fn": [
+      "fts3SegReaderCmp",
+      "xCmp"
+    ]
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5AsciiTokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xChunk",
+    "fp_sequence": 4,
+    "fn_name": "fts5ChunkIterate",
+    "assigned_fn": [
+      "fts5MergeChunkCallback",
+      "fts5PoslistCallback",
+      "fts5PoslistFilterCallback",
+      "fts5PoslistOffsetsCallback"
+    ]
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 4,
+    "fn_name": "fts5MatchinfoIter",
+    "assigned_fn": [
+      "fts5MatchinfoGlobalCb",
+      "fts5MatchinfoLocalCb"
+    ]
+  },
+  {
+    "fp_name": "xVisit",
+    "fp_sequence": 6,
+    "fn_name": "fts5VisitEntries",
+    "assigned_fn": [
+      "prefixIterSetupCb"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 2,
+    "fn_name": "invokeValueDestructor",
+    "assigned_fn": [
+      "xDel",
+      "xDestructor"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "setResultStrOrError",
+    "assigned_fn": [
+      "SQLITE_STATIC",
+      "xDel"
+    ]
+  },
+  {
+    "fp_name": "xBenignBegin",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3BenignMallocHooks",
+    "assigned_fn": [
+      "xBenignBegin"
+    ]
+  },
+  {
+    "fp_name": "xBenignEnd",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3BenignMallocHooks",
+    "assigned_fn": [
+      "xBenignEnd"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "xSFunc"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "xStep"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "xFinal"
+    ]
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "xValue"
+    ]
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "xInverse"
+    ]
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts3ExprIterate",
+    "assigned_fn": [
+      "fts3AllocateMSI",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3SnippetFindPositions"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3Fts3InitTok",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "mallocProc",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3Fts5ParserAlloc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts5ParserFree",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3Fts5Tokenize",
+    "assigned_fn": [
+      "fts5ParseTokenize",
+      "fts5StorageInsertCallback",
+      "fts5StorageIntegrityCallback"
+    ]
+  },
+  {
+    "fp_name": "xCreate",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3Fts5TokenizerPattern",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBacktrace",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3MemdebugBacktraceCallback",
+    "assigned_fn": [
+      "test_memdebug_callback",
+      "void (*xBacktrace)(int, int, void **)"
+    ]
+  },
+  {
+    "fp_name": "xIter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3PcacheIterateDirty",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStress",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3PcacheOpen",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTask",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3ThreadCreate",
+    "assigned_fn": [
+      "xTask"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3VdbeMemSetPointer",
+    "assigned_fn": [
+      "xDestructor"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3VtabCreateModule",
+    "assigned_fn": [
+      "xDestroy"
+    ]
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3WalCheckpoint",
+    "assigned_fn": [
+      "t"
+    ]
+  },
+  {
+    "fp_name": "xUndo",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3WalUndo",
+    "assigned_fn": [
+      "y"
+    ]
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": [
+      "apndvfsRegister",
+      "broken_init",
+      "cube_init",
+      "memvfsRegister",
+      "multiplexFuncInit",
+      "s3jni_run_java_auto_extensions",
+      "sqlite3_btreeinfo_init",
+      "sqlite3_checkfreelist_init",
+      "sqlite3_checkindex_init",
+      "sqr_init",
+      "void(*xEntryPoint)(void)",
+      "vstatRegister"
+    ]
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": [
+      "apndvfsRegister",
+      "broken_init",
+      "cube_init",
+      "memvfsRegister",
+      "multiplexFuncInit",
+      "s3jni_run_java_auto_extensions",
+      "sqlite3_btreeinfo_init",
+      "sqlite3_checkfreelist_init",
+      "sqlite3_checkindex_init",
+      "sqr_init",
+      "void(*xEntryPoint)(void)",
+      "vstatRegister"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": [
+      "unsigned int(*)(void*,const char*,unsigned int,unsigned int,unsigned int)"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": [
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_busy_handler",
+    "assigned_fn": [
+      "0",
+      "int(*)(void*,int)",
+      "s3jni_busy_handler",
+      "sqliteDefaultBusyCallback",
+      "superlockBusyHandler",
+      "xBusy"
+    ]
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": [
+      "broken_init",
+      "cube_init",
+      "sqr_init",
+      "void(*xEntryPoint)(void)"
+    ]
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": [
+      "broken_init",
+      "cube_init",
+      "sqr_init",
+      "void(*xEntryPoint)(void)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_carray_bind",
+    "assigned_fn": [
+      "void (*xDel)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_carray_bind",
+    "assigned_fn": [
+      "void (*xDel)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xCollNeeded",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed",
+    "assigned_fn": [
+      "0",
+      "anyCollNeeded",
+      "void(*)(void*,sqlite3*,int eTextRep,const char*)"
+    ]
+  },
+  {
+    "fp_name": "xCollNeeded16",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed16",
+    "assigned_fn": [
+      "s3jni_collation_needed_impl16",
+      "void(*)(void*,sqlite3*,int eTextRep,const void*)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_commit_hook",
+    "assigned_fn": [
+      "0",
+      "int(*)(void*)",
+      "s3jni_commit_hook_impl"
+    ]
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation",
+    "assigned_fn": [
+      "anyCollFunc",
+      "int(*xCompare)(void*,int,const void*,int,const void*)"
+    ]
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation16",
+    "assigned_fn": [
+      "int(*xCompare)(void*,int,const void*,int,const void*)"
+    ]
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "CollationCallback_xCompare",
+      "int(*xCompare)(void*,int,const void*,int,const void*)",
+      "xCompare"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "0",
+      "CollationCallback_xDestroy",
+      "void(*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "0",
+      "CollationCallback_xDestroy",
+      "void(*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "aFunc[i].xFunc",
+      "legacyCountStep",
+      "md5step",
+      "sha3AggStep",
+      "sumintStep",
+      "t1CountStep",
+      "testFunc",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "aFunc[i].xFunc",
+      "legacyCountStep",
+      "md5step",
+      "sha3AggStep",
+      "sumintStep",
+      "t1CountStep",
+      "testFunc",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "legacyCountFinalize",
+      "md5finalize",
+      "sha3AggFinal",
+      "sumintFinal",
+      "t1CountFinalize",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "void (*xFinal)(sqlite3_context*)"
+    ]
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [
+      "void (*xFinal)(sqlite3_context*)"
+    ]
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "sqlite3InvalidFunction",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)",
+      "xFunc"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "sqlite3InvalidFunction",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**)",
+      "xFunc"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "0",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**)",
+      "xStep"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "0",
+      "void (*xFinal)(sqlite3_context*)",
+      "xFinal"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "S3JniUdf_finalizer",
+      "sqlite3_free",
+      "void(*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_module_v2",
+    "assigned_fn": [
+      "intarrayFree",
+      "void(*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumFinalize",
+      "percentStep",
+      "sumintFinal",
+      "testWindowFinal",
+      "testWindowStep",
+      "udf_xStep",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumValue",
+      "percentFinal",
+      "sumintValue",
+      "testWindowFinal",
+      "testWindowValue",
+      "udf_xFinal",
+      "void (*xFinal)(sqlite3_context*)"
+    ]
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumInverse",
+      "percentValue",
+      "sumintInverse",
+      "testWindowInverse",
+      "testWindowValue",
+      "udf_xValue",
+      "void (*xValue)(sqlite3_context*)"
+    ]
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "percentInverse",
+      "testWindowInverse",
+      "udf_xInverse",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**)"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "S3JniUdf_finalizer",
+      "testWindowDestroy",
+      "void(*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "callback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_exec",
+    "assigned_fn": [
+      "0",
+      "analysisLoader",
+      "callback",
+      "countNonzeros",
+      "execFuncCallback",
+      "exec_printf_cb",
+      "int (*callback)(void*,int,char**,char**)",
+      "sqlite3InitCallback",
+      "sqlite3_get_table_cb",
+      "zErrMsg"
+    ]
+  },
+  {
+    "fp_name": "xFree",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_intarray_bind",
+    "assigned_fn": [
+      "sqlite3_free",
+      "void (*xFree)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_memory_alarm",
+    "assigned_fn": [
+      "void(*)(void*,sqlite3_int64,int)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": [
+      "0",
+      "s3jni_preupdate_hook_impl",
+      "void(*xPreUpdate)(\n    void *pCtx,                    \n    sqlite3 *db,                   \n    int op,                        \n    char const *zDb,               \n    char const *zName,             \n    sqlite3_int64 iKey1,           \n    sqlite3_int64 iKey2            \n  )"
+    ]
+  },
+  {
+    "fp_name": "xPreUpdate",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": [
+      "0",
+      "s3jni_preupdate_hook_impl",
+      "void(*xPreUpdate)(\n    void *pCtx,                    \n    sqlite3 *db,                   \n    int op,                        \n    char const *zDb,               \n    char const *zName,             \n    sqlite3_int64 iKey1,           \n    sqlite3_int64 iKey2            \n  )"
+    ]
+  },
+  {
+    "fp_name": "xProfile",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_profile",
+    "assigned_fn": [
+      "void(*xProfile)(void*,const char*,sqlite3_uint64)"
+    ]
+  },
+  {
+    "fp_name": "xProgress",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_progress_handler",
+    "assigned_fn": [
+      "0",
+      "int(*)(void*)",
+      "s3jni_progress_handler_impl"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_quota_set",
+    "assigned_fn": [
+      "void (*xCallback)(               \n     const char *zFilename,          \n     sqlite3_int64 *piLimit,         \n     sqlite3_int64 iSize,            \n     void *pArg                      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_quota_set",
+    "assigned_fn": [
+      "void (*xDestroy)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xSql",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_recover_init_sql",
+    "assigned_fn": [
+      "int (*xSql)(void*, const char*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "void(*)(void*)",
+      "zipfileFree"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob64",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_pointer",
+    "assigned_fn": [
+      "S3Jni_jobject_finalizer",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "destructor",
+      "free_test_auxdata",
+      "pStr->bStatic ? SQLITE_TRANSIENT :\n                              sqlite3RCStrUnref",
+      "pStr->bStatic ? SQLITE_TRANSIENT :\n                          sqlite3RCStrUnref",
+      "sqlite3_free",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "destructor",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16be",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16le",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text64",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_rollback_hook",
+    "assigned_fn": [
+      "0",
+      "s3jni_rollback_hook_impl",
+      "void(*)(void *)"
+    ]
+  },
+  {
+    "fp_name": "xGeom",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_geometry_callback",
+    "assigned_fn": [
+      "0",
+      "gHere",
+      "int (*xGeom)(sqlite3_rtree_geometry*, int, sqlite3_rtree_dbl*,int*)",
+      "pCtx"
+    ]
+  },
+  {
+    "fp_name": "xQueryFunc",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": [
+      "0",
+      "int (*xQueryFunc)(sqlite3_rtree_query_info*)",
+      "pCtx"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": [
+      "void (*xDestructor)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xAuth",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_set_authorizer",
+    "assigned_fn": [
+      "0",
+      "int (*xAuth)(void*,int,const char*,const char*,const char*,const char*)",
+      "s3jni_xAuth"
+    ]
+  },
+  {
+    "fp_name": "xDelete",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_auxdata",
+    "assigned_fn": [
+      "S3Jni_jobject_finalizer",
+      "free_test_auxdata",
+      "jsonCacheDeleteGeneric",
+      "sqlite3_free",
+      "void (*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_clientdata",
+    "assigned_fn": [
+      "0",
+      "S3JniDb_xDestroy",
+      "void(*)(void*)"
+    ]
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_trace",
+    "assigned_fn": [
+      "void(*xTrace)(void*,const char*)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": [
+      "0",
+      "int(*xCallback)(unsigned,void*,void*,void*)",
+      "s3jni_trace_impl"
+    ]
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": [
+      "0",
+      "int(*xCallback)(unsigned,void*,void*,void*)",
+      "s3jni_trace_impl"
+    ]
+  },
+  {
+    "fp_name": "xNotify",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_unlock_notify",
+    "assigned_fn": [
+      "test_unlock_notify_cb",
+      "unlock_notify_cb",
+      "void (*xNotify)(void **apArg, int nArg)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_update_hook",
+    "assigned_fn": [
+      "0",
+      "s3jni_update_hook_impl",
+      "void(*)(void *,int ,char const *,char const *,sqlite3_int64)"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_wal_hook",
+    "assigned_fn": [
+      "0",
+      "int(*)(void *,sqlite3*,const char*,int)",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_add_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_output_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    const char *zTab               \n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    const char *zTab               \n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    const char *zTab               \n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    const char *zTab               \n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    sqlite3_changeset_iter *p\n  )"
+    ]
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [
+      "int(*xConflict)(\n    void *pCtx,                    \n    int eConflict,                 \n    sqlite3_changeset_iter *p      \n  )"
+    ]
+  },
+  {
+    "fp_name": "xInputA",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [
+      "int (*xInputA)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xInputB",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [
+      "int (*xInputB)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_v2_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3demo_superlock",
+    "assigned_fn": [
+      "xBusy"
+    ]
+  },
+  {
+    "fp_name": "xRename",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3rbu_rename_handler",
+    "assigned_fn": [
+      "0",
+      "int (*xRename)(void *pArg, const char *zOld, const char *zNew)",
+      "xRenameCallback"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": [
+      "int (*xInput)(void *pIn, void *pData, int *pnData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_changeset_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_patchset_strm",
+    "assigned_fn": [
+      "int (*xOutput)(void *pOut, const void *pData, int nData)"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_table_filter",
+    "assigned_fn": [
+      "int(*xFilter)(\n    void *pCtx,                    \n    const char *zTab               \n  )"
+    ]
+  },
+  {
+    "fp_name": "xCond",
+    "fp_sequence": 4,
+    "fn_name": "stem",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pxFunc",
+    "fp_sequence": 4,
+    "fn_name": "tclFindFunction",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTask",
+    "fp_sequence": 2,
+    "fn_name": "vdbeSorterCreateThread",
+    "assigned_fn": [
+      "vdbeIncrPopulateThread",
+      "vdbePmaReaderBgIncrInit",
+      "vdbeSorterFlushThread"
+    ]
+  },
+  {
+    "fp_name": "xConstruct",
+    "fp_sequence": 4,
+    "fn_name": "vtabCallConstructor",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pxFunc",
+    "fp_sequence": 4,
+    "fn_name": "vtablogFindMethod",
+    "assigned_fn": []
+  }
+]

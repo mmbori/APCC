@@ -1,0 +1,161 @@
+/*
+ * 함수 포인터 할당 함수 선언부 모음
+ * 총 122개 함수 선언
+ */
+
+void agginfoFree(sqlite3 *db, void *pArg);
+int analysisLoader(void *pData, int argc, char * *argv, char * *NotUsed);
+static void base64(sqlite3_context *context, int na, sqlite3_value *av[]);
+int binCollFunc(void *NotUsed, int nKey1, const void *pKey1, int nKey2, const void *pKey2);
+int btreeInvokeBusyHandler(void *pArg);
+static int captureOutputCallback(void *pArg, int nArg, char * *azArg, char * *az);
+int countNonzeros(void *pCount, int nc, char *azResults[], char *azColumns[]);
+static int decimalCollFunc(void *notUsed, int nKey1, const void *pKey1, int nKey2, const void *pKey2);
+void decimalSumFinalize(sqlite3_context *context);
+void decimalSumInverse(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void decimalSumStep(sqlite3_context *context, int argc, sqlite3_value * *argv);
+void decimalSumValue(sqlite3_context *context);
+int dummyCompare(void *up1, int up2, const void *up3, int up4, const void *up5);
+void dummyUDFvalue(sqlite3_context *up1);
+static int dump_callback(void *pArg, int nArg, char * *azArg, char * *azNotUsed);
+int fts3AllocateMSI(Fts3Expr *pExpr, int iPhrase, void *pCtx);
+int fts3ExprGlobalHitsCb(Fts3Expr *pExpr, int iPhrase, void *pCtx);
+int fts3ExprLoadDoclistsCb(Fts3Expr *pExpr, int iPhrase, void *ctx);
+int fts3ExprLocalHitsCb(Fts3Expr *pExpr, int iPhrase, void *pCtx);
+int fts3ExprPhraseCountCb(Fts3Expr *pExpr, int iPhrase, void *ctx);
+int fts3ExprRestartIfCb(Fts3Expr *pExpr, int iPhrase, void *ctx);
+int fts3ExprTermOffsetInit(Fts3Expr *pExpr, int iPhrase, void *ctx);
+static void fts3ExprTest(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void fts3ExprTestRebalance(sqlite3_context *context, int argc, sqlite3_value * *argv);
+int fts3MatchinfoLcsCb(Fts3Expr *pExpr, int iPhrase, void *pCtx);
+int fts3SegReaderCmp(Fts3SegReader *pLhs, Fts3SegReader *pRhs);
+int fts3SnippetFindPositions(Fts3Expr *pExpr, int iPhrase, void *ctx);
+void fts3TokenizerFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+int fts5ColumnSizeCb(void *pContext, int tflags, const char *pUnused, int nUnused, int iUnused1, int iUnused2);
+int fts5ExprPopulatePoslistsCb(void *pCtx, int tflags, const char *pToken, int nToken, int iUnused1, int iUnused2);
+static void fts5Fts5Func(sqlite3_context *pCtx, int nArg, sqlite3_value * *apArg);
+static void fts5InsttokenFunc(sqlite3_context *pCtx, int nArg, sqlite3_value * *apArg);
+static void fts5LocaleFunc(sqlite3_context *pCtx, int nArg, sqlite3_value * *apArg);
+void fts5MergeChunkCallback(Fts5Index *p, void *pCtx, const u8 *pChunk, int nChunk);
+static void fts5ModuleDestroy(void *pCtx);
+void fts5ParseFree(void *p);
+int fts5ParseTokenize(void *pContext, int tflags, const char *pToken, int nToken, int iUnused1, int iUnused2);
+void fts5PoslistCallback(Fts5Index *pUnused, void *pContext, const u8 *pChunk, int nChunk);
+void fts5PoslistFilterCallback(Fts5Index *pUnused, void *pContext, const u8 *pChunk, int nChunk);
+void fts5PoslistOffsetsCallback(Fts5Index *pUnused, void *pContext, const u8 *pChunk, int nChunk);
+static void fts5SourceIdFunc(sqlite3_context *pCtx, int nArg, sqlite3_value * *apUnused);
+int fts5StorageInsertCallback(void *pContext, int tflags, const char *pToken, int nToken, int iUnused1, int iUnused2);
+int fts5StorageIntegrityCallback(void *pContext, int tflags, const char *pToken, int nToken, int iUnused1, int iUnused2);
+void geomCallback(sqlite3_context *ctx, int nArg, sqlite3_value * *aArg);
+static int hasVowel(const char *z);
+void hashDestroy(void *p);
+int icuCollationColl(void *pCtx, int nLeft, const void *zLeft, int nRight, const void *zRight);
+void icuRegexpDelete(void *p);
+int idxAuthCallback(void *pCtx, int eOp, const char *z3, const char *z4, const char *zDb, const char *zTrigger);
+static void idxRemFunc(sqlite3_context *pCtx, int argc, sqlite3_value * *argv);
+static void idxSampleFunc(sqlite3_context *pCtx, int argc, sqlite3_value * *argv);
+void intTestFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void intckParseCreateIndexFunc(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+void jsonCacheDeleteGeneric(void *p);
+static void lsModeFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static int m_gt_0(const char *z);
+static int m_gt_1(const char *z);
+static int nocaseCollatingFunc(void *NotUsed, int nKey1, const void *pKey1, int nKey2, const void *pKey2);
+void pageReinit(DbPage *pData);
+void pager_set_pagehash(PgHdr *pPage);
+void percentFinal(sqlite3_context *pCtx);
+void percentInverse(sqlite3_context *pCtx, int argc, sqlite3_value * *argv);
+void percentStep(sqlite3_context *pCtx, int argc, sqlite3_value * *argv);
+void percentValue(sqlite3_context *pCtx);
+void prefixIterSetupCb(Fts5Index *p, void *pCtx, Fts5Iter *p1, const u8 *pNew, int nNew);
+void prefixIterSetupTokendataCb(Fts5Index *p, void *pCtx, Fts5Iter *p1, const u8 *pNew, int nNew);
+static void rbuFossilDeltaFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void rbuIndexCntFunc(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void rbuTargetNameFunc(sqlite3_context *pCtx, int argc, sqlite3_value * *argv);
+static void rbuTmpInsertFunc(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+void re_free(ReCompiled *pRe);
+static void re_sql_func(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void readfileFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+void rtreeFreeCallback(void *p);
+static void rtreeMatchArgFree(void *pArg);
+static void rtreecheck(sqlite3_context *ctx, int nArg, sqlite3_value * *apArg);
+static void rtreedepth(sqlite3_context *ctx, int nArg, sqlite3_value * *apArg);
+static void rtreenode(sqlite3_context *ctx, int nArg, sqlite3_value * *apArg);
+static int rtrimCollFunc(void *pUser, int nKey1, const void *pKey1, int nKey2, const void *pKey2);
+static void sha1Func(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void sha1QueryFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+void sha3AggFinal(sqlite3_context *context);
+void sha3AggStep(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void sha3Func(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void sha3QueryFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void shellAddSchemaName(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static int shellAuth(void *pClientData, int op, const char *zA1, const char *zA2, const char *zA3, const char *zA4);
+static void shellDtostr(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void shellFkeyCollateClause(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void shellModuleSchema(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void shellPutsFunc(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void shellStrtod(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+static void sqlarUncompressFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+int sqlite3BtreePayloadChecked(BtCursor *pCur, u32 offset, u32 amt, void *pBuf);
+int sqlite3BtreePutData(BtCursor *, u32 offset, u32 amt, void *);
+void sqlite3DbFree(sqlite3 *, void *);
+void sqlite3DeleteTableGeneric(sqlite3 *, void *);
+void sqlite3ExprDeleteGeneric(sqlite3 *, void *);
+void sqlite3ExprIfFalse(Parse *, Expr *, int, int);
+void sqlite3ExprIfTrue(Parse *pParse, Expr *pExpr, int dest, int jumpIfNull);
+void sqlite3ExprListDeleteGeneric(sqlite3 *, void *);
+int sqlite3InitCallback(void *, int, char * *, char * *);
+void sqlite3RCStrUnref(void *);
+void sqlite3SchemaClear(void *);
+void sqlite3SelectDeleteGeneric(sqlite3 *, void *);
+void sqlite3VdbeValueListFree(void *pToDelete);
+int sqlite3WalDefaultHook(void *, sqlite3 *, const char *, int);
+void sqlite3WithDeleteGeneric(sqlite3 *, void *);
+void sqlite3_free(void *p);
+int sqlite3_get_table_cb(void *pArg, int nCol, char * *argv, char * *colv);
+int sqlite3changeset_new(sqlite3_changeset_iter *pIter, int iVal, sqlite3_value * *ppValue);
+int sqlite3changeset_old(sqlite3_changeset_iter *pIter, int iVal, sqlite3_value * *ppValue);
+int sqliteDefaultBusyCallback(void *ptr, int count);
+void testFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+static void tryToCloneData(ShellState *p, sqlite3 *newDb, const char *zTable);
+void useDummyCS(void *up1, sqlite3 *db, int etr, const char *zName);
+static int vfstraceOut(const char *z, void *pArg);
+void whereIndexedExprCleanup(sqlite3 *db, void *pObject);
+static void writefileFunc(sqlite3_context *context, int argc, sqlite3_value * *argv);
+void zipfileFinal(sqlite3_context *pCtx);
+void zipfileFree(void *p);
+void zipfileStep(sqlite3_context *pCtx, int nVal, sqlite3_value * *apVal);
+
+/*
+ * 선언을 찾지 못한 함수들 (30개):
+ * - SQLITE_DYNAMIC
+ * - SQLITE_STATIC
+ * - SQLITE_TRANSIENT
+ * - apndvfsRegister
+ * - assertTruncateConstraintCb
+ * - base85
+ * - dummyUDF
+ * - editFunc
+ * - fts5DecodeFunction
+ * - fts5RowidFunction
+ * - icuCollationDel
+ * - is_base85
+ * - likeFunc
+ * - pagerUndoCallback
+ * - progress_handler
+ * - re_bytecode_func
+ * - recoverSqlCb
+ * - safeModeAuth
+ * - session_filter
+ * - shellUSleepFunc
+ * - sql_trace_callback
+ * - sqlarCompressFunc
+ * - sqlite3DeleteReturning
+ * - sqlite3InvalidFunction
+ * - statAccumDestructor
+ * - stmtrandFunc
+ * - uintCollFunc
+ * - xBusy2
+ * - xConnect
+ * - xDestroyOut
+ */

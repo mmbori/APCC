@@ -1,0 +1,3853 @@
+[
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "bindText",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "static int bindText(",
+      "sqlite3_stmt *pStmt,   /* The statement to bind against */",
+      "int i,                 /* Index of the parameter to bind */",
+      "const void *zData,     /* Pointer to the data to be bound */",
+      "i64 nData,             /* Number of bytes of data to be bound */",
+      "void (*xDel)(void*),   /* Destructor for the data */",
+      "u8 encoding            /* Encoding for the data */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCall",
+    "fp_sequence": 5,
+    "fn_name": "blobReadWrite",
+    "assigned_fn": [
+      "sqlite3BtreePayloadChecked",
+      "sqlite3BtreePutData"
+    ],
+    "line": [
+      "static int blobReadWrite(",
+      "sqlite3_blob *pBlob,",
+      "void *z,",
+      "int n,",
+      "int iOffset,",
+      "int (*xCall)(BtCursor*, u32, u32, void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "createCollation",
+    "assigned_fn": [
+      "binCollFunc",
+      "decimalCollFunc",
+      "dummyCompare",
+      "icuCollationColl",
+      "nocaseCollatingFunc",
+      "rtrimCollFunc",
+      "uintCollFunc"
+    ],
+    "line": [
+      "static int createCollation(",
+      "sqlite3* db,",
+      "const char *zName,",
+      "u8 enc,",
+      "void* pCtx,",
+      "int(*xCompare)(void*,int,const void*,int,const void*),",
+      "void(*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "createCollation",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "static int createCollation(",
+      "sqlite3* db,",
+      "const char *zName,",
+      "u8 enc,",
+      "void* pCtx,",
+      "int(*xCompare)(void*,int,const void*,int,const void*),",
+      "void(*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "base64",
+      "base85",
+      "dummyUDF",
+      "editFunc",
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3ExprTest",
+      "fts3ExprTestRebalance",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions",
+      "fts3TokenizerFunc",
+      "fts5DecodeFunction",
+      "fts5Fts5Func",
+      "fts5InsttokenFunc",
+      "fts5LocaleFunc",
+      "fts5RowidFunction",
+      "fts5SourceIdFunc",
+      "geomCallback",
+      "idxRemFunc",
+      "idxSampleFunc",
+      "intTestFunc",
+      "intckParseCreateIndexFunc",
+      "is_base85",
+      "likeFunc",
+      "lsModeFunc",
+      "rbuFossilDeltaFunc",
+      "rbuIndexCntFunc",
+      "rbuTargetNameFunc",
+      "rbuTmpInsertFunc",
+      "re_bytecode_func",
+      "re_sql_func",
+      "readfileFunc",
+      "rtreecheck",
+      "rtreedepth",
+      "rtreenode",
+      "sha1Func",
+      "sha1QueryFunc",
+      "sha3Func",
+      "sha3QueryFunc",
+      "shellAddSchemaName",
+      "shellDtostr",
+      "shellFkeyCollateClause",
+      "shellModuleSchema",
+      "shellPutsFunc",
+      "shellStrtod",
+      "shellUSleepFunc",
+      "sqlarCompressFunc",
+      "sqlarUncompressFunc",
+      "sqlite3InvalidFunction",
+      "stmtrandFunc",
+      "testFunc",
+      "writefileFunc",
+      "fts5ExprFunctionHr",
+      "fts5ExprFunctionTcl",
+      "fts5ExprIsAlnum",
+      "fts5ExprFold",
+      "decimalFunc",
+      "decimalCmpFunc",
+      "decimalAddFunc",
+      "decimalSubFunc",
+      "decimalMulFunc",
+      "decimalPow2Func",
+      "ieee754func",
+      "ieee754func_to_blob",
+      "ieee754inc",
+      "geopolyAreaFunc",
+      "geopolyBlobFunc",
+      "geopolyJsonFunc",
+      "geopolySvgFunc",
+      "geopolyWithinFunc",
+      "geopolyContainsPointFunc",
+      "geopolyOverlapFunc",
+      "geopolyDebugFunc",
+      "geopolyBBoxFunc",
+      "geopolyXformFunc",
+      "geopolyRegularFunc",
+      "geopolyCcwFunc",
+      "recoverGetPage",
+      "recoverPageIsUsed",
+      "recoverReadI32",
+      "recoverEscapeCrlf"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "decimalSumStep",
+      "dummyUDF",
+      "percentStep",
+      "sha3AggStep",
+      "zipfileStep"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "decimalSumFinalize",
+      "dummyUDFvalue",
+      "percentFinal",
+      "sha3AggFinal",
+      "zipfileFinal"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "decimalSumValue",
+      "percentValue",
+      "sqlite3changeset_new",
+      "sqlite3changeset_old"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "decimalSumInverse",
+      "percentInverse"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 11,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": [
+      "0",
+      "fts5ModuleDestroy",
+      "hashDestroy",
+      "icuCollationDel",
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "static int createFunctionApi(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "createModule",
+    "assigned_fn": [
+      "0",
+      "fts5ModuleDestroy",
+      "hashDestroy",
+      "icuCollationDel",
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "static int createModule(",
+      "sqlite3 *db,                    /* Database in which module is registered */",
+      "const char *zName,              /* Name assigned to this module */",
+      "const sqlite3_module *pModule,  /* The definition of the module */",
+      "void *pAux,                     /* Context pointer for xCreate/xConnect */",
+      "void (*xDestroy)(void *)        /* Module destructor function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xJump",
+    "fp_sequence": 4,
+    "fn_name": "exprCodeBetween",
+    "assigned_fn": [
+      "0",
+      "sqlite3ExprIfFalse",
+      "sqlite3ExprIfTrue"
+    ],
+    "line": [
+      "static void exprCodeBetween(",
+      "Parse *pParse,    /* Parsing and code generating context */",
+      "Expr *pExpr,      /* The BETWEEN expression */",
+      "int dest,         /* Jump destination or storage location */",
+      "void (*xJump)(Parse*,Expr*,int,int), /* Action to take */",
+      "int jumpIfNull    /* Take the jump if the BETWEEN is NULL */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "fiddle_export_db",
+    "assigned_fn": [],
+    "line": [
+      "int fiddle_export_db( int (*xCallback)(unsigned const char *zOut, int n) ){"
+    ],
+    "file": "shell.c"
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 3,
+    "fn_name": "fts3ExprIterate2",
+    "assigned_fn": [
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions"
+    ],
+    "line": [
+      "static int fts3ExprIterate2(",
+      "Fts3Expr *pExpr,                /* Expression to iterate phrases of */",
+      "int *piPhrase,                  /* Pointer to phrase counter */",
+      "int (*x)(Fts3Expr*,int,void*),  /* Callback function to invoke for phrases */",
+      "void *pCtx                      /* Second argument to pass to callback */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCmp",
+    "fp_sequence": 4,
+    "fn_name": "fts3SegReaderSort",
+    "assigned_fn": [
+      "fts3SegReaderCmp",
+      "fts3SegReaderDoclistCmpRev",
+      "fts3SegReaderDoclistCmp"
+    ],
+    "line": [
+      "static void fts3SegReaderSort(",
+      "Fts3SegReader **apSegment,                     /* Array to sort entries of */",
+      "int nSegment,                                  /* Size of apSegment array */",
+      "int nSuspect,                                  /* Unsorted entry count */",
+      "int (*xCmp)(Fts3SegReader *, Fts3SegReader *)  /* Comparison function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 4,
+    "fn_name": "fts5ApiQueryPhrase",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5ApiQueryPhrase(",
+      "Fts5Context *pCtx,",
+      "int iPhrase,",
+      "void *pUserData,",
+      "int(*xCallback)(const Fts5ExtensionApi*, Fts5Context*, void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDelete",
+    "fp_sequence": 3,
+    "fn_name": "fts5ApiSetAuxdata",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5ApiSetAuxdata(",
+      "Fts5Context *pCtx,              /* Fts5 context */",
+      "void *pPtr,                     /* Pointer to save as auxdata */",
+      "void(*xDelete)(void*)           /* Destructor for pPtr (or NULL) */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 5,
+    "fn_name": "fts5ApiTokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5ApiTokenize(",
+      "Fts5Context *pCtx,",
+      "const char *pText, int nText,",
+      "void *pUserData,",
+      "int (*xToken)(void*, int, const char*, int, int, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 7,
+    "fn_name": "fts5ApiTokenize_v2",
+    "assigned_fn": [
+      "fts5ColumnSizeCb",
+      "fts5ExprPopulatePoslistsCb",
+      "fts5ParseTokenize",
+      "fts5StorageInsertCallback",
+      "fts5StorageIntegrityCallback"
+    ],
+    "line": [
+      "static int fts5ApiTokenize_v2(",
+      "Fts5Context *pCtx,",
+      "const char *pText, int nText,",
+      "const char *pLoc, int nLoc,",
+      "void *pUserData,",
+      "int (*xToken)(void*, int, const char*, int, int, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5AsciiTokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5AsciiTokenize(",
+      "Fts5Tokenizer *pTokenizer,",
+      "void *pCtx,",
+      "int iUnused,",
+      "const char *pText, int nText,",
+      "int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xChunk",
+    "fp_sequence": 4,
+    "fn_name": "fts5ChunkIterate",
+    "assigned_fn": [
+      "fts5MergeChunkCallback",
+      "fts5PoslistCallback",
+      "fts5PoslistFilterCallback",
+      "fts5PoslistOffsetsCallback"
+    ],
+    "line": [
+      "static void fts5ChunkIterate(",
+      "Fts5Index *p,                   /* Index object */",
+      "Fts5SegIter *pSeg,              /* Poslist of this iterator */",
+      "void *pCtx,                     /* Context pointer for xChunk callback */",
+      "void (*xChunk)(Fts5Index*, void*, const u8*, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "fts5CreateAux",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5CreateAux(",
+      "fts5_api *pApi,                 /* Global context (one per db handle) */",
+      "const char *zName,              /* Name of new function */",
+      "void *pUserData,                /* User data for aux. function */",
+      "fts5_extension_function xFunc,  /* Aux. function implementation */",
+      "void(*xDestroy)(void*)          /* Destructor for pUserData */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "fts5CreateTokenizer",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5CreateTokenizer(",
+      "fts5_api *pApi,                 /* Global context (one per db handle) */",
+      "const char *zName,              /* Name of new function */",
+      "void *pUserData,                /* User data for aux. function */",
+      "fts5_tokenizer *pTokenizer,     /* Tokenizer implementation */",
+      "void(*xDestroy)(void*)          /* Destructor for pUserData */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "fts5CreateTokenizer_v2",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5CreateTokenizer_v2(",
+      "fts5_api *pApi,                 /* Global context (one per db handle) */",
+      "const char *zName,              /* Name of new function */",
+      "void *pUserData,                /* User data for aux. function */",
+      "fts5_tokenizer_v2 *pTokenizer,  /* Tokenizer implementation */",
+      "void(*xDestroy)(void*)          /* Destructor for pUserData */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 4,
+    "fn_name": "fts5NewTokenizerModule",
+    "assigned_fn": [
+      "0",
+      "fts5ModuleDestroy",
+      "hashDestroy",
+      "icuCollationDel",
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "static int fts5NewTokenizerModule(",
+      "Fts5Global *pGlobal,            /* Global context (one per db handle) */",
+      "const char *zName,              /* Name of new function */",
+      "void *pUserData,                /* User data for aux. function */",
+      "void(*xDestroy)(void*),         /* Destructor for pUserData */",
+      "Fts5TokenizerModule **ppNew",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 8,
+    "fn_name": "fts5PorterTokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5PorterTokenize(",
+      "Fts5Tokenizer *pTokenizer,",
+      "void *pCtx,",
+      "int flags,",
+      "const char *pText, int nText,",
+      "const char *pLoc, int nLoc,",
+      "int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5TriTokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5TriTokenize(",
+      "Fts5Tokenizer *pTok,",
+      "void *pCtx,",
+      "int unusedFlags,",
+      "const char *pText, int nText,",
+      "int (*xToken)(void*, int, const char*, int, int, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5UnicodeTokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5UnicodeTokenize(",
+      "Fts5Tokenizer *pTokenizer,",
+      "void *pCtx,",
+      "int iUnused,",
+      "const char *pText, int nText,",
+      "int (*xToken)(void*, int, const char*, int nToken, int iStart, int iEnd)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5V1toV2Tokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5V1toV2Tokenize(",
+      "Fts5Tokenizer *pTok,",
+      "void *pCtx, int flags,",
+      "const char *pText, int nText,",
+      "int (*xToken)(void*, int, const char*, int, int, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 8,
+    "fn_name": "fts5V2toV1Tokenize",
+    "assigned_fn": [],
+    "line": [
+      "static int fts5V2toV1Tokenize(",
+      "Fts5Tokenizer *pTok,",
+      "void *pCtx, int flags,",
+      "const char *pText, int nText,",
+      "const char *pLocale, int nLocale,",
+      "int (*xToken)(void*, int, const char*, int, int, int)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xVisit",
+    "fp_sequence": 6,
+    "fn_name": "fts5VisitEntries",
+    "assigned_fn": [
+      "prefixIterSetupCb",
+      "prefixIterSetupTokendataCb"
+    ],
+    "line": [
+      "static int fts5VisitEntries(",
+      "Fts5Index *p,                   /* Fts5 index object */",
+      "Fts5Colset *pColset,            /* Columns filter to apply, or NULL */",
+      "u8 *pToken,                     /* Buffer containing token */",
+      "int nToken,                     /* Size of buffer pToken in bytes */",
+      "int bPrefix,                    /* True for a prefix scan */",
+      "void (*xVisit)(Fts5Index*, void *pCtx, Fts5Iter *pIter, const u8*, int),",
+      "void *pCtx                      /* Passed as second argument to xVisit() */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 2,
+    "fn_name": "invokeValueDestructor",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "static int invokeValueDestructor(",
+      "const void *p,             /* Value to destroy */",
+      "void (*xDel)(void*),       /* The destructor */",
+      "sqlite3_context *pCtx      /* Set a SQLITE_TOOBIG error if not NULL */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xSql",
+    "fp_sequence": 4,
+    "fn_name": "recoverInit",
+    "assigned_fn": [
+      "0",
+      "recoverSqlCb"
+    ],
+    "line": [
+      "sqlite3_recover *recoverInit(",
+      "sqlite3* db,",
+      "const char *zDb,",
+      "const char *zUri,               /* Output URI for _recover_init() */",
+      "int (*xSql)(void*, const char*),/* SQL callback for _recover_init_sql() */",
+      "void *pSqlCtx                   /* Context arg for _recover_init_sql() */",
+      "){"
+    ],
+    "file": "shell.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 3,
+    "fn_name": "sessionApplyOneOp",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionApplyOneOp(",
+      "sqlite3_changeset_iter *pIter,  /* Changeset iterator */",
+      "SessionApplyCtx *p,             /* changeset_apply() context */",
+      "int(*xConflict)(void *, int, sqlite3_changeset_iter *),",
+      "void *pCtx,                     /* First argument for the conflict handler */",
+      "int *pbReplace,                 /* OUT: True to remove PK row and retry */",
+      "int *pbRetry                    /* OUT: True to retry. */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 4,
+    "fn_name": "sessionApplyOneWithRetry",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionApplyOneWithRetry(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "sqlite3_changeset_iter *pIter,  /* Changeset iterator to read change from */",
+      "SessionApplyCtx *pApply,        /* Apply context */",
+      "int(*xConflict)(void*, int, sqlite3_changeset_iter*),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 2,
+    "fn_name": "sessionBindRow",
+    "assigned_fn": [
+      "sqlite3changeset_new",
+      "sqlite3changeset_old"
+    ],
+    "line": [
+      "static int sessionBindRow(",
+      "sqlite3_changeset_iter *pIter,  /* Iterator to read values from */",
+      "int(*xValue)(sqlite3_changeset_iter *, int, sqlite3_value **),",
+      "int nCol,                       /* Number of columns */",
+      "u8 *abPK,                       /* If not NULL, bind only if true */",
+      "sqlite3_stmt *pStmt             /* Bind values to this statement */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sessionChangegroupOutput",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionChangegroupOutput(",
+      "sqlite3_changegroup *pGrp,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut,",
+      "int *pnOut,",
+      "void **ppOut",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 3,
+    "fn_name": "sessionChangesetApply",
+    "assigned_fn": [
+      "0",
+      "session_filter"
+    ],
+    "line": [
+      "static int sessionChangesetApply(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "sqlite3_changeset_iter *pIter,  /* Changeset to apply */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of fifth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase information */",
+      "int flags                       /* SESSION_APPLY_XXX flags */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFilterIter",
+    "fp_sequence": 4,
+    "fn_name": "sessionChangesetApply",
+    "assigned_fn": [
+      "0",
+      "session_filter"
+    ],
+    "line": [
+      "static int sessionChangesetApply(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "sqlite3_changeset_iter *pIter,  /* Changeset to apply */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of fifth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase information */",
+      "int flags                       /* SESSION_APPLY_XXX flags */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sessionChangesetApply",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionChangesetApply(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "sqlite3_changeset_iter *pIter,  /* Changeset to apply */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of fifth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase information */",
+      "int flags                       /* SESSION_APPLY_XXX flags */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 4,
+    "fn_name": "sessionChangesetApplyV23",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionChangesetApplyV23(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing current change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 6,
+    "fn_name": "sessionChangesetApplyV23",
+    "assigned_fn": [
+      "0",
+      "session_filter"
+    ],
+    "line": [
+      "static int sessionChangesetApplyV23(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing current change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFilterIter",
+    "fp_sequence": 7,
+    "fn_name": "sessionChangesetApplyV23",
+    "assigned_fn": [
+      "0",
+      "session_filter"
+    ],
+    "line": [
+      "static int sessionChangesetApplyV23(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing current change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 8,
+    "fn_name": "sessionChangesetApplyV23",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionChangesetApplyV23(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xFilterIter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing current change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sessionChangesetInvert",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionChangesetInvert(",
+      "SessionInput *pInput,           /* Input changeset */",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut,",
+      "int *pnInverted,                /* OUT: Number of bytes in output changeset */",
+      "void **ppInverted               /* OUT: Inverse of pChangeset */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sessionChangesetStart",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionChangesetStart(",
+      "sqlite3_changeset_iter **pp,    /* OUT: Changeset iterator handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int nChangeset,                 /* Size of buffer pChangeset in bytes */",
+      "void *pChangeset,               /* Pointer to buffer containing changeset */",
+      "int bInvert,                    /* True to invert changeset */",
+      "int bSkipEmpty                  /* True to skip empty UPDATE changes */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 4,
+    "fn_name": "sessionConflictHandler",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionConflictHandler(",
+      "int eType,                      /* Either CHANGESET_DATA or CONFLICT */",
+      "SessionApplyCtx *p,             /* changeset_apply() context */",
+      "sqlite3_changeset_iter *pIter,  /* Changeset iterator */",
+      "int(*xConflict)(void *, int, sqlite3_changeset_iter*),",
+      "void *pCtx,                     /* First argument for conflict handler */",
+      "int *pbReplace                  /* OUT: Set to true if PK row is found */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 3,
+    "fn_name": "sessionGenerateChangeset",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionGenerateChangeset(",
+      "sqlite3_session *pSession,      /* Session object */",
+      "int bPatchset,                  /* True for patchset, false for changeset */",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut,                     /* First argument for xOutput */",
+      "int *pnChangeset,               /* OUT: Size of buffer at *ppChangeset */",
+      "void **ppChangeset              /* OUT: Buffer containing changeset */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 3,
+    "fn_name": "sessionRebase",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "static int sessionRebase(",
+      "sqlite3_rebaser *p,             /* Rebaser hash table */",
+      "sqlite3_changeset_iter *pIter,  /* Input data */",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut,                     /* Context for xOutput callback */",
+      "int *pnOut,                     /* OUT: Number of bytes in output changeset */",
+      "void **ppOut                    /* OUT: Inverse of pChangeset */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sessionRetryConstraints",
+    "assigned_fn": [],
+    "line": [
+      "static int sessionRetryConstraints(",
+      "sqlite3 *db,",
+      "int bPatchset,",
+      "const char *zTab,",
+      "SessionApplyCtx *pApply,",
+      "int(*xConflict)(void*, int, sqlite3_changeset_iter*),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "setResultStrOrError",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "static void setResultStrOrError(",
+      "sqlite3_context *pCtx,  /* Function context */",
+      "const char *z,          /* String pointer */",
+      "int n,                  /* Bytes in string, or negative */",
+      "u8 enc,                 /* Encoding of z.  0 for BLOBs */",
+      "void (*xDel)(void*)     /* Destructor function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFree",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3BtreeSchema",
+    "assigned_fn": [
+      "0",
+      "sqlite3SchemaClear"
+    ],
+    "line": [
+      "void *sqlite3BtreeSchema(Btree *p, int nBytes, void(*xFree)(void *)){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "base64",
+      "base85",
+      "dummyUDF",
+      "editFunc",
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3ExprTest",
+      "fts3ExprTestRebalance",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions",
+      "fts3TokenizerFunc",
+      "fts5DecodeFunction",
+      "fts5Fts5Func",
+      "fts5InsttokenFunc",
+      "fts5LocaleFunc",
+      "fts5RowidFunction",
+      "fts5SourceIdFunc",
+      "geomCallback",
+      "idxRemFunc",
+      "idxSampleFunc",
+      "intTestFunc",
+      "intckParseCreateIndexFunc",
+      "is_base85",
+      "likeFunc",
+      "lsModeFunc",
+      "rbuFossilDeltaFunc",
+      "rbuIndexCntFunc",
+      "rbuTargetNameFunc",
+      "rbuTmpInsertFunc",
+      "re_bytecode_func",
+      "re_sql_func",
+      "readfileFunc",
+      "rtreecheck",
+      "rtreedepth",
+      "rtreenode",
+      "sha1Func",
+      "sha1QueryFunc",
+      "sha3Func",
+      "sha3QueryFunc",
+      "shellAddSchemaName",
+      "shellDtostr",
+      "shellFkeyCollateClause",
+      "shellModuleSchema",
+      "shellPutsFunc",
+      "shellStrtod",
+      "shellUSleepFunc",
+      "sqlarCompressFunc",
+      "sqlarUncompressFunc",
+      "sqlite3InvalidFunction",
+      "stmtrandFunc",
+      "testFunc",
+      "writefileFunc"
+    ],
+    "line": [
+      "int sqlite3CreateFunc(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int enc,",
+      "void *pUserData,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value **),",
+      "FuncDestructor *pDestructor",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "decimalSumStep",
+      "dummyUDF",
+      "percentStep",
+      "sha3AggStep",
+      "zipfileStep"
+    ],
+    "line": [
+      "int sqlite3CreateFunc(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int enc,",
+      "void *pUserData,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value **),",
+      "FuncDestructor *pDestructor",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "decimalSumFinalize",
+      "dummyUDFvalue",
+      "percentFinal",
+      "sha3AggFinal",
+      "zipfileFinal",
+      "rtreeFreeCallback"
+    ],
+    "line": [
+      "int sqlite3CreateFunc(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int enc,",
+      "void *pUserData,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value **),",
+      "FuncDestructor *pDestructor",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "decimalSumValue",
+      "percentValue",
+      "sqlite3changeset_new",
+      "sqlite3changeset_old"
+    ],
+    "line": [
+      "int sqlite3CreateFunc(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int enc,",
+      "void *pUserData,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value **),",
+      "FuncDestructor *pDestructor",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": [
+      "0",
+      "decimalSumInverse",
+      "percentInverse"
+    ],
+    "line": [
+      "int sqlite3CreateFunc(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int enc,",
+      "void *pUserData,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value **),",
+      "FuncDestructor *pDestructor",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts3ExprIterate",
+    "assigned_fn": [
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions"
+    ],
+    "line": [
+      "int sqlite3Fts3ExprIterate(Fts3Expr*, int (*x)(Fts3Expr*,int,void*), void*);"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3Fts3InitTok",
+    "assigned_fn": [
+      "hashDestroy"
+    ],
+    "line": [
+      "int sqlite3Fts3InitTok(sqlite3*, Fts3Hash *, void(*xDestroy)(void*));"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts5ParserFree",
+    "assigned_fn": [
+      "fts5ParseFree"
+    ],
+    "line": [
+      "static void sqlite3Fts5ParserFree(",
+      "void *p,                    /* The parser to be deleted */",
+      "void (*freeProc)(void*)     /* Function used to reclaim memory */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3Fts5Tokenize",
+    "assigned_fn": [
+      "fts5ColumnSizeCb",
+      "fts5ExprPopulatePoslistsCb",
+      "fts5ParseTokenize",
+      "fts5StorageInsertCallback",
+      "fts5StorageIntegrityCallback"
+    ],
+    "line": [
+      "static int sqlite3Fts5Tokenize(",
+      "Fts5Config *pConfig,            /* FTS5 Configuration object */",
+      "int flags,                      /* FTS5_TOKENIZE_* flags */",
+      "const char *pText, int nText,   /* Text to tokenize */",
+      "void *pCtx,                     /* Context passed to xToken() */",
+      "int (*xToken)(void*, int, const char*, int, int, int)    /* Callback */",
+      ");"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCreate",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3Fts5TokenizerPattern",
+    "assigned_fn": [
+      "0",
+      "dbpageConnect",
+      "expertConnect",
+      "fts3CreateMethod",
+      "fts3auxConnectMethod",
+      "fts3tokConnectMethod",
+      "fts5CreateMethod",
+      "fts5PorterCreate",
+      "fts5VocabCreateMethod",
+      "fts5VtoVCreate",
+      "geopolyCreate",
+      "icuCreate",
+      "pcache1Create",
+      "pcachetraceCreate",
+      "porterCreate",
+      "rtreeCreate",
+      "simpleCreate",
+      "statConnect",
+      "unicodeCreate",
+      "zipfileConnect"
+    ],
+    "line": [
+      "static int sqlite3Fts5TokenizerPattern(",
+      "int (*xCreate)(void*, const char**, int, Fts5Tokenizer**),",
+      "Fts5Tokenizer *pTok",
+      ");"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBacktrace",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3MemdebugBacktraceCallback",
+    "assigned_fn": [],
+    "line": [
+      "void sqlite3MemdebugBacktraceCallback(void (*xBacktrace)(int, int, void **)){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xReinit",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3PagerOpen",
+    "assigned_fn": [
+      "pageReinit"
+    ],
+    "line": [
+      "int sqlite3PagerOpen(",
+      "sqlite3_vfs *pVfs,       /* The virtual file system to use */",
+      "Pager **ppPager,         /* OUT: Return the Pager structure here */",
+      "const char *zFilename,   /* Name of the database file to open */",
+      "int nExtra,              /* Extra bytes append to each in-memory page */",
+      "int flags,               /* flags controlling this file */",
+      "int vfsFlags,            /* flags passed through to sqlite3_vfs.xOpen() */",
+      "void (*xReinit)(DbPage*) /* Function to reinitialize pages */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBusyHandler",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3PagerSetBusyHandler",
+    "assigned_fn": [
+      "btreeInvokeBusyHandler"
+    ],
+    "line": [
+      "void sqlite3PagerSetBusyHandler(",
+      "Pager *pPager,                       /* Pager object */",
+      "int (*xBusyHandler)(void *),         /* Pointer to busy-handler function */",
+      "void *pBusyHandlerArg                /* Argument to pass to xBusyHandler */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCleanup",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3ParserAddCleanup",
+    "assigned_fn": [
+      "agginfoFree",
+      "sqlite3DbFree",
+      "sqlite3DeleteReturning",
+      "sqlite3DeleteTableGeneric",
+      "sqlite3ExprDeleteGeneric",
+      "sqlite3ExprListDeleteGeneric",
+      "sqlite3SelectDeleteGeneric",
+      "sqlite3WithDeleteGeneric",
+      "whereIndexedExprCleanup"
+    ],
+    "line": [
+      "void *sqlite3ParserAddCleanup(",
+      "Parse *pParse,                      /* Destroy when this Parser finishes */",
+      "void (*xCleanup)(sqlite3*,void*),   /* The cleanup routine */",
+      "void *pPtr                          /* Pointer to object to be cleaned up */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3ParserFree",
+    "assigned_fn": [
+      "sqlite3_free"
+    ],
+    "line": [
+      "void sqlite3ParserFree(",
+      "void *p,                    /* The parser to be deleted */",
+      "void (*freeProc)(void*)     /* Function used to reclaim memory */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xIter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3PcacheIterateDirty",
+    "assigned_fn": [
+      "assertTruncateConstraintCb",
+      "pager_set_pagehash"
+    ],
+    "line": [
+      "void sqlite3PcacheIterateDirty(PCache *pCache, void (*xIter)(PgHdr *));"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStress",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3PcacheOpen",
+    "assigned_fn": [
+      "0",
+      "pagerStress"
+    ],
+    "line": [
+      "int sqlite3PcacheOpen(",
+      "int szPage,                    /* Size of every page */",
+      "int szExtra,                   /* Extra space associated with each page */",
+      "int bPurgeable,                /* True if pages are on backing store */",
+      "int (*xStress)(void*, PgHdr*), /* Call to try to make pages clean */",
+      "void *pStress,                 /* Argument to xStress */",
+      "PCache *pToInit                /* Preallocated space for the PCache */",
+      ");"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xFree",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3ValueIsOfClass",
+    "assigned_fn": [
+      "sqlite3RCStrUnref"
+    ],
+    "line": [
+      "int sqlite3ValueIsOfClass(const sqlite3_value *pVal, void(*xFree)(void*)){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3ValueSetStr",
+    "assigned_fn": [
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "xDestroyOut"
+    ],
+    "line": [
+      "void sqlite3ValueSetStr(",
+      "sqlite3_value *v,     /* Value to be set */",
+      "int n,                /* Length of string z */",
+      "const void *z,        /* Text of the new string */",
+      "u8 enc,               /* Encoding to use */",
+      "void (*xDel)(void*)   /* Destructor for the string */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3VdbeMemSetPointer",
+    "assigned_fn": [
+      "0",
+      "rtreeMatchArgFree",
+      "sqlite3VdbeValueListFree",
+      "sqlite3NoopDestructor"
+    ],
+    "line": [
+      "void sqlite3VdbeMemSetPointer(",
+      "Mem *pMem,",
+      "void *pPtr,",
+      "const char *zPType,",
+      "void (*xDestructor)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3VdbeMemSetStr",
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "int sqlite3VdbeMemSetStr(",
+      "Mem *pMem,          /* Memory cell to set to string value */",
+      "const char *z,      /* String pointer */",
+      "i64 n,              /* Bytes in string, or negative */",
+      "u8 enc,             /* Encoding of z.  0 for BLOBs */",
+      "void (*xDel)(void*) /* Destructor function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3VdbeSetColName",
+    "assigned_fn": [
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT"
+    ],
+    "line": [
+      "int sqlite3VdbeSetColName(",
+      "Vdbe *p,                         /* Vdbe being configured */",
+      "int idx,                         /* Index of column zName applies to */",
+      "int var,                         /* One of the COLNAME_* constants */",
+      "const char *zName,               /* Pointer to buffer containing name */",
+      "void (*xDel)(void*)              /* Memory management strategy for zName */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3VtabCreateModule",
+    "assigned_fn": [
+      "0",
+      "fts5ModuleDestroy",
+      "hashDestroy",
+      "icuCollationDel",
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "Module *sqlite3VtabCreateModule(",
+      "sqlite3 *db,                    /* Database in which module is registered */",
+      "const char *zName,              /* Name assigned to this module */",
+      "const sqlite3_module *pModule,  /* The definition of the module */",
+      "void *pAux,                     /* Context pointer for xCreate/xConnect */",
+      "void (*xDestroy)(void *)        /* Module destructor function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3WalCheckpoint",
+    "assigned_fn": [
+      "0",
+      "btreeInvokeBusyHandler",
+      "xBusyHandler",
+      "xBusy"
+    ],
+    "line": [
+      "int sqlite3WalCheckpoint(",
+      "Wal *pWal,                      /* Write-ahead log connection */",
+      "sqlite3 *db,                    /* Check this handle's interrupt flag */",
+      "int eMode,                      /* One of PASSIVE, FULL and RESTART */",
+      "int (*xBusy)(void*),            /* Function to call when busy */",
+      "void *pBusyArg,                 /* Context argument for xBusyHandler */",
+      "int sync_flags,                 /* Flags to sync db file with (or 0) */",
+      "int nBuf,                       /* Size of buffer nBuf */",
+      "u8 *zBuf,                       /* Temporary buffer to use */",
+      "int *pnLog,                     /* OUT: Number of frames in WAL */",
+      "int *pnCkpt                     /* OUT: Number of backfilled frames in WAL */",
+      ");"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xUndo",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3WalUndo",
+    "assigned_fn": [
+      "pagerUndoCallback"
+    ],
+    "line": [
+      "int sqlite3WalUndo(Wal *pWal, int (*xUndo)(void *, Pgno), void *pUndoCtx);"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": [
+      "apndvfsRegister"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_auto_extension(void(*xEntryPoint)(void));"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": [
+      "apndvfsRegister"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_auto_extension(",
+      "void (*xInit)(void)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_autovacuum_pages(",
+      "sqlite3 *db,                 /* Attach the hook to this database */",
+      "unsigned int (*xCallback)(void*,const char*,u32,u32,u32),",
+      "void *pArg,                  /* Argument to the function */",
+      "void (*xDestructor)(void*)   /* Destructor for pArg */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_autovacuum_pages(",
+      "sqlite3 *db,                 /* Attach the hook to this database */",
+      "unsigned int (*xCallback)(void*,const char*,u32,u32,u32),",
+      "void *pArg,                  /* Argument to the function */",
+      "void (*xDestructor)(void*)   /* Destructor for pArg */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_blob",
+    "assigned_fn": [
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_bind_blob(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "const void *zData,",
+      "int nData,",
+      "void (*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_blob64",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_bind_blob64(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "const void *zData,",
+      "sqlite3_uint64 nData,",
+      "void (*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_pointer",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_bind_pointer(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "void *pPtr,",
+      "const char *zPTtype,",
+      "void (*xDestructor)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_text",
+    "assigned_fn": [
+      "0",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_bind_text(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "const char *zData,",
+      "int nData,",
+      "void (*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_text16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_bind_text16(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "const void *zData,",
+      "int n,",
+      "void (*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_bind_text64",
+    "assigned_fn": [
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_bind_text64(",
+      "sqlite3_stmt *pStmt,",
+      "int i,",
+      "const char *zData,",
+      "sqlite3_uint64 nData,",
+      "void (*xDel)(void*),",
+      "unsigned char enc",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_busy_handler",
+    "assigned_fn": [
+      "0",
+      "sqliteDefaultBusyCallback",
+      "xBusy"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_busy_handler(",
+      "sqlite3 *db,",
+      "int (*xBusy)(void*,int),",
+      "void *pArg",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_cancel_auto_extension(void(*xEntryPoint)(void));"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_cancel_auto_extension(",
+      "void (*xInit)(void)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCollNeeded",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed",
+    "assigned_fn": [
+      "useDummyCS"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_collation_needed(",
+      "sqlite3 *db,",
+      "void *pCollNeededArg,",
+      "void(*xCollNeeded)(void*,sqlite3*,int eTextRep,const char*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCollNeeded16",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_collation_needed16(",
+      "sqlite3 *db,",
+      "void *pCollNeededArg,",
+      "void(*xCollNeeded16)(void*,sqlite3*,int eTextRep,const void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_commit_hook",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API void *sqlite3_commit_hook(",
+      "sqlite3 *db,              /* Attach the hook to this database */",
+      "int (*xCallback)(void*),  /* Function to invoke on each commit */",
+      "void *pArg                /* Argument to the function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation",
+    "assigned_fn": [
+      "decimalCollFunc",
+      "uintCollFunc"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_collation(",
+      "sqlite3*,",
+      "const char *zName,",
+      "int eTextRep,",
+      "void *pArg,",
+      "int(*xCompare)(void*,int,const void*,int,const void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_create_collation16(",
+      "sqlite3*,",
+      "const void *zName,",
+      "int eTextRep,",
+      "void *pArg,",
+      "int(*xCompare)(void*,int,const void*,int,const void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "binCollFunc",
+      "decimalCollFunc",
+      "dummyCompare",
+      "icuCollationColl",
+      "nocaseCollatingFunc",
+      "rtrimCollFunc",
+      "uintCollFunc"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_collation_v2(",
+      "sqlite3*,",
+      "const char *zName,",
+      "int eTextRep,",
+      "void *pArg,",
+      "int(*xCompare)(void*,int,const void*,int,const void*),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "0",
+      "icuCollationDel"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_collation_v2(",
+      "sqlite3* db,",
+      "const char *zName,",
+      "int enc,",
+      "void* pCtx,",
+      "int(*xCompare)(void*,int,const void*,int,const void*),",
+      "void(*xDel)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": [
+      "0",
+      "icuCollationDel"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_collation_v2(",
+      "sqlite3*,",
+      "const char *zName,",
+      "int eTextRep,",
+      "void *pArg,",
+      "int(*xCompare)(void*,int,const void*,int,const void*),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "base64",
+      "base85",
+      "dummyUDF",
+      "editFunc",
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3ExprTest",
+      "fts3ExprTestRebalance",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions",
+      "fts3TokenizerFunc",
+      "fts5DecodeFunction",
+      "fts5Fts5Func",
+      "fts5InsttokenFunc",
+      "fts5LocaleFunc",
+      "fts5RowidFunction",
+      "fts5SourceIdFunc",
+      "geomCallback",
+      "idxRemFunc",
+      "idxSampleFunc",
+      "intTestFunc",
+      "intckParseCreateIndexFunc",
+      "is_base85",
+      "lsModeFunc",
+      "rbuFossilDeltaFunc",
+      "rbuIndexCntFunc",
+      "rbuTargetNameFunc",
+      "rbuTmpInsertFunc",
+      "re_bytecode_func",
+      "re_sql_func",
+      "readfileFunc",
+      "rtreecheck",
+      "rtreedepth",
+      "rtreenode",
+      "sha1Func",
+      "sha1QueryFunc",
+      "sha3Func",
+      "sha3QueryFunc",
+      "shellAddSchemaName",
+      "shellDtostr",
+      "shellFkeyCollateClause",
+      "shellModuleSchema",
+      "shellPutsFunc",
+      "shellStrtod",
+      "shellUSleepFunc",
+      "sqlarCompressFunc",
+      "sqlarUncompressFunc",
+      "sqlite3InvalidFunction",
+      "stmtrandFunc",
+      "testFunc",
+      "writefileFunc",
+      "xSFunc"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumStep",
+      "dummyUDF",
+      "percentStep",
+      "sha3AggStep",
+      "zipfileStep"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumFinalize",
+      "dummyUDFvalue",
+      "percentFinal",
+      "sha3AggFinal",
+      "zipfileFinal"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_create_function16(",
+      "sqlite3 *db,",
+      "const void *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_create_function16(",
+      "sqlite3 *db,",
+      "const void *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_create_function16(",
+      "sqlite3 *db,",
+      "const void *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_create_function16(",
+      "sqlite3 *db,",
+      "const void *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "geomCallback",
+      "sqlite3InvalidFunction"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function_v2(",
+      "sqlite3 *db,",
+      "const char *zFunc,",
+      "int nArg,",
+      "int enc,",
+      "void *p,",
+      "void (*xSFunc)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value **),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xDestroy)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function_v2(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function_v2(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": [
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_function_v2(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xFunc)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_module_v2",
+    "assigned_fn": [
+      "0",
+      "fts5ModuleDestroy",
+      "hashDestroy",
+      "icuCollationDel",
+      "rtreeFreeCallback",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_module_v2(",
+      "sqlite3 *db,               /* SQLite connection to register module with */",
+      "const char *zName,         /* Name of the module */",
+      "const sqlite3_module *p,   /* Methods for the module */",
+      "void *pClientData,         /* Client data for xCreate/xConnect */",
+      "void(*xDestroy)(void*)     /* Module destructor function */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "decimalSumStep",
+      "dummyUDF",
+      "percentStep"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_window_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "decimalSumFinalize",
+      "dummyUDFvalue",
+      "percentFinal"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_window_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumValue",
+      "percentValue"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_window_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0",
+      "decimalSumInverse",
+      "percentInverse"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_window_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_create_window_function(",
+      "sqlite3 *db,",
+      "const char *zFunctionName,",
+      "int nArg,",
+      "int eTextRep,",
+      "void *pApp,",
+      "void (*xStep)(sqlite3_context*,int,sqlite3_value**),",
+      "void (*xFinal)(sqlite3_context*),",
+      "void (*xValue)(sqlite3_context*),",
+      "void (*xInverse)(sqlite3_context*,int,sqlite3_value**),",
+      "void(*xDestroy)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "callback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_exec",
+    "assigned_fn": [
+      "0",
+      "analysisLoader",
+      "captureOutputCallback",
+      "countNonzeros",
+      "dump_callback",
+      "sqlite3InitCallback",
+      "sqlite3_get_table_cb",
+      "callback"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_exec(",
+      "sqlite3*,                                  /* An open database */",
+      "const char *sql,                           /* SQL to be evaluated */",
+      "int (*callback)(void*,int,char**,char**),  /* Callback function */",
+      "void *,                                    /* 1st argument to callback */",
+      "char **errmsg                              /* Error msg written here */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_memory_alarm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_memory_alarm(",
+      "void(*xCallback)(void *pArg, sqlite3_int64 used,int N),",
+      "void *pArg,",
+      "sqlite3_int64 iThreshold",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API void *sqlite3_preupdate_hook(",
+      "sqlite3 *db,              /* Attach the hook to this database */",
+      "void(*xCallback)(         /* Callback function */",
+      "void*,sqlite3*,int,char const*,char const*,sqlite3_int64,sqlite3_int64),",
+      "void *pArg                /* First callback argument */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xPreUpdate",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API void *sqlite3_preupdate_hook(",
+      "sqlite3 *db,",
+      "void(*xPreUpdate)(",
+      "void *pCtx,                   /* Copy of third arg to preupdate_hook() */",
+      "sqlite3 *db,                  /* Database handle */",
+      "int op,                       /* SQLITE_UPDATE, DELETE or INSERT */",
+      "char const *zDb,              /* Database name */",
+      "char const *zName,            /* Table name */",
+      "sqlite3_int64 iKey1,          /* Rowid of row about to be deleted/updated */",
+      "sqlite3_int64 iKey2           /* New rowid value (for a rowid UPDATE) */",
+      "),",
+      "void*",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xProfile",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_profile",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API SQLITE_DEPRECATED void *sqlite3_profile(sqlite3*,",
+      "void(*xProfile)(void*,const char*,sqlite3_uint64), void*);"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xProgress",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_progress_handler",
+    "assigned_fn": [
+      "progress_handler"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_progress_handler(",
+      "sqlite3 *db,",
+      "int nOps,",
+      "int (*xProgress)(void*),",
+      "void *pArg",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xSql",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_recover_init_sql",
+    "assigned_fn": [
+      "recoverSqlCb"
+    ],
+    "line": [
+      "sqlite3_recover *sqlite3_recover_init_sql(",
+      "sqlite3* db,",
+      "const char *zDb,",
+      "int (*xSql)(void*, const char*),",
+      "void *pCtx",
+      ");"
+    ],
+    "file": "shell.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob",
+    "assigned_fn": [
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_blob(",
+      "sqlite3_context *pCtx,",
+      "const void *z,",
+      "int n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob64",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_blob64(",
+      "sqlite3_context *pCtx,",
+      "const void *z,",
+      "sqlite3_uint64 n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_pointer",
+    "assigned_fn": [
+      "0",
+      "rtreeMatchArgFree"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_pointer(",
+      "sqlite3_context *pCtx,",
+      "void *pPtr,",
+      "const char *zPType,",
+      "void (*xDestructor)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text",
+    "assigned_fn": [
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "sqlite3RCStrUnref",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_text(",
+      "sqlite3_context *pCtx,",
+      "const char *z,",
+      "int n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16",
+    "assigned_fn": [
+      "0",
+      "SQLITE_STATIC",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_text16(",
+      "sqlite3_context *pCtx,",
+      "const void *z,",
+      "int n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16be",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_text16be(",
+      "sqlite3_context *pCtx,",
+      "const void *z,",
+      "int n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16le",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_text16le(",
+      "sqlite3_context *pCtx,",
+      "const void *z,",
+      "int n,",
+      "void (*xDel)(void *)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text64",
+    "assigned_fn": [
+      "SQLITE_TRANSIENT",
+      "sqlite3RCStrUnref",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_result_text64(",
+      "sqlite3_context *pCtx,",
+      "const char *z,",
+      "sqlite3_uint64 n,",
+      "void (*xDel)(void *),",
+      "unsigned char enc",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_rollback_hook",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API void *sqlite3_rollback_hook(",
+      "sqlite3 *db,              /* Attach the hook to this database */",
+      "void (*xCallback)(void*), /* Callback function */",
+      "void *pArg                /* Argument to the function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xGeom",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_geometry_callback",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_rtree_geometry_callback(",
+      "sqlite3 *db,",
+      "const char *zGeom,",
+      "int (*xGeom)(sqlite3_rtree_geometry*, int, sqlite3_rtree_dbl*,int*),",
+      "void *pContext",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xQueryFunc",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_rtree_query_callback(",
+      "sqlite3 *db,",
+      "const char *zQueryFunc,",
+      "int (*xQueryFunc)(sqlite3_rtree_query_info*),",
+      "void *pContext,",
+      "void (*xDestructor)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_rtree_query_callback(",
+      "sqlite3 *db,",
+      "const char *zQueryFunc,",
+      "int (*xQueryFunc)(sqlite3_rtree_query_info*),",
+      "void *pContext,",
+      "void (*xDestructor)(void*)",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xAuth",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_set_authorizer",
+    "assigned_fn": [
+      "0",
+      "idxAuthCallback",
+      "safeModeAuth",
+      "shellAuth"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_set_authorizer(",
+      "sqlite3*,",
+      "int (*xAuth)(void*,int,const char*,const char*,const char*,const char*),",
+      "void *pUserData",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xDelete",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_auxdata",
+    "assigned_fn": [
+      "icuRegexpDelete",
+      "jsonCacheDeleteGeneric",
+      "re_free",
+      "sqlite3_free"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3_set_auxdata(",
+      "sqlite3_context *pCtx,",
+      "int iArg,",
+      "void *pAux,",
+      "void (*xDelete)(void*)",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_clientdata",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_set_clientdata(",
+      "sqlite3 *db,                   /* Attach client data to this connection */",
+      "const char *zName,             /* Name of the client data */",
+      "void *pData,                   /* The client data itself */",
+      "void (*xDestructor)(void*)     /* Destructor */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_trace",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API SQLITE_DEPRECATED void *sqlite3_trace(sqlite3*,",
+      "void(*xTrace)(void*,const char*), void*);"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_trace_v2(",
+      "sqlite3*,",
+      "unsigned uMask,",
+      "int(*xCallback)(unsigned,void*,void*,void*),",
+      "void *pCtx",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3_trace_v2(",
+      "sqlite3 *db,                               /* Trace this connection */",
+      "unsigned mTrace,                           /* Mask of events to be traced */",
+      "int(*xTrace)(unsigned,void*,void*,void*),  /* Callback to invoke */",
+      "void *pArg                                 /* Context */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xNotify",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_unlock_notify",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3_unlock_notify(",
+      "sqlite3 *pBlocked,                          /* Waiting connection */",
+      "void (*xNotify)(void **apArg, int nArg),    /* Callback function to invoke */",
+      "void *pNotifyArg                            /* Argument to pass to xNotify */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_update_hook",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API void *sqlite3_update_hook(",
+      "sqlite3 *db,              /* Attach the hook to this database */",
+      "void (*xCallback)(void*,int,char const *,char const *,sqlite_int64),",
+      "void *pArg                /* Argument to the function */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_wal_hook",
+    "assigned_fn": [
+      "0",
+      "sqlite3WalDefaultHook"
+    ],
+    "line": [
+      "SQLITE_API void *sqlite3_wal_hook(",
+      "sqlite3 *db,                    /* Attach the hook to this db handle */",
+      "int(*xCallback)(void *, sqlite3*, const char*, int),",
+      "void *pArg                      /* First argument passed to xCallback() */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_add_strm",
+    "assigned_fn": [
+      "xInputA",
+      "xInputB"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3changegroup_add_strm(sqlite3_changegroup*,",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_output_strm",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3changegroup_output_strm(sqlite3_changegroup*,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx                      /* First argument passed to xConflict */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v2(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase data */",
+      "int flags                       /* SESSION_CHANGESETAPPLY_* flags */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v2(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase data */",
+      "int flags                       /* SESSION_CHANGESETAPPLY_* flags */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v2_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v2_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v2_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v3(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase data */",
+      "int flags                       /* SESSION_CHANGESETAPPLY_* flags */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v3(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int nChangeset,                 /* Size of changeset in bytes */",
+      "void *pChangeset,               /* Changeset blob */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p     /* Handle describing change */",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase, /* OUT: Rebase data */",
+      "int flags                       /* SESSION_CHANGESETAPPLY_* flags */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v3_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v3_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_apply_v3_strm(",
+      "sqlite3 *db,                    /* Apply change to \"main\" db of this handle */",
+      "int (*xInput)(void *pIn, void *pData, int *pnData), /* Input function */",
+      "void *pIn,                                          /* First arg for xInput */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "sqlite3_changeset_iter *p",
+      "),",
+      "int(*xConflict)(",
+      "void *pCtx,                   /* Copy of sixth arg to _apply() */",
+      "int eConflict,                /* DATA, MISSING, CONFLICT, CONSTRAINT */",
+      "sqlite3_changeset_iter *p     /* Handle describing change and conflict */",
+      "),",
+      "void *pCtx,                     /* First argument passed to xConflict */",
+      "void **ppRebase, int *pnRebase,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInputA",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_concat_strm(",
+      "int (*xInputA)(void *pIn, void *pData, int *pnData),",
+      "void *pInA,",
+      "int (*xInputB)(void *pIn, void *pData, int *pnData),",
+      "void *pInB,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInputB",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_concat_strm(",
+      "int (*xInputA)(void *pIn, void *pData, int *pnData),",
+      "void *pInA,",
+      "int (*xInputB)(void *pIn, void *pData, int *pnData),",
+      "void *pInB,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_concat_strm(",
+      "int (*xInputA)(void *pIn, void *pData, int *pnData),",
+      "void *pInA,",
+      "int (*xInputB)(void *pIn, void *pData, int *pnData),",
+      "void *pInB,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_invert_strm(",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_invert_strm(",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_strm",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API int sqlite3changeset_start_strm(",
+      "sqlite3_changeset_iter **pp,",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_v2_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3changeset_start_v2_strm(",
+      "sqlite3_changeset_iter **pp,",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int flags",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xRename",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3rbu_rename_handler",
+    "assigned_fn": [
+      "0"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3rbu_rename_handler(",
+      "sqlite3rbu *pRbu,",
+      "void *pArg,",
+      "int (*xRename)(void *pArg, const char *zOld, const char *zNew)",
+      ");"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3rebaser_rebase_strm(",
+      "sqlite3_rebaser *pRebaser,",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3rebaser_rebase_strm(",
+      "sqlite3_rebaser *pRebaser,",
+      "int (*xInput)(void *pIn, void *pData, int *pnData),",
+      "void *pIn,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_changeset_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3session_changeset_strm(",
+      "sqlite3_session *pSession,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_patchset_strm",
+    "assigned_fn": [],
+    "line": [
+      "SQLITE_API int sqlite3session_patchset_strm(",
+      "sqlite3_session *pSession,",
+      "int (*xOutput)(void *pOut, const void *pData, int nData),",
+      "void *pOut",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_table_filter",
+    "assigned_fn": [
+      "session_filter"
+    ],
+    "line": [
+      "SQLITE_API void sqlite3session_table_filter(",
+      "sqlite3_session *pSession,      /* Session object */",
+      "int(*xFilter)(",
+      "void *pCtx,                   /* Copy of third arg to _filter_table() */",
+      "const char *zTab              /* Table name */",
+      "),",
+      "void *pCtx                      /* First argument passed to xFilter */",
+      ");"
+    ],
+    "file": "sqlite3.h"
+  },
+  {
+    "fp_name": "xCond",
+    "fp_sequence": 4,
+    "fn_name": "stem",
+    "assigned_fn": [
+      "0",
+      "hasVowel",
+      "m_gt_0",
+      "m_gt_1"
+    ],
+    "line": [
+      "static int stem(",
+      "char **pz,             /* The word being stemmed (Reversed) */",
+      "const char *zFrom,     /* If the ending matches this... (Reversed) */",
+      "const char *zTo,       /* ... change the ending to this (not reversed) */",
+      "int (*xCond)(const char*)   /* Condition that must be true */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xForEach",
+    "fp_sequence": 4,
+    "fn_name": "tryToCloneSchema",
+    "assigned_fn": [
+      "0",
+      "tryToCloneData"
+    ],
+    "line": [
+      "static void tryToCloneSchema(",
+      "ShellState *p,",
+      "sqlite3 *newDb,",
+      "const char *zWhere,",
+      "void (*xForEach)(ShellState*,sqlite3*,const char*)",
+      "){"
+    ],
+    "file": "shell.c"
+  },
+  {
+    "fp_name": "xOut",
+    "fp_sequence": 3,
+    "fn_name": "vfstrace_register",
+    "assigned_fn": [
+      "vfstraceOut"
+    ],
+    "line": [
+      "**   int vfstrace_register(",
+      "**     const char *zTraceName,         // Name of the newly constructed VFS",
+      "**     const char *zOldVfsName,        // Name of the underlying VFS",
+      "**     int (*xOut)(const char*,void*), // Output routine.  ex: fputs",
+      "**     void *pOutArg,                  // 2nd argument to xOut.  ex: stderr",
+      "**     int makeDefault                 // Make the new VFS the default",
+      "**   );"
+    ],
+    "file": "shell.c"
+  },
+  {
+    "fp_name": "xConstruct",
+    "fp_sequence": 4,
+    "fn_name": "vtabCallConstructor",
+    "assigned_fn": [
+      "bytecodevtabConnect",
+      "completionConnect",
+      "dbdataConnect",
+      "dbpageConnect",
+      "expertConnect",
+      "fsdirConnect",
+      "fts3ConnectMethod",
+      "fts3auxConnectMethod",
+      "fts3tokConnectMethod",
+      "fts5ConnectMethod",
+      "fts5VocabConnectMethod",
+      "fts5structConnectMethod",
+      "geopolyConnect",
+      "jsonEachConnect",
+      "pragmaVtabConnect",
+      "rtreeConnect",
+      "seriesConnect",
+      "statConnect",
+      "stmtConnect",
+      "zipfileConnect",
+      "0",
+      "fts3CreateMethod",
+      "fts5CreateMethod",
+      "fts5PorterCreate",
+      "fts5VocabCreateMethod",
+      "fts5VtoVCreate",
+      "geopolyCreate",
+      "icuCreate",
+      "pcache1Create",
+      "pcachetraceCreate",
+      "porterCreate",
+      "rtreeCreate",
+      "simpleCreate",
+      "unicodeCreate"
+    ],
+    "line": [
+      "static int vtabCallConstructor(",
+      "sqlite3 *db,",
+      "Table *pTab,",
+      "Module *pMod,",
+      "int (*xConstruct)(sqlite3*,void*,int,const char*const*,sqlite3_vtab**,char**),",
+      "char **pzErr",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 2,
+    "fn_name": "walBusyLock",
+    "assigned_fn": [
+      "0",
+      "btreeInvokeBusyHandler",
+      "sqliteDefaultBusyCallback",
+      "xBusyHandler"
+    ],
+    "line": [
+      "static int walBusyLock(",
+      "Wal *pWal,                      /* WAL connection */",
+      "int (*xBusy)(void*),            /* Function to call when busy */",
+      "void *pBusyArg,                 /* Context argument for xBusyHandler */",
+      "int lockIdx,                    /* Offset of first byte to lock */",
+      "int n                           /* Number of bytes to lock */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 4,
+    "fn_name": "walCheckpoint",
+    "assigned_fn": [
+      "xBusy2"
+    ],
+    "line": [
+      "static int walCheckpoint(",
+      "Wal *pWal,                      /* Wal connection */",
+      "sqlite3 *db,                    /* Check for interrupts on this handle */",
+      "int eMode,                      /* One of PASSIVE, FULL or RESTART */",
+      "int (*xBusy)(void*),            /* Function to call when busy */",
+      "void *pBusyArg,                 /* Context argument for xBusyHandler */",
+      "int sync_flags,                 /* Flags for OsSync() (or 0) */",
+      "u8 *zBuf                        /* Temporary buffer to use */",
+      "){"
+    ],
+    "file": "sqlite3.c"
+  }
+]

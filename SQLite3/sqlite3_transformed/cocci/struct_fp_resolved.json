@@ -1,0 +1,4182 @@
+[
+  {
+    "fp_name": "aggregate_context",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 0,
+    "assigned_fn": [
+      "sqlite3_aggregate_context"
+    ]
+  },
+  {
+    "fp_name": "aggregate_count",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "auto_extension",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 192,
+    "assigned_fn": [
+      "sqlite3_vtab_config"
+    ]
+  },
+  {
+    "fp_name": "autovacuum_pages",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 255,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "backup_finish",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 155,
+    "assigned_fn": [
+      "sqlite3_result_error_code"
+    ]
+  },
+  {
+    "fp_name": "backup_init",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 156,
+    "assigned_fn": [
+      "sqlite3_test_control"
+    ]
+  },
+  {
+    "fp_name": "backup_pagecount",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 157,
+    "assigned_fn": [
+      "sqlite3_randomness"
+    ]
+  },
+  {
+    "fp_name": "backup_remaining",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 158,
+    "assigned_fn": [
+      "sqlite3_context_db_handle"
+    ]
+  },
+  {
+    "fp_name": "backup_step",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 159,
+    "assigned_fn": [
+      "sqlite3_extended_result_codes"
+    ]
+  },
+  {
+    "fp_name": "bind_blob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "bind_blob64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 193,
+    "assigned_fn": [
+      "sqlite3_vtab_on_conflict"
+    ]
+  },
+  {
+    "fp_name": "bind_double",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "bind_int",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 4,
+    "assigned_fn": [
+      "sqlite3_bind_double"
+    ]
+  },
+  {
+    "fp_name": "bind_int64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 5,
+    "assigned_fn": [
+      "sqlite3_bind_int"
+    ]
+  },
+  {
+    "fp_name": "bind_null",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 6,
+    "assigned_fn": [
+      "sqlite3_bind_int64"
+    ]
+  },
+  {
+    "fp_name": "bind_parameter_count",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 7,
+    "assigned_fn": [
+      "sqlite3_bind_null"
+    ]
+  },
+  {
+    "fp_name": "bind_parameter_index",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 8,
+    "assigned_fn": [
+      "sqlite3_bind_parameter_count"
+    ]
+  },
+  {
+    "fp_name": "bind_parameter_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 9,
+    "assigned_fn": [
+      "sqlite3_bind_parameter_index"
+    ]
+  },
+  {
+    "fp_name": "bind_pointer",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 219,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "bind_text",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 10,
+    "assigned_fn": [
+      "sqlite3_bind_parameter_name"
+    ]
+  },
+  {
+    "fp_name": "bind_text16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 11,
+    "assigned_fn": [
+      "sqlite3_bind_text"
+    ]
+  },
+  {
+    "fp_name": "bind_text64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 194,
+    "assigned_fn": [
+      "sqlite3_close_v2"
+    ]
+  },
+  {
+    "fp_name": "bind_value",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 12,
+    "assigned_fn": [
+      "sqlite3_bind_text16"
+    ]
+  },
+  {
+    "fp_name": "bind_zeroblob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 120,
+    "assigned_fn": [
+      "sqlite3_prepare_v2"
+    ]
+  },
+  {
+    "fp_name": "bind_zeroblob64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 207,
+    "assigned_fn": [
+      "sqlite3_auto_extension"
+    ]
+  },
+  {
+    "fp_name": "blob_bytes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 121,
+    "assigned_fn": [
+      "sqlite3_prepare16_v2"
+    ]
+  },
+  {
+    "fp_name": "blob_close",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 122,
+    "assigned_fn": [
+      "sqlite3_clear_bindings"
+    ]
+  },
+  {
+    "fp_name": "blob_open",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 123,
+    "assigned_fn": [
+      "sqlite3_create_module_v2"
+    ]
+  },
+  {
+    "fp_name": "blob_read",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 124,
+    "assigned_fn": [
+      "sqlite3_bind_zeroblob"
+    ]
+  },
+  {
+    "fp_name": "blob_reopen",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 176,
+    "assigned_fn": [
+      "sqlite3_db_status"
+    ]
+  },
+  {
+    "fp_name": "blob_write",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 125,
+    "assigned_fn": [
+      "sqlite3_blob_bytes"
+    ]
+  },
+  {
+    "fp_name": "busy_handler",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 13,
+    "assigned_fn": [
+      "sqlite3_bind_value"
+    ]
+  },
+  {
+    "fp_name": "busy_timeout",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 14,
+    "assigned_fn": [
+      "sqlite3_busy_handler"
+    ]
+  },
+  {
+    "fp_name": "cancel_auto_extension",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 195,
+    "assigned_fn": [
+      "sqlite3_db_filename"
+    ]
+  },
+  {
+    "fp_name": "changes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 15,
+    "assigned_fn": [
+      "sqlite3_busy_timeout"
+    ]
+  },
+  {
+    "fp_name": "changes64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 253,
+    "assigned_fn": [
+      "sqlite3_str_value"
+    ]
+  },
+  {
+    "fp_name": "clear_bindings",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 118,
+    "assigned_fn": [
+      "sqlite3_vmprintf"
+    ]
+  },
+  {
+    "fp_name": "close",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 16,
+    "assigned_fn": [
+      "sqlite3_changes"
+    ]
+  },
+  {
+    "fp_name": "close_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 179,
+    "assigned_fn": [
+      "sqlite3_soft_heap_limit64"
+    ]
+  },
+  {
+    "fp_name": "collation_needed",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 17,
+    "assigned_fn": [
+      "sqlite3_close"
+    ]
+  },
+  {
+    "fp_name": "collation_needed16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 18,
+    "assigned_fn": [
+      "sqlite3_collation_needed"
+    ]
+  },
+  {
+    "fp_name": "column_blob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 19,
+    "assigned_fn": [
+      "sqlite3_collation_needed16"
+    ]
+  },
+  {
+    "fp_name": "column_bytes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 20,
+    "assigned_fn": [
+      "sqlite3_column_blob"
+    ]
+  },
+  {
+    "fp_name": "column_bytes16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 21,
+    "assigned_fn": [
+      "sqlite3_column_bytes"
+    ]
+  },
+  {
+    "fp_name": "column_count",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 22,
+    "assigned_fn": [
+      "sqlite3_column_bytes16"
+    ]
+  },
+  {
+    "fp_name": "column_database_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 23,
+    "assigned_fn": [
+      "sqlite3_column_count"
+    ]
+  },
+  {
+    "fp_name": "column_database_name16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 24,
+    "assigned_fn": [
+      "sqlite3_column_database_name"
+    ]
+  },
+  {
+    "fp_name": "column_decltype",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 25,
+    "assigned_fn": [
+      "sqlite3_column_database_name16"
+    ]
+  },
+  {
+    "fp_name": "column_decltype16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 26,
+    "assigned_fn": [
+      "sqlite3_column_decltype"
+    ]
+  },
+  {
+    "fp_name": "column_double",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 27,
+    "assigned_fn": [
+      "sqlite3_column_decltype16"
+    ]
+  },
+  {
+    "fp_name": "column_int",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 28,
+    "assigned_fn": [
+      "sqlite3_column_double"
+    ]
+  },
+  {
+    "fp_name": "column_int64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 29,
+    "assigned_fn": [
+      "sqlite3_column_int"
+    ]
+  },
+  {
+    "fp_name": "column_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 30,
+    "assigned_fn": [
+      "sqlite3_column_int64"
+    ]
+  },
+  {
+    "fp_name": "column_name16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 31,
+    "assigned_fn": [
+      "sqlite3_column_name"
+    ]
+  },
+  {
+    "fp_name": "column_origin_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 32,
+    "assigned_fn": [
+      "sqlite3_column_name16"
+    ]
+  },
+  {
+    "fp_name": "column_origin_name16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 33,
+    "assigned_fn": [
+      "sqlite3_column_origin_name"
+    ]
+  },
+  {
+    "fp_name": "column_table_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 34,
+    "assigned_fn": [
+      "sqlite3_column_origin_name16"
+    ]
+  },
+  {
+    "fp_name": "column_table_name16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 35,
+    "assigned_fn": [
+      "sqlite3_column_table_name"
+    ]
+  },
+  {
+    "fp_name": "column_text",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 36,
+    "assigned_fn": [
+      "sqlite3_column_table_name16"
+    ]
+  },
+  {
+    "fp_name": "column_text16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 37,
+    "assigned_fn": [
+      "sqlite3_column_text"
+    ]
+  },
+  {
+    "fp_name": "column_type",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 38,
+    "assigned_fn": [
+      "sqlite3_column_text16"
+    ]
+  },
+  {
+    "fp_name": "column_value",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 39,
+    "assigned_fn": [
+      "sqlite3_column_type"
+    ]
+  },
+  {
+    "fp_name": "commit_hook",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 40,
+    "assigned_fn": [
+      "sqlite3_column_value"
+    ]
+  },
+  {
+    "fp_name": "compileoption_get",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 160,
+    "assigned_fn": [
+      "sqlite3_limit"
+    ]
+  },
+  {
+    "fp_name": "compileoption_used",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 161,
+    "assigned_fn": [
+      "sqlite3_next_stmt"
+    ]
+  },
+  {
+    "fp_name": "complete",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 41,
+    "assigned_fn": [
+      "sqlite3_commit_hook"
+    ]
+  },
+  {
+    "fp_name": "complete16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 42,
+    "assigned_fn": [
+      "sqlite3_complete"
+    ]
+  },
+  {
+    "fp_name": "context_db_handle",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 149,
+    "assigned_fn": [
+      "sqlite3_soft_heap_limit"
+    ]
+  },
+  {
+    "fp_name": "create_collation",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 43,
+    "assigned_fn": [
+      "sqlite3_complete16"
+    ]
+  },
+  {
+    "fp_name": "create_collation16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 44,
+    "assigned_fn": [
+      "sqlite3_create_collation"
+    ]
+  },
+  {
+    "fp_name": "create_collation_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 126,
+    "assigned_fn": [
+      "sqlite3_blob_close"
+    ]
+  },
+  {
+    "fp_name": "create_filename",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 249,
+    "assigned_fn": [
+      "sqlite3_str_appendchar"
+    ]
+  },
+  {
+    "fp_name": "create_function",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 45,
+    "assigned_fn": [
+      "sqlite3_create_collation16"
+    ]
+  },
+  {
+    "fp_name": "create_function16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 46,
+    "assigned_fn": [
+      "sqlite3_create_function"
+    ]
+  },
+  {
+    "fp_name": "create_function_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 162,
+    "assigned_fn": [
+      "sqlite3_sql"
+    ]
+  },
+  {
+    "fp_name": "create_module",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 47,
+    "assigned_fn": [
+      "sqlite3_create_function16"
+    ]
+  },
+  {
+    "fp_name": "create_module_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 119,
+    "assigned_fn": [
+      "sqlite3_overload_function"
+    ]
+  },
+  {
+    "fp_name": "create_window_function",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 239,
+    "assigned_fn": [
+      "sqlite3_vtab_collation"
+    ]
+  },
+  {
+    "fp_name": "data_count",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 48,
+    "assigned_fn": [
+      "sqlite3_create_module"
+    ]
+  },
+  {
+    "fp_name": "database_file_object",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 251,
+    "assigned_fn": [
+      "sqlite3_str_errcode"
+    ]
+  },
+  {
+    "fp_name": "db_cacheflush",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 212,
+    "assigned_fn": [
+      "sqlite3_malloc64"
+    ]
+  },
+  {
+    "fp_name": "db_config",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 163,
+    "assigned_fn": [
+      "sqlite3_status"
+    ]
+  },
+  {
+    "fp_name": "db_filename",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 180,
+    "assigned_fn": [
+      "sqlite3_sourceid"
+    ]
+  },
+  {
+    "fp_name": "db_handle",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 49,
+    "assigned_fn": [
+      "sqlite3_data_count"
+    ]
+  },
+  {
+    "fp_name": "db_mutex",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 164,
+    "assigned_fn": [
+      "sqlite3_backup_finish"
+    ]
+  },
+  {
+    "fp_name": "db_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 264,
+    "assigned_fn": [
+      "sqlite3_filename_journal"
+    ]
+  },
+  {
+    "fp_name": "db_readonly",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 181,
+    "assigned_fn": [
+      "sqlite3_stmt_status"
+    ]
+  },
+  {
+    "fp_name": "db_release_memory",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 182,
+    "assigned_fn": [
+      "sqlite3_strnicmp"
+    ]
+  },
+  {
+    "fp_name": "db_status",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 165,
+    "assigned_fn": [
+      "sqlite3_backup_init"
+    ]
+  },
+  {
+    "fp_name": "declare_vtab",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 50,
+    "assigned_fn": [
+      "sqlite3_db_handle"
+    ]
+  },
+  {
+    "fp_name": "deserialize",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 262,
+    "assigned_fn": [
+      "sqlite3_uri_key"
+    ]
+  },
+  {
+    "fp_name": "drop_modules",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 243,
+    "assigned_fn": [
+      "sqlite3_str_new"
+    ]
+  },
+  {
+    "fp_name": "enable_shared_cache",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 51,
+    "assigned_fn": [
+      "sqlite3_declare_vtab"
+    ]
+  },
+  {
+    "fp_name": "errcode",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 52,
+    "assigned_fn": [
+      "sqlite3_enable_shared_cache"
+    ]
+  },
+  {
+    "fp_name": "errmsg",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 53,
+    "assigned_fn": [
+      "sqlite3_errcode"
+    ]
+  },
+  {
+    "fp_name": "errmsg16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 54,
+    "assigned_fn": [
+      "sqlite3_errmsg"
+    ]
+  },
+  {
+    "fp_name": "error_offset",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 256,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "errstr",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 183,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "exec",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 55,
+    "assigned_fn": [
+      "sqlite3_errmsg16"
+    ]
+  },
+  {
+    "fp_name": "expanded_sql",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 215,
+    "assigned_fn": [
+      "sqlite3_reset_auto_extension"
+    ]
+  },
+  {
+    "fp_name": "expired",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 56,
+    "assigned_fn": [
+      "0",
+      "sqlite3_exec"
+    ]
+  },
+  {
+    "fp_name": "extended_errcode",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 166,
+    "assigned_fn": [
+      "sqlite3_backup_pagecount"
+    ]
+  },
+  {
+    "fp_name": "extended_result_codes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 150,
+    "assigned_fn": [
+      "sqlite3_vfs_find"
+    ]
+  },
+  {
+    "fp_name": "file_control",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 127,
+    "assigned_fn": [
+      "sqlite3_blob_open"
+    ]
+  },
+  {
+    "fp_name": "filename_database",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 246,
+    "assigned_fn": [
+      "sqlite3_str_vappendf"
+    ]
+  },
+  {
+    "fp_name": "filename_journal",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 247,
+    "assigned_fn": [
+      "sqlite3_str_append"
+    ]
+  },
+  {
+    "fp_name": "filename_wal",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 248,
+    "assigned_fn": [
+      "sqlite3_str_appendall"
+    ]
+  },
+  {
+    "fp_name": "finalize",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 57,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "free",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 58,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "free_filename",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 250,
+    "assigned_fn": [
+      "sqlite3_str_reset"
+    ]
+  },
+  {
+    "fp_name": "free_table",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 59,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "get_autocommit",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 60,
+    "assigned_fn": [
+      "sqlite3_free"
+    ]
+  },
+  {
+    "fp_name": "get_auxdata",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 61,
+    "assigned_fn": [
+      "sqlite3_free_table"
+    ]
+  },
+  {
+    "fp_name": "get_clientdata",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 268,
+    "assigned_fn": [
+      "sqlite3_database_file_object"
+    ]
+  },
+  {
+    "fp_name": "get_table",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 62,
+    "assigned_fn": [
+      "sqlite3_get_autocommit"
+    ]
+  },
+  {
+    "fp_name": "global_recover",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 63,
+    "assigned_fn": [
+      "sqlite3_get_auxdata"
+    ]
+  },
+  {
+    "fp_name": "hard_heap_limit64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 244,
+    "assigned_fn": [
+      "sqlite3_str_finish"
+    ]
+  },
+  {
+    "fp_name": "interruptx",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 64,
+    "assigned_fn": [
+      "sqlite3_get_table"
+    ]
+  },
+  {
+    "fp_name": "is_interrupted",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 266,
+    "assigned_fn": [
+      "sqlite3_create_filename"
+    ]
+  },
+  {
+    "fp_name": "keyword_check",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 227,
+    "assigned_fn": [
+      "sqlite3_db_cacheflush"
+    ]
+  },
+  {
+    "fp_name": "keyword_count",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 225,
+    "assigned_fn": [
+      "sqlite3_status64"
+    ]
+  },
+  {
+    "fp_name": "keyword_name",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 226,
+    "assigned_fn": [
+      "sqlite3_strlike"
+    ]
+  },
+  {
+    "fp_name": "last_insert_rowid",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 65,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "libversion",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 66,
+    "assigned_fn": [
+      "sqlite3_interrupt"
+    ]
+  },
+  {
+    "fp_name": "libversion_number",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 67,
+    "assigned_fn": [
+      "sqlite3_last_insert_rowid"
+    ]
+  },
+  {
+    "fp_name": "limit",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 151,
+    "assigned_fn": [
+      "sqlite3_vfs_register"
+    ]
+  },
+  {
+    "fp_name": "load_extension",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 196,
+    "assigned_fn": [
+      "sqlite3_db_readonly"
+    ]
+  },
+  {
+    "fp_name": "log",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 167,
+    "assigned_fn": [
+      "sqlite3_backup_remaining"
+    ]
+  },
+  {
+    "fp_name": "malloc",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 68,
+    "assigned_fn": [
+      "sqlite3_libversion"
+    ]
+  },
+  {
+    "fp_name": "malloc64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 197,
+    "assigned_fn": [
+      "sqlite3_db_release_memory"
+    ]
+  },
+  {
+    "fp_name": "memory_highwater",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 128,
+    "assigned_fn": [
+      "sqlite3_blob_read"
+    ]
+  },
+  {
+    "fp_name": "memory_used",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 129,
+    "assigned_fn": [
+      "sqlite3_blob_write"
+    ]
+  },
+  {
+    "fp_name": "mprintf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 69,
+    "assigned_fn": [
+      "sqlite3_libversion_number"
+    ]
+  },
+  {
+    "fp_name": "msize",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 198,
+    "assigned_fn": [
+      "sqlite3_errstr"
+    ]
+  },
+  {
+    "fp_name": "mutex_alloc",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 130,
+    "assigned_fn": [
+      "sqlite3_create_collation_v2"
+    ]
+  },
+  {
+    "fp_name": "mutex_enter",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 131,
+    "assigned_fn": [
+      "sqlite3_file_control"
+    ]
+  },
+  {
+    "fp_name": "mutex_free",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 132,
+    "assigned_fn": [
+      "sqlite3_memory_highwater"
+    ]
+  },
+  {
+    "fp_name": "mutex_leave",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 133,
+    "assigned_fn": [
+      "sqlite3_memory_used"
+    ]
+  },
+  {
+    "fp_name": "mutex_try",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 134,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next_stmt",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 152,
+    "assigned_fn": [
+      "sqlite3_vfs_unregister"
+    ]
+  },
+  {
+    "fp_name": "normalized_sql",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 240,
+    "assigned_fn": [
+      "sqlite3_keyword_count"
+    ]
+  },
+  {
+    "fp_name": "open",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 70,
+    "assigned_fn": [
+      "sqlite3_malloc"
+    ]
+  },
+  {
+    "fp_name": "open16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 71,
+    "assigned_fn": [
+      "sqlite3_mprintf"
+    ]
+  },
+  {
+    "fp_name": "open_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 135,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "overload_function",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 115,
+    "assigned_fn": [
+      "sqlite3_value_text16be"
+    ]
+  },
+  {
+    "fp_name": "prepare",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 72,
+    "assigned_fn": [
+      "sqlite3_open"
+    ]
+  },
+  {
+    "fp_name": "prepare16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 73,
+    "assigned_fn": [
+      "sqlite3_open16"
+    ]
+  },
+  {
+    "fp_name": "prepare16_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 117,
+    "assigned_fn": [
+      "sqlite3_value_type"
+    ]
+  },
+  {
+    "fp_name": "prepare16_v3",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 218,
+    "assigned_fn": [
+      "sqlite3_strglob"
+    ]
+  },
+  {
+    "fp_name": "prepare_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 116,
+    "assigned_fn": [
+      "sqlite3_value_text16le"
+    ]
+  },
+  {
+    "fp_name": "prepare_v3",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 217,
+    "assigned_fn": [
+      "sqlite3_result_text64"
+    ]
+  },
+  {
+    "fp_name": "profile",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 74,
+    "assigned_fn": [
+      "sqlite3_prepare"
+    ]
+  },
+  {
+    "fp_name": "progress_handler",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 75,
+    "assigned_fn": [
+      "sqlite3_prepare16"
+    ]
+  },
+  {
+    "fp_name": "randomness",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 148,
+    "assigned_fn": [
+      "sqlite3_sleep"
+    ]
+  },
+  {
+    "fp_name": "realloc",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 76,
+    "assigned_fn": [
+      "sqlite3_profile"
+    ]
+  },
+  {
+    "fp_name": "realloc64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 199,
+    "assigned_fn": [
+      "sqlite3_stmt_busy"
+    ]
+  },
+  {
+    "fp_name": "release_memory",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 136,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "reset",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 77,
+    "assigned_fn": [
+      "sqlite3_progress_handler"
+    ]
+  },
+  {
+    "fp_name": "reset_auto_extension",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 200,
+    "assigned_fn": [
+      "sqlite3_stmt_readonly"
+    ]
+  },
+  {
+    "fp_name": "result_blob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 78,
+    "assigned_fn": [
+      "sqlite3_realloc"
+    ]
+  },
+  {
+    "fp_name": "result_blob64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 201,
+    "assigned_fn": [
+      "sqlite3_stricmp"
+    ]
+  },
+  {
+    "fp_name": "result_double",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 79,
+    "assigned_fn": [
+      "sqlite3_reset"
+    ]
+  },
+  {
+    "fp_name": "result_error",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 80,
+    "assigned_fn": [
+      "sqlite3_result_blob"
+    ]
+  },
+  {
+    "fp_name": "result_error16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 81,
+    "assigned_fn": [
+      "sqlite3_result_double"
+    ]
+  },
+  {
+    "fp_name": "result_error_code",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 146,
+    "assigned_fn": [
+      "sqlite3_result_error_nomem"
+    ]
+  },
+  {
+    "fp_name": "result_error_nomem",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 137,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "result_error_toobig",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 138,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "result_int",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 82,
+    "assigned_fn": [
+      "sqlite3_result_error"
+    ]
+  },
+  {
+    "fp_name": "result_int64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 83,
+    "assigned_fn": [
+      "sqlite3_result_error16"
+    ]
+  },
+  {
+    "fp_name": "result_null",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 84,
+    "assigned_fn": [
+      "sqlite3_result_int"
+    ]
+  },
+  {
+    "fp_name": "result_pointer",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 220,
+    "assigned_fn": [
+      "sqlite3_value_free"
+    ]
+  },
+  {
+    "fp_name": "result_subtype",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 209,
+    "assigned_fn": [
+      "sqlite3_bind_text64"
+    ]
+  },
+  {
+    "fp_name": "result_text",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 85,
+    "assigned_fn": [
+      "sqlite3_result_int64"
+    ]
+  },
+  {
+    "fp_name": "result_text16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 86,
+    "assigned_fn": [
+      "sqlite3_result_null"
+    ]
+  },
+  {
+    "fp_name": "result_text16be",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 87,
+    "assigned_fn": [
+      "sqlite3_result_text"
+    ]
+  },
+  {
+    "fp_name": "result_text16le",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 88,
+    "assigned_fn": [
+      "sqlite3_result_text16"
+    ]
+  },
+  {
+    "fp_name": "result_text64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 202,
+    "assigned_fn": [
+      "sqlite3_uri_boolean"
+    ]
+  },
+  {
+    "fp_name": "result_value",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 89,
+    "assigned_fn": [
+      "sqlite3_result_text16be"
+    ]
+  },
+  {
+    "fp_name": "result_zeroblob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 145,
+    "assigned_fn": [
+      "sqlite3_release_memory"
+    ]
+  },
+  {
+    "fp_name": "result_zeroblob64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 206,
+    "assigned_fn": [
+      "sqlite3_wal_checkpoint_v2"
+    ]
+  },
+  {
+    "fp_name": "rollback_hook",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 90,
+    "assigned_fn": [
+      "sqlite3_result_text16le"
+    ]
+  },
+  {
+    "fp_name": "serialize",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 263,
+    "assigned_fn": [
+      "sqlite3_filename_database"
+    ]
+  },
+  {
+    "fp_name": "set_authorizer",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 91,
+    "assigned_fn": [
+      "sqlite3_result_value"
+    ]
+  },
+  {
+    "fp_name": "set_auxdata",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 92,
+    "assigned_fn": [
+      "sqlite3_rollback_hook"
+    ]
+  },
+  {
+    "fp_name": "set_clientdata",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 269,
+    "assigned_fn": [
+      "sqlite3_txn_state"
+    ]
+  },
+  {
+    "fp_name": "set_errmsg",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 271,
+    "assigned_fn": [
+      "sqlite3_total_changes64"
+    ]
+  },
+  {
+    "fp_name": "set_last_insert_rowid",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 216,
+    "assigned_fn": [
+      "sqlite3_result_blob64"
+    ]
+  },
+  {
+    "fp_name": "setlk_timeout",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 270,
+    "assigned_fn": [
+      "sqlite3_changes64"
+    ]
+  },
+  {
+    "fp_name": "sleep",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 139,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "soft_heap_limit",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 140,
+    "assigned_fn": [
+      "sqlite3_mutex_enter"
+    ]
+  },
+  {
+    "fp_name": "soft_heap_limit64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 168,
+    "assigned_fn": [
+      "sqlite3_backup_step"
+    ]
+  },
+  {
+    "fp_name": "sourceid",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 169,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "sql",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 153,
+    "assigned_fn": [
+      "sqlite3_threadsafe"
+    ]
+  },
+  {
+    "fp_name": "status",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 154,
+    "assigned_fn": [
+      "sqlite3_result_zeroblob"
+    ]
+  },
+  {
+    "fp_name": "status64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 210,
+    "assigned_fn": [
+      "sqlite3_cancel_auto_extension"
+    ]
+  },
+  {
+    "fp_name": "step",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 94,
+    "assigned_fn": [
+      "sqlite3_set_auxdata"
+    ]
+  },
+  {
+    "fp_name": "stmt_busy",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 184,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stmt_explain",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 267,
+    "assigned_fn": [
+      "sqlite3_free_filename"
+    ]
+  },
+  {
+    "fp_name": "stmt_isexplain",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 241,
+    "assigned_fn": [
+      "sqlite3_keyword_name"
+    ]
+  },
+  {
+    "fp_name": "stmt_readonly",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 185,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stmt_status",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 170,
+    "assigned_fn": [
+      "sqlite3_compileoption_used"
+    ]
+  },
+  {
+    "fp_name": "str_append",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 232,
+    "assigned_fn": [
+      "sqlite3_prepare_v3"
+    ]
+  },
+  {
+    "fp_name": "str_appendall",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 233,
+    "assigned_fn": [
+      "sqlite3_prepare16_v3"
+    ]
+  },
+  {
+    "fp_name": "str_appendchar",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 234,
+    "assigned_fn": [
+      "sqlite3_bind_pointer"
+    ]
+  },
+  {
+    "fp_name": "str_appendf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 230,
+    "assigned_fn": [
+      "sqlite3_expanded_sql"
+    ]
+  },
+  {
+    "fp_name": "str_errcode",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 236,
+    "assigned_fn": [
+      "sqlite3_value_pointer"
+    ]
+  },
+  {
+    "fp_name": "str_finish",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 229,
+    "assigned_fn": [
+      "sqlite3_trace_v2"
+    ]
+  },
+  {
+    "fp_name": "str_length",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 237,
+    "assigned_fn": [
+      "sqlite3_vtab_nochange"
+    ]
+  },
+  {
+    "fp_name": "str_new",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 228,
+    "assigned_fn": [
+      "sqlite3_system_errno"
+    ]
+  },
+  {
+    "fp_name": "str_reset",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 235,
+    "assigned_fn": [
+      "sqlite3_result_pointer"
+    ]
+  },
+  {
+    "fp_name": "str_value",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 238,
+    "assigned_fn": [
+      "sqlite3_value_nochange"
+    ]
+  },
+  {
+    "fp_name": "str_vappendf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 231,
+    "assigned_fn": [
+      "sqlite3_set_last_insert_rowid"
+    ]
+  },
+  {
+    "fp_name": "strglob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 203,
+    "assigned_fn": [
+      "sqlite3_uri_int64"
+    ]
+  },
+  {
+    "fp_name": "stricmp",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 186,
+    "assigned_fn": [
+      "sqlite3_wal_checkpoint"
+    ]
+  },
+  {
+    "fp_name": "strlike",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 211,
+    "assigned_fn": [
+      "sqlite3_load_extension"
+    ]
+  },
+  {
+    "fp_name": "strnicmp",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 171,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "system_errno",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 213,
+    "assigned_fn": [
+      "sqlite3_msize"
+    ]
+  },
+  {
+    "fp_name": "table_column_metadata",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 95,
+    "assigned_fn": [
+      "sqlite3_snprintf"
+    ]
+  },
+  {
+    "fp_name": "test_control",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 147,
+    "assigned_fn": [
+      "sqlite3_result_error_toobig"
+    ]
+  },
+  {
+    "fp_name": "thread_cleanup",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 96,
+    "assigned_fn": [
+      "sqlite3_step"
+    ]
+  },
+  {
+    "fp_name": "total_changes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 97,
+    "assigned_fn": [
+      "sqlite3_table_column_metadata"
+    ]
+  },
+  {
+    "fp_name": "total_changes64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 254,
+    "assigned_fn": [
+      "sqlite3_create_window_function"
+    ]
+  },
+  {
+    "fp_name": "trace",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 98,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "trace_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 214,
+    "assigned_fn": [
+      "sqlite3_realloc64"
+    ]
+  },
+  {
+    "fp_name": "transfer_bindings",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 99,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "txn_state",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 252,
+    "assigned_fn": [
+      "sqlite3_str_length"
+    ]
+  },
+  {
+    "fp_name": "unlock_notify",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 172,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "update_hook",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 100,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "uri_boolean",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 187,
+    "assigned_fn": [
+      "sqlite3_wal_hook"
+    ]
+  },
+  {
+    "fp_name": "uri_int64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 188,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "uri_key",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 245,
+    "assigned_fn": [
+      "sqlite3_str_appendf"
+    ]
+  },
+  {
+    "fp_name": "uri_parameter",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 189,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "user_data",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 101,
+    "assigned_fn": [
+      "sqlite3_trace"
+    ]
+  },
+  {
+    "fp_name": "value_blob",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 102,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "value_bytes",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 103,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "value_bytes16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 104,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "value_double",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 105,
+    "assigned_fn": [
+      "sqlite3_user_data"
+    ]
+  },
+  {
+    "fp_name": "value_dup",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 204,
+    "assigned_fn": [
+      "sqlite3_uri_parameter"
+    ]
+  },
+  {
+    "fp_name": "value_encoding",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 265,
+    "assigned_fn": [
+      "sqlite3_filename_wal"
+    ]
+  },
+  {
+    "fp_name": "value_free",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 205,
+    "assigned_fn": [
+      "sqlite3_vsnprintf"
+    ]
+  },
+  {
+    "fp_name": "value_frombind",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 242,
+    "assigned_fn": [
+      "sqlite3_keyword_check"
+    ]
+  },
+  {
+    "fp_name": "value_int",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 106,
+    "assigned_fn": [
+      "sqlite3_value_blob"
+    ]
+  },
+  {
+    "fp_name": "value_int64",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 107,
+    "assigned_fn": [
+      "sqlite3_value_bytes"
+    ]
+  },
+  {
+    "fp_name": "value_nochange",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 223,
+    "assigned_fn": [
+      "sqlite3_value_subtype"
+    ]
+  },
+  {
+    "fp_name": "value_numeric_type",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 108,
+    "assigned_fn": [
+      "sqlite3_value_bytes16"
+    ]
+  },
+  {
+    "fp_name": "value_pointer",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 221,
+    "assigned_fn": [
+      "sqlite3_result_zeroblob64"
+    ]
+  },
+  {
+    "fp_name": "value_subtype",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 208,
+    "assigned_fn": [
+      "sqlite3_bind_blob64"
+    ]
+  },
+  {
+    "fp_name": "value_text",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 109,
+    "assigned_fn": [
+      "sqlite3_value_double"
+    ]
+  },
+  {
+    "fp_name": "value_text16",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 110,
+    "assigned_fn": [
+      "sqlite3_value_int"
+    ]
+  },
+  {
+    "fp_name": "value_text16be",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 111,
+    "assigned_fn": [
+      "sqlite3_value_int64"
+    ]
+  },
+  {
+    "fp_name": "value_text16le",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 112,
+    "assigned_fn": [
+      "sqlite3_value_numeric_type"
+    ]
+  },
+  {
+    "fp_name": "value_type",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 113,
+    "assigned_fn": [
+      "sqlite3_value_text"
+    ]
+  },
+  {
+    "fp_name": "vfs_find",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 141,
+    "assigned_fn": [
+      "sqlite3_mutex_free"
+    ]
+  },
+  {
+    "fp_name": "vfs_register",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 142,
+    "assigned_fn": [
+      "sqlite3_mutex_leave"
+    ]
+  },
+  {
+    "fp_name": "vfs_unregister",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 143,
+    "assigned_fn": [
+      "sqlite3_mutex_try"
+    ]
+  },
+  {
+    "fp_name": "vmprintf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 114,
+    "assigned_fn": [
+      "sqlite3_value_text16"
+    ]
+  },
+  {
+    "fp_name": "vtab_collation",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 224,
+    "assigned_fn": [
+      "sqlite3_result_subtype"
+    ]
+  },
+  {
+    "fp_name": "vtab_config",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 177,
+    "assigned_fn": [
+      "sqlite3_extended_errcode"
+    ]
+  },
+  {
+    "fp_name": "vtab_distinct",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 258,
+    "assigned_fn": [
+      "sqlite3_value_frombind"
+    ]
+  },
+  {
+    "fp_name": "vtab_in",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 259,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "vtab_in_first",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 260,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "vtab_in_next",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 261,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "vtab_nochange",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 222,
+    "assigned_fn": [
+      "sqlite3_bind_zeroblob64"
+    ]
+  },
+  {
+    "fp_name": "vtab_on_conflict",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 178,
+    "assigned_fn": [
+      "sqlite3_log"
+    ]
+  },
+  {
+    "fp_name": "vtab_rhs_value",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 257,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "wal_autocheckpoint",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 173,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "wal_checkpoint",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 174,
+    "assigned_fn": [
+      "sqlite3_db_config"
+    ]
+  },
+  {
+    "fp_name": "wal_checkpoint_v2",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 191,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "wal_hook",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 175,
+    "assigned_fn": [
+      "sqlite3_db_mutex"
+    ]
+  },
+  {
+    "fp_name": "xAccess",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 8,
+    "assigned_fn": [
+      "apndAccess",
+      "kvvfsAccess",
+      "memdbAccess",
+      "rbuVfsAccess",
+      "vfstraceAccess",
+      "winAccess",
+      "unixAccess"
+    ]
+  },
+  {
+    "fp_name": "xAltLocaltime",
+    "struct_name": "Sqlite3Config",
+    "fp_index": 36,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xAppend",
+    "struct_name": "PrefixSetupCtx",
+    "fp_index": 1,
+    "assigned_fn": [
+      "fts5AppendPoslist",
+      "fts5AppendRowid"
+    ]
+  },
+  {
+    "fp_name": "xAutovacDestr",
+    "struct_name": "sqlite3",
+    "fp_index": 55,
+    "assigned_fn": [
+      "0",
+      "rtreeMatchArgFree",
+      "sqlite3VdbeValueListFree"
+    ]
+  },
+  {
+    "fp_name": "xAutovacPages",
+    "struct_name": "sqlite3",
+    "fp_index": 56,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xBegin",
+    "struct_name": "sqlite3_module",
+    "fp_index": 14,
+    "assigned_fn": [
+      "0",
+      "dbpageBegin",
+      "fts3BeginMethod",
+      "fts5BeginMethod",
+      "rtreeBeginTransaction",
+      "zipfileBegin"
+    ]
+  },
+  {
+    "fp_name": "xBenignBegin",
+    "struct_name": "BenignMallocHooks",
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBenignEnd",
+    "struct_name": "BenignMallocHooks",
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBestIndex",
+    "struct_name": "sqlite3_module",
+    "fp_index": 3,
+    "assigned_fn": [
+      "bytecodevtabBestIndex",
+      "completionBestIndex",
+      "dbdataBestIndex",
+      "dbpageBestIndex",
+      "expertBestIndex",
+      "fsdirBestIndex",
+      "fts3BestIndexMethod",
+      "fts3auxBestIndexMethod",
+      "fts3tokBestIndexMethod",
+      "fts5BestIndexMethod",
+      "fts5VocabBestIndexMethod",
+      "fts5structBestIndexMethod",
+      "geopolyBestIndex",
+      "jsonEachBestIndex",
+      "pragmaVtabBestIndex",
+      "rtreeBestIndex",
+      "seriesBestIndex",
+      "statBestIndex",
+      "stmtBestIndex",
+      "zipfileBestIndex"
+    ]
+  },
+  {
+    "fp_name": "xBusyHandler",
+    "struct_name": "BusyHandler",
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "btreeInvokeBusyHandler",
+      "sqliteDefaultBusyCallback",
+      "xBusy2"
+    ]
+  },
+  {
+    "fp_name": "xCachesize",
+    "struct_name": "sqlite3_pcache_methods2",
+    "fp_index": 5,
+    "assigned_fn": [
+      "pcache1Cachesize",
+      "pcachetraceCachesize"
+    ]
+  },
+  {
+    "fp_name": "xCellSize",
+    "struct_name": "MemPage",
+    "fp_index": 23,
+    "assigned_fn": [
+      "cellSizePtr",
+      "cellSizePtrIdxLeaf",
+      "cellSizePtrNoPayload",
+      "cellSizePtrTableLeaf"
+    ]
+  },
+  {
+    "fp_name": "xCheckReservedLock",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 9,
+    "assigned_fn": [
+      "0",
+      "apndCheckReservedLock",
+      "kvvfsCheckReservedLock",
+      "rbuVfsCheckReservedLock",
+      "recoverVfsCheckReservedLock",
+      "vfstraceCheckReservedLock",
+      "winCheckReservedLock",
+      "winNolockCheckReservedLock"
+    ]
+  },
+  {
+    "fp_name": "xCleanup",
+    "struct_name": "ParseCleanup",
+    "fp_index": 2,
+    "assigned_fn": [
+      "agginfoFree",
+      "sqlite3DbFree",
+      "sqlite3DeleteReturning",
+      "sqlite3DeleteTableGeneric",
+      "sqlite3ExprDeleteGeneric",
+      "sqlite3ExprListDeleteGeneric",
+      "sqlite3SelectDeleteGeneric",
+      "sqlite3WithDeleteGeneric",
+      "whereIndexedExprCleanup"
+    ]
+  },
+  {
+    "fp_name": "xClose",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 1,
+    "assigned_fn": [
+      "apndClose",
+      "bytecodevtabClose",
+      "completionClose",
+      "dbdataClose",
+      "dbpageClose",
+      "expertClose",
+      "fsdirClose",
+      "fts3CloseMethod",
+      "fts3auxCloseMethod",
+      "fts3tokCloseMethod",
+      "fts5CloseMethod",
+      "fts5VocabCloseMethod",
+      "fts5structCloseMethod",
+      "icuClose",
+      "jsonEachClose",
+      "kvvfsClose",
+      "memdbClose",
+      "memjrnlClose",
+      "porterClose",
+      "pragmaVtabClose",
+      "rbuVfsClose",
+      "recoverVfsClose",
+      "rtreeClose",
+      "seriesClose",
+      "simpleClose",
+      "statClose",
+      "stmtClose",
+      "unicodeClose",
+      "vfstraceClose",
+      "winClose",
+      "zipfileClose"
+    ]
+  },
+  {
+    "fp_name": "xCmp",
+    "struct_name": "CollSeq",
+    "fp_index": 3,
+    "assigned_fn": [
+      "0",
+      "binCollFunc",
+      "decimalCollFunc",
+      "dummyCompare",
+      "icuCollationColl",
+      "nocaseCollatingFunc",
+      "rtrimCollFunc",
+      "uintCollFunc"
+    ]
+  },
+  {
+    "fp_name": "xCollNeeded16",
+    "struct_name": "sqlite3",
+    "fp_index": 61,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xColumn",
+    "struct_name": "sqlite3_module",
+    "fp_index": 11,
+    "assigned_fn": [
+      "bytecodevtabColumn",
+      "completionColumn",
+      "dbdataColumn",
+      "dbpageColumn",
+      "expertColumn",
+      "fsdirColumn",
+      "fts3ColumnMethod",
+      "fts3auxColumnMethod",
+      "fts3tokColumnMethod",
+      "fts5ColumnMethod",
+      "fts5VocabColumnMethod",
+      "fts5structColumnMethod",
+      "geopolyColumn",
+      "jsonEachColumn",
+      "pragmaVtabColumn",
+      "rtreeColumn",
+      "seriesColumn",
+      "statColumn",
+      "stmtColumn",
+      "zipfileColumn"
+    ]
+  },
+  {
+    "fp_name": "xColumnCount",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 2,
+    "assigned_fn": [
+      "fts5ApiColumnCount"
+    ]
+  },
+  {
+    "fp_name": "xColumnLocale",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 22,
+    "assigned_fn": [
+      "fts5ApiColumnLocale"
+    ]
+  },
+  {
+    "fp_name": "xColumnSize",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 12,
+    "assigned_fn": [
+      "fts5ApiColumnSize"
+    ]
+  },
+  {
+    "fp_name": "xColumnText",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 11,
+    "assigned_fn": [
+      "fts5ApiColumnText"
+    ]
+  },
+  {
+    "fp_name": "xColumnTotalSize",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 4,
+    "assigned_fn": [
+      "fts5ApiColumnTotalSize"
+    ]
+  },
+  {
+    "fp_name": "xCommit",
+    "struct_name": "sqlite3_module",
+    "fp_index": 16,
+    "assigned_fn": [
+      "0",
+      "fts3CommitMethod",
+      "fts5CommitMethod",
+      "rtreeEndTransaction",
+      "zipfileCommit"
+    ]
+  },
+  {
+    "fp_name": "xCommitCallback",
+    "struct_name": "sqlite3",
+    "fp_index": 49,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xCond",
+    "struct_name": "PorterRule",
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConnect",
+    "struct_name": "sqlite3_module",
+    "fp_index": 2,
+    "assigned_fn": [
+      "bytecodevtabConnect",
+      "completionConnect",
+      "dbdataConnect",
+      "dbpageConnect",
+      "expertConnect",
+      "fsdirConnect",
+      "fts3ConnectMethod",
+      "fts3auxConnectMethod",
+      "fts3tokConnectMethod",
+      "fts5ConnectMethod",
+      "fts5VocabConnectMethod",
+      "fts5structConnectMethod",
+      "geopolyConnect",
+      "jsonEachConnect",
+      "pragmaVtabConnect",
+      "rtreeConnect",
+      "seriesConnect",
+      "statConnect",
+      "stmtConnect",
+      "zipfileConnect"
+    ]
+  },
+  {
+    "fp_name": "xCount",
+    "struct_name": "SessionHook",
+    "fp_index": 3,
+    "assigned_fn": [
+      "sessionDiffCount",
+      "sessionPreupdateCount",
+      "sessionStat1Count"
+    ]
+  },
+  {
+    "fp_name": "xCreate",
+    "struct_name": "sqlite3_module",
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "dbpageConnect",
+      "expertConnect",
+      "fts3CreateMethod",
+      "fts3auxConnectMethod",
+      "fts3tokConnectMethod",
+      "fts5CreateMethod",
+      "fts5PorterCreate",
+      "fts5VocabCreateMethod",
+      "fts5VtoVCreate",
+      "geopolyCreate",
+      "icuCreate",
+      "pcache1Create",
+      "pcachetraceCreate",
+      "porterCreate",
+      "rtreeCreate",
+      "simpleCreate",
+      "statConnect",
+      "unicodeCreate",
+      "zipfileConnect"
+    ]
+  },
+  {
+    "fp_name": "xCreateTokenizer",
+    "struct_name": "fts5_api",
+    "fp_index": 1,
+    "assigned_fn": [
+      "fts5CreateTokenizer"
+    ]
+  },
+  {
+    "fp_name": "xCreateTokenizer_v2",
+    "struct_name": "fts5_api",
+    "fp_index": 4,
+    "assigned_fn": [
+      "fts5CreateTokenizer_v2"
+    ]
+  },
+  {
+    "fp_name": "xCurrentTime",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 16,
+    "assigned_fn": [
+      "0",
+      "apndCurrentTime",
+      "kvvfsCurrentTime",
+      "vfstraceCurrentTime",
+      "winCurrentTime",
+      "unixCurrentTime"    
+    ]
+  },
+  {
+    "fp_name": "xCurrentTimeInt64",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 18,
+    "assigned_fn": [
+      "apndCurrentTimeInt64",
+      "kvvfsCurrentTimeInt64",
+      "memdbCurrentTimeInt64",
+      "winCurrentTimeInt64",
+      "unixCurrentTimeInt64"
+    ]
+  },
+  {
+    "fp_name": "xDel",
+    "struct_name": "CollSeq",
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "SQLITE_DYNAMIC",
+      "SQLITE_STATIC",
+      "SQLITE_TRANSIENT",
+      "icuCollationDel",
+      "rtreeMatchArgFree",
+      "sqlite3RCStrUnref",
+      "sqlite3RowSetDelete",
+      "sqlite3SchemaClear",
+      "sqlite3VdbeFrameMemDel",
+      "sqlite3VdbeValueListFree",
+      "sqlite3_free",
+      "statAccumDestructor",
+      "xDestroyOut",
+      "zipfileFree"
+    ]
+  },
+  {
+    "fp_name": "xDelUser",
+    "struct_name": "sqlite3_rtree_geometry",
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDelete",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 7,
+    "assigned_fn": [
+      "0",
+      "apndDelete",
+      "fts5PorterDelete",
+      "fts5VtoVDelete",
+      "icuRegexpDelete",
+      "jsonCacheDeleteGeneric",
+      "kvstorageDelete",
+      "kvvfsDelete",
+      "rbuVfsDelete",
+      "re_free",
+      "sqlite3_free",
+      "vfstraceDelete",
+      "winDelete",
+      "unixDelete"
+    ]
+  },
+  {
+    "fp_name": "xDeleteAux",
+    "struct_name": "AuxData",
+    "fp_index": 3,
+    "assigned_fn": [
+      "icuRegexpDelete",
+      "jsonCacheDeleteGeneric",
+      "re_free",
+      "sqlite3_free"
+    ]
+  },
+  {
+    "fp_name": "xDepth",
+    "struct_name": "SessionHook",
+    "fp_index": 4,
+    "assigned_fn": [
+      "sessionDiffDepth",
+      "sessionPreupdateDepth",
+      "sessionStat1Depth"
+    ]
+  },
+  {
+    "fp_name": "xDestroy",
+    "struct_name": "sqlite3_module",
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "dbpageDisconnect",
+      "expertDisconnect",
+      "fts3DestroyMethod",
+      "fts3auxDisconnectMethod",
+      "fts3tokDisconnectMethod",
+      "fts5DestroyMethod",
+      "fts5ModuleDestroy",
+      "fts5VocabDestroyMethod",
+      "hashDestroy",
+      "icuCollationDel",
+      "icuDestroy",
+      "pcache1Destroy",
+      "pcachetraceDestroy",
+      "porterDestroy",
+      "rtreeDestroy",
+      "rtreeFreeCallback",
+      "simpleDestroy",
+      "sqlite3_free",
+      "statDisconnect",
+      "unicodeDestroy",
+      "zipfileDisconnect"
+    ]
+  },
+  {
+    "fp_name": "xDestructor",
+    "struct_name": "DbClientData",
+    "fp_index": 2,
+    "assigned_fn": [
+      "0",
+      "rtreeMatchArgFree",
+      "sqlite3VdbeValueListFree"
+    ]
+  },
+  {
+    "fp_name": "xDeviceCharacteristics",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 12,
+    "assigned_fn": [
+      "0",
+      "apndDeviceCharacteristics",
+      "kvvfsDeviceCharacteristics",
+      "memdbDeviceCharacteristics",
+      "rbuVfsDeviceCharacteristics",
+      "recoverVfsDeviceCharacteristics",
+      "vfstraceDeviceCharacteristics",
+      "winDeviceCharacteristics"
+    ]
+  },
+  {
+    "fp_name": "xDisconnect",
+    "struct_name": "sqlite3_module",
+    "fp_index": 4,
+    "assigned_fn": [
+      "bytecodevtabDisconnect",
+      "completionDisconnect",
+      "dbdataDisconnect",
+      "dbpageDisconnect",
+      "expertDisconnect",
+      "fsdirDisconnect",
+      "fts3DisconnectMethod",
+      "fts3auxDisconnectMethod",
+      "fts3tokDisconnectMethod",
+      "fts5DisconnectMethod",
+      "fts5VocabDisconnectMethod",
+      "fts5structDisconnectMethod",
+      "jsonEachDisconnect",
+      "pragmaVtabDisconnect",
+      "rtreeDisconnect",
+      "seriesDisconnect",
+      "statDisconnect",
+      "stmtDisconnect",
+      "zipfileDisconnect"
+    ]
+  },
+  {
+    "fp_name": "xDlClose",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 13,
+    "assigned_fn": [
+      "0",
+      "apndDlClose",
+      "memdbDlClose",
+      "rbuVfsDlClose",
+      "winDlClose",
+      "unixDlClose"
+    ]
+  },
+  {
+    "fp_name": "xDlError",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 11,
+    "assigned_fn": [
+      "0",
+      "apndDlError",
+      "memdbDlError",
+      "rbuVfsDlError",
+      "winDlError",
+      "unixDlError"
+    ]
+  },
+  {
+    "fp_name": "xDlOpen",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 10,
+    "assigned_fn": [
+      "apndDlOpen",
+      "kvvfsDlOpen",
+      "memdbDlOpen",
+      "winDlOpen",
+      "unixDlOpen"
+    ]
+  },
+  {
+    "fp_name": "xDlSym",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 12,
+    "assigned_fn": [
+      "0",
+      "apndDlSym",
+      "memdbDlSym",
+      "rbuVfsDlSym",
+      "winDlSym",
+      "unixDlSym"
+    ]
+  },
+  {
+    "fp_name": "xEof",
+    "struct_name": "sqlite3_module",
+    "fp_index": 10,
+    "assigned_fn": [
+      "bytecodevtabEof",
+      "completionEof",
+      "dbdataEof",
+      "dbpageEof",
+      "expertEof",
+      "fsdirEof",
+      "fts3EofMethod",
+      "fts3auxEofMethod",
+      "fts3tokEofMethod",
+      "fts5EofMethod",
+      "fts5VocabEofMethod",
+      "fts5structEofMethod",
+      "jsonEachEof",
+      "pragmaVtabEof",
+      "rtreeEof",
+      "seriesEof",
+      "statEof",
+      "stmtEof",
+      "zipfileEof"
+    ]
+  },
+  {
+    "fp_name": "xExprCallback",
+    "struct_name": "Walker",
+    "fp_index": 1,
+    "assigned_fn": [
+      "agginfoPersistExprCb",
+      "aggregateIdxEprRefToColCallback",
+      "analyzeAggregate",
+      "checkConstraintExprNode",
+      "codeCursorHintCheckExpr",
+      "codeCursorHintFixExpr",
+      "codeCursorHintIsOrFunction",
+      "disallowAggregatesInOrderByCb",
+      "exprColumnFlagUnion",
+      "exprIdxCover",
+      "exprNodeCanReturnSubtype",
+      "exprNodeIsConstant",
+      "exprNodeIsConstantOrGroupBy",
+      "exprNodeIsDeterministic",
+      "exprRefToSrcList",
+      "fixExprCb",
+      "gatherSelectWindowsCallback",
+      "havingToWhereExprCb",
+      "impliesNotNullRow",
+      "incrAggDepth",
+      "markImmutableExprStep",
+      "propagateConstantExprRewrite",
+      "recomputeColumnsUsedExpr",
+      "renameColumnExprCb",
+      "renameQuotefixExprCb",
+      "renameTableExprCb",
+      "renameUnmapExprCb",
+      "renumberCursorsCb",
+      "resolveExprStep",
+      "resolveRemoveWindowsCb",
+      "selectCheckOnClausesExpr",
+      "selectWindowRewriteExprCb",
+      "sqlite3CursorRangeHintExprCheck",
+      "sqlite3ExprWalkNoop",
+      "sqlite3ReturningSubqueryVarSelect",
+      "sqlite3WindowExtraAggFuncDepth",
+      "whereIsCoveringIndexWalkCallback"
+    ]
+  },
+  {
+    "fp_name": "xFetch",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 17,
+    "assigned_fn": [
+      "0",
+      "apndFetch",
+      "memdbFetch",
+      "pcache1Fetch",
+      "pcachetraceFetch",
+      "recoverVfsFetch",
+      "winFetch"
+    ]
+  },
+  {
+    "fp_name": "xFileControl",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 10,
+    "assigned_fn": [
+      "0",
+      "apndFileControl",
+      "kvvfsFileControlDb",
+      "kvvfsFileControlJrnl",
+      "memdbFileControl",
+      "rbuVfsFileControl",
+      "recoverVfsFileControl",
+      "vfstraceFileControl",
+      "winFileControl"
+    ]
+  },
+  {
+    "fp_name": "xFileSize",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 6,
+    "assigned_fn": [
+      "apndFileSize",
+      "kvvfsFileSizeDb",
+      "kvvfsFileSizeJrnl",
+      "memdbFileSize",
+      "memjrnlFileSize",
+      "rbuVfsFileSize",
+      "recoverVfsFileSize",
+      "vfstraceFileSize",
+      "winFileSize"
+    ]
+  },
+  {
+    "fp_name": "xFilter",
+    "struct_name": "sqlite3_module",
+    "fp_index": 8,
+    "assigned_fn": [
+      "bytecodevtabFilter",
+      "completionFilter",
+      "dbdataFilter",
+      "dbpageFilter",
+      "expertFilter",
+      "fsdirFilter",
+      "fts3FilterMethod",
+      "fts3auxFilterMethod",
+      "fts3tokFilterMethod",
+      "fts5FilterMethod",
+      "fts5VocabFilterMethod",
+      "fts5structFilterMethod",
+      "geopolyFilter",
+      "jsonEachFilter",
+      "pragmaVtabFilter",
+      "rtreeFilter",
+      "seriesFilter",
+      "statFilter",
+      "stmtFilter",
+      "zipfileFilter"
+    ]
+  },
+  {
+    "fp_name": "xFinalize",
+    "struct_name": "FuncDef",
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "decimalSumFinalize",
+      "dummyUDFvalue",
+      "percentFinal",
+      "sha3AggFinal",
+      "zipfileFinal"
+    ]
+  },
+  {
+    "fp_name": "xFindFunction",
+    "struct_name": "sqlite3_module",
+    "fp_index": 18,
+    "assigned_fn": [
+      "0",
+      "fts3FindFunctionMethod",
+      "fts5FindFunctionMethod",
+      "geopolyFindFunction",
+      "zipfileFindFunction"
+    ]
+  },
+  {
+    "fp_name": "xFindTokenizer",
+    "struct_name": "fts5_api",
+    "fp_index": 2,
+    "assigned_fn": [
+      "fts5FindTokenizer"
+    ]
+  },
+  {
+    "fp_name": "xFindTokenizer_v2",
+    "struct_name": "fts5_api",
+    "fp_index": 5,
+    "assigned_fn": [
+      "fts5FindTokenizer_v2"
+    ]
+  },
+  {
+    "fp_name": "xFree",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 1,
+    "assigned_fn": [
+      "memsys3Free",
+      "memsys5Free",
+      "memtraceFree",
+      "sqlite3MemFree",
+      "winMemFree"
+    ]
+  },
+  {
+    "fp_name": "xFreeSchema",
+    "struct_name": "BtShared",
+    "fp_index": 19,
+    "assigned_fn": [
+      "0",
+      "sqlite3RCStrUnref",
+      "sqlite3SchemaClear"
+    ]
+  },
+  {
+    "fp_name": "xFullPathname",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 9,
+    "assigned_fn": [
+      "apndFullPathname",
+      "kvvfsFullPathname",
+      "memdbFullPathname",
+      "rbuVfsFullPathname",
+      "vfstraceFullPathname",
+      "winFullPathname",
+      "unixFullPathname"
+    ]
+  },
+  {
+    "fp_name": "xFunc",
+    "struct_name": "Overloaded",
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "base64",
+      "base85",
+      "dummyUDF",
+      "editFunc",
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3ExprTest",
+      "fts3ExprTestRebalance",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions",
+      "fts3TokenizerFunc",
+      "fts5DecodeFunction",
+      "fts5Fts5Func",
+      "fts5InsttokenFunc",
+      "fts5LocaleFunc",
+      "fts5RowidFunction",
+      "fts5SourceIdFunc",
+      "geomCallback",
+      "idxRemFunc",
+      "idxSampleFunc",
+      "intTestFunc",
+      "intckParseCreateIndexFunc",
+      "is_base85",
+      "lsModeFunc",
+      "rbuFossilDeltaFunc",
+      "rbuIndexCntFunc",
+      "rbuTargetNameFunc",
+      "rbuTmpInsertFunc",
+      "re_bytecode_func",
+      "re_sql_func",
+      "readfileFunc",
+      "rtreecheck",
+      "rtreedepth",
+      "rtreenode",
+      "sha1Func",
+      "sha1QueryFunc",
+      "sha3Func",
+      "sha3QueryFunc",
+      "shellAddSchemaName",
+      "shellDtostr",
+      "shellFkeyCollateClause",
+      "shellModuleSchema",
+      "shellPutsFunc",
+      "shellStrtod",
+      "shellUSleepFunc",
+      "sqlarCompressFunc",
+      "sqlarUncompressFunc",
+      "sqlite3InvalidFunction",
+      "stmtrandFunc",
+      "testFunc",
+      "writefileFunc"
+    ]
+  },
+  {
+    "fp_name": "xFunction",
+    "struct_name": "fts5_api",
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xGeom",
+    "struct_name": "RtreeConstraint",
+    "fp_index": 2,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xGet",
+    "struct_name": "Pager",
+    "fp_index": 57,
+    "assigned_fn": [
+      "getPageError",
+      "getPageMMap",
+      "getPageNormal"
+    ]
+  },
+  {
+    "fp_name": "xGetAuxdata",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 15,
+    "assigned_fn": [
+      "fts5ApiGetAuxdata"
+    ]
+  },
+  {
+    "fp_name": "xGetLastError",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 17,
+    "assigned_fn": [
+      "0",
+      "apndGetLastError",
+      "memdbGetLastError",
+      "winGetLastError",
+      "unixGetLastError"
+    ]
+  },
+  {
+    "fp_name": "xGetSystemCall",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 20,
+    "assigned_fn": [
+      "0",
+      "apndGetSystemCall",
+      "rbuVfsCurrentTime",
+      "winGetSystemCall",
+      "unixGetSystemCall"
+    ]
+  },
+  {
+    "fp_name": "xInit",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 5,
+    "assigned_fn": [
+      "memsys3Init",
+      "memsys5Init",
+      "memtraceInit",
+      "pcache1Init",
+      "pcachetraceInit",
+      "sqlite3MemInit",
+      "winMemInit"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "struct_name": "SessionInput",
+    "fp_index": 6,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xInst",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 9,
+    "assigned_fn": [
+      "fts5ApiInst"
+    ]
+  },
+  {
+    "fp_name": "xInstCount",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 8,
+    "assigned_fn": [
+      "fts5ApiInstCount"
+    ]
+  },
+  {
+    "fp_name": "xInstToken",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 21,
+    "assigned_fn": [
+      "fts5ApiInstToken"
+    ]
+  },
+  {
+    "fp_name": "xIntegrity",
+    "struct_name": "sqlite3_module",
+    "fp_index": 24,
+    "assigned_fn": [
+      "0",
+      "fts3IntegrityMethod",
+      "fts5IntegrityMethod",
+      "rtreeIntegrity"
+    ]
+  },
+  {
+    "fp_name": "xInverse",
+    "struct_name": "FuncDef",
+    "fp_index": 7,
+    "assigned_fn": [
+      "0",
+      "decimalSumInverse",
+      "percentInverse"
+    ]
+  },
+  {
+    "fp_name": "xLanguageid",
+    "struct_name": "sqlite3_tokenizer_module",
+    "fp_index": 6,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xLock",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 7,
+    "assigned_fn": [
+      "0",
+      "apndLock",
+      "kvvfsLock",
+      "memdbLock",
+      "rbuVfsLock",
+      "recoverVfsLock",
+      "vfstraceLock",
+      "winLock",
+      "winNolockLock"
+    ]
+  },
+  {
+    "fp_name": "xLog",
+    "struct_name": "Sqlite3Config",
+    "fp_index": 32,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xMalloc",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 0,
+    "assigned_fn": [
+      "memsys3Malloc",
+      "memsys5Malloc",
+      "memtraceMalloc",
+      "sqlite3MemMalloc",
+      "winMemMalloc"
+    ]
+  },
+  {
+    "fp_name": "xMerge",
+    "struct_name": "PrefixSetupCtx",
+    "fp_index": 0,
+    "assigned_fn": [
+      "fts5MergePrefixLists",
+      "fts5MergeRowidLists"
+    ]
+  },
+  {
+    "fp_name": "xMutexAlloc",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 2,
+    "assigned_fn": [
+      "checkMutexAlloc",
+      "debugMutexAlloc",
+      "noopMutexAlloc",
+      "pthreadMutexAlloc",
+      "winMutexAlloc"
+    ]
+  },
+  {
+    "fp_name": "xMutexEnd",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 1,
+    "assigned_fn": [
+      "checkMutexEnd",
+      "debugMutexEnd",
+      "noopMutexEnd",
+      "pthreadMutexEnd",
+      "winMutexEnd"
+    ]
+  },
+  {
+    "fp_name": "xMutexEnter",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 4,
+    "assigned_fn": [
+      "checkMutexEnter",
+      "debugMutexEnter",
+      "noopMutexEnter",
+      "pthreadMutexEnter",
+      "winMutexEnter"
+    ]
+  },
+  {
+    "fp_name": "xMutexFree",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 3,
+    "assigned_fn": [
+      "checkMutexFree",
+      "debugMutexFree",
+      "noopMutexFree",
+      "pthreadMutexFree",
+      "winMutexFree"
+    ]
+  },
+  {
+    "fp_name": "xMutexHeld",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 7,
+    "assigned_fn": [
+      "0",
+      "debugMutexHeld"
+    ]
+  },
+  {
+    "fp_name": "xMutexInit",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 0,
+    "assigned_fn": [
+      "checkMutexInit",
+      "debugMutexInit",
+      "noopMutexInit",
+      "pthreadMutexInit",
+      "winMutexInit"
+    ]
+  },
+  {
+    "fp_name": "xMutexLeave",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 6,
+    "assigned_fn": [
+      "checkMutexLeave",
+      "debugMutexLeave",
+      "noopMutexLeave",
+      "pthreadMutexLeave",
+      "winMutexLeave"
+    ]
+  },
+  {
+    "fp_name": "xMutexNotheld",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 8,
+    "assigned_fn": [
+      "0",
+      "debugMutexNotheld"
+    ]
+  },
+  {
+    "fp_name": "xMutexTry",
+    "struct_name": "sqlite3_mutex_methods",
+    "fp_index": 5,
+    "assigned_fn": [
+      "checkMutexTry",
+      "debugMutexTry",
+      "noopMutexTry",
+      "pthreadMutexTry",
+      "winMutexTry"
+    ]
+  },
+  {
+    "fp_name": "xNew",
+    "struct_name": "SessionHook",
+    "fp_index": 2,
+    "assigned_fn": [
+      "sessionDiffNew",
+      "sessionPreupdateNew",
+      "sessionStat1New"
+    ]
+  },
+  {
+    "fp_name": "xNext",
+    "struct_name": "sqlite3_module",
+    "fp_index": 9,
+    "assigned_fn": [
+      "0",
+      "bytecodevtabNext",
+      "completionNext",
+      "dbdataNext",
+      "dbpageNext",
+      "expertNext",
+      "fsdirNext",
+      "fts3NextMethod",
+      "fts3auxNextMethod",
+      "fts3tokNextMethod",
+      "fts5ExprNodeNext_AND",
+      "fts5ExprNodeNext_NOT",
+      "fts5ExprNodeNext_OR",
+      "fts5ExprNodeNext_STRING",
+      "fts5ExprNodeNext_TERM",
+      "fts5NextMethod",
+      "fts5SegIterNext",
+      "fts5SegIterNext_None",
+      "fts5SegIterNext_Reverse",
+      "fts5VocabNextMethod",
+      "fts5structNextMethod",
+      "icuNext",
+      "jsonEachNext",
+      "porterNext",
+      "pragmaVtabNext",
+      "rtreeNext",
+      "seriesNext",
+      "simpleNext",
+      "statNext",
+      "stmtNext",
+      "unicodeNext",
+      "zipfileNext"
+    ]
+  },
+  {
+    "fp_name": "xNextChar",
+    "struct_name": "ReCompiled",
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xNextSystemCall",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 21,
+    "assigned_fn": [
+      "0",
+      "apndNextSystemCall",
+      "rbuVfsGetLastError",
+      "winNextSystemCall",
+      "unixNextSystemCall"
+    ]
+  },
+  {
+    "fp_name": "xOld",
+    "struct_name": "SessionHook",
+    "fp_index": 1,
+    "assigned_fn": [
+      "sessionDiffOld",
+      "sessionPreupdateOld",
+      "sessionStat1Old"
+    ]
+  },
+  {
+    "fp_name": "xOpen",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 6,
+    "assigned_fn": [
+      "apndOpen",
+      "bytecodevtabOpen",
+      "completionOpen",
+      "dbdataOpen",
+      "dbpageOpen",
+      "expertOpen",
+      "fsdirOpen",
+      "fts3OpenMethod",
+      "fts3auxOpenMethod",
+      "fts3tokOpenMethod",
+      "fts5OpenMethod",
+      "fts5VocabOpenMethod",
+      "fts5structOpenMethod",
+      "icuOpen",
+      "jsonEachOpen",
+      "kvvfsOpen",
+      "memdbOpen",
+      "porterOpen",
+      "pragmaVtabOpen",
+      "rbuVfsOpen",
+      "rtreeOpen",
+      "seriesOpen",
+      "simpleOpen",
+      "statOpen",
+      "stmtOpen",
+      "unicodeOpen",
+      "vfstraceOpen",
+      "winOpen",
+      "zipfileOpen",
+      "unixOpen"
+    ]
+  },
+  {
+    "fp_name": "xOut",
+    "struct_name": "vfstrace_info",
+    "fp_index": 1,
+    "assigned_fn": [
+      "vfstraceOut"
+    ]
+  },
+  {
+    "fp_name": "xPagecount",
+    "struct_name": "sqlite3_pcache_methods2",
+    "fp_index": 6,
+    "assigned_fn": [
+      "pcache1Pagecount",
+      "pcachetracePagecount"
+    ]
+  },
+  {
+    "fp_name": "xParseCell",
+    "struct_name": "MemPage",
+    "fp_index": 24,
+    "assigned_fn": [
+      "btreeParseCellPtr",
+      "btreeParseCellPtrIndex",
+      "btreeParseCellPtrNoPayload"
+    ]
+  },
+  {
+    "fp_name": "xPhraseCount",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 6,
+    "assigned_fn": [
+      "fts5ApiPhraseCount"
+    ]
+  },
+  {
+    "fp_name": "xPhraseFirst",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 16,
+    "assigned_fn": [
+      "fts5ApiPhraseFirst"
+    ]
+  },
+  {
+    "fp_name": "xPhraseFirstColumn",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 18,
+    "assigned_fn": [
+      "fts5ApiPhraseFirstColumn"
+    ]
+  },
+  {
+    "fp_name": "xPhraseNext",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 17,
+    "assigned_fn": [
+      "fts5ApiPhraseNext"
+    ]
+  },
+  {
+    "fp_name": "xPhraseNextColumn",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 19,
+    "assigned_fn": [
+      "fts5ApiPhraseNextColumn"
+    ]
+  },
+  {
+    "fp_name": "xPhraseSize",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 7,
+    "assigned_fn": [
+      "fts5ApiPhraseSize"
+    ]
+  },
+  {
+    "fp_name": "xPreUpdateCallback",
+    "struct_name": "sqlite3",
+    "fp_index": 58,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xQueryFunc",
+    "struct_name": "RtreeConstraint",
+    "fp_index": 3,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xQueryPhrase",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 13,
+    "assigned_fn": [
+      "fts5ApiQueryPhrase"
+    ]
+  },
+  {
+    "fp_name": "xQueryToken",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 20,
+    "assigned_fn": [
+      "fts5ApiQueryToken"
+    ]
+  },
+  {
+    "fp_name": "xRandomness",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 14,
+    "assigned_fn": [
+      "apndRandomness",
+      "kvvfsRandomness",
+      "memdbRandomness",
+      "vfstraceRandomness",
+      "winRandomness",
+      "unixRandomness"
+    ]
+  },
+  {
+    "fp_name": "xRead",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 2,
+    "assigned_fn": [
+      "apndRead",
+      "kvstorageRead",
+      "kvvfsReadDb",
+      "kvvfsReadJrnl",
+      "memdbRead",
+      "memjrnlRead",
+      "rbuVfsRead",
+      "recoverVfsRead",
+      "vfstraceRead",
+      "winRead"
+    ]
+  },
+  {
+    "fp_name": "xRealloc",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 2,
+    "assigned_fn": [
+      "memsys3Realloc",
+      "memsys5Realloc",
+      "memtraceRealloc",
+      "sqlite3MemRealloc",
+      "winMemRealloc"
+    ]
+  },
+  {
+    "fp_name": "xRekey",
+    "struct_name": "sqlite3_pcache_methods2",
+    "fp_index": 9,
+    "assigned_fn": [
+      "pcache1Rekey",
+      "pcachetraceRekey"
+    ]
+  },
+  {
+    "fp_name": "xRelease",
+    "struct_name": "sqlite3_module",
+    "fp_index": 21,
+    "assigned_fn": [
+      "0",
+      "fts3ReleaseMethod",
+      "fts5ReleaseMethod"
+    ]
+  },
+  {
+    "fp_name": "xRename",
+    "struct_name": "sqlite3_module",
+    "fp_index": 19,
+    "assigned_fn": [
+      "0",
+      "fts3RenameMethod",
+      "fts5RenameMethod",
+      "rtreeRename",
+      "xDefaultRename"
+    ]
+  },
+  {
+    "fp_name": "xRollback",
+    "struct_name": "sqlite3_module",
+    "fp_index": 17,
+    "assigned_fn": [
+      "0",
+      "fts3RollbackMethod",
+      "fts5RollbackMethod",
+      "rtreeEndTransaction",
+      "rtreeRollback",
+      "zipfileRollback"
+    ]
+  },
+  {
+    "fp_name": "xRollbackCallback",
+    "struct_name": "sqlite3",
+    "fp_index": 51,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xRollbackTo",
+    "struct_name": "sqlite3_module",
+    "fp_index": 22,
+    "assigned_fn": [
+      "0",
+      "dbpageRollbackTo",
+      "fts3RollbackToMethod",
+      "fts5RollbackToMethod"
+    ]
+  },
+  {
+    "fp_name": "xRoundup",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 4,
+    "assigned_fn": [
+      "memsys3Roundup",
+      "memsys5Roundup",
+      "memtraceRoundup",
+      "sqlite3MemRoundup",
+      "winMemRoundup"
+    ]
+  },
+  {
+    "fp_name": "xRowCount",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 3,
+    "assigned_fn": [
+      "fts5ApiRowCount"
+    ]
+  },
+  {
+    "fp_name": "xRowid",
+    "struct_name": "sqlite3_module",
+    "fp_index": 12,
+    "assigned_fn": [
+      "0",
+      "bytecodevtabRowid",
+      "completionRowid",
+      "dbdataRowid",
+      "dbpageRowid",
+      "expertRowid",
+      "fsdirRowid",
+      "fts3RowidMethod",
+      "fts3auxRowidMethod",
+      "fts3tokRowidMethod",
+      "fts5ApiRowid",
+      "fts5RowidMethod",
+      "fts5VocabRowidMethod",
+      "fts5structRowidMethod",
+      "jsonEachRowid",
+      "pragmaVtabRowid",
+      "rtreeRowid",
+      "seriesRowid",
+      "statRowid",
+      "stmtRowid"
+    ]
+  },
+  {
+    "fp_name": "xSFunc",
+    "struct_name": "FuncDef",
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "attachFunc",
+      "base64",
+      "base85",
+      "detachFunc",
+      "dummyUDF",
+      "editFunc",
+      "fts3AllocateMSI",
+      "fts3ExprGlobalHitsCb",
+      "fts3ExprLoadDoclistsCb",
+      "fts3ExprLocalHitsCb",
+      "fts3ExprPhraseCountCb",
+      "fts3ExprRestartIfCb",
+      "fts3ExprTermOffsetInit",
+      "fts3ExprTest",
+      "fts3ExprTestRebalance",
+      "fts3MatchinfoLcsCb",
+      "fts3SnippetFindPositions",
+      "fts3TokenizerFunc",
+      "fts5DecodeFunction",
+      "fts5Fts5Func",
+      "fts5InsttokenFunc",
+      "fts5LocaleFunc",
+      "fts5RowidFunction",
+      "fts5SourceIdFunc",
+      "geomCallback",
+      "idxRemFunc",
+      "idxSampleFunc",
+      "intTestFunc",
+      "intckParseCreateIndexFunc",
+      "is_base85",
+      "likeFunc",
+      "lsModeFunc",
+      "rbuFossilDeltaFunc",
+      "rbuIndexCntFunc",
+      "rbuTargetNameFunc",
+      "rbuTmpInsertFunc",
+      "re_bytecode_func",
+      "re_sql_func",
+      "readfileFunc",
+      "rtreecheck",
+      "rtreedepth",
+      "rtreenode",
+      "sha1Func",
+      "sha1QueryFunc",
+      "sha3Func",
+      "sha3QueryFunc",
+      "shellAddSchemaName",
+      "shellDtostr",
+      "shellFkeyCollateClause",
+      "shellModuleSchema",
+      "shellPutsFunc",
+      "shellStrtod",
+      "shellUSleepFunc",
+      "sqlarCompressFunc",
+      "sqlarUncompressFunc",
+      "sqlite3InvalidFunction",
+      "statGet",
+      "statInit",
+      "statPush",
+      "stmtrandFunc",
+      "testFunc",
+      "writefileFunc"
+    ]
+  },
+  {
+    "fp_name": "xSavepoint",
+    "struct_name": "sqlite3_module",
+    "fp_index": 20,
+    "assigned_fn": [
+      "0",
+      "fts3SavepointMethod",
+      "fts5SavepointMethod",
+      "rtreeSavepoint"
+    ]
+  },
+  {
+    "fp_name": "xSectorSize",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 11,
+    "assigned_fn": [
+      "0",
+      "apndSectorSize",
+      "kvvfsSectorSize",
+      "rbuVfsSectorSize",
+      "recoverVfsSectorSize",
+      "vfstraceSectorSize",
+      "winSectorSize"
+    ]
+  },
+  {
+    "fp_name": "xSelectCallback",
+    "struct_name": "Walker",
+    "fp_index": 2,
+    "assigned_fn": [
+      "0",
+      "convertCompoundSelectToSubquery",
+      "exprSelectWalkTableConstant",
+      "fixSelectCb",
+      "gatherSelectWindowsSelectCallback",
+      "renameColumnSelectCb",
+      "renameTableSelectCb",
+      "renameUnmapSelectCb",
+      "resolveSelectStep",
+      "selectCheckOnClausesSelect",
+      "selectExpander",
+      "selectRefEnter",
+      "selectWindowRewriteSelectCb",
+      "sqlite3ReturningSubqueryCorrelated",
+      "sqlite3SelectWalkFail",
+      "sqlite3SelectWalkNoop",
+      "sqlite3WalkerDepthIncrease"
+    ]
+  },
+  {
+    "fp_name": "xSelectCallback2",
+    "struct_name": "Walker",
+    "fp_index": 3,
+    "assigned_fn": [
+      "0",
+      "selectAddSubqueryTypeInfo",
+      "selectRefLeave",
+      "sqlite3SelectPopWith",
+      "sqlite3SelectWalkAssert2",
+      "sqlite3WalkWinDefnDummyCallback",
+      "sqlite3WalkerDepthDecrease"
+    ]
+  },
+  {
+    "fp_name": "xSetAuxdata",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 14,
+    "assigned_fn": [
+      "fts5ApiSetAuxdata"
+    ]
+  },
+  {
+    "fp_name": "xSetOutputs",
+    "struct_name": "Fts5Iter",
+    "fp_index": 5,
+    "assigned_fn": [
+      "fts5IterSetOutputs_Col",
+      "fts5IterSetOutputs_Col100",
+      "fts5IterSetOutputs_Full",
+      "fts5IterSetOutputs_Nocolset",
+      "fts5IterSetOutputs_None",
+      "fts5IterSetOutputs_Noop",
+      "fts5IterSetOutputs_ZeroColset"
+    ]
+  },
+  {
+    "fp_name": "xSetSystemCall",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 19,
+    "assigned_fn": [
+      "0",
+      "apndSetSystemCall",
+      "rbuVfsSleep",
+      "winSetSystemCall",
+      "unixSetSystemCall"
+    ]
+  },
+  {
+    "fp_name": "xShadowName",
+    "struct_name": "sqlite3_module",
+    "fp_index": 23,
+    "assigned_fn": [
+      "0",
+      "fts3ShadowName",
+      "fts5ShadowName",
+      "rtreeShadowName"
+    ]
+  },
+  {
+    "fp_name": "xShmBarrier",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 15,
+    "assigned_fn": [
+      "0",
+      "apndShmBarrier",
+      "rbuVfsShmBarrier",
+      "recoverVfsShmBarrier",
+      "winShmBarrier"
+    ]
+  },
+  {
+    "fp_name": "xShmLock",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 14,
+    "assigned_fn": [
+      "0",
+      "apndShmLock",
+      "rbuVfsShmLock",
+      "recoverVfsShmLock",
+      "winShmLock"
+    ]
+  },
+  {
+    "fp_name": "xShmMap",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 13,
+    "assigned_fn": [
+      "0",
+      "apndShmMap",
+      "rbuVfsShmMap",
+      "recoverVfsShmMap",
+      "winShmMap"
+    ]
+  },
+  {
+    "fp_name": "xShmUnmap",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 16,
+    "assigned_fn": [
+      "0",
+      "apndShmUnmap",
+      "rbuVfsShmUnmap",
+      "recoverVfsShmUnmap",
+      "winShmUnmap"
+    ]
+  },
+  {
+    "fp_name": "xShrink",
+    "struct_name": "sqlite3_pcache_methods2",
+    "fp_index": 12,
+    "assigned_fn": [
+      "pcache1Shrink",
+      "pcachetraceShrink"
+    ]
+  },
+  {
+    "fp_name": "xShutdown",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 6,
+    "assigned_fn": [
+      "memsys3Shutdown",
+      "memsys5Shutdown",
+      "memtraceShutdown",
+      "pcache1Shutdown",
+      "pcachetraceShutdown",
+      "sqlite3MemShutdown",
+      "winMemShutdown"
+    ]
+  },
+  {
+    "fp_name": "xSize",
+    "struct_name": "sqlite3_mem_methods",
+    "fp_index": 3,
+    "assigned_fn": [
+      "memsys3Size",
+      "memsys5Size",
+      "memtraceSize",
+      "sqlite3MemSize",
+      "winMemSize"
+    ]
+  },
+  {
+    "fp_name": "xSleep",
+    "struct_name": "sqlite3_vfs",
+    "fp_index": 15,
+    "assigned_fn": [
+      "0",
+      "apndSleep",
+      "kvvfsSleep",
+      "memdbSleep",
+      "vfstraceSleep",
+      "winSleep",
+      "unixSleep"
+    ]
+  },
+  {
+    "fp_name": "xSql",
+    "struct_name": "sqlite3_recover",
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "recoverSqlCb"
+    ]
+  },
+  {
+    "fp_name": "xStress",
+    "struct_name": "PCache",
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSync",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "apndSync",
+      "dbpageSync",
+      "fts3SyncMethod",
+      "fts5SyncMethod",
+      "kvvfsSyncDb",
+      "kvvfsSyncJrnl",
+      "memdbSync",
+      "memjrnlSync",
+      "rbuVfsSync",
+      "recoverVfsSync",
+      "rtreeEndTransaction",
+      "vfstraceSync",
+      "winSync"
+    ]
+  },
+  {
+    "fp_name": "xTableFilter",
+    "struct_name": "sqlite3_session",
+    "fp_index": 9,
+    "assigned_fn": [
+      "0",
+      "session_filter"
+    ]
+  },
+  {
+    "fp_name": "xTask",
+    "struct_name": "SQLiteThread",
+    "fp_index": 3,
+    "assigned_fn": [
+      "0",
+      "vdbeSorterFlushThread",
+      "vdbeIncrPopulateThread",
+      "vdbePmaReaderBgIncrInit"
+    ]
+  },
+  {
+    "fp_name": "xToken",
+    "struct_name": "PorterContext",
+    "fp_index": 1,
+    "assigned_fn": [
+      "fts5ColumnSizeCb",
+      "fts5ExprPopulatePoslistsCb",
+      "fts5ParseTokenize",
+      "fts5StorageInsertCallback",
+      "fts5StorageIntegrityCallback"
+    ]
+  },
+  {
+    "fp_name": "xTokenize",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 5,
+    "assigned_fn": [
+      "fts5ApiTokenize",
+      "fts5PorterTokenize",
+      "fts5V1toV2Tokenize",
+      "fts5V2toV1Tokenize"
+    ]
+  },
+  {
+    "fp_name": "xTokenize_v2",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 23,
+    "assigned_fn": [
+      "fts5ApiTokenize_v2"
+    ]
+  },
+  {
+    "fp_name": "xTruncate",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 4,
+    "assigned_fn": [
+      "apndTruncate",
+      "kvvfsTruncateDb",
+      "kvvfsTruncateJrnl",
+      "memdbTruncate",
+      "memjrnlTruncate",
+      "pcache1Truncate",
+      "pcachetraceTruncate",
+      "rbuVfsTruncate",
+      "recoverVfsTruncate",
+      "vfstraceTruncate",
+      "winTruncate"
+    ]
+  },
+  {
+    "fp_name": "xUnfetch",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 18,
+    "assigned_fn": [
+      "0",
+      "apndUnfetch",
+      "memdbUnfetch",
+      "recoverVfsUnfetch",
+      "winUnfetch"
+    ]
+  },
+  {
+    "fp_name": "xUnlock",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 8,
+    "assigned_fn": [
+      "0",
+      "apndUnlock",
+      "kvvfsUnlock",
+      "memdbUnlock",
+      "rbuVfsUnlock",
+      "recoverVfsUnlock",
+      "vfstraceUnlock",
+      "winNolockUnlock",
+      "winUnlock"
+    ]
+  },
+  {
+    "fp_name": "xUnlockNotify",
+    "struct_name": "sqlite3",
+    "fp_index": 88,
+    "assigned_fn": [
+      "0",
+      "xNotify"
+    ]
+  },
+  {
+    "fp_name": "xUnpin",
+    "struct_name": "sqlite3_pcache_methods2",
+    "fp_index": 8,
+    "assigned_fn": [
+      "pcache1Unpin",
+      "pcachetraceUnpin"
+    ]
+  },
+  {
+    "fp_name": "xUpdate",
+    "struct_name": "sqlite3_module",
+    "fp_index": 13,
+    "assigned_fn": [
+      "0",
+      "dbpageUpdate",
+      "expertUpdate",
+      "fts3UpdateMethod",
+      "fts5UpdateMethod",
+      "geopolyUpdate",
+      "rtreeUpdate",
+      "zipfileUpdate"
+    ]
+  },
+  {
+    "fp_name": "xUpdateCallback",
+    "struct_name": "sqlite3",
+    "fp_index": 53,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xUserData",
+    "struct_name": "Fts5ExtensionApi",
+    "fp_index": 1,
+    "assigned_fn": [
+      "fts5ApiUserData"
+    ]
+  },
+  {
+    "fp_name": "xV2",
+    "struct_name": "sqlite3",
+    "fp_index": 46,
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback"
+    ]
+  },
+  {
+    "fp_name": "xValue",
+    "struct_name": "FuncDef",
+    "fp_index": 6,
+    "assigned_fn": [
+      "0",
+      "decimalSumValue",
+      "percentValue",
+      "sqlite3changeset_new",
+      "sqlite3changeset_old"
+    ]
+  },
+  {
+    "fp_name": "xWrite",
+    "struct_name": "sqlite3_io_methods",
+    "fp_index": 3,
+    "assigned_fn": [
+      "apndWrite",
+      "kvstorageWrite",
+      "kvvfsWriteDb",
+      "kvvfsWriteJrnl",
+      "memdbWrite",
+      "memjrnlWrite",
+      "rbuVfsWrite",
+      "recoverVfsWrite",
+      "vfstraceWrite",
+      "winWrite"
+    ]
+  },
+  {
+    "fp_name": "xsnprintf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 93,
+    "assigned_fn": [
+      "sqlite3_set_authorizer"
+    ]
+  },
+  {
+    "fp_name": "xthreadsafe",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 144,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xvsnprintf",
+    "struct_name": "sqlite3_api_routines",
+    "fp_index": 190,
+    "assigned_fn": [
+      "0"
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+../ext/fts5/fts5_index.c
+../ext/session/sqlite3session.c
+../src/vdbemem.c
+../src/vtab.c
+../src/main.c
+../src/prepare.c
+../src/pcache.c
+../ext/fts3/fts3_snippet.c
+../src/shell.c.in
+../src/vdbeapi.c

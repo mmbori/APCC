@@ -1,0 +1,447 @@
+[
+  {
+    "fp_name": "trace",
+    "assigned_fn": [
+      "hook"
+    ]
+  },
+  {
+    "fp_name": "xAccess",
+    "assigned_fn": [
+      "multiplexAccess"
+    ]
+  },
+  {
+    "fp_name": "xAppend",
+    "assigned_fn": [
+      "fts5AppendPoslist",
+      "fts5AppendRowid"
+    ]
+  },
+  {
+    "fp_name": "xBenignBegin",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBenignEnd",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBusy",
+    "assigned_fn": [
+      "0",
+      "btreeInvokeBusyHandler",
+      "sqliteDefaultBusyCallback",
+      "xBusy2"
+    ]
+  },
+  {
+    "fp_name": "xBusyHandler",
+    "assigned_fn": [
+      "0",
+      "btreeInvokeBusyHandler",
+      "sqliteDefaultBusyCallback",
+      "xBusy2"
+    ]
+  },
+  {
+    "fp_name": "xCallback",
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback",
+      "sqlite3WalDefaultHook"
+    ]
+  },
+  {
+    "fp_name": "xCheckReservedLock",
+    "assigned_fn": [
+      "multiplexCheckReservedLock",
+      "quotaCheckReservedLock"
+    ]
+  },
+  {
+    "fp_name": "xClose",
+    "assigned_fn": [
+      "memjrnlClose",
+      "multiplexClose",
+      "quotaClose"
+    ]
+  },
+  {
+    "fp_name": "xCount",
+    "assigned_fn": [
+      "sessionDiffCount",
+      "sessionPreupdateCount",
+      "sessionStat1Count"
+    ]
+  },
+  {
+    "fp_name": "xCreate",
+    "assigned_fn": [
+      "f5tOrigintextCreate",
+      "f5tTokenizerCreate",
+      "fts5VtoVCreate"
+    ]
+  },
+  {
+    "fp_name": "xCreateTokenizer",
+    "assigned_fn": [
+      "fts5CreateTokenizer"
+    ]
+  },
+  {
+    "fp_name": "xCreateTokenizer_v2",
+    "assigned_fn": [
+      "fts5CreateTokenizer_v2"
+    ]
+  },
+  {
+    "fp_name": "xCurrentTime",
+    "assigned_fn": [
+      "multiplexCurrentTime"
+    ]
+  },
+  {
+    "fp_name": "xCurrentTimeInt64",
+    "assigned_fn": [
+      "multiplexCurrentTimeInt64"
+    ]
+  },
+  {
+    "fp_name": "xDelete",
+    "assigned_fn": [
+      "f5tOrigintextDelete",
+      "f5tTokenizerDelete",
+      "fts5VtoVDelete",
+      "multiplexDelete",
+      "quotaDelete"
+    ]
+  },
+  {
+    "fp_name": "xDepth",
+    "assigned_fn": [
+      "sessionDiffDepth",
+      "sessionPreupdateDepth",
+      "sessionStat1Depth"
+    ]
+  },
+  {
+    "fp_name": "xDeviceCharacteristics",
+    "assigned_fn": [
+      "multiplexDeviceCharacteristics",
+      "quotaDeviceCharacteristics"
+    ]
+  },
+  {
+    "fp_name": "xDlClose",
+    "assigned_fn": [
+      "multiplexDlClose"
+    ]
+  },
+  {
+    "fp_name": "xDlError",
+    "assigned_fn": [
+      "multiplexDlError"
+    ]
+  },
+  {
+    "fp_name": "xDlOpen",
+    "assigned_fn": [
+      "multiplexDlOpen"
+    ]
+  },
+  {
+    "fp_name": "xDlSym",
+    "assigned_fn": [
+      "multiplexDlSym"
+    ]
+  },
+  {
+    "fp_name": "xExprCallback",
+    "assigned_fn": [
+      "aggregateIdxEprRefToColCallback",
+      "analyzeAggregate",
+      "checkConstraintExprNode",
+      "codeCursorHintCheckExpr",
+      "codeCursorHintFixExpr",
+      "codeCursorHintIsOrFunction",
+      "disallowAggregatesInOrderByCb",
+      "exprColumnFlagUnion",
+      "exprIdxCover",
+      "exprNodeCanReturnSubtype",
+      "exprNodeIsConstant",
+      "exprNodeIsConstantOrGroupBy",
+      "exprNodeIsDeterministic",
+      "exprRefToSrcList",
+      "fixExprCb",
+      "gatherSelectWindowsCallback",
+      "havingToWhereExprCb",
+      "impliesNotNullRow",
+      "incrAggDepth",
+      "markImmutableExprStep",
+      "propagateConstantExprRewrite",
+      "recomputeColumnsUsedExpr",
+      "renameColumnExprCb",
+      "renameQuotefixExprCb",
+      "renameTableExprCb",
+      "renameUnmapExprCb",
+      "renumberCursorsCb",
+      "resolveExprStep",
+      "resolveRemoveWindowsCb",
+      "selectCheckOnClausesExpr",
+      "selectWindowRewriteExprCb",
+      "sqlite3CursorRangeHintExprCheck",
+      "sqlite3ExprWalkNoop",
+      "sqlite3ReturningSubqueryVarSelect",
+      "sqlite3WindowExtraAggFuncDepth",
+      "whereIsCoveringIndexWalkCallback"
+    ]
+  },
+  {
+    "fp_name": "xFileControl",
+    "assigned_fn": [
+      "multiplexFileControl",
+      "quotaFileControl"
+    ]
+  },
+  {
+    "fp_name": "xFileSize",
+    "assigned_fn": [
+      "memjrnlFileSize",
+      "multiplexFileSize",
+      "quotaFileSize"
+    ]
+  },
+  {
+    "fp_name": "xFindTokenizer",
+    "assigned_fn": [
+      "fts5FindTokenizer"
+    ]
+  },
+  {
+    "fp_name": "xFindTokenizer_v2",
+    "assigned_fn": [
+      "fts5FindTokenizer_v2"
+    ]
+  },
+  {
+    "fp_name": "xFullPathname",
+    "assigned_fn": [
+      "multiplexFullPathname"
+    ]
+  },
+  {
+    "fp_name": "xGetLastError",
+    "assigned_fn": [
+      "multiplexGetLastError"
+    ]
+  },
+  {
+    "fp_name": "xInput",
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "xLock",
+    "assigned_fn": [
+      "multiplexLock",
+      "quotaLock"
+    ]
+  },
+  {
+    "fp_name": "xMalloc",
+    "assigned_fn": [
+      "faultsimMalloc"
+    ]
+  },
+  {
+    "fp_name": "xMerge",
+    "assigned_fn": [
+      "fts5MergePrefixLists",
+      "fts5MergeRowidLists"
+    ]
+  },
+  {
+    "fp_name": "xNew",
+    "assigned_fn": [
+      "sessionDiffNew",
+      "sessionPreupdateNew",
+      "sessionStat1New"
+    ]
+  },
+  {
+    "fp_name": "xOld",
+    "assigned_fn": [
+      "sessionDiffOld",
+      "sessionPreupdateOld",
+      "sessionStat1Old"
+    ]
+  },
+  {
+    "fp_name": "xOp",
+    "assigned_fn": [
+      "do_compile",
+      "do_finalize",
+      "do_step"
+    ]
+  },
+  {
+    "fp_name": "xOpen",
+    "assigned_fn": [
+      "multiplexOpen",
+      "quotaOpen"
+    ]
+  },
+  {
+    "fp_name": "xRandomness",
+    "assigned_fn": [
+      "multiplexRandomness"
+    ]
+  },
+  {
+    "fp_name": "xRead",
+    "assigned_fn": [
+      "memjrnlRead",
+      "multiplexRead",
+      "quotaRead"
+    ]
+  },
+  {
+    "fp_name": "xRealloc",
+    "assigned_fn": [
+      "faultsimRealloc"
+    ]
+  },
+  {
+    "fp_name": "xSectorSize",
+    "assigned_fn": [
+      "multiplexSectorSize",
+      "quotaSectorSize"
+    ]
+  },
+  {
+    "fp_name": "xSelectCallback",
+    "assigned_fn": [
+      "convertCompoundSelectToSubquery",
+      "exprSelectWalkTableConstant",
+      "fixSelectCb",
+      "gatherSelectWindowsSelectCallback",
+      "renameColumnSelectCb",
+      "renameTableSelectCb",
+      "renameUnmapSelectCb",
+      "resolveSelectStep",
+      "selectCheckOnClausesSelect",
+      "selectExpander",
+      "selectRefEnter",
+      "selectWindowRewriteSelectCb",
+      "sqlite3ReturningSubqueryCorrelated",
+      "sqlite3SelectWalkFail",
+      "sqlite3SelectWalkNoop",
+      "sqlite3WalkerDepthIncrease"
+    ]
+  },
+  {
+    "fp_name": "xSelectCallback2",
+    "assigned_fn": [
+      "selectAddSubqueryTypeInfo",
+      "selectRefLeave",
+      "sqlite3SelectPopWith",
+      "sqlite3SelectWalkAssert2",
+      "sqlite3WalkWinDefnDummyCallback",
+      "sqlite3WalkerDepthDecrease"
+    ]
+  },
+  {
+    "fp_name": "xShmBarrier",
+    "assigned_fn": [
+      "multiplexShmBarrier",
+      "quotaShmBarrier"
+    ]
+  },
+  {
+    "fp_name": "xShmLock",
+    "assigned_fn": [
+      "multiplexShmLock",
+      "quotaShmLock"
+    ]
+  },
+  {
+    "fp_name": "xShmMap",
+    "assigned_fn": [
+      "multiplexShmMap",
+      "quotaShmMap"
+    ]
+  },
+  {
+    "fp_name": "xShmUnmap",
+    "assigned_fn": [
+      "multiplexShmUnmap",
+      "quotaShmUnmap"
+    ]
+  },
+  {
+    "fp_name": "xSleep",
+    "assigned_fn": [
+      "multiplexSleep"
+    ]
+  },
+  {
+    "fp_name": "xSync",
+    "assigned_fn": [
+      "memjrnlSync",
+      "multiplexSync",
+      "quotaSync"
+    ]
+  },
+  {
+    "fp_name": "xToken",
+    "assigned_fn": [
+      "fts5ColumnSizeCb",
+      "fts5ExprPopulatePoslistsCb",
+      "fts5ParseTokenize",
+      "fts5StorageInsertCallback",
+      "fts5StorageIntegrityCallback"
+    ]
+  },
+  {
+    "fp_name": "xTokenize",
+    "assigned_fn": [
+      "f5tOrigintextTokenize",
+      "f5tTokenizerTokenize",
+      "f5tTokenizerTokenize_v2",
+      "fts5V1toV2Tokenize",
+      "fts5V2toV1Tokenize"
+    ]
+  },
+  {
+    "fp_name": "xTruncate",
+    "assigned_fn": [
+      "memjrnlTruncate",
+      "multiplexTruncate",
+      "quotaTruncate"
+    ]
+  },
+  {
+    "fp_name": "xUnlock",
+    "assigned_fn": [
+      "multiplexUnlock",
+      "quotaUnlock"
+    ]
+  },
+  {
+    "fp_name": "xV2",
+    "assigned_fn": [
+      "0",
+      "sql_trace_callback"
+    ]
+  },
+  {
+    "fp_name": "xWrite",
+    "assigned_fn": [
+      "memjrnlWrite",
+      "multiplexWrite",
+      "quotaWrite"
+    ]
+  }
+]

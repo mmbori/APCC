@@ -1,0 +1,884 @@
+[
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 2,
+    "fn_name": "closureAvlDestroy",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "createCollation",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "createCollation",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 11,
+    "fn_name": "createFunctionApi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "createModule",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xJump",
+    "fp_sequence": 4,
+    "fn_name": "exprCodeBetween",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "f5tTokenizerReallyTokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "f5tTokenizerTokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 8,
+    "fn_name": "f5tTokenizerTokenize_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "fiddle_export_db",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 3,
+    "fn_name": "fts3ExprIterate2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCmp",
+    "fp_sequence": 4,
+    "fn_name": "fts3SegReaderSort",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "fts5AsciiTokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xChunk",
+    "fp_sequence": 4,
+    "fn_name": "fts5ChunkIterate",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 4,
+    "fn_name": "fts5MatchinfoIter",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xVisit",
+    "fp_sequence": 6,
+    "fn_name": "fts5VisitEntries",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 2,
+    "fn_name": "invokeValueDestructor",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 5,
+    "fn_name": "setResultStrOrError",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBenignBegin",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3BenignMallocHooks",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBenignEnd",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3BenignMallocHooks",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3CreateFunc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "x",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts3ExprIterate",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3Fts3InitTok",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "mallocProc",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3Fts5ParserAlloc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "freeProc",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3Fts5ParserFree",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xToken",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3Fts5Tokenize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCreate",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3Fts5TokenizerPattern",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBacktrace",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3MemdebugBacktraceCallback",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xIter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3PcacheIterateDirty",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStress",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3PcacheOpen",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTask",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3ThreadCreate",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3VdbeMemSetPointer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3VtabCreateModule",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3WalCheckpoint",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xUndo",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3WalUndo",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_auto_extension",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_autovacuum_pages",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_busy_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xEntryPoint",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInit",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_cancel_auto_extension",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_carray_bind",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_carray_bind",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCollNeeded",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCollNeeded16",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_collation_needed16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_commit_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCompare",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_collation_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSFunc",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_function_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_create_module_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xStep",
+    "fp_sequence": 6,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFinal",
+    "fp_sequence": 7,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xValue",
+    "fp_sequence": 8,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInverse",
+    "fp_sequence": 9,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 10,
+    "fn_name": "sqlite3_create_window_function",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "callback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_exec",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFree",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_intarray_bind",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3_memory_alarm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xPreUpdate",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_preupdate_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xProfile",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_profile",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xProgress",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_progress_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_quota_set",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestroy",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_quota_set",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xSql",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_recover_init_sql",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_blob64",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_pointer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16be",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text16le",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDel",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_result_text64",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_rollback_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xGeom",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_geometry_callback",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xQueryFunc",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3_rtree_query_callback",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xAuth",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_set_authorizer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDelete",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_auxdata",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xDestructor",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3_set_clientdata",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_trace",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTrace",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3_trace_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xNotify",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_unlock_notify",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_update_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCallback",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3_wal_hook",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_add_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changegroup_output_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v2_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConflict",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_apply_v3_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInputA",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInputB",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 5,
+    "fn_name": "sqlite3changeset_concat_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 1,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3changeset_invert_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3changeset_start_v2_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xBusy",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3demo_superlock",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xRename",
+    "fp_sequence": 3,
+    "fn_name": "sqlite3rbu_rename_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xInput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 4,
+    "fn_name": "sqlite3rebaser_rebase_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_changeset_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xOutput",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_patchset_strm",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xFilter",
+    "fp_sequence": 2,
+    "fn_name": "sqlite3session_table_filter",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xCond",
+    "fp_sequence": 4,
+    "fn_name": "stem",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pxFunc",
+    "fp_sequence": 4,
+    "fn_name": "tclFindFunction",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xTask",
+    "fp_sequence": 2,
+    "fn_name": "vdbeSorterCreateThread",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "xConstruct",
+    "fp_sequence": 4,
+    "fn_name": "vtabCallConstructor",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pxFunc",
+    "fp_sequence": 4,
+    "fn_name": "vtablogFindMethod",
+    "assigned_fn": []
+  }
+]

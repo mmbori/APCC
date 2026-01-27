@@ -1,0 +1,351 @@
+{
+  "xDel": [
+    "0",
+    "SQLITE_DYNAMIC",
+    "SQLITE_STATIC",
+    "SQLITE_TRANSIENT",
+    "icuCollationDel",
+    "rtreeMatchArgFree",
+    "sqlite3RCStrUnref",
+    "sqlite3SchemaClear",
+    "sqlite3VdbeValueListFree",
+    "sqlite3_free",
+    "statAccumDestructor",
+    "xDestroyOut",
+    "zipfileFree"
+  ],
+  "xCall": [
+    "sqlite3BtreePayloadChecked",
+    "sqlite3BtreePutData"
+  ],
+  "xCompare": [
+    "binCollFunc",
+    "decimalCollFunc",
+    "dummyCompare",
+    "icuCollationColl",
+    "nocaseCollatingFunc",
+    "rtrimCollFunc",
+    "uintCollFunc"
+  ],
+  "xSFunc": [
+    "0",
+    "base64",
+    "base85",
+    "dummyUDF",
+    "editFunc",
+    "fts3AllocateMSI",
+    "fts3ExprGlobalHitsCb",
+    "fts3ExprLoadDoclistsCb",
+    "fts3ExprLocalHitsCb",
+    "fts3ExprPhraseCountCb",
+    "fts3ExprRestartIfCb",
+    "fts3ExprTermOffsetInit",
+    "fts3ExprTest",
+    "fts3ExprTestRebalance",
+    "fts3MatchinfoLcsCb",
+    "fts3SnippetFindPositions",
+    "fts3TokenizerFunc",
+    "fts5DecodeFunction",
+    "fts5Fts5Func",
+    "fts5InsttokenFunc",
+    "fts5LocaleFunc",
+    "fts5RowidFunction",
+    "fts5SourceIdFunc",
+    "geomCallback",
+    "idxRemFunc",
+    "idxSampleFunc",
+    "intTestFunc",
+    "intckParseCreateIndexFunc",
+    "is_base85",
+    "likeFunc",
+    "lsModeFunc",
+    "rbuFossilDeltaFunc",
+    "rbuIndexCntFunc",
+    "rbuTargetNameFunc",
+    "rbuTmpInsertFunc",
+    "re_bytecode_func",
+    "re_sql_func",
+    "readfileFunc",
+    "rtreecheck",
+    "rtreedepth",
+    "rtreenode",
+    "sha1Func",
+    "sha1QueryFunc",
+    "sha3Func",
+    "sha3QueryFunc",
+    "shellAddSchemaName",
+    "shellDtostr",
+    "shellFkeyCollateClause",
+    "shellModuleSchema",
+    "shellPutsFunc",
+    "shellStrtod",
+    "shellUSleepFunc",
+    "sqlarCompressFunc",
+    "sqlarUncompressFunc",
+    "sqlite3InvalidFunction",
+    "stmtrandFunc",
+    "testFunc",
+    "writefileFunc"
+  ],
+  "xStep": [
+    "0",
+    "decimalSumStep",
+    "dummyUDF",
+    "percentStep",
+    "sha3AggStep",
+    "zipfileStep"
+  ],
+  "xFinal": [
+    "0",
+    "decimalSumFinalize",
+    "dummyUDFvalue",
+    "percentFinal",
+    "sha3AggFinal",
+    "zipfileFinal"
+  ],
+  "xValue": [
+    "0",
+    "decimalSumValue",
+    "percentValue",
+    "sqlite3changeset_new",
+    "sqlite3changeset_old"
+  ],
+  "xInverse": [
+    "0",
+    "decimalSumInverse",
+    "percentInverse"
+  ],
+  "xDestroy": [
+    "0",
+    "fts5ModuleDestroy",
+    "hashDestroy",
+    "icuCollationDel",
+    "rtreeFreeCallback",
+    "sqlite3_free"
+  ],
+  "xJump": [
+    "0",
+    "sqlite3ExprIfFalse",
+    "sqlite3ExprIfTrue"
+  ],
+  "x": [
+    "fts3AllocateMSI",
+    "fts3ExprGlobalHitsCb",
+    "fts3ExprLoadDoclistsCb",
+    "fts3ExprLocalHitsCb",
+    "fts3ExprPhraseCountCb",
+    "fts3ExprRestartIfCb",
+    "fts3ExprTermOffsetInit",
+    "fts3MatchinfoLcsCb",
+    "fts3SnippetFindPositions"
+  ],
+  "xCmp": [
+    "fts3SegReaderCmp"
+  ],
+  "xToken": [
+    "fts5ColumnSizeCb",
+    "fts5ExprPopulatePoslistsCb",
+    "fts5ParseTokenize",
+    "fts5StorageInsertCallback",
+    "fts5StorageIntegrityCallback"
+  ],
+  "xChunk": [
+    "fts5MergeChunkCallback",
+    "fts5PoslistCallback",
+    "fts5PoslistFilterCallback",
+    "fts5PoslistOffsetsCallback"
+  ],
+  "xVisit": [
+    "prefixIterSetupCb",
+    "prefixIterSetupTokendataCb"
+  ],
+  "xSql": [
+    "0",
+    "recoverSqlCb"
+  ],
+  "xConflict": [],
+  "xOutput": [
+    "0"
+  ],
+  "xFilter": [
+    "0",
+    "session_filter"
+  ],
+  "xFilterIter": [
+    "0",
+    "session_filter"
+  ],
+  "xInput": [
+    "0"
+  ],
+  "xBenignBegin": [],
+  "xBenignEnd": [],
+  "xFree": [
+    "0",
+    "sqlite3RCStrUnref",
+    "sqlite3SchemaClear"
+  ],
+  "freeProc": [
+    "fts5ParseFree",
+    "sqlite3_free"
+  ],
+  "xCreate": [],
+  "xReinit": [
+    "pageReinit"
+  ],
+  "xBusyHandler": [
+    "btreeInvokeBusyHandler"
+  ],
+  "xCleanup": [
+    "agginfoFree",
+    "sqlite3DbFree",
+    "sqlite3DeleteReturning",
+    "sqlite3DeleteTableGeneric",
+    "sqlite3ExprDeleteGeneric",
+    "sqlite3ExprListDeleteGeneric",
+    "sqlite3SelectDeleteGeneric",
+    "sqlite3WithDeleteGeneric",
+    "whereIndexedExprCleanup"
+  ],
+  "xIter": [
+    "assertTruncateConstraintCb",
+    "pager_set_pagehash"
+  ],
+  "xDestructor": [
+    "0",
+    "rtreeMatchArgFree",
+    "sqlite3VdbeValueListFree"
+  ],
+  "xBusy": [
+    "0",
+    "btreeInvokeBusyHandler",
+    "sqliteDefaultBusyCallback",
+    "xBusy2"
+  ],
+  "xUndo": [
+    "pagerUndoCallback"
+  ],
+  "xEntryPoint": [
+    "apndvfsRegister"
+  ],
+  "xInit": [
+    "apndvfsRegister"
+  ],
+  "xCollNeeded": [
+    "useDummyCS"
+  ],
+  "xFunc": [
+    "0",
+    "base64",
+    "base85",
+    "dummyUDF",
+    "editFunc",
+    "fts3AllocateMSI",
+    "fts3ExprGlobalHitsCb",
+    "fts3ExprLoadDoclistsCb",
+    "fts3ExprLocalHitsCb",
+    "fts3ExprPhraseCountCb",
+    "fts3ExprRestartIfCb",
+    "fts3ExprTermOffsetInit",
+    "fts3ExprTest",
+    "fts3ExprTestRebalance",
+    "fts3MatchinfoLcsCb",
+    "fts3SnippetFindPositions",
+    "fts3TokenizerFunc",
+    "fts5DecodeFunction",
+    "fts5Fts5Func",
+    "fts5InsttokenFunc",
+    "fts5LocaleFunc",
+    "fts5RowidFunction",
+    "fts5SourceIdFunc",
+    "geomCallback",
+    "idxRemFunc",
+    "idxSampleFunc",
+    "intTestFunc",
+    "intckParseCreateIndexFunc",
+    "is_base85",
+    "lsModeFunc",
+    "rbuFossilDeltaFunc",
+    "rbuIndexCntFunc",
+    "rbuTargetNameFunc",
+    "rbuTmpInsertFunc",
+    "re_bytecode_func",
+    "re_sql_func",
+    "readfileFunc",
+    "rtreecheck",
+    "rtreedepth",
+    "rtreenode",
+    "sha1Func",
+    "sha1QueryFunc",
+    "sha3Func",
+    "sha3QueryFunc",
+    "shellAddSchemaName",
+    "shellDtostr",
+    "shellFkeyCollateClause",
+    "shellModuleSchema",
+    "shellPutsFunc",
+    "shellStrtod",
+    "shellUSleepFunc",
+    "sqlarCompressFunc",
+    "sqlarUncompressFunc",
+    "sqlite3InvalidFunction",
+    "stmtrandFunc",
+    "testFunc",
+    "writefileFunc"
+  ],
+  "callback": [
+    "0",
+    "analysisLoader",
+    "captureOutputCallback",
+    "countNonzeros",
+    "dump_callback",
+    "sqlite3InitCallback",
+    "sqlite3_get_table_cb"
+  ],
+  "xCallback": [
+    "0",
+    "sql_trace_callback",
+    "sqlite3WalDefaultHook"
+  ],
+  "xPreUpdate": [
+    "0"
+  ],
+  "xProgress": [
+    "progress_handler"
+  ],
+  "xAuth": [
+    "0",
+    "idxAuthCallback",
+    "safeModeAuth",
+    "shellAuth"
+  ],
+  "xDelete": [
+    "icuRegexpDelete",
+    "jsonCacheDeleteGeneric",
+    "re_free",
+    "sqlite3_free"
+  ],
+  "xTrace": [
+    "0",
+    "sql_trace_callback"
+  ],
+  "xRename": [
+    "0"
+  ],
+  "xCond": [
+    "0",
+    "hasVowel",
+    "m_gt_0",
+    "m_gt_1"
+  ],
+  "xForEach": [
+    "0",
+    "tryToCloneData"
+  ],
+  "xOut": [
+    "vfstraceOut"
+  ],
+  "xConstruct": [
+    "xConnect"
+  ]
+}
