@@ -1870,50 +1870,51 @@ sf_seek	(SNDFILE *sndfile, sf_count_t offset, int whence)
 	if (psf->seek)
 	{	int new_mode = (whence & SFM_MASK) ? (whence & SFM_MASK) : psf->file.mode ;
 
-		switch (psf->seek_signature) {
-		case seek_aiff_ima_seek:
-		    retval = aiff_ima_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_alac_seek:
-		    retval = alac_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_dpcm_seek:
-		    retval = dpcm_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_dwvw_seek:
-		    retval = dwvw_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_g72x_seek:
-		    retval = g72x_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_gsm610_seek:
-		    retval = gsm610_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_interleave_seek:
-		    retval = interleave_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_msadpcm_seek:
-		    retval = msadpcm_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_nms_adpcm_seek:
-		    retval = nms_adpcm_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_paf24_seek:
-		    retval = paf24_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_psf_default_seek:
-		    retval = psf_default_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_sds_seek:
-		    retval = sds_seek(psf, new_mode, seek_from_start);
-		    break;
-		case seek_wavlike_ima_seek:
-		    retval = wavlike_ima_seek(psf, new_mode, seek_from_start);
-		    break;
-		default:
-		    invalidFunctionWasCalled();
-		    break;
-		}
+		// switch (psf->seek_signature) {
+		// case seek_aiff_ima_seek:
+		//     retval = aiff_ima_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_alac_seek:
+		//     retval = alac_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_dpcm_seek:
+		//     retval = dpcm_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_dwvw_seek:
+		//     retval = dwvw_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_g72x_seek:
+		//     retval = g72x_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_gsm610_seek:
+		//     retval = gsm610_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_interleave_seek:
+		//     retval = interleave_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_msadpcm_seek:
+		//     retval = msadpcm_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_nms_adpcm_seek:
+		//     retval = nms_adpcm_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_paf24_seek:
+		//     retval = paf24_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_psf_default_seek:
+		//     retval = psf_default_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_sds_seek:
+		//     retval = sds_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// case seek_wavlike_ima_seek:
+		//     retval = wavlike_ima_seek(psf, new_mode, seek_from_start);
+		//     break;
+		// default:
+		//     invalidFunctionWasCalled();
+		//     break;
+		// }
+		retval = psf->seek (psf, new_mode, seek_from_start) ;
 
 		switch (new_mode)
 		{	case SFM_READ :
@@ -6759,75 +6760,77 @@ psf_close (SF_PRIVATE *psf)
 		psf->codec_close = NULL ;
 		} ;
 
-	if (psf->container_close)
-		switch (psf->container_close_signature) {
-		case container_close_aiff_close:
-		    error = aiff_close(psf);
-		    break;
-		case container_close_au_close:
-		    error = au_close(psf);
-		    break;
-		case container_close_avr_close:
-		    error = avr_close(psf);
-		    break;
-		case container_close_caf_close:
-		    error = caf_close(psf);
-		    break;
-		case container_close_htk_close:
-		    error = htk_close(psf);
-		    break;
-		case container_close_ircam_close:
-		    error = ircam_close(psf);
-		    break;
-		case container_close_mat4_close:
-		    error = mat4_close(psf);
-		    break;
-		case container_close_mat5_close:
-		    error = mat5_close(psf);
-		    break;
-		case container_close_mpc2k_close:
-		    error = mpc2k_close(psf);
-		    break;
-		case container_close_nist_close:
-		    error = nist_close(psf);
-		    break;
-		case container_close_paf24_close:
-		    error = paf24_close(psf);
-		    break;
-		case container_close_pvf_close:
-		    error = pvf_close(psf);
-		    break;
-		case container_close_rf64_close:
-		    error = rf64_close(psf);
-		    break;
-		case container_close_sd2_close:
-		    error = sd2_close(psf);
-		    break;
-		case container_close_sds_close:
-		    error = sds_close(psf);
-		    break;
-		case container_close_svx_close:
-		    error = svx_close(psf);
-		    break;
-		case container_close_voc_close:
-		    error = voc_close(psf);
-		    break;
-		case container_close_w64_close:
-		    error = w64_close(psf);
-		    break;
-		case container_close_wav_close:
-		    error = wav_close(psf);
-		    break;
-		case container_close_wve_close:
-		    error = wve_close(psf);
-		    break;
-		case container_close_xi_close:
-		    error = xi_close(psf);
-		    break;
-		default:
-		    invalidFunctionWasCalled();
-		    break;
-		}
+	if (psf->container_close) {
+		error = psf->container_close (psf) ;
+		// switch (psf->container_close_signature) {
+		// case container_close_aiff_close:
+		//     error = aiff_close(psf);
+		//     break;
+		// case container_close_au_close:
+		//     error = au_close(psf);
+		//     break;
+		// case container_close_avr_close:
+		//     error = avr_close(psf);
+		//     break;
+		// case container_close_caf_close:
+		//     error = caf_close(psf);
+		//     break;
+		// case container_close_htk_close:
+		//     error = htk_close(psf);
+		//     break;
+		// case container_close_ircam_close:
+		//     error = ircam_close(psf);
+		//     break;
+		// case container_close_mat4_close:
+		//     error = mat4_close(psf);
+		//     break;
+		// case container_close_mat5_close:
+		//     error = mat5_close(psf);
+		//     break;
+		// case container_close_mpc2k_close:
+		//     error = mpc2k_close(psf);
+		//     break;
+		// case container_close_nist_close:
+		//     error = nist_close(psf);
+		//     break;
+		// case container_close_paf24_close:
+		//     error = paf24_close(psf);
+		//     break;
+		// case container_close_pvf_close:
+		//     error = pvf_close(psf);
+		//     break;
+		// case container_close_rf64_close:
+		//     error = rf64_close(psf);
+		//     break;
+		// case container_close_sd2_close:
+		//     error = sd2_close(psf);
+		//     break;
+		// case container_close_sds_close:
+		//     error = sds_close(psf);
+		//     break;
+		// case container_close_svx_close:
+		//     error = svx_close(psf);
+		//     break;
+		// case container_close_voc_close:
+		//     error = voc_close(psf);
+		//     break;
+		// case container_close_w64_close:
+		//     error = w64_close(psf);
+		//     break;
+		// case container_close_wav_close:
+		//     error = wav_close(psf);
+		//     break;
+		// case container_close_wve_close:
+		//     error = wve_close(psf);
+		//     break;
+		// case container_close_xi_close:
+		//     error = xi_close(psf);
+		//     break;
+		// default:
+		//     invalidFunctionWasCalled();
+		//     break;
+		// }
+	}
 
 	error = psf_fclose (psf) ;
 	psf_close_rsrc (psf) ;
