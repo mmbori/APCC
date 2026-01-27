@@ -1,0 +1,2006 @@
+[
+  {
+    "fp_name": "abort_request",
+    "assigned_fn": [
+      "ngx_http_fastcgi_abort_request",
+      "ngx_http_memcached_abort_request",
+      "ngx_http_proxy_abort_request",
+      "ngx_http_scgi_abort_request",
+      "ngx_http_uwsgi_abort_request"
+    ]
+  },
+  {
+    "fp_name": "accept_mutex_delay",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "access",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "access_code",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "active_connection_id_limit",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "add",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_add_event",
+      "ngx_devpoll_add_event",
+      "ngx_eventport_add_event",
+      "ngx_iocp_add_event",
+      "ngx_kqueue_add_event",
+      "ngx_poll_add_event",
+      "ngx_select_add_event"
+    ]
+  },
+  {
+    "fp_name": "del",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_del_event",
+      "ngx_devpoll_del_event",
+      "ngx_eventport_del_event",
+      "ngx_kqueue_del_event",
+      "ngx_poll_del_event",
+      "ngx_select_del_event"
+    ]
+  },  
+  {
+    "fp_name": "enable",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_add_event",
+      "ngx_devpoll_add_event",
+      "ngx_eventport_add_event",
+      "ngx_kqueue_add_event",
+      "ngx_poll_add_event",
+      "ngx_select_add_event"
+    ]
+  },
+  {
+    "fp_name": "disable",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_del_event",
+      "ngx_devpoll_del_event",
+      "ngx_eventport_del_event",
+      "ngx_kqueue_del_event",
+      "ngx_poll_del_event",
+      "ngx_select_del_event"
+    ]
+  },
+{
+    "fp_name": "add_conn",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_add_connection"
+    ]
+  },  
+  {
+    "fp_name": "del_conn",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_del_connection",
+      "ngx_iocp_del_connection"
+    ]
+  },
+  {
+    "fp_name": "notify",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_notify",
+      "ngx_eventport_notify"
+    ]
+  },
+  {
+    "fp_name": "process_events",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+ {
+    "fp_name": "init",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_init",
+      "ngx_http_file_cache_init",
+      "ngx_http_limit_conn_init_zone",
+      "ngx_http_upstream_init_zone"
+    ]
+  },
+  {
+    "fp_name": "done",
+    "assigned_fn": [
+      "NULL",
+      "ngx_epoll_done",
+      "ngx_devpoll_done",
+      "ngx_eventport_done",
+      "ngx_iocp_done",
+      "ngx_kqueue_done",
+      "ngx_poll_done",
+      "ngx_select_done"
+    ]
+  },
+  {
+    "fp_name": "added",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "aio_requests",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "allocated",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "always",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "auth_delay",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "base",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "burst",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_lock_age",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_lock_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_methods",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_min_uses",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_use_stale",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "capture",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "captures_mask",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "checker",
+    "assigned_fn": [
+      "ngx_http_core_find_config_phase",
+      "ngx_http_core_post_access_phase",
+      "ngx_http_core_post_rewrite_phase",
+      "ngx_http_core_rewrite_phase",
+      "ngx_http_core_content_phase",
+      "ngx_http_core_generic_phase",
+      "ngx_http_core_access_phase"
+    ]
+  },
+  {
+    "fp_name": "client_body_in_file_only",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "client_body_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "client_header_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "closed_nodes",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cmd_type",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cmp",
+    "assigned_fn": [
+      "ngx_http_cmp_conf_addrs",
+      "ngx_http_cmp_locations",
+      "ngx_resolver_cmp_srvs"
+    ]
+  },
+  {
+  "fp_name": "create_key",
+  "assigned_fn": [
+    "ngx_http_fastcgi_create_key",
+    "ngx_http_proxy_create_key",
+    "ngx_http_scgi_create_key",
+    "ngx_http_uwsgi_create_key"
+  ]
+},
+  {
+    "fp_name": "code",
+    "assigned_fn": [
+      "ngx_http_script_copy_capture_code",
+      "ngx_http_script_copy_code",
+      "ngx_http_script_copy_var_code",
+      "ngx_http_script_full_name_code",
+      "ngx_http_script_copy_len_code",
+      "ngx_http_script_copy_var_len_code",
+      "ngx_http_script_copy_capture_len_code",
+      "ngx_http_script_full_name_len_code"
+
+    ]
+  },
+  {
+    "fp_name": "combined_used",
+    "assigned_fn": []
+  },
+    {
+    "fp_name": "ngx_http_top_header_filter",
+    "assigned_fn": [
+      "ngx_http_header_filter",
+      "ngx_http_chunked_header_filter",
+      "ngx_http_headers_filter",
+      "ngx_http_not_modified_header_filter",
+      "ngx_http_range_header_filter",
+      "ngx_http_ssi_header_filter",
+      "ngx_http_userid_filter"
+
+    ]
+  },
+  {
+    "fp_name": "command",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "concurrent_streams",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "conf",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "config",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "conn",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connect_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connect_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connection_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connections",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "conns",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "content_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "content_type_hash",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "count",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cpu_affinity_auto",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cpu_affinity_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "create_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_core_module_create_conf",
+      "ngx_epoll_create_conf",
+      "ngx_event_core_create_conf"
+    ]
+  },
+  {
+    "fp_name": "create_loc_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_create_loc_conf",
+      "ngx_http_auth_basic_create_loc_conf",
+      "ngx_http_autoindex_create_loc_conf",
+      "ngx_http_browser_create_conf",
+      "ngx_http_copy_filter_create_conf",
+      "ngx_http_core_create_loc_conf",
+      "ngx_http_fastcgi_create_loc_conf",
+      "ngx_http_headers_create_conf",
+      "ngx_http_index_create_loc_conf",
+      "ngx_http_limit_conn_create_conf",
+      "ngx_http_limit_req_create_conf",
+      "ngx_http_log_create_loc_conf",
+      "ngx_http_memcached_create_loc_conf",
+      "ngx_http_mirror_create_loc_conf",
+      "ngx_http_proxy_create_loc_conf",
+      "ngx_http_referer_create_conf",
+      "ngx_http_scgi_create_loc_conf",
+      "ngx_http_ssi_create_loc_conf",
+      "ngx_http_try_files_create_loc_conf",
+      "ngx_http_userid_create_conf",
+      "ngx_http_uwsgi_create_loc_conf"
+    ]
+  },
+  {
+    "fp_name": "create_main_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_create_main_conf",
+      "ngx_http_fastcgi_create_main_conf",
+      "ngx_http_log_create_main_conf",
+      "ngx_http_map_create_conf",
+      "ngx_http_proxy_create_main_conf",
+      "ngx_http_scgi_create_main_conf",
+      "ngx_http_ssi_create_main_conf",
+      "ngx_http_upstream_create_main_conf",
+      "ngx_http_uwsgi_create_main_conf"
+    ]
+  },
+  {
+    "fp_name": "create_srv_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_create_srv_conf",
+      "ngx_http_upstream_hash_create_conf",
+      "ngx_http_upstream_keepalive_create_conf",
+      "ngx_http_upstream_random_create_conf"
+    ]
+  },
+  {
+    "fp_name": "ctx_index",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "current",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "current_weight",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "debug_points",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "delay",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "delay_log_level",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "deleted",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "delta_base",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "deny",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "done",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "down",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "dynamic",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "effective_weight",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "enable",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "entries",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "err_status",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "error",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "event",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "events",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "excess",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "exists",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "exit_master",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "exit_process",
+    "assigned_fn": [
+      "NULL",
+      "ngx_conf_flush_files"
+    ]
+  },
+  {
+    "fp_name": "exit_thread",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "facility",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "failed",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "fails",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "family",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "file_handler",
+    "assigned_fn": [
+      "ngx_http_file_cache_manage_file"
+    ]
+  },
+  {
+    "fp_name": "files",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "files_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "flags",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "flush",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_log_flush"
+    ]
+  },
+  {
+    "fp_name": "format",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "frames",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "free_connection_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "get",
+    "assigned_fn": [
+      "ngx_http_upstream_get_chash_peer",
+      "ngx_http_upstream_get_hash_peer",
+      "ngx_http_upstream_get_ip_hash_peer",
+      "ngx_http_upstream_get_keepalive_peer",
+      "ngx_http_upstream_get_least_conn_peer",
+      "ngx_http_upstream_get_random2_peer",
+      "ngx_http_upstream_get_random_peer",
+      "ngx_http_upstream_get_round_robin_peer"
+    ]
+  },
+  {
+    "fp_name": "get_handler",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_geo_cidr_variable",
+      "ngx_http_geo_range_variable",
+      "ngx_http_map_variable",
+      "ngx_http_referer_variable",
+      "ngx_http_split_clients_variable",
+      "ngx_http_userid_got_variable",
+      "ngx_http_userid_reset_variable",
+      "ngx_http_userid_set_variable",
+      "ngx_http_variable_not_found"
+    ]
+  },
+  {
+    "fp_name": "get_rr_peer",
+    "assigned_fn": [
+      "ngx_http_upstream_get_round_robin_peer"
+    ]
+  },
+  {
+    "fp_name": "getlen",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_log_json_variable_getlen",
+      "ngx_http_log_unescaped_variable_getlen",
+      "ngx_http_log_variable_getlen"
+    ]
+  },
+  {
+    "fp_name": "gmtoff",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "gzip",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "gzip_flag",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "gzip_http_version",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "gzip_proxied",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "handler",
+    "assigned_fn": [
+      "ngx_channel_handler",
+      "NULL",
+      "ngx_accept_log_error",
+      "ngx_cache_loader_process_handler",
+      "ngx_cache_manager_process_handler",
+      "ngx_clean_old_cycles",
+      "ngx_cleanup_environment",
+      "ngx_cleanup_environment_variable",
+      "ngx_delete_udp_connection",
+      "ngx_epoll_notify_handler",
+      "ngx_event_accept",
+      "ngx_event_recvmsg",
+      "ngx_http_add_header",
+      "ngx_http_close_connection",
+      "ngx_http_core_type",
+      "ngx_http_empty_gif_handler",
+      "ngx_http_empty_handler",
+      "ngx_http_fastcgi_handler",
+      "ngx_http_file_cache_cleanup",
+      "ngx_http_file_cache_lock_wait_handler",
+      "ngx_http_geo",
+      "ngx_http_init_connection",
+      "ngx_http_keepalive_handler",
+      "ngx_http_limit_conn_cleanup",
+      "ngx_http_lingering_close_handler",
+      "ngx_http_log_error",
+      "ngx_http_log_flush_handler",
+      "ngx_http_map",
+      "ngx_http_memcached_handler",
+      "ngx_http_process_request_headers",
+      "ngx_http_process_request_line",
+      "ngx_http_proxy_handler",
+      "ngx_http_proxy_rewrite_complex_handler",
+      "ngx_http_proxy_rewrite_domain_handler",
+      "ngx_http_request_handler",
+      "ngx_http_scgi_handler",
+      "ngx_http_set_lingering_close",
+      "ngx_http_split_clients",
+      "ngx_http_ssi_set_variable",
+      "ngx_http_ssi_stub_output",
+      "ngx_http_upstream_cleanup",
+      "ngx_http_upstream_handler",
+      "ngx_http_upstream_keepalive_close",
+      "ngx_http_upstream_keepalive_close_handler",
+      "ngx_http_upstream_keepalive_dummy_handler",
+      "ngx_http_upstream_resolve_handler",
+      "ngx_http_upstream_zone_resolve_handler",
+      "ngx_http_upstream_zone_resolve_timer",
+      "ngx_http_uwsgi_handler",
+      "ngx_http_wait_request_handler",
+      "ngx_linux_sendfile_thread_handler",
+      "ngx_open_file_cache_cleanup",
+      "ngx_open_file_cache_remove",
+      "ngx_open_file_cleanup",
+      "ngx_pool_cleanup_file",
+      "ngx_resolver_cleanup",
+      "ngx_resolver_log_error",
+      "ngx_resolver_resend_handler",
+      "ngx_resolver_srv_names_handler",
+      "ngx_resolver_tcp_read",
+      "ngx_resolver_tcp_write",
+      "ngx_resolver_timeout_handler",
+      "ngx_resolver_udp_read",
+      "ngx_shutdown_timer_handler",
+      "ngx_syslog_cleanup",
+      "ngx_syslog_log_error",
+      "ngx_thread_read_handler",
+      "ngx_thread_write_chain_to_file_handler",
+      "ngx_unload_module"
+    ]
+  },
+  {
+    "fp_name": "handshake_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hash",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "header_hash",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "header_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "headers_hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "headers_hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "high",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hostnames",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hsize",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "http_version",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "huffman",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "id",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ident",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "idle",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "idle_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "if_modified_since",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ignore_headers",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "includes",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "index",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_file_cache_init",
+      "ngx_http_limit_conn_init_zone",
+      "ngx_http_limit_req_init_zone",
+      "ngx_http_upstream_init_chash_peer",
+      "ngx_http_upstream_init_hash_peer",
+      "ngx_http_upstream_init_ip_hash_peer",
+      "ngx_http_upstream_init_keepalive_peer",
+      "ngx_http_upstream_init_least_conn_peer",
+      "ngx_http_upstream_init_random_peer",
+      "ngx_http_upstream_init_round_robin_peer",
+      "ngx_http_upstream_init_zone"
+    ]
+  },
+  {
+    "fp_name": "init_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_core_module_init_conf",
+      "ngx_epoll_init_conf",
+      "ngx_event_core_init_conf",
+      "ngx_event_init_conf"
+    ]
+  },
+  {
+    "fp_name": "init_handler",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "init_main_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_init_main_conf",
+      "ngx_http_ssi_init_main_conf",
+      "ngx_http_upstream_init_main_conf"
+    ]
+  },
+  {
+    "fp_name": "init_master",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "init_module",
+    "assigned_fn": [
+      "NULL",
+      "ngx_event_module_init"
+    ]
+  },
+  {
+    "fp_name": "init_process",
+    "assigned_fn": [
+      "NULL",
+      "ngx_event_process_init",
+      "ngx_http_upstream_zone_init_worker",
+      "ngx_http_userid_init_worker"
+    ]
+  },
+  {
+    "fp_name": "init_thread",
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "init_upstream",
+    "assigned_fn": [
+      "ngx_http_upstream_init_chash",
+      "ngx_http_upstream_init_hash",
+      "ngx_http_upstream_init_ip_hash",
+      "ngx_http_upstream_init_keepalive",
+      "ngx_http_upstream_init_least_conn",
+      "ngx_http_upstream_init_random"
+    ]
+  },
+  {
+    "fp_name": "input_filter",
+    "assigned_fn": [
+      "ngx_event_pipe_copy_input_filter",
+      "ngx_http_fastcgi_input_filter",
+      "ngx_http_fastcgi_non_buffered_filter",
+      "ngx_http_memcached_filter",
+      "ngx_http_proxy_chunked_filter",
+      "ngx_http_proxy_copy_filter",
+      "ngx_http_proxy_non_buffered_chunked_filter",
+      "ngx_http_proxy_non_buffered_copy_filter",
+      "ngx_http_upstream_non_buffered_filter"
+    ]
+  },
+  {
+    "fp_name": "input_filter_init",
+    "assigned_fn": [
+      "ngx_http_fastcgi_input_filter_init",
+      "ngx_http_memcached_filter_init",
+      "ngx_http_proxy_input_filter_init",
+      "ngx_http_scgi_input_filter_init",
+      "ngx_http_upstream_non_buffered_filter_init",
+      "ngx_http_uwsgi_input_filter_init"
+    ]
+  },
+  {
+    "fp_name": "insert",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "insert_count",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_disable",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_min_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_requests",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "key",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "key_hash",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "last",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "last_connection",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "last_sid",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "length",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "level",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "limit_log_level",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "line",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lingering_close",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lingering_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lingering_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "loader",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_file_cache_loader"
+    ]
+  },
+  {
+    "fp_name": "loader_files",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "loader_sleep",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "loader_threshold",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "location_rewrite_index",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lock_age",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lock_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "log_handler",
+    "assigned_fn": [
+      "ngx_http_log_error_handler"
+    ]
+  },
+  {
+    "fp_name": "log_level",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "log_use_stderr",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "low",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lowcase_index",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "manager",
+    "assigned_fn": [
+      "ngx_http_file_cache_manager"
+    ]
+  },
+  {
+    "fp_name": "manager_files",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "manager_sleep",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "manager_threshold",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "mask",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_blocked_streams",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_cached",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_concurrent_streams",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_concurrent_streams_bidi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_concurrent_streams_uni",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_conns",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_fails",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_ranges",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "merge_loc_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_merge_loc_conf",
+      "ngx_http_auth_basic_merge_loc_conf",
+      "ngx_http_autoindex_merge_loc_conf",
+      "ngx_http_browser_merge_conf",
+      "ngx_http_copy_filter_merge_conf",
+      "ngx_http_core_merge_loc_conf",
+      "ngx_http_fastcgi_merge_loc_conf",
+      "ngx_http_headers_merge_conf",
+      "ngx_http_index_merge_loc_conf",
+      "ngx_http_limit_conn_merge_conf",
+      "ngx_http_limit_req_merge_conf",
+      "ngx_http_log_merge_loc_conf",
+      "ngx_http_memcached_merge_loc_conf",
+      "ngx_http_mirror_merge_loc_conf",
+      "ngx_http_proxy_merge_loc_conf",
+      "ngx_http_referer_merge_conf",
+      "ngx_http_scgi_merge_loc_conf",
+      "ngx_http_ssi_merge_loc_conf",
+      "ngx_http_userid_merge_conf",
+      "ngx_http_uwsgi_merge_loc_conf"
+    ]
+  },
+  {
+    "fp_name": "merge_srv_conf",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_merge_srv_conf"
+    ]
+  },
+  {
+    "fp_name": "method",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "min_uses",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "modifier1",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "modifier2",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "module_type",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "modules_n",
+    "assigned_fn": [
+      "ngx_modules_n"
+    ]
+  },
+  {
+    "fp_name": "modules_used",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "msec",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "naddrs",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nalloc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nblocked",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nbusy",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ncaptures",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nelts",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "new_streams",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next_upstream",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next_upstream_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next_upstream_tries",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "no_port",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "noreuse",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "notify",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nregex",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nrequests",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nsrvs",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "num",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "number",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nvariables",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ocsp",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "off",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "offset",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "open_file_cache_min_uses",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "options",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_get_peer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_init_peer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_init_upstream",
+    "assigned_fn": [
+      "ngx_http_upstream_init_random",
+      "ngx_http_upstream_init_least_conn",
+      "ngx_http_upstream_init_keepalive",
+      "ngx_http_upstream_init_ip_hash",
+      "ngx_http_upstream_init_chash",
+      "ngx_http_upstream_init_hash",
+      "ngx_http_upstream_init_round_robin"
+    ]
+  },
+  {
+    "fp_name": "original_save_session",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "output_filter",
+    "assigned_fn": [
+      "ngx_chain_writer",
+      "ngx_http_fastcgi_body_output_filter",
+      "ngx_http_proxy_body_output_filter",
+      "ngx_http_upstream_output_filter"
+    ]
+  },
+  {
+    "fp_name": "overwrite",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "path_access",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "pfree",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "phase_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "post_handler",
+    "assigned_fn": [
+      "ngx_http_mirror_body_handler",
+      "ngx_http_upstream_init",
+      "ngx_conf_check_num_bounds"
+    ]
+  },
+  {
+    "fp_name": "post_tree_handler",
+    "assigned_fn": [
+      "ngx_http_file_cache_noop"
+    ]
+  },
+  {
+    "fp_name": "postconfiguration",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_init",
+      "ngx_http_auth_basic_init",
+      "ngx_http_autoindex_init",
+      "ngx_http_chunked_filter_init",
+      "ngx_http_copy_filter_init",
+      "ngx_http_core_postconfiguration",
+      "ngx_http_header_filter_init",
+      "ngx_http_headers_filter_init",
+      "ngx_http_index_init",
+      "ngx_http_limit_conn_init",
+      "ngx_http_limit_req_init",
+      "ngx_http_log_init",
+      "ngx_http_mirror_init",
+      "ngx_http_not_modified_filter_init",
+      "ngx_http_postpone_filter_init",
+      "ngx_http_range_body_filter_init",
+      "ngx_http_range_header_filter_init",
+      "ngx_http_ssi_filter_init",
+      "ngx_http_static_init",
+      "ngx_http_try_files_init",
+      "ngx_http_userid_init",
+      "ngx_http_write_filter_init"
+    ]
+  },
+  {
+    "fp_name": "pre_tree_handler",
+    "assigned_fn": [
+      "ngx_http_file_cache_manage_directory"
+    ]
+  },
+  {
+    "fp_name": "preconfiguration",
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_browser_add_variables",
+      "ngx_http_core_preconfiguration",
+      "ngx_http_fastcgi_add_variables",
+      "ngx_http_limit_conn_add_variables",
+      "ngx_http_limit_req_add_variables",
+      "ngx_http_proxy_add_variables",
+      "ngx_http_referer_add_variables",
+      "ngx_http_ssi_preconfiguration",
+      "ngx_http_upstream_add_variables",
+      "ngx_http_userid_add_variables"
+    ]
+  },
+  {
+    "fp_name": "priority_limit",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "proc",
+    "assigned_fn": [
+      "ngx_cache_manager_process_cycle",
+      "ngx_execute_proc",
+      "ngx_worker_process_cycle"
+    ]
+  },
+  {
+    "fp_name": "process_header",
+    "assigned_fn": [
+      "ngx_http_fastcgi_process_header",
+      "ngx_http_memcached_process_header",
+      "ngx_http_proxy_process_header",
+      "ngx_http_proxy_process_status_line",
+      "ngx_http_scgi_process_header",
+      "ngx_http_scgi_process_status_line",
+      "ngx_http_uwsgi_process_header",
+      "ngx_http_uwsgi_process_status_line"
+    ]
+  },
+  {
+    "fp_name": "processing",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "protocols",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "purger",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "queue_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "queued",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "range",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rank",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rate",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rc",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "read_event_handler",
+    "assigned_fn": [
+      "ngx_http_block_reading",
+      "ngx_http_discarded_request_body_handler",
+      "ngx_http_read_client_request_body_handler",
+      "ngx_http_request_empty_handler",
+      "ngx_http_test_reading",
+      "ngx_http_upstream_process_header",
+      "ngx_http_upstream_process_non_buffered_upstream",
+      "ngx_http_upstream_process_upstream",
+      "ngx_http_upstream_rd_check_broken_connection",
+      "ngx_http_upstream_read_request_handler",
+      "ngx_http_upstream_upgraded_read_downstream",
+      "ngx_http_upstream_upgraded_read_upstream"
+    ]
+  },
+  {
+    "fp_name": "read_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "recursion",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "recv",
+    "assigned_fn": [
+      "ngx_recv",
+      "ngx_udp_recv",
+      "ngx_udp_shared_recv",
+      "ngx_unix_recv"
+    ]
+  },
+  {
+    "fp_name": "recv_chain",
+    "assigned_fn": [
+      "ngx_readv_chain",
+      "ngx_recv_chain"
+    ]
+  },
+  {
+    "fp_name": "redirect",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "referer_hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "referer_hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "refs",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "refused_streams",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "regex",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rehash",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reinit_request",
+    "assigned_fn": [
+      "ngx_http_fastcgi_reinit_request",
+      "ngx_http_memcached_reinit_request",
+      "ngx_http_proxy_reinit_request",
+      "ngx_http_scgi_reinit_request",
+      "ngx_http_uwsgi_reinit_request"
+    ]
+  },
+  {
+    "fp_name": "reqs",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "requests",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reset",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "resolver_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "response_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reusable_connections_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reused",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rewrite_cookie",
+    "assigned_fn": [
+      "ngx_http_proxy_rewrite_cookie"
+    ]
+  },
+  {
+    "fp_name": "rewrite_redirect",
+    "assigned_fn": [
+      "ngx_http_proxy_rewrite_redirect"
+    ]
+  },
+  {
+    "fp_name": "rlimit_nofile",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "run",
+    "assigned_fn": [
+      "ngx_http_log_copy_long",
+      "ngx_http_log_copy_short",
+      "ngx_http_log_json_variable",
+      "ngx_http_log_unescaped_variable",
+      "ngx_http_log_variable"
+    ]
+  },
+  {
+    "fp_name": "satisfy",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "save_session",
+    "assigned_fn": [
+      "ngx_http_upstream_empty_save_session",
+      "ngx_http_upstream_keepalive_save_session",
+      "ngx_http_upstream_save_round_robin_peer_session",
+      "ngx_http_upstream_ssl_save_session"
+    ]
+  },
+  {
+    "fp_name": "saved_read_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "saved_state",
+    "assigned_fn": [
+      "ssi_double_quoted_value_state",
+      "ssi_quoted_value_state"
+    ]
+  },
+  {
+    "fp_name": "saved_write_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "semaphore",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "send",
+    "assigned_fn": [
+      "ngx_send",
+      "ngx_udp_send",
+      "ngx_unix_send"
+    ]
+  },
+  {
+    "fp_name": "send_chain",
+    "assigned_fn": [
+      "ngx_send_chain",
+      "ngx_udp_send_chain",
+      "ngx_writev_chain"
+    ]
+  },
+  {
+    "fp_name": "send_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "server_names_hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "server_names_hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "server_rewrite_index",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "server_tokens",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "servername",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "service",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "set",
+    "assigned_fn": [
+      "ngx_conf_include",
+      "ngx_conf_set_access_slot",
+      "ngx_conf_set_bitmask_slot",
+      "ngx_conf_set_bufs_slot",
+      "ngx_conf_set_enum_slot",
+      "ngx_conf_set_flag_slot",
+      "ngx_conf_set_keyval_slot",
+      "ngx_conf_set_msec_slot",
+      "ngx_conf_set_num_slot",
+      "ngx_conf_set_off_slot",
+      "ngx_conf_set_path_slot",
+      "ngx_conf_set_sec_slot",
+      "ngx_conf_set_size_slot",
+      "ngx_conf_set_str_array_slot",
+      "ngx_conf_set_str_slot",
+      "ngx_conf_split_clients_block",
+      "ngx_error_log",
+      "ngx_event_connections",
+      "ngx_event_debug_connection",
+      "ngx_event_use",
+      "ngx_events_block",
+      "ngx_http_access_rule",
+      "ngx_http_ancient_browser",
+      "ngx_http_ancient_browser_value",
+      "ngx_http_auth_basic_user_file",
+      "ngx_http_block",
+      "ngx_http_core_directio",
+      "ngx_http_core_error_log",
+      "ngx_http_core_error_page",
+      "ngx_http_core_internal",
+      "ngx_http_core_keepalive",
+      "ngx_http_core_limit_except",
+      "ngx_http_core_listen",
+      "ngx_http_core_location",
+      "ngx_http_core_open_file_cache",
+      "ngx_http_core_resolver",
+      "ngx_http_core_root",
+      "ngx_http_core_server",
+      "ngx_http_core_server_name",
+      "ngx_http_core_set_aio",
+      "ngx_http_core_types",
+      "ngx_http_disable_symlinks",
+      "ngx_http_empty_gif",
+      "ngx_http_fastcgi_cache",
+      "ngx_http_fastcgi_cache_key",
+      "ngx_http_fastcgi_pass",
+      "ngx_http_fastcgi_split_path_info",
+      "ngx_http_fastcgi_store",
+      "ngx_http_file_cache_set_slot",
+      "ngx_http_file_cache_valid_set_slot",
+      "ngx_http_geo_block",
+      "ngx_http_gzip_disable",
+      "ngx_http_headers_add",
+      "ngx_http_headers_expires",
+      "ngx_http_index_set_index",
+      "ngx_http_limit_conn",
+      "ngx_http_limit_conn_zone",
+      "ngx_http_limit_req",
+      "ngx_http_limit_req_zone",
+      "ngx_http_log_open_file_cache",
+      "ngx_http_log_set_format",
+      "ngx_http_log_set_log",
+      "ngx_http_map_block",
+      "ngx_http_memcached_pass",
+      "ngx_http_mirror",
+      "ngx_http_modern_browser",
+      "ngx_http_modern_browser_value",
+      "ngx_http_proxy_cache",
+      "ngx_http_proxy_cache_key",
+      "ngx_http_proxy_cookie_domain",
+      "ngx_http_proxy_cookie_flags",
+      "ngx_http_proxy_cookie_path",
+      "ngx_http_proxy_pass",
+      "ngx_http_proxy_redirect",
+      "ngx_http_proxy_ssl_certificate_cache",
+      "ngx_http_proxy_ssl_password_file",
+      "ngx_http_proxy_store",
+      "ngx_http_scgi_cache",
+      "ngx_http_scgi_cache_key",
+      "ngx_http_scgi_pass",
+      "ngx_http_scgi_store",
+      "ngx_http_set_complex_value_size_slot",
+      "ngx_http_set_complex_value_slot",
+      "ngx_http_set_complex_value_zero_slot",
+      "ngx_http_set_predicate_slot",
+      "ngx_http_try_files",
+      "ngx_http_types_slot",
+      "ngx_http_upstream",
+      "ngx_http_upstream_bind_set_slot",
+      "ngx_http_upstream_hash",
+      "ngx_http_upstream_ip_hash",
+      "ngx_http_upstream_keepalive",
+      "ngx_http_upstream_least_conn",
+      "ngx_http_upstream_param_set_slot",
+      "ngx_http_upstream_random",
+      "ngx_http_upstream_resolver",
+      "ngx_http_upstream_server",
+      "ngx_http_upstream_zone",
+      "ngx_http_userid_expires",
+      "ngx_http_userid_mark",
+      "ngx_http_uwsgi_cache",
+      "ngx_http_uwsgi_cache_key",
+      "ngx_http_uwsgi_pass",
+      "ngx_http_uwsgi_ssl_certificate_cache",
+      "ngx_http_uwsgi_ssl_password_file",
+      "ngx_http_uwsgi_store",
+      "ngx_http_valid_referers",
+      "ngx_load_module",
+      "ngx_set_cpu_affinity",
+      "ngx_set_env",
+      "ngx_set_priority",
+      "ngx_set_user",
+      "ngx_set_worker_processes"
+    ]
+  },
+  {
+    "fp_name": "set_handler",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "severity",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "shift",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "shutdown",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "shutdown_timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "sid",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "sign",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "skip_empty",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "slot",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "slow_start",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spare0",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spare1",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spec_handler",
+    "assigned_fn": [
+      "ngx_http_file_cache_delete_file"
+    ]
+  },
+  {
+    "fp_name": "ssl_protocols",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ssl_verify_depth",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_msec",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "state",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "status",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "status_code",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "status_n",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "store_access",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stream_close_code",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stream_reject_code_bidi",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stream_reject_code_uni",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "streams_index_mask",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "test",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "timeout",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "timer",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "timer_resolution",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "total",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "transparent",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tries",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "two",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "type",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "types_hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "types_hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "udp_recv",
+    "assigned_fn": [
+      "ngx_udp_unix_recv"
+    ]
+  },
+  {
+    "fp_name": "udp_send",
+    "assigned_fn": [
+      "ngx_udp_unix_send"
+    ]
+  },
+  {
+    "fp_name": "udp_send_chain",
+    "assigned_fn": [
+      "ngx_udp_unix_sendmsg_chain"
+    ]
+  },
+  {
+    "fp_name": "use",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "use_temp_path",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "used",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "valid_msec",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "value",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "variables",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "variables_hash_bucket_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "variables_hash_max_size",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "vary_tag",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "verify",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "verify_depth",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "version",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "wait_time",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "watermark",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "weight",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "worker",
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "worker_processes",
+    "assigned_fn": [
+      "ngx_ncpu"
+    ]
+  },
+  {
+    "fp_name": "write",
+    "assigned_fn": [
+      "ngx_syslog_dummy_event"
+    ]
+  },
+  {
+    "fp_name": "write_event_handler",
+    "assigned_fn": [
+      "ngx_http_core_auth_delay_handler",
+      "ngx_http_core_run_phases",
+      "ngx_http_handler",
+      "ngx_http_limit_req_delay",
+      "ngx_http_request_empty_handler",
+      "ngx_http_request_finalizer",
+      "ngx_http_terminate_handler",
+      "ngx_http_upstream_dummy_handler",
+      "ngx_http_upstream_early_hints_writer",
+      "ngx_http_upstream_init_request",
+      "ngx_http_upstream_process_downstream",
+      "ngx_http_upstream_process_non_buffered_downstream",
+      "ngx_http_upstream_send_request_handler",
+      "ngx_http_upstream_upgraded_write_downstream",
+      "ngx_http_upstream_upgraded_write_upstream",
+      "ngx_http_upstream_wr_check_broken_connection",
+      "ngx_http_writer"
+    ]
+  }
+]

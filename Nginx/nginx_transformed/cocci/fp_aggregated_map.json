@@ -1,0 +1,19 @@
+{
+  "handler": [
+    "ngx_channel_handler"
+  ],
+  "post_handler": [
+    "ngx_http_mirror_body_handler",
+    "ngx_http_upstream_init"
+  ],
+  "cmp": [
+    "ngx_http_cmp_conf_addrs",
+    "ngx_http_cmp_locations",
+    "ngx_resolver_cmp_srvs"
+  ],
+  "proc": [
+    "ngx_cache_manager_process_cycle",
+    "ngx_execute_proc",
+    "ngx_worker_process_cycle"
+  ]
+}

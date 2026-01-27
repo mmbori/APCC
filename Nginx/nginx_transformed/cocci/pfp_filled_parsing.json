@@ -1,0 +1,99 @@
+[
+  {
+    "fp_name": "handler",
+    "fp_sequence": 4,
+    "fn_name": "ngx_add_channel_event",
+    "assigned_fn": [
+      "ngx_channel_handler"
+    ],
+    "line": [
+      "ngx_int_t ngx_add_channel_event(ngx_cycle_t *cycle, ngx_fd_t fd,",
+      "ngx_int_t event, void (*handler)(ngx_event_t *ev));"
+    ],
+    "file": "ngx_channel.h"
+  },
+  {
+    "fp_name": "handler",
+    "fp_sequence": 1,
+    "fn_name": "ngx_epoll_notify",
+    "assigned_fn": [],
+    "line": [
+      "static ngx_int_t ngx_epoll_notify(void (*handler)(ngx_event_t *ev));"
+    ],
+    "file": "ngx_epoll_module.c"
+  },
+  {
+    "fp_name": "post_handler",
+    "fp_sequence": 2,
+    "fn_name": "ngx_http_read_client_request_body",
+    "assigned_fn": [
+      "ngx_http_mirror_body_handler",
+      "ngx_http_upstream_init"
+    ],
+    "line": [
+      "ngx_http_read_client_request_body(ngx_http_request_t *r,",
+      "void (*post_handler)(ngx_http_request_t *r))",
+      "{"
+    ],
+    "file": "ngx_http_request_body.c"
+  },
+  {
+    "fp_name": "cmp",
+    "fp_sequence": 3,
+    "fn_name": "ngx_queue_merge",
+    "assigned_fn": [
+      "cmp"
+    ],
+    "line": [
+      "static void ngx_queue_merge(ngx_queue_t *queue, ngx_queue_t *tail,",
+      "ngx_int_t (*cmp)(const ngx_queue_t *, const ngx_queue_t *));"
+    ],
+    "file": "ngx_queue.c"
+  },
+  {
+    "fp_name": "cmp",
+    "fp_sequence": 2,
+    "fn_name": "ngx_queue_sort",
+    "assigned_fn": [
+      "cmp",
+      "ngx_http_cmp_locations"
+    ],
+    "line": [
+      "ngx_queue_sort(ngx_queue_t *queue,",
+      "ngx_int_t (*cmp)(const ngx_queue_t *, const ngx_queue_t *))",
+      "{"
+    ],
+    "file": "ngx_queue.c"
+  },
+  {
+    "fp_name": "cmp",
+    "fp_sequence": 4,
+    "fn_name": "ngx_sort",
+    "assigned_fn": [
+      "ngx_http_cmp_conf_addrs",
+      "ngx_resolver_cmp_srvs"
+    ],
+    "line": [
+      "void ngx_sort(void *base, size_t n, size_t size,",
+      "ngx_int_t (*cmp)(const void *, const void *));"
+    ],
+    "file": "ngx_string.h"
+  },
+  {
+    "fp_name": "proc",
+    "fp_sequence": 2,
+    "fn_name": "ngx_spawn_process",
+    "assigned_fn": [
+      "ngx_cache_manager_process_cycle",
+      "ngx_execute_proc",
+      "ngx_worker_process_cycle",
+      "proc"
+    ],
+    "line": [
+      "ngx_spawn_process(ngx_cycle_t *cycle, void (*proc) (ngx_cycle_t *cycle, void *data), void *data,",
+      "char *name, ngx_int_t respawn)",
+      "{"
+    ],
+    "file": "ngx_process.c"
+  }
+]

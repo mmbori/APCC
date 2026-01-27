@@ -1,0 +1,3919 @@
+[
+  {
+    "fp_name": "abort_request",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 22,
+    "assigned_fn": [
+      "ngx_http_fastcgi_abort_request",
+      "ngx_http_memcached_abort_request",
+      "ngx_http_proxy_abort_request",
+      "ngx_http_scgi_abort_request",
+      "ngx_http_uwsgi_abort_request"
+    ]
+  },
+  {
+    "fp_name": "accept_mutex_delay",
+    "struct_name": "ngx_event_conf_t",
+    "struct_aliases": [
+      "ngx_event_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "access",
+    "struct_name": "ngx_temp_file_t",
+    "struct_aliases": [
+      "ngx_temp_file_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NGX_FILE_OWNER_ACCESS"
+    ]
+  },
+  {
+    "fp_name": "access_code",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 35,
+    "assigned_fn": [
+      "0",
+      "rc"
+    ]
+  },
+  {
+    "fp_name": "active_connection_id_limit",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "add_conn",
+    "struct_name": "ngx_event_actions_t",
+    "struct_aliases": [
+      "ngx_event_actions_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "added",
+    "struct_name": "ngx_http_v2_hpack_t",
+    "struct_aliases": [
+      "ngx_http_v2_hpack_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "aio_requests",
+    "struct_name": "ngx_epoll_conf_t",
+    "struct_aliases": [
+      "ngx_epoll_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "allocated",
+    "struct_name": "ngx_http_v2_hpack_t",
+    "struct_aliases": [
+      "ngx_http_v2_hpack_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "always",
+    "struct_name": "ngx_http_header_val_s",
+    "struct_aliases": [
+      "ngx_http_header_val_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "auth_delay",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 38,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "base",
+    "struct_name": "ngx_http_v3_parse_field_section_prefix_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_field_section_prefix_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "bucket_size",
+    "struct_name": "ngx_hash_init_t",
+    "struct_aliases": [
+      "ngx_hash_init_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "ngx_cacheline_size"
+    ]
+  },
+  {
+    "fp_name": "burst",
+    "struct_name": "ngx_http_limit_req_limit_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_limit_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_lock_age",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 42,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "cache_lock_timeout",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 41,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "cache_methods",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 38,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cache_min_uses",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 36,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "cache_use_stale",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 37,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "capture",
+    "struct_name": "ngx_http_regex_variable_t",
+    "struct_aliases": [
+      "ngx_http_regex_variable_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "captures_mask",
+    "struct_name": "ngx_http_script_compile_t",
+    "struct_aliases": [
+      "ngx_http_script_compile_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "checker",
+    "struct_name": "ngx_http_phase_handler_s",
+    "struct_aliases": [
+      "ngx_http_phase_handler_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "checker",
+      "ngx_http_core_find_config_phase",
+      "ngx_http_core_post_access_phase",
+      "ngx_http_core_post_rewrite_phase"
+    ]
+  },
+  {
+    "fp_name": "client_body_in_file_only",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 47,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "client_body_timeout",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 30,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "client_header_timeout",
+    "struct_name": "ngx_http_core_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_core_srv_conf_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "closed_nodes",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 24,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cmd_type",
+    "struct_name": "ngx_conf_s",
+    "struct_aliases": [
+      "ngx_conf_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "NGX_EVENT_CONF",
+      "NGX_HTTP_LMT_CONF",
+      "NGX_HTTP_LOC_CONF",
+      "NGX_HTTP_MAIN_CONF",
+      "NGX_HTTP_SRV_CONF",
+      "NGX_HTTP_UPS_CONF",
+      "NGX_MAIN_CONF"
+    ]
+  },
+  {
+    "fp_name": "code",
+    "struct_name": "ngx_http_script_copy_code_t",
+    "struct_aliases": [
+      "ngx_http_script_copy_code_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "ngx_http_script_copy_capture_code",
+      "ngx_http_script_copy_code",
+      "ngx_http_script_copy_var_code",
+      "ngx_http_script_full_name_code"
+    ]
+  },
+  {
+    "fp_name": "combined_used",
+    "struct_name": "ngx_http_log_main_conf_t",
+    "struct_aliases": [
+      "ngx_http_log_main_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "command",
+    "struct_name": "ngx_channel_t",
+    "struct_aliases": [
+      "ngx_channel_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "NGX_CMD_CLOSE_CHANNEL",
+      "NGX_CMD_OPEN_CHANNEL",
+      "NGX_CMD_QUIT",
+      "NGX_CMD_REOPEN",
+      "NGX_CMD_TERMINATE"
+    ]
+  },
+  {
+    "fp_name": "concurrent_streams",
+    "struct_name": "ngx_http_v2_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_v2_srv_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "conf",
+    "struct_name": "ngx_http_upstream_header_t",
+    "struct_aliases": [
+      "ngx_http_upstream_header_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "hcf",
+      "kcf",
+      "rcf"
+    ]
+  },
+  {
+    "fp_name": "config",
+    "struct_name": "ngx_http_upstream_rr_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_data_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "config"
+    ]
+  },
+  {
+    "fp_name": "conn",
+    "struct_name": "ngx_http_limit_conn_limit_t",
+    "struct_aliases": [
+      "ngx_http_limit_conn_limit_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "connect_time",
+    "struct_name": "ngx_http_upstream_state_t",
+    "struct_aliases": [
+      "ngx_http_upstream_state_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connect_timeout",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "connection_n",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 21,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "connections",
+    "struct_name": "ngx_event_conf_t",
+    "struct_aliases": [
+      "ngx_event_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "conns",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "content_handler",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 34,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "content_type_hash",
+    "struct_name": "ngx_http_headers_out_t",
+    "struct_aliases": [
+      "ngx_http_headers_out_t"
+    ],
+    "fp_index": 23,
+    "assigned_fn": [
+      "hash"
+    ]
+  },
+  {
+    "fp_name": "count",
+    "struct_name": "ngx_http_status_t",
+    "struct_aliases": [
+      "ngx_http_status_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "0",
+      "n"
+    ]
+  },
+  {
+    "fp_name": "cpu_affinity_auto",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "cpu_affinity_n",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "create_conf",
+    "struct_name": "ngx_event_module_t",
+    "struct_aliases": [
+      "ngx_event_module_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "ngx_core_module_create_conf",
+      "ngx_epoll_create_conf",
+      "ngx_event_core_create_conf"
+    ]
+  },
+  {
+    "fp_name": "create_loc_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_create_loc_conf",
+      "ngx_http_auth_basic_create_loc_conf",
+      "ngx_http_autoindex_create_loc_conf",
+      "ngx_http_browser_create_conf",
+      "ngx_http_copy_filter_create_conf",
+      "ngx_http_core_create_loc_conf",
+      "ngx_http_fastcgi_create_loc_conf",
+      "ngx_http_headers_create_conf",
+      "ngx_http_index_create_loc_conf",
+      "ngx_http_limit_conn_create_conf",
+      "ngx_http_limit_req_create_conf",
+      "ngx_http_log_create_loc_conf",
+      "ngx_http_memcached_create_loc_conf",
+      "ngx_http_mirror_create_loc_conf",
+      "ngx_http_proxy_create_loc_conf",
+      "ngx_http_referer_create_conf",
+      "ngx_http_scgi_create_loc_conf",
+      "ngx_http_ssi_create_loc_conf",
+      "ngx_http_try_files_create_loc_conf",
+      "ngx_http_userid_create_conf",
+      "ngx_http_uwsgi_create_loc_conf"
+    ]
+  },
+  {
+    "fp_name": "create_main_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_create_main_conf",
+      "ngx_http_fastcgi_create_main_conf",
+      "ngx_http_log_create_main_conf",
+      "ngx_http_map_create_conf",
+      "ngx_http_proxy_create_main_conf",
+      "ngx_http_scgi_create_main_conf",
+      "ngx_http_ssi_create_main_conf",
+      "ngx_http_upstream_create_main_conf",
+      "ngx_http_uwsgi_create_main_conf"
+    ]
+  },
+  {
+    "fp_name": "create_srv_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_create_srv_conf",
+      "ngx_http_upstream_hash_create_conf",
+      "ngx_http_upstream_keepalive_create_conf",
+      "ngx_http_upstream_random_create_conf"
+    ]
+  },
+  {
+    "fp_name": "ctx_index",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "current",
+    "struct_name": "ngx_open_file_cache_t",
+    "struct_aliases": [
+      "ngx_open_file_cache_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "0",
+      "NULL",
+      "best",
+      "p",
+      "peer",
+      "pool"
+    ]
+  },
+  {
+    "fp_name": "current_weight",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "debug_points",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "delay",
+    "struct_name": "ngx_http_limit_req_limit_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_limit_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "delay_log_level",
+    "struct_name": "ngx_http_limit_req_conf_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "deleted",
+    "struct_name": "ngx_http_v2_hpack_t",
+    "struct_aliases": [
+      "ngx_http_v2_hpack_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "delta_base",
+    "struct_name": "ngx_http_v3_parse_field_section_prefix_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_field_section_prefix_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "deny",
+    "struct_name": "ngx_http_access_rule_t",
+    "struct_aliases": [
+      "ngx_http_access_rule_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "done",
+    "struct_name": "ngx_event_actions_t",
+    "struct_aliases": [
+      "ngx_event_actions_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "down",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "dynamic",
+    "struct_name": "ngx_http_v3_parse_field_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_field_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "effective_weight",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "enable",
+    "struct_name": "ngx_http_userid_conf_t",
+    "struct_aliases": [
+      "ngx_http_userid_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_CONF_UNSET",
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "entries",
+    "struct_name": "ngx_http_geo_conf_ctx_t",
+    "struct_aliases": [
+      "ngx_http_geo_conf_ctx_t"
+    ],
+    "fp_index": 11,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "err_status",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 42,
+    "assigned_fn": [
+      "NGX_HTTP_BAD_REQUEST",
+      "NGX_HTTP_MOVED_TEMPORARILY",
+      "NGX_HTTP_OK",
+      "overwrite"
+    ]
+  },
+  {
+    "fp_name": "error",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 20,
+    "assigned_fn": [
+      "0",
+      "rc",
+      "status"
+    ]
+  },
+  {
+    "fp_name": "event",
+    "struct_name": "ngx_event_actions_t",
+    "struct_aliases": [
+      "ngx_event_actions_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "events",
+    "struct_name": "ngx_epoll_conf_t",
+    "struct_aliases": [
+      "ngx_epoll_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "excess",
+    "struct_name": "ngx_http_limit_req_node_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_node_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "excess"
+    ]
+  },
+  {
+    "fp_name": "exists",
+    "struct_name": "ngx_shm_t",
+    "struct_aliases": [
+      "ngx_shm_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "exit_master",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "exit_process",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "exit_thread",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "facility",
+    "struct_name": "ngx_syslog_peer_t",
+    "struct_aliases": [
+      "ngx_syslog_peer_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "i"
+    ]
+  },
+  {
+    "fp_name": "failed",
+    "struct_name": "ngx_pool_data_t",
+    "struct_aliases": [
+      "ngx_pool_data_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "0",
+      "ngx_fd_info_n",
+      "ngx_file_info_n",
+      "ngx_open_file_n",
+      "ngx_openat_file_n"
+    ]
+  },
+  {
+    "fp_name": "fails",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "family",
+    "struct_name": "ngx_http_conf_port_t",
+    "struct_aliases": [
+      "ngx_http_conf_port_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "AF_INET",
+      "AF_INET6",
+      "AF_UNIX"
+    ]
+  },
+  {
+    "fp_name": "file_handler",
+    "struct_name": "ngx_tree_ctx_s",
+    "struct_aliases": [
+      "ngx_tree_ctx_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "ngx_http_file_cache_manage_file"
+    ]
+  },
+  {
+    "fp_name": "files",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "files_n",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 22,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "flags",
+    "struct_name": "ngx_http_variable_s",
+    "struct_aliases": [
+      "ngx_http_variable_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "flags"
+    ]
+  },
+  {
+    "fp_name": "flush",
+    "struct_name": "ngx_http_log_buf_t",
+    "struct_aliases": [
+      "ngx_http_log_buf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NULL",
+      "flush",
+      "ngx_http_log_flush"
+    ]
+  },
+  {
+    "fp_name": "format",
+    "struct_name": "ngx_http_autoindex_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_autoindex_loc_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "frames",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "free_connection_n",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "get",
+    "struct_name": "ngx_peer_connection_s",
+    "struct_aliases": [
+      "ngx_peer_connection_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "ngx_http_upstream_get_chash_peer",
+      "ngx_http_upstream_get_hash_peer",
+      "ngx_http_upstream_get_ip_hash_peer",
+      "ngx_http_upstream_get_keepalive_peer",
+      "ngx_http_upstream_get_least_conn_peer",
+      "ngx_http_upstream_get_random2_peer",
+      "ngx_http_upstream_get_random_peer",
+      "ngx_http_upstream_get_round_robin_peer"
+    ]
+  },
+  {
+    "fp_name": "get_handler",
+    "struct_name": "ngx_http_variable_s",
+    "struct_aliases": [
+      "ngx_http_variable_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_geo_cidr_variable",
+      "ngx_http_geo_range_variable",
+      "ngx_http_map_variable",
+      "ngx_http_referer_variable",
+      "ngx_http_split_clients_variable",
+      "ngx_http_userid_got_variable",
+      "ngx_http_userid_reset_variable",
+      "ngx_http_userid_set_variable",
+      "ngx_http_variable_not_found"
+    ]
+  },
+  {
+    "fp_name": "get_rr_peer",
+    "struct_name": "ngx_http_upstream_hash_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_hash_peer_data_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "ngx_http_upstream_get_round_robin_peer"
+    ]
+  },
+  {
+    "fp_name": "getlen",
+    "struct_name": "ngx_http_log_op_s",
+    "struct_aliases": [
+      "ngx_http_log_op_s"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_log_json_variable_getlen",
+      "ngx_http_log_unescaped_variable_getlen",
+      "ngx_http_log_variable_getlen"
+    ]
+  },
+  {
+    "fp_name": "gmtoff",
+    "struct_name": "ngx_time_t",
+    "struct_aliases": [
+      "ngx_time_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "cached_gmtoff"
+    ]
+  },
+  {
+    "fp_name": "gzip",
+    "struct_name": "ngx_http_log_buf_t",
+    "struct_aliases": [
+      "ngx_http_log_buf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "gzip"
+    ]
+  },
+  {
+    "fp_name": "gzip_flag",
+    "struct_name": "ngx_http_memcached_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_memcached_loc_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "gzip_http_version",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 67,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "gzip_proxied",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 68,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "handler",
+    "struct_name": "ngx_http_script_var_handler_code_t",
+    "struct_aliases": [
+      "ngx_http_script_var_handler_code_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "handler",
+      "ngx_accept_log_error",
+      "ngx_acceptex_log_error",
+      "ngx_cache_loader_process_handler",
+      "ngx_cache_manager_process_handler",
+      "ngx_clean_old_cycles",
+      "ngx_cleanup_environment",
+      "ngx_cleanup_environment_variable",
+      "ngx_delete_udp_connection",
+      "ngx_epoll_eventfd_handler",
+      "ngx_epoll_notify_handler",
+      "ngx_event_accept",
+      "ngx_event_acceptex",
+      "ngx_event_recvmsg",
+      "ngx_http_add_header",
+      "ngx_http_cache_aio_event_handler",
+      "ngx_http_cache_thread_event_handler",
+      "ngx_http_close_connection",
+      "ngx_http_copy_aio_event_handler",
+      "ngx_http_copy_thread_event_handler",
+      "ngx_http_core_type",
+      "ngx_http_empty_gif_handler",
+      "ngx_http_empty_handler",
+      "ngx_http_fastcgi_handler",
+      "ngx_http_file_cache_cleanup",
+      "ngx_http_file_cache_lock_wait_handler",
+      "ngx_http_geo",
+      "ngx_http_init_connection",
+      "ngx_http_keepalive_handler",
+      "ngx_http_limit_conn_cleanup",
+      "ngx_http_lingering_close_handler",
+      "ngx_http_log_error",
+      "ngx_http_log_flush_handler",
+      "ngx_http_map",
+      "ngx_http_memcached_handler",
+      "ngx_http_process_request_headers",
+      "ngx_http_process_request_line",
+      "ngx_http_proxy_handler",
+      "ngx_http_proxy_rewrite_complex_handler",
+      "ngx_http_proxy_rewrite_domain_handler",
+      "ngx_http_proxy_rewrite_regex_handler",
+      "ngx_http_request_handler",
+      "ngx_http_scgi_handler",
+      "ngx_http_set_lingering_close",
+      "ngx_http_split_clients",
+      "ngx_http_ssi_set_variable",
+      "ngx_http_ssi_stub_output",
+      "ngx_http_ssl_handshake",
+      "ngx_http_ssl_handshake_handler",
+      "ngx_http_upstream_cleanup",
+      "ngx_http_upstream_handler",
+      "ngx_http_upstream_keepalive_close",
+      "ngx_http_upstream_keepalive_close_handler",
+      "ngx_http_upstream_keepalive_dummy_handler",
+      "ngx_http_upstream_resolve_handler",
+      "ngx_http_upstream_ssl_handshake_handler",
+      "ngx_http_upstream_thread_event_handler",
+      "ngx_http_upstream_zone_resolve_handler",
+      "ngx_http_upstream_zone_resolve_timer",
+      "ngx_http_uwsgi_handler",
+      "ngx_http_wait_request_handler",
+      "ngx_linux_sendfile_thread_handler",
+      "ngx_log_memory_cleanup",
+      "ngx_open_file_cache_cleanup",
+      "ngx_open_file_cache_remove",
+      "ngx_open_file_cleanup",
+      "ngx_pool_cleanup_file",
+      "ngx_quic_recvmsg",
+      "ngx_resolver_cleanup",
+      "ngx_resolver_log_error",
+      "ngx_resolver_resend_handler",
+      "ngx_resolver_srv_names_handler",
+      "ngx_resolver_tcp_read",
+      "ngx_resolver_tcp_write",
+      "ngx_resolver_timeout_handler",
+      "ngx_resolver_udp_read",
+      "ngx_shutdown_timer_handler",
+      "ngx_ssl_cleanup_ctx",
+      "ngx_syslog_cleanup",
+      "ngx_syslog_log_error",
+      "ngx_thread_read_handler",
+      "ngx_thread_write_chain_to_file_handler",
+      "ngx_unload_module"
+    ]
+  },
+  {
+    "fp_name": "handshake_timeout",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hash",
+    "struct_name": "ngx_http_upstream_ip_hash_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_ip_hash_peer_data_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "NULL",
+      "hash",
+      "prev_types_hash",
+      "types_hash"
+    ]
+  },
+  {
+    "fp_name": "hash_bucket_size",
+    "struct_name": "ngx_http_map_conf_t",
+    "struct_aliases": [
+      "ngx_http_map_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "ngx_cacheline_size"
+    ]
+  },
+  {
+    "fp_name": "hash_max_size",
+    "struct_name": "ngx_http_map_conf_t",
+    "struct_aliases": [
+      "ngx_http_map_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "header_hash",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 114,
+    "assigned_fn": [
+      "hash"
+    ]
+  },
+  {
+    "fp_name": "header_time",
+    "struct_name": "ngx_http_upstream_state_t",
+    "struct_aliases": [
+      "ngx_http_upstream_state_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "headers_hash_bucket_size",
+    "struct_name": "ngx_http_proxy_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_proxy_loc_conf_t"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "headers_hash_max_size",
+    "struct_name": "ngx_http_proxy_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_proxy_loc_conf_t"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "high",
+    "struct_name": "ngx_conf_num_bounds_t",
+    "struct_aliases": [
+      "ngx_conf_num_bounds_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "hostnames",
+    "struct_name": "ngx_http_map_ctx_t",
+    "struct_aliases": [
+      "ngx_http_map_ctx_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "hsize",
+    "struct_name": "ngx_hash_keys_arrays_t",
+    "struct_aliases": [
+      "ngx_hash_keys_arrays_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_HASH_LARGE_HSIZE"
+    ]
+  },
+  {
+    "fp_name": "http_version",
+    "struct_name": "ngx_http_status_t",
+    "struct_aliases": [
+      "ngx_http_status_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "NGX_HTTP_VERSION_10",
+      "NGX_HTTP_VERSION_9"
+    ]
+  },
+  {
+    "fp_name": "huffman",
+    "struct_name": "ngx_http_v3_parse_literal_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_literal_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "id",
+    "struct_name": "ngx_http_v2_node_s",
+    "struct_aliases": [
+      "ngx_http_v2_node_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ident",
+    "struct_name": "ngx_resolver_s",
+    "struct_aliases": [
+      "ngx_resolver_s"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "idle",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "idle_timeout",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "if_modified_since",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 45,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "ignore_headers",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "includes",
+    "struct_name": "ngx_http_geo_conf_ctx_t",
+    "struct_aliases": [
+      "ngx_http_geo_conf_ctx_t"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "index",
+    "struct_name": "ngx_http_variable_s",
+    "struct_aliases": [
+      "ngx_http_variable_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET",
+      "NGX_INVALID_INDEX",
+      "i"
+    ]
+  },
+  {
+    "fp_name": "init",
+    "struct_name": "ngx_http_upstream_peer_t",
+    "struct_aliases": [
+      "ngx_http_upstream_peer_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_file_cache_init",
+      "ngx_http_limit_conn_init_zone",
+      "ngx_http_limit_req_init_zone",
+      "ngx_http_upstream_init_chash_peer",
+      "ngx_http_upstream_init_hash_peer",
+      "ngx_http_upstream_init_ip_hash_peer",
+      "ngx_http_upstream_init_keepalive_peer",
+      "ngx_http_upstream_init_least_conn_peer",
+      "ngx_http_upstream_init_random_peer",
+      "ngx_http_upstream_init_round_robin_peer",
+      "ngx_http_upstream_init_zone"
+    ]
+  },
+  {
+    "fp_name": "init_conf",
+    "struct_name": "ngx_event_module_t",
+    "struct_aliases": [
+      "ngx_event_module_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "ngx_core_module_init_conf",
+      "ngx_epoll_init_conf",
+      "ngx_event_core_init_conf",
+      "ngx_event_init_conf"
+    ]
+  },
+  {
+    "fp_name": "init_handler",
+    "struct_name": "ngx_tree_ctx_s",
+    "struct_aliases": [
+      "ngx_tree_ctx_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "init_main_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_init_main_conf",
+      "ngx_http_ssi_init_main_conf",
+      "ngx_http_upstream_init_main_conf"
+    ]
+  },
+  {
+    "fp_name": "init_master",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init_module",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 11,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init_process",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 12,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init_thread",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 13,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init_upstream",
+    "struct_name": "ngx_http_upstream_peer_t",
+    "struct_aliases": [
+      "ngx_http_upstream_peer_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "ngx_http_upstream_init_chash",
+      "ngx_http_upstream_init_hash",
+      "ngx_http_upstream_init_ip_hash",
+      "ngx_http_upstream_init_keepalive",
+      "ngx_http_upstream_init_least_conn",
+      "ngx_http_upstream_init_random"
+    ]
+  },
+  {
+    "fp_name": "input_filter",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "ngx_event_pipe_copy_input_filter",
+      "ngx_http_fastcgi_input_filter",
+      "ngx_http_fastcgi_non_buffered_filter",
+      "ngx_http_memcached_filter",
+      "ngx_http_proxy_chunked_filter",
+      "ngx_http_proxy_copy_filter",
+      "ngx_http_proxy_non_buffered_chunked_filter",
+      "ngx_http_proxy_non_buffered_copy_filter",
+      "ngx_http_upstream_non_buffered_filter"
+    ]
+  },
+  {
+    "fp_name": "input_filter_init",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "ngx_http_fastcgi_input_filter_init",
+      "ngx_http_memcached_filter_init",
+      "ngx_http_proxy_input_filter_init",
+      "ngx_http_scgi_input_filter_init",
+      "ngx_http_upstream_non_buffered_filter_init",
+      "ngx_http_uwsgi_input_filter_init"
+    ]
+  },
+  {
+    "fp_name": "insert",
+    "struct_name": "ngx_rbtree_s",
+    "struct_aliases": [
+      "ngx_rbtree_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "insert_count",
+    "struct_name": "ngx_http_v3_parse_field_section_prefix_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_field_section_prefix_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_disable",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 42,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keepalive_min_timeout",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 34,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "keepalive_requests",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 41,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "keepalive_time",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 32,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "keepalive_timeout",
+    "struct_name": "ngx_http_connection_t",
+    "struct_aliases": [
+      "ngx_http_connection_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "key",
+    "struct_name": "ngx_http_ssi_ctx_t",
+    "struct_aliases": [
+      "ngx_http_ssi_ctx_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0",
+      "NULL",
+      "addr",
+      "hash",
+      "key",
+      "name",
+      "ngx_hash_key",
+      "ngx_hash_key_lc"
+    ]
+  },
+  {
+    "fp_name": "key_hash",
+    "struct_name": "ngx_hash_key_t",
+    "struct_aliases": [
+      "ngx_hash_key_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "hash"
+    ]
+  },
+  {
+    "fp_name": "last",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "0",
+      "cl",
+      "last",
+      "ngx_current_msec",
+      "now",
+      "p",
+      "pos"
+    ]
+  },
+  {
+    "fp_name": "last_connection",
+    "struct_name": "ngx_resolver_s",
+    "struct_aliases": [
+      "ngx_resolver_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "last_sid",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 25,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "length",
+    "struct_name": "ngx_http_v3_parse_literal_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_literal_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "level",
+    "struct_name": "ngx_log_s",
+    "struct_aliases": [
+      "ngx_log_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "limit_log_level",
+    "struct_name": "ngx_http_limit_req_conf_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "line",
+    "struct_name": "ngx_http_upstream_srv_conf_s",
+    "struct_aliases": [
+      "ngx_http_upstream_srv_conf_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "0",
+      "start_line"
+    ]
+  },
+  {
+    "fp_name": "lingering_close",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 44,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "lingering_time",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 35,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "lingering_timeout",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 36,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "loader",
+    "struct_name": "ngx_path_t",
+    "struct_aliases": [
+      "ngx_path_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_file_cache_loader"
+    ]
+  },
+  {
+    "fp_name": "loader_files",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "loader_files"
+    ]
+  },
+  {
+    "fp_name": "loader_sleep",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "loader_sleep"
+    ]
+  },
+  {
+    "fp_name": "loader_threshold",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "loader_threshold"
+    ]
+  },
+  {
+    "fp_name": "location_rewrite_index",
+    "struct_name": "ngx_http_phase_engine_t",
+    "struct_aliases": [
+      "ngx_http_phase_engine_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "lock_age",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 26,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "lock_time",
+    "struct_name": "ngx_http_file_cache_node_t",
+    "struct_aliases": [
+      "ngx_http_file_cache_node_t"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "log_handler",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 46,
+    "assigned_fn": [
+      "ngx_http_log_error_handler"
+    ]
+  },
+  {
+    "fp_name": "log_level",
+    "struct_name": "ngx_http_limit_conn_conf_t",
+    "struct_aliases": [
+      "ngx_http_limit_conn_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "NGX_LOG_DEBUG_ALL",
+      "NGX_LOG_ERR",
+      "NGX_LOG_INFO",
+      "NGX_LOG_NOTICE",
+      "NGX_LOG_WARN",
+      "n"
+    ]
+  },
+  {
+    "fp_name": "log_use_stderr",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "low",
+    "struct_name": "ngx_conf_num_bounds_t",
+    "struct_aliases": [
+      "ngx_conf_num_bounds_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "ranges"
+    ]
+  },
+  {
+    "fp_name": "lowcase_index",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 115,
+    "assigned_fn": [
+      "i"
+    ]
+  },
+  {
+    "fp_name": "manager",
+    "struct_name": "ngx_path_t",
+    "struct_aliases": [
+      "ngx_path_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "ngx_http_file_cache_manager"
+    ]
+  },
+  {
+    "fp_name": "manager_files",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 13,
+    "assigned_fn": [
+      "manager_files"
+    ]
+  },
+  {
+    "fp_name": "manager_sleep",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "manager_sleep"
+    ]
+  },
+  {
+    "fp_name": "manager_threshold",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "manager_threshold"
+    ]
+  },
+  {
+    "fp_name": "mask",
+    "struct_name": "ngx_http_upstream_next_t",
+    "struct_aliases": [
+      "ngx_http_upstream_next_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "max",
+    "struct_name": "ngx_open_file_cache_t",
+    "struct_aliases": [
+      "ngx_open_file_cache_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "max"
+    ]
+  },
+  {
+    "fp_name": "max_blocked_streams",
+    "struct_name": "ngx_http_v3_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_v3_srv_conf_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_cached",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "max_concurrent_streams",
+    "struct_name": "ngx_http_v3_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_v3_srv_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_concurrent_streams_bidi",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_concurrent_streams_uni",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "max_conns",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "max_conns"
+    ]
+  },
+  {
+    "fp_name": "max_fails",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "max_fails"
+    ]
+  },
+  {
+    "fp_name": "max_ranges",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 46,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "max_size",
+    "struct_name": "ngx_hash_init_t",
+    "struct_aliases": [
+      "ngx_hash_init_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "max_size"
+    ]
+  },
+  {
+    "fp_name": "merge_loc_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_merge_loc_conf",
+      "ngx_http_auth_basic_merge_loc_conf",
+      "ngx_http_autoindex_merge_loc_conf",
+      "ngx_http_browser_merge_conf",
+      "ngx_http_copy_filter_merge_conf",
+      "ngx_http_core_merge_loc_conf",
+      "ngx_http_fastcgi_merge_loc_conf",
+      "ngx_http_headers_merge_conf",
+      "ngx_http_index_merge_loc_conf",
+      "ngx_http_limit_conn_merge_conf",
+      "ngx_http_limit_req_merge_conf",
+      "ngx_http_log_merge_loc_conf",
+      "ngx_http_memcached_merge_loc_conf",
+      "ngx_http_mirror_merge_loc_conf",
+      "ngx_http_proxy_merge_loc_conf",
+      "ngx_http_referer_merge_conf",
+      "ngx_http_scgi_merge_loc_conf",
+      "ngx_http_ssi_merge_loc_conf",
+      "ngx_http_userid_merge_conf",
+      "ngx_http_uwsgi_merge_loc_conf"
+    ]
+  },
+  {
+    "fp_name": "merge_srv_conf",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_core_merge_srv_conf"
+    ]
+  },
+  {
+    "fp_name": "method",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_PTR",
+      "NGX_HTTP_CONNECT",
+      "NGX_HTTP_COPY",
+      "NGX_HTTP_DELETE",
+      "NGX_HTTP_GET",
+      "NGX_HTTP_HEAD",
+      "NGX_HTTP_LOCK",
+      "NGX_HTTP_MKCOL",
+      "NGX_HTTP_MOVE",
+      "NGX_HTTP_OPTIONS",
+      "NGX_HTTP_PATCH",
+      "NGX_HTTP_POST",
+      "NGX_HTTP_PROPFIND",
+      "NGX_HTTP_PROPPATCH",
+      "NGX_HTTP_PUT",
+      "NGX_HTTP_TRACE",
+      "NGX_HTTP_UNKNOWN",
+      "NGX_HTTP_UNLOCK",
+      "ngx_http_core_get_method"
+    ]
+  },
+  {
+    "fp_name": "min_uses",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 19,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "modifier1",
+    "struct_name": "ngx_http_uwsgi_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_uwsgi_loc_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "modifier2",
+    "struct_name": "ngx_http_uwsgi_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_uwsgi_loc_conf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "module_type",
+    "struct_name": "ngx_conf_s",
+    "struct_aliases": [
+      "ngx_conf_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "NGX_CORE_MODULE",
+      "NGX_EVENT_MODULE",
+      "NGX_HTTP_MODULE"
+    ]
+  },
+  {
+    "fp_name": "modules_n",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "ngx_modules_n"
+    ]
+  },
+  {
+    "fp_name": "modules_used",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "msec",
+    "struct_name": "ngx_time_t",
+    "struct_aliases": [
+      "ngx_time_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "msec"
+    ]
+  },
+  {
+    "fp_name": "naddrs",
+    "struct_name": "ngx_http_upstream_server_t",
+    "struct_aliases": [
+      "ngx_http_upstream_server_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "0",
+      "naddrs"
+    ]
+  },
+  {
+    "fp_name": "nalloc",
+    "struct_name": "ngx_list_t",
+    "struct_aliases": [
+      "ngx_list_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NGX_HTTP_SSI_PARAMS_N",
+      "NGX_IOVS_PREALLOCATE",
+      "n",
+      "nalloc"
+    ]
+  },
+  {
+    "fp_name": "nblocked",
+    "struct_name": "ngx_http_v3_session_s",
+    "struct_aliases": [
+      "ngx_http_v3_session_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nbusy",
+    "struct_name": "ngx_http_connection_t",
+    "struct_aliases": [
+      "ngx_http_connection_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "ncaptures",
+    "struct_name": "ngx_http_regex_t",
+    "struct_aliases": [
+      "ngx_http_regex_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "n",
+      "rc"
+    ]
+  },
+  {
+    "fp_name": "nelts",
+    "struct_name": "ngx_http_v3_dynamic_table_t",
+    "struct_aliases": [
+      "ngx_http_v3_dynamic_table_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "new_streams",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next",
+    "struct_name": "ngx_http_phase_handler_s",
+    "struct_aliases": [
+      "ngx_http_phase_handler_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NULL",
+      "backup",
+      "cl",
+      "dcl",
+      "find_config_index",
+      "h",
+      "headers",
+      "last",
+      "n",
+      "new",
+      "new_log",
+      "out",
+      "page",
+      "pr",
+      "rcl",
+      "tl",
+      "x"
+    ]
+  },
+  {
+    "fp_name": "next_upstream",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "next_upstream_timeout",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "next_upstream_tries",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "no_port",
+    "struct_name": "ngx_http_upstream_srv_conf_s",
+    "struct_aliases": [
+      "ngx_http_upstream_srv_conf_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "noreuse",
+    "struct_name": "ngx_shm_zone_s",
+    "struct_aliases": [
+      "ngx_shm_zone_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "notify",
+    "struct_name": "ngx_event_actions_t",
+    "struct_aliases": [
+      "ngx_event_actions_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "nregex",
+    "struct_name": "ngx_http_map_t",
+    "struct_aliases": [
+      "ngx_http_map_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "regex"
+    ]
+  },
+  {
+    "fp_name": "nrequests",
+    "struct_name": "ngx_http_v3_session_s",
+    "struct_aliases": [
+      "ngx_http_v3_session_s"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "nsrvs",
+    "struct_name": "ngx_resolver_ctx_s",
+    "struct_aliases": [
+      "ngx_resolver_ctx_s"
+    ],
+    "fp_index": 13,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "num",
+    "struct_name": "ngx_bufs_t",
+    "struct_aliases": [
+      "ngx_bufs_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "default_num"
+    ]
+  },
+  {
+    "fp_name": "number",
+    "struct_name": "ngx_http_upstream_rr_peers_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peers_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "n"
+    ]
+  },
+  {
+    "fp_name": "nvariables",
+    "struct_name": "ngx_http_regex_t",
+    "struct_aliases": [
+      "ngx_http_regex_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "ocsp",
+    "struct_name": "ngx_http_ssl_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_ssl_srv_conf_t"
+    ],
+    "fp_index": 27,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "off",
+    "struct_name": "ngx_http_log_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_log_loc_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "offset",
+    "struct_name": "ngx_http_upstream_header_t",
+    "struct_aliases": [
+      "ngx_http_upstream_header_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "last",
+      "offset"
+    ]
+  },
+  {
+    "fp_name": "open_file_cache_min_uses",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 75,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "min_uses"
+    ]
+  },
+  {
+    "fp_name": "options",
+    "struct_name": "ngx_regex_compile_t",
+    "struct_aliases": [
+      "ngx_regex_compile_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_REGEX_CASELESS"
+    ]
+  },
+  {
+    "fp_name": "original_get_peer",
+    "struct_name": "ngx_http_upstream_keepalive_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_peer_data_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_init_peer",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_init_upstream",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "original_save_session",
+    "struct_name": "ngx_http_upstream_keepalive_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_peer_data_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "output_filter",
+    "struct_name": "ngx_event_pipe_s",
+    "struct_aliases": [
+      "ngx_event_pipe_s"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "ngx_chain_writer",
+      "ngx_http_fastcgi_body_output_filter",
+      "ngx_http_proxy_body_output_filter",
+      "ngx_http_upstream_output_filter"
+    ]
+  },
+  {
+    "fp_name": "overwrite",
+    "struct_name": "ngx_http_err_page_t",
+    "struct_aliases": [
+      "ngx_http_err_page_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_HTTP_BAD_REQUEST",
+      "overwrite"
+    ]
+  },
+  {
+    "fp_name": "path_access",
+    "struct_name": "ngx_ext_rename_file_t",
+    "struct_aliases": [
+      "ngx_ext_rename_file_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_FILE_OWNER_ACCESS"
+    ]
+  },
+  {
+    "fp_name": "pfree",
+    "struct_name": "ngx_slab_pool_t",
+    "struct_aliases": [
+      "ngx_slab_pool_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "pages"
+    ]
+  },
+  {
+    "fp_name": "phase_handler",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 33,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "post_handler",
+    "struct_name": "ngx_http_request_body_t",
+    "struct_aliases": [
+      "ngx_http_request_body_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "ngx_conf_check_num_bounds",
+      "ngx_http_core_lowat_check",
+      "ngx_http_fastcgi_lowat_check",
+      "ngx_http_proxy_lowat_check",
+      "ngx_http_proxy_ssl_conf_command_check",
+      "ngx_http_uwsgi_ssl_conf_command_check",
+      "post_handler"
+    ]
+  },
+  {
+    "fp_name": "post_tree_handler",
+    "struct_name": "ngx_tree_ctx_s",
+    "struct_aliases": [
+      "ngx_tree_ctx_s"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "ngx_http_file_cache_noop"
+    ]
+  },
+  {
+    "fp_name": "postconfiguration",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_access_init",
+      "ngx_http_auth_basic_init",
+      "ngx_http_autoindex_init",
+      "ngx_http_chunked_filter_init",
+      "ngx_http_copy_filter_init",
+      "ngx_http_core_postconfiguration",
+      "ngx_http_header_filter_init",
+      "ngx_http_headers_filter_init",
+      "ngx_http_index_init",
+      "ngx_http_limit_conn_init",
+      "ngx_http_limit_req_init",
+      "ngx_http_log_init",
+      "ngx_http_mirror_init",
+      "ngx_http_not_modified_filter_init",
+      "ngx_http_postpone_filter_init",
+      "ngx_http_range_body_filter_init",
+      "ngx_http_range_header_filter_init",
+      "ngx_http_ssi_filter_init",
+      "ngx_http_static_init",
+      "ngx_http_try_files_init",
+      "ngx_http_userid_init",
+      "ngx_http_write_filter_init"
+    ]
+  },
+  {
+    "fp_name": "pre_tree_handler",
+    "struct_name": "ngx_tree_ctx_s",
+    "struct_aliases": [
+      "ngx_tree_ctx_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "ngx_http_file_cache_manage_directory"
+    ]
+  },
+  {
+    "fp_name": "preconfiguration",
+    "struct_name": "ngx_http_module_t",
+    "struct_aliases": [
+      "ngx_http_module_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NULL",
+      "ngx_http_browser_add_variables",
+      "ngx_http_core_preconfiguration",
+      "ngx_http_fastcgi_add_variables",
+      "ngx_http_limit_conn_add_variables",
+      "ngx_http_limit_req_add_variables",
+      "ngx_http_proxy_add_variables",
+      "ngx_http_referer_add_variables",
+      "ngx_http_ssi_preconfiguration",
+      "ngx_http_upstream_add_variables",
+      "ngx_http_userid_add_variables"
+    ]
+  },
+  {
+    "fp_name": "priority_limit",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "proc",
+    "struct_name": "ngx_process_t",
+    "struct_aliases": [
+      "ngx_process_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "process_header",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 21,
+    "assigned_fn": [
+      "ngx_http_fastcgi_process_header",
+      "ngx_http_memcached_process_header",
+      "ngx_http_proxy_process_header",
+      "ngx_http_proxy_process_status_line",
+      "ngx_http_scgi_process_header",
+      "ngx_http_scgi_process_status_line",
+      "ngx_http_uwsgi_process_header",
+      "ngx_http_uwsgi_process_status_line"
+    ]
+  },
+  {
+    "fp_name": "processing",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "protocols",
+    "struct_name": "ngx_http_ssl_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_ssl_srv_conf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "purger",
+    "struct_name": "ngx_path_t",
+    "struct_aliases": [
+      "ngx_path_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "queue_time",
+    "struct_name": "ngx_http_upstream_state_t",
+    "struct_aliases": [
+      "ngx_http_upstream_state_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "queued",
+    "struct_name": "ngx_http_v2_stream_s",
+    "struct_aliases": [
+      "ngx_http_v2_stream_s"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "range",
+    "struct_name": "ngx_http_upstream_random_range_t",
+    "struct_aliases": [
+      "ngx_http_upstream_random_range_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rank",
+    "struct_name": "ngx_http_v2_node_s",
+    "struct_aliases": [
+      "ngx_http_v2_node_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rate",
+    "struct_name": "ngx_http_limit_req_ctx_t",
+    "struct_aliases": [
+      "ngx_http_limit_req_ctx_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rc",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 23,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "read_event_handler",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "ngx_http_block_reading",
+      "ngx_http_discarded_request_body_handler",
+      "ngx_http_read_client_request_body_handler",
+      "ngx_http_request_empty_handler",
+      "ngx_http_test_reading",
+      "ngx_http_upstream_process_header",
+      "ngx_http_upstream_process_non_buffered_upstream",
+      "ngx_http_upstream_process_upstream",
+      "ngx_http_upstream_rd_check_broken_connection",
+      "ngx_http_upstream_read_request_handler",
+      "ngx_http_upstream_upgraded_read_downstream",
+      "ngx_http_upstream_upgraded_read_upstream"
+    ]
+  },
+  {
+    "fp_name": "read_timeout",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "recursion",
+    "struct_name": "ngx_resolver_ctx_s",
+    "struct_aliases": [
+      "ngx_resolver_ctx_s"
+    ],
+    "fp_index": 21,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "recv",
+    "struct_name": "ngx_connection_s",
+    "struct_aliases": [
+      "ngx_connection_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "ngx_recv",
+      "ngx_udp_recv",
+      "ngx_udp_shared_recv",
+      "ngx_unix_recv"
+    ]
+  },
+  {
+    "fp_name": "recv_chain",
+    "struct_name": "ngx_connection_s",
+    "struct_aliases": [
+      "ngx_connection_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "ngx_readv_chain",
+      "ngx_recv_chain"
+    ]
+  },
+  {
+    "fp_name": "redirect",
+    "struct_name": "ngx_http_upstream_header_t",
+    "struct_aliases": [
+      "ngx_http_upstream_header_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "referer_hash_bucket_size",
+    "struct_name": "ngx_http_referer_conf_t",
+    "struct_aliases": [
+      "ngx_http_referer_conf_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "referer_hash_max_size",
+    "struct_name": "ngx_http_referer_conf_t",
+    "struct_aliases": [
+      "ngx_http_referer_conf_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "refs",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 19,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "refused_streams",
+    "struct_name": "ngx_http_v2_connection_s",
+    "struct_aliases": [
+      "ngx_http_v2_connection_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "regex",
+    "struct_name": "cookie",
+    "struct_aliases": [
+      "cookie"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "NGX_CONF_UNSET_PTR",
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "rehash",
+    "struct_name": "ngx_http_upstream_hash_peer_data_t",
+    "struct_aliases": [
+      "ngx_http_upstream_hash_peer_data_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "reinit_request",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 20,
+    "assigned_fn": [
+      "ngx_http_fastcgi_reinit_request",
+      "ngx_http_memcached_reinit_request",
+      "ngx_http_proxy_reinit_request",
+      "ngx_http_scgi_reinit_request",
+      "ngx_http_uwsgi_reinit_request"
+    ]
+  },
+  {
+    "fp_name": "reqs",
+    "struct_name": "ngx_slab_stat_t",
+    "struct_aliases": [
+      "ngx_slab_stat_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "requests",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "reset",
+    "struct_name": "ngx_http_userid_ctx_t",
+    "struct_aliases": [
+      "ngx_http_userid_ctx_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "resolver_timeout",
+    "struct_name": "ngx_http_upstream_srv_conf_s",
+    "struct_aliases": [
+      "ngx_http_upstream_srv_conf_s"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "response_time",
+    "struct_name": "ngx_http_upstream_state_t",
+    "struct_aliases": [
+      "ngx_http_upstream_state_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reusable_connections_n",
+    "struct_name": "ngx_cycle_s",
+    "struct_aliases": [
+      "ngx_cycle_s"
+    ],
+    "fp_index": 12,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "reused",
+    "struct_name": "ngx_http_v2_hpack_t",
+    "struct_aliases": [
+      "ngx_http_v2_hpack_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "rewrite_cookie",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 25,
+    "assigned_fn": [
+      "ngx_http_proxy_rewrite_cookie"
+    ]
+  },
+  {
+    "fp_name": "rewrite_redirect",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 24,
+    "assigned_fn": [
+      "ngx_http_proxy_rewrite_redirect"
+    ]
+  },
+  {
+    "fp_name": "rlimit_nofile",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "run",
+    "struct_name": "ngx_http_log_op_s",
+    "struct_aliases": [
+      "ngx_http_log_op_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "ngx_http_log_copy_long",
+      "ngx_http_log_copy_short",
+      "ngx_http_log_json_variable",
+      "ngx_http_log_unescaped_variable",
+      "ngx_http_log_variable"
+    ]
+  },
+  {
+    "fp_name": "satisfy",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 43,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "save_session",
+    "struct_name": "ngx_peer_connection_s",
+    "struct_aliases": [
+      "ngx_peer_connection_s"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "ngx_http_upstream_empty_save_session",
+      "ngx_http_upstream_keepalive_save_session",
+      "ngx_http_upstream_save_round_robin_peer_session",
+      "ngx_http_upstream_ssl_save_session"
+    ]
+  },
+  {
+    "fp_name": "saved_read_handler",
+    "struct_name": "ngx_ssl_connection_s",
+    "struct_aliases": [
+      "ngx_ssl_connection_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "saved_state",
+    "struct_name": "ngx_http_ssi_ctx_t",
+    "struct_aliases": [
+      "ngx_http_ssi_ctx_t"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "ssi_double_quoted_value_state",
+      "ssi_quoted_value_state"
+    ]
+  },
+  {
+    "fp_name": "saved_write_handler",
+    "struct_name": "ngx_ssl_connection_s",
+    "struct_aliases": [
+      "ngx_ssl_connection_s"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "semaphore",
+    "struct_name": "ngx_shmtx_t",
+    "struct_aliases": [
+      "ngx_shmtx_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "send",
+    "struct_name": "ngx_connection_s",
+    "struct_aliases": [
+      "ngx_connection_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "ngx_send",
+      "ngx_udp_send",
+      "ngx_unix_send"
+    ]
+  },
+  {
+    "fp_name": "send_chain",
+    "struct_name": "ngx_connection_s",
+    "struct_aliases": [
+      "ngx_connection_s"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "ngx_send_chain",
+      "ngx_udp_send_chain",
+      "ngx_writev_chain"
+    ]
+  },
+  {
+    "fp_name": "send_timeout",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "server_names_hash_bucket_size",
+    "struct_name": "ngx_http_core_main_conf_t",
+    "struct_aliases": [
+      "ngx_http_core_main_conf_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "server_names_hash_max_size",
+    "struct_name": "ngx_http_core_main_conf_t",
+    "struct_aliases": [
+      "ngx_http_core_main_conf_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "server_rewrite_index",
+    "struct_name": "ngx_http_phase_engine_t",
+    "struct_aliases": [
+      "ngx_http_phase_engine_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "server_tokens",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 64,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "servername",
+    "struct_name": "ngx_ssl_client_hello_arg",
+    "struct_aliases": [
+      "ngx_ssl_client_hello_arg"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "service",
+    "struct_name": "ngx_http_userid_conf_t",
+    "struct_aliases": [
+      "ngx_http_userid_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET"
+    ]
+  },
+  {
+    "fp_name": "set",
+    "struct_name": "ngx_command_s",
+    "struct_aliases": [
+      "ngx_command_s"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "set_handler",
+    "struct_name": "ngx_http_variable_s",
+    "struct_aliases": [
+      "ngx_http_variable_s"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "severity",
+    "struct_name": "ngx_syslog_peer_t",
+    "struct_aliases": [
+      "ngx_syslog_peer_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT",
+      "i"
+    ]
+  },
+  {
+    "fp_name": "shift",
+    "struct_name": "ngx_http_v3_parse_prefix_int_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_prefix_int_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "shutdown",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "shutdown_timeout",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "sid",
+    "struct_name": "ngx_http_v2_state_t",
+    "struct_aliases": [
+      "ngx_http_v2_state_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "sign",
+    "struct_name": "ngx_http_v3_parse_field_section_prefix_t",
+    "struct_aliases": [
+      "ngx_http_v3_parse_field_section_prefix_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "size",
+    "struct_name": "ngx_http_script_compile_t",
+    "struct_aliases": [
+      "ngx_http_script_compile_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "0",
+      "default_size",
+      "ngx_pagesize",
+      "size",
+      "total"
+    ]
+  },
+  {
+    "fp_name": "skip_empty",
+    "struct_name": "ngx_http_upstream_param_t",
+    "struct_aliases": [
+      "ngx_http_upstream_param_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "slot",
+    "struct_name": "ngx_channel_t",
+    "struct_aliases": [
+      "ngx_channel_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "i",
+      "ngx_process_slot"
+    ]
+  },
+  {
+    "fp_name": "slow_start",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spare0",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spare1",
+    "struct_name": "ngx_module_s",
+    "struct_aliases": [
+      "ngx_module_s"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "spec_handler",
+    "struct_name": "ngx_tree_ctx_s",
+    "struct_aliases": [
+      "ngx_tree_ctx_s"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "ngx_http_file_cache_delete_file"
+    ]
+  },
+  {
+    "fp_name": "ssl_protocols",
+    "struct_name": "ngx_http_uwsgi_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_uwsgi_loc_conf_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "ssl_verify_depth",
+    "struct_name": "ngx_http_uwsgi_loc_conf_t",
+    "struct_aliases": [
+      "ngx_http_uwsgi_loc_conf_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "start_msec",
+    "struct_name": "ngx_http_request_s",
+    "struct_aliases": [
+      "ngx_http_request_s"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "start_time",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "ngx_current_msec"
+    ]
+  },
+  {
+    "fp_name": "state",
+    "struct_name": "ngx_http_chunked_s",
+    "struct_aliases": [
+      "ngx_http_chunked_s"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "0",
+      "NGX_AGAIN",
+      "NGX_ERROR",
+      "NGX_OK",
+      "NGX_RESOLVE_NXDOMAIN",
+      "NGX_RESOLVE_TIMEDOUT",
+      "code",
+      "ngx_http_fastcgi_st_padding",
+      "ngx_http_fastcgi_st_version",
+      "ssi_start_state",
+      "state",
+      "sw_start"
+    ]
+  },
+  {
+    "fp_name": "status",
+    "struct_name": "ngx_http_upstream_state_t",
+    "struct_aliases": [
+      "ngx_http_upstream_state_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_DONE",
+      "NGX_HTTP_INTERNAL_SERVER_ERROR",
+      "NGX_HTTP_NOT_MODIFIED",
+      "NGX_HTTP_OK",
+      "NGX_HTTP_PARTIAL_CONTENT",
+      "NGX_HTTP_RANGE_NOT_SATISFIABLE",
+      "rc",
+      "status"
+    ]
+  },
+  {
+    "fp_name": "status_code",
+    "struct_name": "ngx_http_limit_conn_conf_t",
+    "struct_aliases": [
+      "ngx_http_limit_conn_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "status_n",
+    "struct_name": "ngx_http_upstream_headers_in_t",
+    "struct_aliases": [
+      "ngx_http_upstream_headers_in_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "status"
+    ]
+  },
+  {
+    "fp_name": "store_access",
+    "struct_name": "ngx_http_upstream_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_conf_t"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "stream_close_code",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 11,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stream_reject_code_bidi",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 13,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "stream_reject_code_uni",
+    "struct_name": "ngx_quic_conf_t",
+    "struct_aliases": [
+      "ngx_quic_conf_t"
+    ],
+    "fp_index": 12,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "streams_index_mask",
+    "struct_name": "ngx_http_v2_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_v2_srv_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "test",
+    "struct_name": "ngx_glob_t",
+    "struct_aliases": [
+      "ngx_glob_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "time",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC",
+      "lm"
+    ]
+  },
+  {
+    "fp_name": "timeout",
+    "struct_name": "ngx_http_upstream_keepalive_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_keepalive_srv_conf_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "timer",
+    "struct_name": "ngx_event_actions_t",
+    "struct_aliases": [
+      "ngx_event_actions_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "timer_resolution",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_MSEC"
+    ]
+  },
+  {
+    "fp_name": "total",
+    "struct_name": "ngx_slab_stat_t",
+    "struct_aliases": [
+      "ngx_slab_stat_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "transparent",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 21,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "tries",
+    "struct_name": "ngx_http_upstream_rr_peers_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peers_s"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "n",
+      "t"
+    ]
+  },
+  {
+    "fp_name": "two",
+    "struct_name": "ngx_http_upstream_random_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_upstream_random_srv_conf_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "type",
+    "struct_name": "ngx_http_conf_port_t",
+    "struct_aliases": [
+      "ngx_http_conf_port_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "NGX_HTTP_FASTCGI_PARAMS",
+      "NGX_HTTP_FASTCGI_STDERR",
+      "NGX_HTTP_FASTCGI_STDIN",
+      "SOCK_DGRAM",
+      "SOCK_STREAM",
+      "type"
+    ]
+  },
+  {
+    "fp_name": "types_hash_bucket_size",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 80,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "types_hash_max_size",
+    "struct_name": "ngx_http_core_loc_conf_s",
+    "struct_aliases": [
+      "ngx_http_core_loc_conf_s"
+    ],
+    "fp_index": 79,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "udp_recv",
+    "struct_name": "ngx_os_io_t",
+    "struct_aliases": [
+      "ngx_os_io_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "ngx_udp_unix_recv"
+    ]
+  },
+  {
+    "fp_name": "udp_send",
+    "struct_name": "ngx_os_io_t",
+    "struct_aliases": [
+      "ngx_os_io_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "ngx_udp_unix_send"
+    ]
+  },
+  {
+    "fp_name": "udp_send_chain",
+    "struct_name": "ngx_os_io_t",
+    "struct_aliases": [
+      "ngx_os_io_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "ngx_udp_unix_sendmsg_chain"
+    ]
+  },
+  {
+    "fp_name": "use",
+    "struct_name": "ngx_event_conf_t",
+    "struct_aliases": [
+      "ngx_event_conf_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "use_temp_path",
+    "struct_name": "ngx_http_file_cache_s",
+    "struct_aliases": [
+      "ngx_http_file_cache_s"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "use_temp_path"
+    ]
+  },
+  {
+    "fp_name": "used",
+    "struct_name": "ngx_slab_stat_t",
+    "struct_aliases": [
+      "ngx_slab_stat_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "valid_msec",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 21,
+    "assigned_fn": [
+      "0"
+    ]
+  },
+  {
+    "fp_name": "value",
+    "struct_name": "ngx_conf_enum_t",
+    "struct_aliases": [
+      "ngx_conf_enum_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "NGX_RADIX_NO_VALUE",
+      "NULL",
+      "content_type",
+      "cv",
+      "hash",
+      "header",
+      "name",
+      "ngx_http_ssi_null_string",
+      "s",
+      "uri",
+      "v",
+      "val",
+      "value",
+      "var"
+    ]
+  },
+  {
+    "fp_name": "variables",
+    "struct_name": "ngx_http_script_compile_t",
+    "struct_aliases": [
+      "ngx_http_script_compile_t"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "0",
+      "n",
+      "rv"
+    ]
+  },
+  {
+    "fp_name": "variables_hash_bucket_size",
+    "struct_name": "ngx_http_core_main_conf_t",
+    "struct_aliases": [
+      "ngx_http_core_main_conf_t"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "variables_hash_max_size",
+    "struct_name": "ngx_http_core_main_conf_t",
+    "struct_aliases": [
+      "ngx_http_core_main_conf_t"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "NGX_CONF_UNSET_UINT"
+    ]
+  },
+  {
+    "fp_name": "vary_tag",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 22,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "verify",
+    "struct_name": "ngx_http_ssl_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_ssl_srv_conf_t"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "verify_depth",
+    "struct_name": "ngx_http_ssl_srv_conf_t",
+    "struct_aliases": [
+      "ngx_http_ssl_srv_conf_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "version",
+    "struct_name": "ngx_http_file_cache_header_t",
+    "struct_aliases": [
+      "ngx_http_file_cache_header_t"
+    ],
+    "fp_index": 0,
+    "assigned_fn": [
+      "NGX_HTTP_CACHE_VERSION",
+      "_LINUX_CAPABILITY_VERSION_1",
+      "version"
+    ]
+  },
+  {
+    "fp_name": "wait_time",
+    "struct_name": "ngx_http_cache_s",
+    "struct_aliases": [
+      "ngx_http_cache_s"
+    ],
+    "fp_index": 28,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "watermark",
+    "struct_name": "ngx_http_file_cache_sh_t",
+    "struct_aliases": [
+      "ngx_http_file_cache_sh_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "weight",
+    "struct_name": "ngx_http_upstream_rr_peer_s",
+    "struct_aliases": [
+      "ngx_http_upstream_rr_peer_s"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "weight"
+    ]
+  },
+  {
+    "fp_name": "worker",
+    "struct_name": "ngx_http_upstream_host_t",
+    "struct_aliases": [
+      "ngx_http_upstream_host_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "n"
+    ]
+  },
+  {
+    "fp_name": "worker_processes",
+    "struct_name": "ngx_core_conf_t",
+    "struct_aliases": [
+      "ngx_core_conf_t"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "NGX_CONF_UNSET",
+      "ngx_ncpu"
+    ]
+  },
+  {
+    "fp_name": "write",
+    "struct_name": "ngx_thread_file_ctx_t",
+    "struct_aliases": [
+      "ngx_thread_file_ctx_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "0",
+      "ngx_syslog_dummy_event",
+      "wev"
+    ]
+  },
+  {
+    "fp_name": "write_event_handler",
+    "struct_name": "ngx_http_upstream_s",
+    "struct_aliases": [
+      "ngx_http_upstream_s"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "ngx_http_core_auth_delay_handler",
+      "ngx_http_core_run_phases",
+      "ngx_http_handler",
+      "ngx_http_limit_req_delay",
+      "ngx_http_request_empty_handler",
+      "ngx_http_request_finalizer",
+      "ngx_http_terminate_handler",
+      "ngx_http_upstream_dummy_handler",
+      "ngx_http_upstream_early_hints_writer",
+      "ngx_http_upstream_init_request",
+      "ngx_http_upstream_process_downstream",
+      "ngx_http_upstream_process_non_buffered_downstream",
+      "ngx_http_upstream_send_request_handler",
+      "ngx_http_upstream_upgraded_write_downstream",
+      "ngx_http_upstream_upgraded_write_upstream",
+      "ngx_http_upstream_wr_check_broken_connection",
+      "ngx_http_writer"
+    ]
+  }
+]
