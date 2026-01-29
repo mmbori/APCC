@@ -1,0 +1,1 @@
+void oom_printf(const char *fmt);

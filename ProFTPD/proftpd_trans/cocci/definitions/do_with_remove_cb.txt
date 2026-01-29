@@ -1,0 +1,1 @@
+int do_with_remove_cb(const void *key , size_t keysz , const void *value , size_t valuesz , void *user_data);

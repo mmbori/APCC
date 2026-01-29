@@ -1,0 +1,1 @@
+void mcache_exit_ev(const void *, void *);

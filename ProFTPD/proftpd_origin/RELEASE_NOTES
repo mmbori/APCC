@@ -1,0 +1,31 @@
+                    1.3.10 Release Notes
+                  -------------------------
+
+This file contains a description of the major changes to ProFTPD for the
+1.3.10 release cycle, from the 1.3.10rc1 release to the 1.3.10 maintenance
+releases.  More information on these changes can be found in the NEWS and
+ChangeLog files.
+
+1.3.10rc1
+----------
+
+  + Disable Nagle algorithm for FTP data transfers
+
+
+  + New Modules
+
+      mod_systemd
+
+
+  + New Directives
+
+      SFTPKeyFingerprints
+
+
+  + Changed Directives
+
+      ExtendedLog classes+cmds (Issue #1813)
+
+      SQLAuthTypes SSHA, Sodium
+
+      TCPNoDelay (Issue #1957)

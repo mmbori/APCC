@@ -1,0 +1,1 @@
+void snmp_tls_verify_client_err_ev(const void *event_data , void *user_data);

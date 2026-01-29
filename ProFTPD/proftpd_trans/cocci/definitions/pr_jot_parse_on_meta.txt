@@ -1,0 +1,1 @@
+int pr_jot_parse_on_meta(pool *p , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id , const char *logfmt_data , size_t logfmt_datalen);

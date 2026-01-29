@@ -1,0 +1,1 @@
+int sftp_have_authenticated(cmd_rec *cmd);

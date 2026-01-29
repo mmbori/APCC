@@ -1,0 +1,1 @@
+int log_fmt_extra_iter_cb(const char *key , int val_type , const void *val , size_t valsz , void *user_data);

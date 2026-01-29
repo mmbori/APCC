@@ -1,0 +1,1 @@
+void stash_dump(const char *fmt);

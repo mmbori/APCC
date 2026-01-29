@@ -1,0 +1,1 @@
+void sess_redis_cleanup(void *data);

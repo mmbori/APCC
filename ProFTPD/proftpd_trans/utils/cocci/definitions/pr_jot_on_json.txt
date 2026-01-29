@@ -1,0 +1,1 @@
+int pr_jot_on_json(pool *p , pr_jot_ctx_t *ctx , unsigned char logfmt_id , const char *jot_hint , const void *val);

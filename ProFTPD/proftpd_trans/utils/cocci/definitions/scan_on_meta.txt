@@ -1,0 +1,1 @@
+int scan_on_meta(pool *jot_pool , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id , const char *logfmt_data , size_t logfmt_datalen);

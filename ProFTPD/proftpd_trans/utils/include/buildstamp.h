@@ -1,0 +1,1 @@
+#define BUILD_STAMP "Thu Nov 20 2025 05:32:03 KST"

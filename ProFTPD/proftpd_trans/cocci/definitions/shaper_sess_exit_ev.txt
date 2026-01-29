@@ -1,0 +1,1 @@
+void shaper_sess_exit_ev(const void *, void *);

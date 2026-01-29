@@ -1,0 +1,1 @@
+void server_cleanup_cb(void *conn);

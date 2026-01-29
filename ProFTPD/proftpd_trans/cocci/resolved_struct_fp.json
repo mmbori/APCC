@@ -1,0 +1,2118 @@
+[
+  {
+    "fp_name": "abort",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "core_netio_abort_cb",
+      "tls_netio_abort_cb"
+    ]
+  },
+  {
+    "fp_name": "access",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 28,
+    "assigned_fn": [
+      "facl_fsio_access",
+      "robots_fsio_access",
+      "sys_access"
+    ]
+  },
+  {
+    "fp_name": "act_cb",
+    "struct_name": "ctrls_acttab_t",
+    "struct_aliases": [
+      "ctrls_acttab_t"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "action_cb",
+    "struct_name": "ctrls_act_obj",
+    "struct_aliases": [
+      "ctrls_act_obj",
+      "ctrls_action_t"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "NULL",
+      "array_item_fail",
+      "array_item_ok",
+      "auth_exit_ev",
+      "auth_otp_exit_ev",
+      "auth_otp_mod_unload_ev",
+      "auth_otp_sess_reinit_ev",
+      "auth_pam_exit_ev",
+      "auth_sess_reinit_ev",
+      "auth_unix_exit_ev",
+      "auth_unix_sess_reinit_ev",
+      "authfile_sess_reinit_ev",
+      "ban_anonrejectpasswords_ev",
+      "ban_badprotocol_ev",
+      "ban_clientconnectrate_ev",
+      "ban_emptypassword_ev",
+      "ban_maxclientsperclass_ev",
+      "ban_maxclientsperhost_ev",
+      "ban_maxclientsperuser_ev",
+      "ban_maxcmdrate_ev",
+      "ban_maxconnperhost_ev",
+      "ban_maxhostsperuser_ev",
+      "ban_maxloginattempts_ev",
+      "ban_maxloginattemptsfromuser_ev",
+      "ban_mod_unload_ev",
+      "ban_postparse_ev",
+      "ban_restart_ev",
+      "ban_rootlogin_ev",
+      "ban_sess_reinit_ev",
+      "ban_shutdown_ev",
+      "ban_timeoutidle_ev",
+      "ban_timeoutlogin_ev",
+      "ban_timeoutnoxfer_ev",
+      "ban_tlshandshake_ev",
+      "ban_unhandledcmd_ev",
+      "ban_userdefined_ev",
+      "cap_sess_reinit_ev",
+      "core_chroot_ev",
+      "core_connected_ev",
+      "core_exit_ev",
+      "core_postparse_ev",
+      "core_restart_ev",
+      "core_startup_ev",
+      "ctrls_admin_mod_unload_ev",
+      "ctrls_admin_restart_ev",
+      "ctrls_admin_startup_ev",
+      "ctrls_postparse_ev",
+      "ctrls_restart_ev",
+      "ctrls_shutdown_ev",
+      "ctrls_test2_cb",
+      "ctrls_test_cb",
+      "define_restart_ev",
+      "deflate_sess_reinit_ev",
+      "delay_connect_ev",
+      "delay_handle_delay",
+      "delay_mod_unload_ev",
+      "delay_postparse_ev",
+      "delay_restart_ev",
+      "delay_sess_reinit_ev",
+      "delay_shutdown_ev",
+      "digest_data_xfer_ev",
+      "digest_mod_unload_ev",
+      "digest_sess_reinit_ev",
+      "dnsbl_sess_reinit_ev",
+      "do_cb",
+      "do_with_remove_cb",
+      "dso_restart_ev",
+      "dynmasq_handle_dynmasq",
+      "dynmasq_mod_unload_ev",
+      "dynmasq_postparse_ev",
+      "dynmasq_restart_ev",
+      "event_cb",
+      "event_cb2",
+      "event_cb3",
+      "exec_any_ev",
+      "exec_mod_unload_ev",
+      "exec_postparse_ev",
+      "exec_restart_ev",
+      "exec_sess_reinit_ev",
+      "facl_mod_unload_ev",
+      "facl_postparse_ev",
+      "facl_restart_ev",
+      "facts_sess_reinit_ev",
+      "filetab_mod_unload_ev",
+      "forensic_exit_ev",
+      "forensic_log_ev",
+      "forensic_mod_unload_ev",
+      "forensic_sess_reinit_ev",
+      "fscache_mod_unload_ev",
+      "fxp_handle_abort",
+      "geoip_mod_unload_ev",
+      "geoip_postparse_ev",
+      "geoip_restart_ev",
+      "ident_sess_reinit_ev",
+      "ifsess_chroot_ev",
+      "ifsess_mod_unload_ev",
+      "ifsess_postparse_ev",
+      "lang_postparse_ev",
+      "lang_restart_ev",
+      "ldap_mod_unload_ev",
+      "ldap_postparse_ev",
+      "ldap_sess_reinit_ev",
+      "ldap_shutdown_ev",
+      "ldaptab_mod_unload_ev",
+      "log_exit_ev",
+      "log_fmt_extra_iter_cb",
+      "log_postparse_ev",
+      "log_restart_ev",
+      "log_sess_reinit_ev",
+      "log_xfer_stalled_ev",
+      "mcache_exit_ev",
+      "mcache_restart_ev",
+      "mcache_sess_reinit_ev",
+      "object_item_fail",
+      "object_item_ok",
+      "pool_visitf",
+      "qos_ctrl_listen_ev",
+      "qos_data_connect_ev",
+      "qos_data_listen_ev",
+      "qos_mod_unload_ev",
+      "qos_sess_reinit_ev",
+      "quotatab_exit_ev",
+      "quotatab_mod_unload_ev",
+      "quotatab_restart_ev",
+      "quotatab_sess_reinit_ev",
+      "radius_exit_ev",
+      "radius_mod_unload_ev",
+      "radius_restart_ev",
+      "radius_sess_reinit_ev",
+      "radiustab_mod_unload_ev",
+      "redis_restart_ev",
+      "redis_sess_reinit_ev",
+      "redis_shutdown_ev",
+      "redistab_mod_unload_ev",
+      "regexp_exit_ev",
+      "regexp_restart_ev",
+      "restart_daemon",
+      "rewrite_exit_ev",
+      "rewrite_mod_unload_ev",
+      "rewrite_restart_ev",
+      "rewrite_rewrite_home_ev",
+      "rewrite_sess_reinit_ev",
+      "rlimit_chroot_ev",
+      "rlimit_postparse_ev",
+      "schedule_cb",
+      "sftp_ban_class_ev",
+      "sftp_ban_host_ev",
+      "sftp_ban_user_ev",
+      "sftp_chroot_ev",
+      "sftp_exit_ev",
+      "sftp_max_conns_ev",
+      "sftp_mod_unload_ev",
+      "sftp_postparse_ev",
+      "sftp_restart_ev",
+      "sftp_shutdown_ev",
+      "sftp_sigusr2_ev",
+      "sftp_timeoutlogin_ev",
+      "sftp_wrap_conn_denied_ev",
+      "sftppam_exit_ev",
+      "sftppam_mod_unload_ev",
+      "sftpsql_mod_unload_ev",
+      "shaper_handle_shaper",
+      "shaper_mod_unload_ev",
+      "shaper_postparse_ev",
+      "shaper_restart_ev",
+      "shaper_sess_exit_ev",
+      "shaper_shutdown_ev",
+      "shaper_sigusr2_ev",
+      "shmcache_mod_unload_ev",
+      "shmcache_restart_ev",
+      "shmcache_shutdown_ev",
+      "shutdown_end_session",
+      "site_misc_sess_reinit_ev",
+      "snmp_auth_code_ev",
+      "snmp_ban_ban_class_ev",
+      "snmp_ban_ban_host_ev",
+      "snmp_ban_ban_user_ev",
+      "snmp_ban_client_disconn_ev",
+      "snmp_ban_expired_ban_ev",
+      "snmp_cmd_invalid_ev",
+      "snmp_exit_ev",
+      "snmp_max_inst_ev",
+      "snmp_mod_unload_ev",
+      "snmp_postparse_ev",
+      "snmp_restart_ev",
+      "snmp_shutdown_ev",
+      "snmp_ssh2_auth_hostbased_err_ev",
+      "snmp_ssh2_auth_hostbased_ev",
+      "snmp_ssh2_auth_kbdint_err_ev",
+      "snmp_ssh2_auth_kbdint_ev",
+      "snmp_ssh2_auth_passwd_err_ev",
+      "snmp_ssh2_auth_passwd_ev",
+      "snmp_ssh2_auth_publickey_err_ev",
+      "snmp_ssh2_auth_publickey_ev",
+      "snmp_ssh2_c2s_compress_ev",
+      "snmp_ssh2_kex_err_ev",
+      "snmp_ssh2_s2c_compress_ev",
+      "snmp_ssh2_scp_sess_closed_ev",
+      "snmp_ssh2_scp_sess_opened_ev",
+      "snmp_ssh2_sftp_proto_version_ev",
+      "snmp_ssh2_sftp_sess_closed_ev",
+      "snmp_ssh2_sftp_sess_opened_ev",
+      "snmp_startup_ev",
+      "snmp_timeout_idle_ev",
+      "snmp_timeout_login_ev",
+      "snmp_timeout_noxfer_ev",
+      "snmp_timeout_stalled_ev",
+      "snmp_tls_ctrl_handshake_err_ev",
+      "snmp_tls_data_handshake_err_ev",
+      "snmp_tls_verify_client_err_ev",
+      "snmp_tls_verify_client_ev",
+      "sql_chroot_ev",
+      "sql_eventlog_ev",
+      "sql_exit_ev",
+      "sql_mod_unload_ev",
+      "sql_mysql_mod_load_ev",
+      "sql_mysql_mod_unload_ev",
+      "sql_passwd_mod_unload_ev",
+      "sql_passwd_sess_reinit_ev",
+      "sql_postgres_mod_load_ev",
+      "sql_postgres_mod_unload_ev",
+      "sql_preparse_ev",
+      "sql_sess_reinit_ev",
+      "sql_sqlite_mod_load_ev",
+      "sql_sqlite_mod_unload_ev",
+      "sqlodbc_mod_unload_ev",
+      "sqltab_mod_unload_ev",
+      "statcache_fs_statcache_clear_ev",
+      "statcache_mod_unload_ev",
+      "statcache_postparse_ev",
+      "statcache_restart_ev",
+      "statcache_sess_reinit_ev",
+      "statcache_shutdown_ev",
+      "systemd_mod_unload_ev",
+      "systemd_postparse_ev",
+      "systemd_restart_ev",
+      "systemd_shutdown_ev",
+      "systemd_startup_ev",
+      "tab_copy_cb",
+      "test_visitf",
+      "tls_exit_ev",
+      "tls_handle_tls",
+      "tls_mcache_mod_unload_ev",
+      "tls_mod_unload_ev",
+      "tls_postparse_ev",
+      "tls_redis_mod_unload_ev",
+      "tls_restart_ev",
+      "tls_sess_reinit_ev",
+      "tls_shutdown_ev",
+      "tls_timeout_ev",
+      "trace_restart_ev",
+      "uniqid_mod_unload_ev",
+      "uniqid_postparse_ev",
+      "wrap2_exit_ev",
+      "wrap2_mod_unload_ev",
+      "wrap2_restart_ev",
+      "wrap2_sess_reinit_ev",
+      "wrap_sess_reinit_ev",
+      "xfer_exit_ev",
+      "xfer_sess_reinit_ev",
+      "xfer_sigusr2_ev",
+      "xfer_timeout_session_ev",
+      "xfer_timeout_stalled_ev"
+    ]
+  },
+  {
+    "fp_name": "add",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "ocsp_cache_add",
+      "sess_cache_add"
+    ]
+  },
+  {
+    "fp_name": "cb",
+    "struct_name": "sql_authtype_handler",
+    "struct_aliases": [
+      "sql_authtype_handler"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "NULL",
+      "array_item_fail",
+      "array_item_ok",
+      "auth_exit_ev",
+      "auth_otp_exit_ev",
+      "auth_otp_mod_unload_ev",
+      "auth_otp_sess_reinit_ev",
+      "auth_pam_exit_ev",
+      "auth_sess_reinit_ev",
+      "auth_unix_exit_ev",
+      "auth_unix_sess_reinit_ev",
+      "authfile_sess_reinit_ev",
+      "ban_anonrejectpasswords_ev",
+      "ban_badprotocol_ev",
+      "ban_clientconnectrate_ev",
+      "ban_emptypassword_ev",
+      "ban_maxclientsperclass_ev",
+      "ban_maxclientsperhost_ev",
+      "ban_maxclientsperuser_ev",
+      "ban_maxcmdrate_ev",
+      "ban_maxconnperhost_ev",
+      "ban_maxhostsperuser_ev",
+      "ban_maxloginattempts_ev",
+      "ban_maxloginattemptsfromuser_ev",
+      "ban_mod_unload_ev",
+      "ban_postparse_ev",
+      "ban_restart_ev",
+      "ban_rootlogin_ev",
+      "ban_sess_reinit_ev",
+      "ban_shutdown_ev",
+      "ban_timeoutidle_ev",
+      "ban_timeoutlogin_ev",
+      "ban_timeoutnoxfer_ev",
+      "ban_tlshandshake_ev",
+      "ban_unhandledcmd_ev",
+      "ban_userdefined_ev",
+      "cap_sess_reinit_ev",
+      "core_chroot_ev",
+      "core_connected_ev",
+      "core_exit_ev",
+      "core_postparse_ev",
+      "core_restart_ev",
+      "core_startup_ev",
+      "ctrls_admin_mod_unload_ev",
+      "ctrls_admin_restart_ev",
+      "ctrls_admin_startup_ev",
+      "ctrls_postparse_ev",
+      "ctrls_restart_ev",
+      "ctrls_shutdown_ev",
+      "ctrls_test2_cb",
+      "ctrls_test_cb",
+      "define_restart_ev",
+      "deflate_sess_reinit_ev",
+      "delay_connect_ev",
+      "delay_handle_delay",
+      "delay_mod_unload_ev",
+      "delay_postparse_ev",
+      "delay_restart_ev",
+      "delay_sess_reinit_ev",
+      "delay_shutdown_ev",
+      "digest_data_xfer_ev",
+      "digest_mod_unload_ev",
+      "digest_sess_reinit_ev",
+      "dnsbl_sess_reinit_ev",
+      "do_cb",
+      "do_with_remove_cb",
+      "dso_restart_ev",
+      "dynmasq_handle_dynmasq",
+      "dynmasq_mod_unload_ev",
+      "dynmasq_postparse_ev",
+      "dynmasq_restart_ev",
+      "event_cb",
+      "event_cb2",
+      "event_cb3",
+      "exec_any_ev",
+      "exec_mod_unload_ev",
+      "exec_postparse_ev",
+      "exec_restart_ev",
+      "exec_sess_reinit_ev",
+      "facl_mod_unload_ev",
+      "facl_postparse_ev",
+      "facl_restart_ev",
+      "facts_sess_reinit_ev",
+      "filetab_mod_unload_ev",
+      "forensic_exit_ev",
+      "forensic_log_ev",
+      "forensic_mod_unload_ev",
+      "forensic_sess_reinit_ev",
+      "fscache_mod_unload_ev",
+      "fxp_handle_abort",
+      "geoip_mod_unload_ev",
+      "geoip_postparse_ev",
+      "geoip_restart_ev",
+      "ident_sess_reinit_ev",
+      "ifsess_chroot_ev",
+      "ifsess_mod_unload_ev",
+      "ifsess_postparse_ev",
+      "lang_postparse_ev",
+      "lang_restart_ev",
+      "ldap_mod_unload_ev",
+      "ldap_postparse_ev",
+      "ldap_sess_reinit_ev",
+      "ldap_shutdown_ev",
+      "ldaptab_mod_unload_ev",
+      "log_exit_ev",
+      "log_fmt_extra_iter_cb",
+      "log_postparse_ev",
+      "log_restart_ev",
+      "log_sess_reinit_ev",
+      "log_xfer_stalled_ev",
+      "mcache_exit_ev",
+      "mcache_restart_ev",
+      "mcache_sess_reinit_ev",
+      "object_item_fail",
+      "object_item_ok",
+      "pool_visitf",
+      "qos_ctrl_listen_ev",
+      "qos_data_connect_ev",
+      "qos_data_listen_ev",
+      "qos_mod_unload_ev",
+      "qos_sess_reinit_ev",
+      "quotatab_exit_ev",
+      "quotatab_mod_unload_ev",
+      "quotatab_restart_ev",
+      "quotatab_sess_reinit_ev",
+      "radius_exit_ev",
+      "radius_mod_unload_ev",
+      "radius_restart_ev",
+      "radius_sess_reinit_ev",
+      "radiustab_mod_unload_ev",
+      "redis_restart_ev",
+      "redis_sess_reinit_ev",
+      "redis_shutdown_ev",
+      "redistab_mod_unload_ev",
+      "regexp_exit_ev",
+      "regexp_restart_ev",
+      "restart_daemon",
+      "rewrite_exit_ev",
+      "rewrite_mod_unload_ev",
+      "rewrite_restart_ev",
+      "rewrite_rewrite_home_ev",
+      "rewrite_sess_reinit_ev",
+      "rlimit_chroot_ev",
+      "rlimit_postparse_ev",
+      "schedule_cb",
+      "sftp_ban_class_ev",
+      "sftp_ban_host_ev",
+      "sftp_ban_user_ev",
+      "sftp_chroot_ev",
+      "sftp_exit_ev",
+      "sftp_max_conns_ev",
+      "sftp_mod_unload_ev",
+      "sftp_postparse_ev",
+      "sftp_restart_ev",
+      "sftp_shutdown_ev",
+      "sftp_sigusr2_ev",
+      "sftp_timeoutlogin_ev",
+      "sftp_wrap_conn_denied_ev",
+      "sftppam_exit_ev",
+      "sftppam_mod_unload_ev",
+      "sftpsql_mod_unload_ev",
+      "shaper_handle_shaper",
+      "shaper_mod_unload_ev",
+      "shaper_postparse_ev",
+      "shaper_restart_ev",
+      "shaper_sess_exit_ev",
+      "shaper_shutdown_ev",
+      "shaper_sigusr2_ev",
+      "shmcache_mod_unload_ev",
+      "shmcache_restart_ev",
+      "shmcache_shutdown_ev",
+      "shutdown_end_session",
+      "site_misc_sess_reinit_ev",
+      "snmp_auth_code_ev",
+      "snmp_ban_ban_class_ev",
+      "snmp_ban_ban_host_ev",
+      "snmp_ban_ban_user_ev",
+      "snmp_ban_client_disconn_ev",
+      "snmp_ban_expired_ban_ev",
+      "snmp_cmd_invalid_ev",
+      "snmp_exit_ev",
+      "snmp_max_inst_ev",
+      "snmp_mod_unload_ev",
+      "snmp_postparse_ev",
+      "snmp_restart_ev",
+      "snmp_shutdown_ev",
+      "snmp_ssh2_auth_hostbased_err_ev",
+      "snmp_ssh2_auth_hostbased_ev",
+      "snmp_ssh2_auth_kbdint_err_ev",
+      "snmp_ssh2_auth_kbdint_ev",
+      "snmp_ssh2_auth_passwd_err_ev",
+      "snmp_ssh2_auth_passwd_ev",
+      "snmp_ssh2_auth_publickey_err_ev",
+      "snmp_ssh2_auth_publickey_ev",
+      "snmp_ssh2_c2s_compress_ev",
+      "snmp_ssh2_kex_err_ev",
+      "snmp_ssh2_s2c_compress_ev",
+      "snmp_ssh2_scp_sess_closed_ev",
+      "snmp_ssh2_scp_sess_opened_ev",
+      "snmp_ssh2_sftp_proto_version_ev",
+      "snmp_ssh2_sftp_sess_closed_ev",
+      "snmp_ssh2_sftp_sess_opened_ev",
+      "snmp_startup_ev",
+      "snmp_timeout_idle_ev",
+      "snmp_timeout_login_ev",
+      "snmp_timeout_noxfer_ev",
+      "snmp_timeout_stalled_ev",
+      "snmp_tls_ctrl_handshake_err_ev",
+      "snmp_tls_data_handshake_err_ev",
+      "snmp_tls_verify_client_err_ev",
+      "snmp_tls_verify_client_ev",
+      "sql_chroot_ev",
+      "sql_eventlog_ev",
+      "sql_exit_ev",
+      "sql_mod_unload_ev",
+      "sql_mysql_mod_load_ev",
+      "sql_mysql_mod_unload_ev",
+      "sql_passwd_mod_unload_ev",
+      "sql_passwd_sess_reinit_ev",
+      "sql_postgres_mod_load_ev",
+      "sql_postgres_mod_unload_ev",
+      "sql_preparse_ev",
+      "sql_sess_reinit_ev",
+      "sql_sqlite_mod_load_ev",
+      "sql_sqlite_mod_unload_ev",
+      "sqlodbc_mod_unload_ev",
+      "sqltab_mod_unload_ev",
+      "statcache_fs_statcache_clear_ev",
+      "statcache_mod_unload_ev",
+      "statcache_postparse_ev",
+      "statcache_restart_ev",
+      "statcache_sess_reinit_ev",
+      "statcache_shutdown_ev",
+      "systemd_mod_unload_ev",
+      "systemd_postparse_ev",
+      "systemd_restart_ev",
+      "systemd_shutdown_ev",
+      "systemd_startup_ev",
+      "tab_copy_cb",
+      "test_visitf",
+      "tls_exit_ev",
+      "tls_handle_tls",
+      "tls_mcache_mod_unload_ev",
+      "tls_mod_unload_ev",
+      "tls_postparse_ev",
+      "tls_redis_mod_unload_ev",
+      "tls_restart_ev",
+      "tls_sess_reinit_ev",
+      "tls_shutdown_ev",
+      "tls_timeout_ev",
+      "trace_restart_ev",
+      "uniqid_mod_unload_ev",
+      "uniqid_postparse_ev",
+      "wrap2_exit_ev",
+      "wrap2_mod_unload_ev",
+      "wrap2_restart_ev",
+      "wrap2_sess_reinit_ev",
+      "wrap_sess_reinit_ev",
+      "xfer_exit_ev",
+      "xfer_sess_reinit_ev",
+      "xfer_sigusr2_ev",
+      "xfer_timeout_session_ev",
+      "xfer_timeout_stalled_ev"
+    ]
+  },
+  {
+    "fp_name": "chdir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 46,
+    "assigned_fn": [
+      "sys_chdir"
+    ]
+  },
+  {
+    "fp_name": "chmod",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 23,
+    "assigned_fn": [
+      "statcache_fsio_chmod",
+      "sys_chmod"
+    ]
+  },
+  {
+    "fp_name": "chown",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 25,
+    "assigned_fn": [
+      "statcache_fsio_chown",
+      "sys_chown"
+    ]
+  },
+  {
+    "fp_name": "chroot",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 47,
+    "assigned_fn": [
+      "sys_chroot"
+    ]
+  },
+  {
+    "fp_name": "cleanup_cb",
+    "struct_name": "cleanup",
+    "struct_aliases": [
+      "cleanup",
+      "cleanup_t"
+    ],
+    "fp_index": 1,
+    "assigned_fn": [
+      "NULL",
+      "conn_cleanup_cb",
+      "ctrls_cleanup_cb",
+      "event_cleanup_cb",
+      "server_cleanup_cb",
+      "sess_redis_cleanup"
+    ]
+  },
+  {
+    "fp_name": "clear",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "ocsp_cache_clear",
+      "sess_cache_clear"
+    ]
+  },
+  {
+    "fp_name": "close",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "core_netio_close_cb",
+      "deflate_netio_close_cb",
+      "deflate_next_netio_close",
+      "ocsp_cache_close",
+      "robots_fsio_close",
+      "sess_cache_close",
+      "sftppam_driver_close",
+      "sys_close",
+      "tls_netio_close_cb"
+    ]
+  },
+  {
+    "fp_name": "closedir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 49,
+    "assigned_fn": [
+      "sys_closedir"
+    ]
+  },
+  {
+    "fp_name": "ctrls_cb",
+    "struct_name": "ctrls_obj",
+    "struct_aliases": [
+      "ctrls_obj",
+      "pr_ctrls_t"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "NULL"
+    ]
+  },
+  {
+    "fp_name": "delete",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "ocsp_cache_delete",
+      "sess_cache_delete"
+    ]
+  },
+  {
+    "fp_name": "entinsert",
+    "struct_name": "table_rec",
+    "struct_aliases": [
+      "table_rec"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "entry_insert"
+    ]
+  },
+  {
+    "fp_name": "entremove",
+    "struct_name": "table_rec",
+    "struct_aliases": [
+      "table_rec"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "entry_remove"
+    ]
+  },
+  {
+    "fp_name": "explain_accept",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 0,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_bind",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_chdir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 2,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_chmod",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 3,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_chown",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 4,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_chroot",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 5,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_close",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_closedir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_connect",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 8,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fchmod",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 9,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fchown",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 10,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fclose",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 11,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fcntl",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 12,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fdopen",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 13,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_flock",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 14,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fopen",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 15,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fork",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 16,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fstat",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 17,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fstatfs",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 18,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fstatvfs",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 19,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_fsync",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 20,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_ftruncate",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 21,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_futimes",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 22,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getaddrinfo",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 23,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_gethostbyname",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 24,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_gethostbyname2",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 25,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_gethostname",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 26,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getnameinfo",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 27,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getpeername",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 28,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getrlimit",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 29,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getsockname",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 30,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_getsockopt",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 31,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_lchown",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 32,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_link",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 33,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_listen",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 34,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_lseek",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 35,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_lstat",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 36,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_mkdir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 37,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_mkdtemp",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 38,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_mkstemp",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 39,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_open",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 40,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_opendir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 41,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_read",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 42,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_readdir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 43,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_readlink",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 44,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_readv",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 45,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_rename",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 46,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_rmdir",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 47,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setegid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 48,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_seteuid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 49,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setgid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 50,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setregid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 51,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setresgid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 52,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setresuid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 53,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setreuid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 54,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setrlimit",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 55,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setsockopt",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 56,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_setuid",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 57,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_socket",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 58,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_stat",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 59,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_statfs",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 60,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_statvfs",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 61,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_symlink",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 62,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_truncate",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 63,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_unlink",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 64,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_utimes",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 65,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_write",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 66,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "explain_writev",
+    "struct_name": "err_explain_rec",
+    "struct_aliases": [
+      "err_explain_rec"
+    ],
+    "fp_index": 67,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "faccess",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 29,
+    "assigned_fn": [
+      "facl_fsio_faccess",
+      "robots_fsio_faccess",
+      "sys_faccess"
+    ]
+  },
+  {
+    "fp_name": "fchmod",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 24,
+    "assigned_fn": [
+      "statcache_fsio_fchmod",
+      "sys_fchmod"
+    ]
+  },
+  {
+    "fp_name": "fchown",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 26,
+    "assigned_fn": [
+      "statcache_fsio_fchown",
+      "sys_fchown"
+    ]
+  },
+  {
+    "fp_name": "fgetxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 36,
+    "assigned_fn": [
+      "sys_fgetxattr"
+    ]
+  },
+  {
+    "fp_name": "flistxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 39,
+    "assigned_fn": [
+      "sys_flistxattr"
+    ]
+  },
+  {
+    "fp_name": "fremovexattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 42,
+    "assigned_fn": [
+      "sys_fremovexattr"
+    ]
+  },
+  {
+    "fp_name": "fsetxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 45,
+    "assigned_fn": [
+      "sys_fsetxattr"
+    ]
+  },
+  {
+    "fp_name": "fstat",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "robots_fsio_fstat",
+      "statcache_fsio_fstat",
+      "sys_fstat"
+    ]
+  },
+  {
+    "fp_name": "fsync",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 32,
+    "assigned_fn": [
+      "sys_fsync"
+    ]
+  },
+  {
+    "fp_name": "ftruncate",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 21,
+    "assigned_fn": [
+      "statcache_fsio_ftruncate",
+      "sys_ftruncate"
+    ]
+  },
+  {
+    "fp_name": "futimes",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 31,
+    "assigned_fn": [
+      "statcache_fsio_futimes",
+      "sys_futimes"
+    ]
+  },
+  {
+    "fp_name": "get",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "ocsp_cache_get",
+      "sess_cache_get"
+    ]
+  },
+  {
+    "fp_name": "getxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 34,
+    "assigned_fn": [
+      "sys_getxattr"
+    ]
+  },
+  {
+    "fp_name": "handler",
+    "struct_name": "conftable",
+    "struct_aliases": [
+      "conftable",
+      "conftab_rec"
+    ],
+    "fp_index": 1,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "init",
+    "struct_name": "module_struc",
+    "struct_aliases": [
+      "module_struc"
+    ],
+    "fp_index": 6,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "keycmp",
+    "struct_name": "table_rec",
+    "struct_aliases": [
+      "table_rec"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "key_cmp"
+    ]
+  },
+  {
+    "fp_name": "keyhash",
+    "struct_name": "table_rec",
+    "struct_aliases": [
+      "table_rec"
+    ],
+    "fp_index": 13,
+    "assigned_fn": [
+      "key_hash"
+    ]
+  },
+  {
+    "fp_name": "lchown",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 27,
+    "assigned_fn": [
+      "statcache_fsio_lchown",
+      "sys_lchown"
+    ]
+  },
+  {
+    "fp_name": "lgetxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 35,
+    "assigned_fn": [
+      "sys_lgetxattr"
+    ]
+  },
+  {
+    "fp_name": "link",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 18,
+    "assigned_fn": [
+      "sys_link"
+    ]
+  },
+  {
+    "fp_name": "listxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 37,
+    "assigned_fn": [
+      "sys_listxattr"
+    ]
+  },
+  {
+    "fp_name": "llistxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 38,
+    "assigned_fn": [
+      "sys_llistxattr"
+    ]
+  },
+  {
+    "fp_name": "lremovexattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 41,
+    "assigned_fn": [
+      "sys_lremovexattr"
+    ]
+  },
+  {
+    "fp_name": "lseek",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 17,
+    "assigned_fn": [
+      "sys_lseek"
+    ]
+  },
+  {
+    "fp_name": "lsetxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 44,
+    "assigned_fn": [
+      "sys_lsetxattr"
+    ]
+  },
+  {
+    "fp_name": "lstat",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "robots_fsio_lstat",
+      "statcache_fsio_lstat",
+      "sys_lstat"
+    ]
+  },
+  {
+    "fp_name": "mkdir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 51,
+    "assigned_fn": [
+      "sys_mkdir"
+    ]
+  },
+  {
+    "fp_name": "open",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 3,
+    "assigned_fn": [
+      "core_netio_open_cb",
+      "deflate_netio_open_cb",
+      "deflate_next_netio_open",
+      "ocsp_cache_open",
+      "robots_fsio_open",
+      "sess_cache_open",
+      "sftppam_driver_open",
+      "statcache_fsio_open",
+      "sys_open",
+      "tls_netio_open_cb"
+    ]
+  },
+  {
+    "fp_name": "opendir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 48,
+    "assigned_fn": [
+      "sys_opendir"
+    ]
+  },
+  {
+    "fp_name": "poll",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 4,
+    "assigned_fn": [
+      "core_netio_poll_cb",
+      "tls_netio_poll_cb"
+    ]
+  },
+  {
+    "fp_name": "postopen",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 5,
+    "assigned_fn": [
+      "core_netio_postopen_cb",
+      "tls_netio_postopen_cb"
+    ]
+  },
+  {
+    "fp_name": "pread",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "sys_pread"
+    ]
+  },
+  {
+    "fp_name": "pwrite",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 16,
+    "assigned_fn": [
+      "sys_pwrite"
+    ]
+  },
+  {
+    "fp_name": "read",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "core_netio_read_cb",
+      "deflate_netio_read_cb",
+      "deflate_next_netio_read",
+      "robots_fsio_read",
+      "sys_read",
+      "tls_netio_read_cb"
+    ]
+  },
+  {
+    "fp_name": "readdir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 50,
+    "assigned_fn": [
+      "sys_readdir"
+    ]
+  },
+  {
+    "fp_name": "readlink",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 19,
+    "assigned_fn": [
+      "sys_readlink"
+    ]
+  },
+  {
+    "fp_name": "realpath",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 33,
+    "assigned_fn": [
+      "sys_realpath"
+    ]
+  },
+  {
+    "fp_name": "regtab_open",
+    "struct_name": "regtab_obj",
+    "struct_aliases": [
+      "regtab_obj",
+      "quota_regtab_t"
+    ],
+    "fp_index": 2,
+    "assigned_fn": [
+      "srcopen"
+    ]
+  },
+  {
+    "fp_name": "remove",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "0",
+      "ocsp_cache_remove",
+      "sess_cache_remove"
+    ]
+  },
+  {
+    "fp_name": "removexattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 40,
+    "assigned_fn": [
+      "sys_removexattr"
+    ]
+  },
+  {
+    "fp_name": "rename",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "statcache_fsio_rename",
+      "sys_rename"
+    ]
+  },
+  {
+    "fp_name": "reopen",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "core_netio_reopen_cb",
+      "tls_netio_reopen_cb"
+    ]
+  },
+  {
+    "fp_name": "rmdir",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 52,
+    "assigned_fn": [
+      "sys_rmdir"
+    ]
+  },
+  {
+    "fp_name": "sess_init",
+    "struct_name": "module_struc",
+    "struct_aliases": [
+      "module_struc"
+    ],
+    "fp_index": 7,
+    "assigned_fn": []
+  },
+  {
+    "fp_name": "setxattr",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 43,
+    "assigned_fn": [
+      "sys_setxattr"
+    ]
+  },
+  {
+    "fp_name": "shutdown",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "core_netio_shutdown_cb",
+      "deflate_netio_shutdown_cb",
+      "deflate_next_netio_shutdown",
+      "tls_netio_shutdown_cb"
+    ]
+  },
+  {
+    "fp_name": "stat",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "robots_fsio_stat",
+      "statcache_fsio_stat",
+      "sys_stat"
+    ]
+  },
+  {
+    "fp_name": "status",
+    "struct_name": "tls_sess_cache_t",
+    "struct_aliases": [
+      "tls_sess_cache_t",
+      "sess_cache_st"
+    ],
+    "fp_index": 12,
+    "assigned_fn": [
+      "ocsp_cache_status",
+      "sess_cache_status"
+    ]
+  },
+  {
+    "fp_name": "symlink",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 20,
+    "assigned_fn": [
+      "sys_symlink"
+    ]
+  },
+  {
+    "fp_name": "tab_close",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 6,
+    "assigned_fn": [
+      "filetab_close",
+      "filetab_close_cb",
+      "ldaptab_close",
+      "radiustab_close",
+      "redistab_close_cb",
+      "sqltab_close",
+      "sqltab_close_cb"
+    ]
+  },
+  {
+    "fp_name": "tab_create",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 7,
+    "assigned_fn": [
+      "filetab_create",
+      "sqltab_create"
+    ]
+  },
+  {
+    "fp_name": "tab_lookup",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 8,
+    "assigned_fn": [
+      "filetab_lookup",
+      "ldaptab_lookup",
+      "radiustab_lookup",
+      "sqltab_lookup"
+    ]
+  },
+  {
+    "fp_name": "tab_read",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "filetab_read",
+      "sqltab_read"
+    ]
+  },
+  {
+    "fp_name": "tab_rlock",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 14,
+    "assigned_fn": [
+      "filetab_rlock",
+      "sqltab_rlock"
+    ]
+  },
+  {
+    "fp_name": "tab_unlock",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 15,
+    "assigned_fn": [
+      "filetab_unlock",
+      "sqltab_unlock"
+    ]
+  },
+  {
+    "fp_name": "tab_verify",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "filetab_verify",
+      "ldaptab_verify",
+      "radiustab_verify",
+      "sqltab_verify"
+    ]
+  },
+  {
+    "fp_name": "tab_wlock",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 16,
+    "assigned_fn": [
+      "filetab_wlock",
+      "sqltab_wlock"
+    ]
+  },
+  {
+    "fp_name": "tab_write",
+    "struct_name": "quota_table_t",
+    "struct_aliases": [
+      "quota_table_t",
+      "table_obj"
+    ],
+    "fp_index": 11,
+    "assigned_fn": [
+      "filetab_write",
+      "sqltab_write"
+    ]
+  },
+  {
+    "fp_name": "truncate",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 22,
+    "assigned_fn": [
+      "statcache_fsio_truncate",
+      "sys_truncate"
+    ]
+  },
+  {
+    "fp_name": "unlink",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 10,
+    "assigned_fn": [
+      "robots_fsio_unlink",
+      "statcache_fsio_unlink",
+      "sys_unlink"
+    ]
+  },
+  {
+    "fp_name": "utimes",
+    "struct_name": "fs_rec",
+    "struct_aliases": [
+      "fs_rec"
+    ],
+    "fp_index": 30,
+    "assigned_fn": [
+      "statcache_fsio_utimes",
+      "sys_utimes"
+    ]
+  },
+  {
+    "fp_name": "write",
+    "struct_name": "netio_rec",
+    "struct_aliases": [
+      "netio_rec"
+    ],
+    "fp_index": 9,
+    "assigned_fn": [
+      "core_netio_write_cb",
+      "deflate_netio_write_cb",
+      "deflate_next_netio_write",
+      "quotatab_fsio_write",
+      "robots_fsio_write",
+      "statcache_fsio_write",
+      "sys_write",
+      "tls_netio_write_cb"
+    ]
+  }
+]

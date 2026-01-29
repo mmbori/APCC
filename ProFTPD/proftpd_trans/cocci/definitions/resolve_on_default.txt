@@ -1,0 +1,1 @@
+int resolve_on_default(pool *jot_pool , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id);

@@ -1,0 +1,1 @@
+void ctrls_admin_startup_ev(const void *event_data , void *user_data);

@@ -1,0 +1,1 @@
+void ban_badprotocol_ev(const void *, void *);

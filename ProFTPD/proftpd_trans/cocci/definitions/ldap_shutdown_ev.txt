@@ -1,0 +1,1 @@
+void ldap_shutdown_ev(const void *event_data , void *user_data);

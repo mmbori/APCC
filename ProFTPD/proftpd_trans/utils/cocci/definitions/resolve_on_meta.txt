@@ -1,0 +1,1 @@
+int resolve_on_meta(pool *jot_pool , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id , const char *jot_hint , const void *val);

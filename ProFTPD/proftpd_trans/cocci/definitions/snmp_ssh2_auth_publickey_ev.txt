@@ -1,0 +1,1 @@
+void snmp_ssh2_auth_publickey_ev(const void *event_data , void *user_data);

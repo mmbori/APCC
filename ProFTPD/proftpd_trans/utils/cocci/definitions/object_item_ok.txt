@@ -1,0 +1,1 @@
+int object_item_ok(const char *key , int val_type , const void *val , size_t valsz , void *user_data);

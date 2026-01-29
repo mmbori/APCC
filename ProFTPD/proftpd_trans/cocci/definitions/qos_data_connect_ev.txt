@@ -1,0 +1,1 @@
+void qos_data_connect_ev(const void *event_data , void *user_data);

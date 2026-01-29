@@ -1,0 +1,1 @@
+void define_restart_ev(const void *event_data , void *user_data);
