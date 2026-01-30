@@ -381,8 +381,7 @@ static void append_member(JsonNode *object, char *key, JsonNode *value);
 static int tag_is_valid(unsigned int tag);
 static int number_is_valid(const char *num);
 
-void json_set_oom(void (*oom)(void),
-int oom_signature) {
+void json_set_oom(void (*oom)(void)) {
 	json_oom = (oom != NULL ? oom : default_oom);
 }
 

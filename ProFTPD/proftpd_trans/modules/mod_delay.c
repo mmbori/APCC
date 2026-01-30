@@ -1516,7 +1516,8 @@ static int delay_handle_reset(pr_ctrls_t *ctrl, int reqargc,
   return PR_CTRLS_STATUS_OK;
 }
 
-int delay_handle_delay(pr_ctrls_t *ctrl, int reqargc, char **reqargv) {
+static int delay_handle_delay(pr_ctrls_t *ctrl, int reqargc,
+    char **reqargv) {
 
   if (delay_tab.dt_enabled == FALSE) {
     pr_ctrls_add_response(ctrl, "delay: DelayTable disabled");
@@ -1996,7 +1997,7 @@ MODRET delay_pre_user(cmd_rec *cmd) {
 /* Event listeners
  */
 
-void delay_connect_ev(const void *event_data, void *user_data) {
+static void delay_connect_ev(const void *event_data, void *user_data) {
   config_rec *c;
 
   if (delay_engine == FALSE) {
@@ -2027,13 +2028,13 @@ void delay_connect_ev(const void *event_data, void *user_data) {
 }
 
 #if defined(PR_SHARED_MODULE)
-void delay_mod_unload_ev(const void *event_data, void *user_data) {
+static void delay_mod_unload_ev(const void *event_data, void *user_data) {
   if (strcmp("mod_delay.c", (const char *) event_data) != 0) {
     return;
   }
 
   /* Unregister ourselves from all events. */
-  pr_event_unregister(&delay_module, NULL, NULL, cb_signatures[cb_NULL]);
+  pr_event_unregister(&delay_module, NULL, NULL);
 
 # if defined(PR_USE_CTRLS)
   pr_ctrls_unregister(&delay_module, "delay");
@@ -2041,7 +2042,7 @@ void delay_mod_unload_ev(const void *event_data, void *user_data) {
 }
 #endif /* PR_SHARED_MODULE */
 
-void delay_postparse_ev(const void *event_data, void *user_data) {
+static void delay_postparse_ev(const void *event_data, void *user_data) {
   config_rec *c;
 
   c = find_config(main_server->conf, CONF_PARAM, "DelayEngine", FALSE);
@@ -2073,7 +2074,7 @@ void delay_postparse_ev(const void *event_data, void *user_data) {
   }
 }
 
-void delay_restart_ev(const void *event_data, void *user_data) {
+static void delay_restart_ev(const void *event_data, void *user_data) {
 #if defined(PR_USE_CTRLS)
     register unsigned int i;
 #endif /* PR_USE_CTRLS */
@@ -2098,13 +2099,13 @@ void delay_restart_ev(const void *event_data, void *user_data) {
 #endif /* PR_USE_CTRLS */
 }
 
-void delay_sess_reinit_ev(const void *event_data, void *user_data) {
+static void delay_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
   pr_event_unregister(&delay_module, "core.session-reinit",
-    delay_sess_reinit_ev, cb_signatures[cb_delay_sess_reinit_ev]);
+    delay_sess_reinit_ev);
 
   delay_engine = TRUE;
 
@@ -2123,7 +2124,7 @@ void delay_sess_reinit_ev(const void *event_data, void *user_data) {
   }
 }
 
-void delay_shutdown_ev(const void *event_data, void *user_data) {
+static void delay_shutdown_ev(const void *event_data, void *user_data) {
   pr_fh_t *fh = NULL;
   char *data = NULL;
   size_t datalen = 0;
@@ -2207,14 +2208,14 @@ static int delay_init(void) {
   delay_tab.dt_enabled = TRUE;
   delay_tab.dt_data = NULL;
 
-  pr_event_register(&delay_module, "core.connect", delay_connect_ev, cb_signatures[cb_delay_connect_ev], NULL);
+  pr_event_register(&delay_module, "core.connect", delay_connect_ev, NULL);
 #if defined(PR_SHARED_MODULE)
-  pr_event_register(&delay_module, "core.module-unload", delay_mod_unload_ev,cb_signatures[cb_delay_mod_unload_ev], 
+  pr_event_register(&delay_module, "core.module-unload", delay_mod_unload_ev,
     NULL);
 #endif
-  pr_event_register(&delay_module, "core.postparse", delay_postparse_ev, cb_signatures[cb_delay_postparse_ev], NULL);
-  pr_event_register(&delay_module, "core.restart", delay_restart_ev, cb_signatures[cb_delay_restart_ev], NULL);
-  pr_event_register(&delay_module, "core.shutdown", delay_shutdown_ev, cb_signatures[cb_delay_shutdown_ev], NULL);
+  pr_event_register(&delay_module, "core.postparse", delay_postparse_ev, NULL);
+  pr_event_register(&delay_module, "core.restart", delay_restart_ev, NULL);
+  pr_event_register(&delay_module, "core.shutdown", delay_shutdown_ev, NULL);
 
   delay_pool = make_sub_pool(permanent_pool);
   pr_pool_tag(delay_pool, MOD_DELAY_VERSION);
@@ -2243,7 +2244,7 @@ static int delay_sess_init(void) {
   config_rec *c;
   int xerrno;
 
-  pr_event_register(&delay_module, "core.session-reinit", delay_sess_reinit_ev,cb_signatures[cb_delay_sess_reinit_ev], 
+  pr_event_register(&delay_module, "core.session-reinit", delay_sess_reinit_ev,
     NULL);
 
   if (delay_engine == FALSE) {
@@ -2363,25 +2364,25 @@ static ctrls_acttab_t delay_acttab[] = {
 };
 #endif /* PR_USE_CTRLS */
 
-conftable delay_conftab[] = {
-  { "DelayControlsACLs",set_delayctrlsacls, sig_set_delayctrlsacls,	NULL },
-  { "DelayEngine",	set_delayengine, sig_set_delayengine,	NULL },
-  { "DelayOnEvent",	set_delayonevent, sig_set_delayonevent,	NULL },
-  { "DelayTable",	set_delaytable, sig_set_delaytable,		NULL },
+static conftable delay_conftab[] = {
+  { "DelayControlsACLs",set_delayctrlsacls,	NULL },
+  { "DelayEngine",	set_delayengine,	NULL },
+  { "DelayOnEvent",	set_delayonevent,	NULL },
+  { "DelayTable",	set_delaytable,		NULL },
   { NULL }
 };
 
-cmdtable delay_cmdtab[] = {
-  { PRE_CMD,		C_PASS,	G_NONE,	delay_pre_pass, sig_delay_pre_pass,		FALSE, FALSE },
-  { POST_CMD,		C_PASS,	G_NONE,	delay_post_pass, sig_delay_post_pass,	FALSE, FALSE },
-  { POST_CMD_ERR,	C_PASS,	G_NONE,	delay_post_pass, sig_delay_post_pass,	FALSE, FALSE },
-  { PRE_CMD,		C_USER,	G_NONE,	delay_pre_user, sig_delay_pre_user,		FALSE, FALSE },
-  { POST_CMD,		C_USER,	G_NONE,	delay_post_user, sig_delay_post_user,	FALSE, FALSE },
-  { POST_CMD_ERR,	C_USER,	G_NONE,	delay_post_user, sig_delay_post_user,	FALSE, FALSE },
-  { LOG_CMD,		C_USER,	G_NONE,	delay_log_user, sig_delay_log_user,		FALSE, FALSE },
-  { LOG_CMD_ERR,	C_USER,	G_NONE,	delay_log_user, sig_delay_log_user,		FALSE, FALSE },
-  { LOG_CMD,		C_PASS,	G_NONE,	delay_log_pass, sig_delay_log_pass,		FALSE, FALSE },
-  { LOG_CMD_ERR,	C_PASS,	G_NONE,	delay_log_pass_err, sig_delay_log_pass_err,	FALSE, FALSE },
+static cmdtable delay_cmdtab[] = {
+  { PRE_CMD,		C_PASS,	G_NONE,	delay_pre_pass,		FALSE, FALSE },
+  { POST_CMD,		C_PASS,	G_NONE,	delay_post_pass,	FALSE, FALSE },
+  { POST_CMD_ERR,	C_PASS,	G_NONE,	delay_post_pass,	FALSE, FALSE },
+  { PRE_CMD,		C_USER,	G_NONE,	delay_pre_user,		FALSE, FALSE },
+  { POST_CMD,		C_USER,	G_NONE,	delay_post_user,	FALSE, FALSE },
+  { POST_CMD_ERR,	C_USER,	G_NONE,	delay_post_user,	FALSE, FALSE },
+  { LOG_CMD,		C_USER,	G_NONE,	delay_log_user,		FALSE, FALSE },
+  { LOG_CMD_ERR,	C_USER,	G_NONE,	delay_log_user,		FALSE, FALSE },
+  { LOG_CMD,		C_PASS,	G_NONE,	delay_log_pass,		FALSE, FALSE },
+  { LOG_CMD_ERR,	C_PASS,	G_NONE,	delay_log_pass_err,	FALSE, FALSE },
   { 0, NULL }
 };
 

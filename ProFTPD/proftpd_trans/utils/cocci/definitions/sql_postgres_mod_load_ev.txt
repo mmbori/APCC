@@ -1,1 +1,0 @@
-void sql_postgres_mod_load_ev(const void *event_data , void *user_data);

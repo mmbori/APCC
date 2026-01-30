@@ -1,1 +1,0 @@
-void statcache_dumpf(const char *fmt);

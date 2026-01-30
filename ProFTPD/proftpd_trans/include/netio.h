@@ -146,16 +146,6 @@ struct netio_rec {
   /* Registering/owning module */
   module *owner;
   const char *owner_name;
-
-  int abort_signature;
-  int close_signature;
-  int open_signature;
-  int poll_signature;
-  int postopen_signature;
-  int read_signature;
-  int reopen_signature;
-  int shutdown_signature;
-  int write_signature;
 };
 
 /* Network IO function prototypes */

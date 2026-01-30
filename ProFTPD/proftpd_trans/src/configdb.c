@@ -206,8 +206,7 @@ static void config_dumpf(const char *fmt, ...) {
   pr_log_debug(DEBUG5, "%s", buf);
 }
 
-void pr_config_dump(void (*dumpf)(const char *, ...),
-int dumpf_signature, xaset_t *s,
+void pr_config_dump(void (*dumpf)(const char *, ...), xaset_t *s,
     char *indent) {
   config_rec *c = NULL;
 
@@ -229,26 +228,7 @@ int dumpf_signature, xaset_t *s,
     /* Don't display directives whose name starts with an underscore. */
     if (c->name != NULL &&
         *(c->name) != '_') {
-      // fp(args);
-      if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-        NULL;
-      }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-      //     event_dump("%s%s", indent, c->name);
-      //   }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-      //     stash_dump("%s%s", indent, c->name);
-      //   }
-      else
-        if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-          statcache_dumpf("%s%s", indent, c->name);
-        }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-      //     table_dump("%s%s", indent, c->name);
-      //   }
+      dumpf("%s%s", indent, c->name);
     }
 
     if (c->subset) {
@@ -256,7 +236,7 @@ int dumpf_signature, xaset_t *s,
 
       iter_pool = make_sub_pool(c->pool);
       pr_pool_tag(iter_pool, "config dump scratch pool");
-      pr_config_dump(dumpf, dumpf_signature, c->subset, pstrcat(iter_pool, indent, " ", NULL));
+      pr_config_dump(dumpf, c->subset, pstrcat(iter_pool, indent, " ", NULL));
       destroy_pool(iter_pool);
     }
   }

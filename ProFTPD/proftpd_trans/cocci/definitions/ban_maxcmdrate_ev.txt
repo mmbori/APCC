@@ -1,1 +1,0 @@
-void ban_maxcmdrate_ev(const void *, void *);

@@ -32,7 +32,7 @@
  * strcmp.  Returns NULL if memory allocation fails.
  */
 
-xaset_t *xaset_create(pool *p, XASET_COMPARE cmpfunc) {
+xaset_t *xaset_create(pool *p, int (*cmpfunc)(xasetmember_t *v1, xasetmember_t *v2)) {
   xaset_t *new_set;
 
   if (p == NULL &&
@@ -189,7 +189,7 @@ int xaset_remove(xaset_t *set, xasetmember_t *member) {
  * instead to copy each member.  Returns NULL if out of memory condition
  * occurs.
  */
-xaset_t *xaset_copy(pool *p, xaset_t *set, size_t msize, XASET_MCOPY copyfunc) {
+xaset_t *xaset_copy(pool *p, xaset_t *set, size_t msize, xasetmember_t* (*copyfunc)(xasetmember_t *mem)) {
   xaset_t *new_set;
   xasetmember_t *n, *m, **pos;
 

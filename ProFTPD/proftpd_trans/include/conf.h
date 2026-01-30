@@ -120,7 +120,6 @@
 #include "json.h"
 #include "memcache.h"
 #include "redis.h"
-#include "proftpd_signatures_header.h"
 
 # ifdef HAVE_SETPASSENT
 #  define setpwent()	setpassent(1)

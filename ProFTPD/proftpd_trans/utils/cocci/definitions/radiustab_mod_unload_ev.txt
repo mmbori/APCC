@@ -1,1 +1,0 @@
-void radiustab_mod_unload_ev(const void *event_data , void *user_data);

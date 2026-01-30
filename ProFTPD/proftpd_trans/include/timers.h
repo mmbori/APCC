@@ -38,7 +38,7 @@
  * an error.  In the case of an error, errno will be set to an appropriate
  * reason.
  */
-int pr_timer_add(int secs, int timerno, module *m, callback_t cb, int cb_signature,
+int pr_timer_add(int secs, int timerno, module *m, int (*cb)(CALLBACK_FRAME),
   const char *desc);
 
 /* Remove the timer indicated by the timerno parameter, and owned by the

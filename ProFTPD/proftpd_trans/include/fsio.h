@@ -219,54 +219,6 @@ struct fs_rec {
    * path separator, glob semantics, etc.
    */
   int non_std_path;
-
-  int stat_signature;
-  int fstat_signature;
-  int lstat_signature;
-  int rename_signature;
-  int unlink_signature;
-  int open_signature;
-  int close_signature;
-  int read_signature;
-  int pread_signature;
-  int write_signature;
-  int pwrite_signature;
-  int lseek_signature;
-  int link_signature;
-  int readlink_signature;
-  int symlink_signature;
-  int ftruncate_signature;
-  int truncate_signature;
-  int chmod_signature;
-  int fchmod_signature;
-  int chown_signature;
-  int fchown_signature;
-  int lchown_signature;
-  int access_signature;
-  int faccess_signature;
-  int utimes_signature;
-  int futimes_signature;
-  int fsync_signature;
-  int realpath_signature;
-  int getxattr_signature;
-  int lgetxattr_signature;
-  int fgetxattr_signature;
-  int listxattr_signature;
-  int llistxattr_signature;
-  int flistxattr_signature;
-  int removexattr_signature;
-  int lremovexattr_signature;
-  int fremovexattr_signature;
-  int setxattr_signature;
-  int lsetxattr_signature;
-  int fsetxattr_signature;
-  int chdir_signature;
-  int chroot_signature;
-  int opendir_signature;
-  int closedir_signature;
-  int readdir_signature;
-  int mkdir_signature;
-  int rmdir_signature;
 };
 
 struct fh_rec {
@@ -458,8 +410,7 @@ int pr_fs_copy_file(const char *src, const char *dst);
  * just written to the destination file in that iteration.
  */
 int pr_fs_copy_file2(const char *src, const char *dst, int flags,
-  void (*progress_cb)(int),
-  int progress_cb_signature);
+  void (*progress_cb)(int));
 #define PR_FSIO_COPY_FILE_FL_NO_DELETE_ON_FAILURE	0x0001
 
 int pr_fs_setcwd(const char *);
@@ -498,8 +449,7 @@ void pr_fs_clean_path(const char *, char *, size_t);
 int pr_fs_clean_path2(const char *, char *, size_t, int);
 #define PR_FSIO_CLEAN_PATH_FL_MAKE_ABS_PATH	0x001
 
-int pr_fs_glob(const char *, int, int (*errfunc)(const char *, int),
-int errfunc_signature, glob_t *);
+int pr_fs_glob(const char *, int, int (*errfunc)(const char *, int), glob_t *);
 void pr_fs_globfree(glob_t *);
 void pr_resolve_fs_map(void);
 
@@ -559,7 +509,7 @@ void pr_fs_fadvise(int fd, off_t offset, off_t len, int advice);
 int init_fs(void);
 
 #ifdef PR_USE_DEVEL
-void pr_fs_dump(void (*)(const char *, ...), int);
+void pr_fs_dump(void (*)(const char *, ...));
 #endif /* PR_USE_DEVEL */
 
 #endif /* PR_FSIO_H */

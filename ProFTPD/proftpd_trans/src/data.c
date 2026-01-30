@@ -2,7 +2,7 @@
  * ProFTPD - FTP server daemon
  * Copyright (c) 1997, 1998 Public Flood Software
  * Copyright (c) 1999, 2000 MacGyver aka Habeeb J. Dihu <macgyver@tos.net>
- * Copyright (c) 2001-2025 The ProFTPD Project team
+ * Copyright (c) 2001-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ static int timeout_stalled = PR_TUNABLE_TIMEOUTSTALLED;
 
 /* Called if the "Stalled" timer goes off
  */
-int stalled_timeout_cb(CALLBACK_FRAME) {
+static int stalled_timeout_cb(CALLBACK_FRAME) {
   pr_event_generate("core.timeout-stalled", NULL);
   pr_log_pri(PR_LOG_NOTICE, "Data transfer stall timeout: %d %s",
     timeout_stalled, timeout_stalled != 1 ? "seconds" : "second");
@@ -120,7 +120,7 @@ static int data_passive_open(const char *reason, off_t size) {
    * open from taking too long
    */
   if (timeout_stalled) {
-    pr_timer_add(timeout_stalled, PR_TIMER_STALLED, NULL, stalled_timeout_cb, callback_signatures[callback_stalled_timeout_cb], 
+    pr_timer_add(timeout_stalled, PR_TIMER_STALLED, NULL, stalled_timeout_cb,
       "TimeoutStalled");
   }
 
@@ -304,7 +304,7 @@ static int data_active_open(const char *reason, off_t size) {
    * open from taking too long
    */
   if (timeout_stalled > 0) {
-    pr_timer_add(timeout_stalled, PR_TIMER_STALLED, NULL, stalled_timeout_cb, callback_signatures[callback_stalled_timeout_cb], 
+    pr_timer_add(timeout_stalled, PR_TIMER_STALLED, NULL, stalled_timeout_cb,
       "TimeoutStalled");
   }
 
@@ -534,7 +534,9 @@ void pr_data_init(char *filename, int direction) {
 
 int pr_data_open(char *filename, char *reason, int direction, off_t size) {
   int res = 0;
+#if defined(HAVE_SIGACTION)
   struct sigaction act;
+#endif /* HAVE_SIGACTION */
 
   if (session.c == NULL) {
     errno = EINVAL;
@@ -641,28 +643,30 @@ int pr_data_open(char *filename, char *reason, int direction, off_t size) {
    * any sensible system is interrupted.
    */
 
+#if defined(HAVE_SIGACTION)
   act.sa_handler = data_urgent;
   sigemptyset(&act.sa_mask);
   act.sa_flags = 0;
-#ifdef SA_INTERRUPT
+
+# if defined(SA_INTERRUPT)
   act.sa_flags |= SA_INTERRUPT;
-#endif
+# endif /* SA_INTERRUPT */
+# if defined(SA_RESTART)
+  act.sa_flags &= SA_RESTART;
+# endif /* SA_RESTART */
 
   if (sigaction(SIGURG, &act, NULL) < 0) {
     pr_log_pri(PR_LOG_WARNING,
       "warning: unable to set SIGURG signal handler: %s", strerror(errno));
   }
 
-#ifdef HAVE_SIGINTERRUPT
-  /* This is the BSD way of ensuring interruption.
-   * Linux uses it too (??)
-   */
+#elif defined(HAVE_SIGINTERRUPT)
   if (siginterrupt(SIGURG, 1) < 0) {
     pr_log_pri(PR_LOG_WARNING,
       "warning: unable to make SIGURG interrupt system calls: %s",
       strerror(errno));
   }
-#endif
+#endif /* HAVE_SIGACTION or HAVE_SIGINTERRUPT */
 
   /* Reset all of the timing-related variables for data transfers. */
   pr_gettimeofday_millis(&data_start_ms);
@@ -1101,7 +1105,9 @@ static void poll_ctrl(void) {
       char *ch;
 
       for (ch = cmd->argv[0]; *ch; ch++) {
-        *ch = toupper((int) *ch);
+        if (PR_ISALPHA((int) *ch)) {
+          *ch = toupper((int) *ch);
+        }
       }
 
       cmd->cmd_id = pr_cmd_get_id(cmd->argv[0]);

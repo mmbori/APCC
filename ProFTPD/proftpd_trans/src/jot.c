@@ -1,6 +1,6 @@
 /*
  * ProFTPD - FTP server daemon
- * Copyright (c) 2017-2025 The ProFTPD Project team
+ * Copyright (c) 2017-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1188,9 +1188,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
     const char *logfmt_data, pr_jot_ctx_t *ctx, cmd_rec *cmd,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char,
       const char *, const void *),
-      int on_meta_signature,
-    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-    int on_default_signature) {
+    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char)) {
   int res = 0;
 
   if (pr_trace_get_level(trace_channel) >= 17) {
@@ -1218,22 +1216,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       basename = get_meta_basename(cmd);
       if (basename != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, basename);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, basename);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, basename);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, basename);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, basename);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1253,22 +1239,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (have_bytes == TRUE) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &bytes_sent);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &bytes_sent);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &bytes_sent);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &bytes_sent);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &bytes_sent);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1276,19 +1250,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
     case LOGFMT_META_CUSTOM: {
       if (logfmt_data != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, logfmt_data);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, logfmt_data);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, logfmt_data);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, logfmt_data);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, logfmt_data);
       }
 
       break;
@@ -1300,19 +1262,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       (void) gettimeofday(&tv, NULL);
       epoch = (double) tv.tv_sec;
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, &epoch);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &epoch);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &epoch);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &epoch);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &epoch);
       break;
     }
 
@@ -1321,22 +1271,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       filename = get_meta_filename(cmd);
       if (filename != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, filename);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, filename);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, filename);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, filename);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, filename);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1350,22 +1288,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         double file_offset;
 
         file_offset = (double) *note;;
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &file_offset);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &file_offset);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &file_offset);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &file_offset);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &file_offset);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1379,22 +1305,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         double file_size;
 
         file_size = (double) *note;
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &file_size);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &file_size);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &file_size);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &file_size);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &file_size);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1411,22 +1325,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
           char *field_name;
 
           field_name = pstrcat(p, PR_JOT_LOGFMT_ENV_VAR_KEY, key, NULL);
-          // res = (on_meta)(p, ctx, logfmt_id, field_name, env);
-          if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, field_name, env);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, field_name, env);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, field_name, env);
-        }
+          res = (on_meta)(p, ctx, logfmt_id, field_name, env);
 
         } else {
-          res = resolve_on_default(p, ctx, logfmt_id);
+          res = (on_default)(p, ctx, logfmt_id);
         }
       }
 
@@ -1437,19 +1339,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *name;
 
       name = pr_netaddr_get_sess_remote_name();
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, name);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, name);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, name);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, name);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, name);
       break;
     }
 
@@ -1457,19 +1347,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *ipstr;
 
       ipstr = pr_netaddr_get_ipstr(pr_netaddr_get_sess_remote_addr());
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, ipstr);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, ipstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, ipstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, ipstr);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, ipstr);
       break;
     }
 
@@ -1480,22 +1358,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       remote_addr = pr_netaddr_get_sess_remote_addr();
       if (remote_addr != NULL) {
         client_port = ntohs(pr_netaddr_get_port(remote_addr));
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &client_port);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &client_port);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &client_port);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &client_port);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &client_port);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1506,22 +1372,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       ident_user = pr_table_get(session.notes, "mod_ident.rfc1413-ident", NULL);
       if (ident_user != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, ident_user);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, ident_user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, ident_user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, ident_user);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, ident_user);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1531,19 +1385,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       double sess_pid;
 
       sess_pid = session.pid;
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_pid);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &sess_pid);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &sess_pid);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &sess_pid);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_pid);
       break;
     }
 
@@ -1562,22 +1404,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         }
 
         strftime(ts, sizeof(ts)-1, time_fmt, tm);
-        // res = (on_meta)(p, ctx, logfmt_id, logfmt_data, ts);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, logfmt_data, ts);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, logfmt_data, ts);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, logfmt_data, ts);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, logfmt_data, ts);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1587,22 +1417,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       double transfer_secs;
 
       if (get_meta_transfer_secs(cmd, &transfer_secs) == 0) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &transfer_secs);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &transfer_secs);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &transfer_secs);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &transfer_secs);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &transfer_secs);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1630,22 +1448,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (full_cmd != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, full_cmd);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, full_cmd);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, full_cmd);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, full_cmd);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, full_cmd);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1653,22 +1459,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
     case LOGFMT_META_LOCAL_NAME: {
       if (cmd->server != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, cmd->server->ServerName);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, cmd->server->ServerName);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, cmd->server->ServerName);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, cmd->server->ServerName);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, cmd->server->ServerName);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1679,22 +1473,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         double server_port;
 
         server_port = cmd->server->ServerPort;
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &server_port);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &server_port);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &server_port);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &server_port);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &server_port);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1704,19 +1486,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *ipstr;
 
       ipstr = pr_netaddr_get_ipstr(pr_netaddr_get_sess_local_addr());
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, ipstr);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, ipstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, ipstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, ipstr);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, ipstr);
       break;
     }
 
@@ -1724,40 +1494,16 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *dnsstr;
 
       dnsstr = pr_netaddr_get_dnsstr(pr_netaddr_get_sess_local_addr());
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, dnsstr);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, dnsstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, dnsstr);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, dnsstr);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, dnsstr);
       break;
     }
 
     case LOGFMT_META_USER: {
       if (session.user != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, session.user);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, session.user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, session.user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, session.user);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, session.user);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1768,22 +1514,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       orig_user = pr_table_get(session.notes, "mod_auth.orig-user", NULL);
       if (orig_user != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, orig_user);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, orig_user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, orig_user);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, orig_user);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, orig_user);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1807,22 +1541,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (have_code == TRUE) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &resp_num);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &resp_num);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &resp_num);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &resp_num);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &resp_num);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1830,22 +1552,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
     case LOGFMT_META_CLASS: {
       if (session.conn_class != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, session.conn_class);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, session.conn_class);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, session.conn_class);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, session.conn_class);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, session.conn_class);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1856,22 +1566,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       anon_pass = pr_table_get(session.notes, "mod_auth.anon-passwd", NULL);
       if (anon_pass != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, anon_pass);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, anon_pass);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, anon_pass);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, anon_pass);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, anon_pass);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1896,7 +1594,9 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
          * logging purposes.
          */
         for (ch = cmd->argv[1]; *ch; ch++) {
-          *ch = toupper((int) *ch);
+          if (PR_ISALPHA((int) *ch)) {
+            *ch = toupper((int) *ch);
+          }
         }
 
         len = pr_snprintf(buf, sizeof(buf)-1, "%s %s", (char *) cmd->argv[0],
@@ -1906,22 +1606,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (method != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, method);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, method);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, method);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, method);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, method);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1932,22 +1620,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       transfer_path = get_meta_transfer_path(cmd);
       if (transfer_path != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_path);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, transfer_path);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, transfer_path);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, transfer_path);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_path);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1958,22 +1634,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       dir_name = get_meta_dir_name(cmd);
       if (dir_name != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, dir_name);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, dir_name);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, dir_name);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, dir_name);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, dir_name);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -1984,22 +1648,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       dir_path = get_meta_dir_path(cmd);
       if (dir_path != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, dir_path);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, dir_path);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, dir_path);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, dir_path);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, dir_path);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2024,22 +1676,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (params != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, params);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, params);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, params);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, params);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, params);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2052,22 +1692,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       last = pr_response_get_last(p, NULL, &resp_msg);
       if (last == 0 &&
           resp_msg != NULL) {
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, resp_msg);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, resp_msg);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, resp_msg);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, resp_msg);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, resp_msg);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2084,22 +1712,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         pr_gettimeofday_millis(&end_ms);
 
         response_ms = end_ms - *start_ms;
-        // res = (on_meta)(p, ctx, logfmt_id, NULL, &response_ms);
-        if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, &response_ms);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &response_ms);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, &response_ms);
-        }
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &response_ms);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2109,19 +1725,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *proto;
 
       proto = pr_session_get_protocol(0);
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, proto);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, proto);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, proto);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, proto);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, proto);
       break;
     }
 
@@ -2129,19 +1733,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       const char *version;
 
       version = PROFTPD_VERSION_TEXT;
-      // res = (on_meta)(p, ctx, logfmt_id, NULL, version);
-      if (on_meta_signature == on_meta_signatures[on_meta_NULL]) {
-          res = NULL;
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_parse_on_meta]) {
-            res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, version);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_pr_jot_on_json]) {
-            res = pr_jot_on_json(p, ctx, logfmt_id, NULL, version);
-        }
-        else if (on_meta_signature == on_meta_signatures[on_meta_resolve_on_meta]) {
-            res = resolve_on_meta(p, ctx, logfmt_id, NULL, version);
-        }
+      res = (on_meta)(p, ctx, logfmt_id, NULL, version);
       break;
     }
 
@@ -2151,14 +1743,14 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
         rnfr_path = pr_table_get(session.notes, "mod_core.rnfr-path", NULL);
         if (rnfr_path != NULL) {
-          res = pr_jot_on_json(p, ctx, logfmt_id, NULL, rnfr_path);
+          res = (on_meta)(p, ctx, logfmt_id, NULL, rnfr_path);
 
         } else {
-          res = resolve_on_default(p, ctx, logfmt_id);
+          res = (on_default)(p, ctx, logfmt_id);
         }
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2175,7 +1767,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         }
       }
 
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &modified);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &modified);
       break;
     }
 
@@ -2189,7 +1781,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         sess_uid = geteuid();
       }
 
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &sess_uid);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_uid);
       break;
     }
 
@@ -2203,7 +1795,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         sess_gid = getegid();
       }
 
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &sess_gid);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_gid);
       break;
     }
 
@@ -2211,7 +1803,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       double bytes_rcvd;
 
       bytes_rcvd = session.total_raw_in;
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &bytes_rcvd);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &bytes_rcvd);
       break;
     }
 
@@ -2219,7 +1811,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       double bytes_sent;
 
       bytes_sent = session.total_raw_out;
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &bytes_sent);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &bytes_sent);
       break;
     }
 
@@ -2239,10 +1831,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       }
 
       if (reason != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, reason);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, reason);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2250,10 +1842,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
     case LOGFMT_META_VHOST_IP:
       if (cmd->server != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, cmd->server->ServerAddress);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, cmd->server->ServerAddress);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2277,10 +1869,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
           char *field_name;
 
           field_name = pstrcat(p, PR_JOT_LOGFMT_NOTE_KEY, note, NULL);
-          res = pr_jot_on_json(p, ctx, logfmt_id, field_name, note);
+          res = (on_meta)(p, ctx, logfmt_id, field_name, note);
 
         } else {
-          res = resolve_on_default(p, ctx, logfmt_id);
+          res = (on_default)(p, ctx, logfmt_id);
         }
       }
 
@@ -2305,12 +1897,12 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
           char *field_name;
 
           field_name = pstrcat(p, PR_JOT_LOGFMT_VAR_KEY, var, NULL);
-          res = pr_jot_on_json(p, ctx, logfmt_id, field_name, var);
+          res = (on_meta)(p, ctx, logfmt_id, field_name, var);
 
         } else {
           pr_trace_msg(trace_channel, 7, "error resolving VAR_VAR '%s': %s",
             logfmt_data, strerror(errno));
-          res = resolve_on_default(p, ctx, logfmt_id);
+          res = (on_default)(p, ctx, logfmt_id);
         }
       }
 
@@ -2322,10 +1914,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       transfer_status = get_meta_transfer_status(cmd);
       if (transfer_status != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, transfer_status);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_status);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2336,10 +1928,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       transfer_failure = get_meta_transfer_failure(cmd);
       if (transfer_failure != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, transfer_failure);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_failure);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2359,14 +1951,14 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
           pr_gettimeofday_millis(&end_ms);
 
           transfer_ms = end_ms - start_ms;
-          res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &transfer_ms);
+          res = (on_meta)(p, ctx, logfmt_id, NULL, &transfer_ms);
 
         } else {
-          res = resolve_on_default(p, ctx, logfmt_id);
+          res = (on_default)(p, ctx, logfmt_id);
         }
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2380,10 +1972,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         double xfer_port;
 
         xfer_port = (double) transfer_port;
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &xfer_port);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, &xfer_port);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2394,10 +1986,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       transfer_speed = get_meta_transfer_speed(cmd);
       if (transfer_speed != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, transfer_speed);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_speed);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2408,10 +2000,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
       transfer_type = get_meta_transfer_type(cmd);
       if (transfer_type != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, transfer_type);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, transfer_type);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2424,7 +2016,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       gettimeofday(&now, NULL);
       sess_usecs = now.tv_usec;
 
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &sess_usecs);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_usecs);
       break;
     }
 
@@ -2437,7 +2029,7 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
       /* Convert microsecs to millisecs. */
       sess_msecs = (now.tv_usec / 1000);
 
-      res = pr_jot_on_json(p, ctx, logfmt_id, NULL, &sess_msecs);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, &sess_msecs);
       break;
     }
 
@@ -2458,10 +2050,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
         millis = now.tv_usec / 1000;
 
         pr_snprintf(ts + len, sizeof(ts) - len - 1, ",%03lu", millis);
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, ts);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, ts);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2469,10 +2061,10 @@ static int resolve_logfmt_id(pool *p, unsigned char logfmt_id,
 
     case LOGFMT_META_GROUP: {
       if (session.group != NULL) {
-        res = pr_jot_on_json(p, ctx, logfmt_id, NULL, session.group);
+        res = (on_meta)(p, ctx, logfmt_id, NULL, session.group);
 
       } else {
-        res = resolve_on_default(p, ctx, logfmt_id);
+        res = (on_default)(p, ctx, logfmt_id);
       }
 
       break;
@@ -2495,9 +2087,7 @@ static int resolve_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
     cmd_rec *cmd,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
       const void *),
-      int on_meta_signature,
-    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-    int on_default_signature) {
+    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char)) {
   int res = 0;
   unsigned char *ptr, logfmt_id;
   const char *logfmt_data = NULL;
@@ -2530,8 +2120,8 @@ static int resolve_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
    */
   logfmt_data = pstrndup(p, logfmt_data, logfmt_datalen);
 
-  res = resolve_logfmt_id(p, logfmt_id, logfmt_data, ctx, cmd, on_meta,on_meta_signature, 
-    on_default, on_default_signature);
+  res = resolve_logfmt_id(p, logfmt_id, logfmt_data, ctx, cmd, on_meta,
+    on_default);
   if (res < 0) {
     return -1;
   }
@@ -2721,9 +2311,7 @@ int pr_jot_resolve_logfmt_id(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
     pr_jot_ctx_t *ctx,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
       const void *),
-      int on_meta_signature,
-    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-    int on_default_signature) {
+    int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char)) {
   int jottable = FALSE, res = 0;
 
   if (p == NULL ||
@@ -2760,7 +2348,7 @@ int pr_jot_resolve_logfmt_id(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
         (unsigned int) logfmt_id, pr_jot_get_logfmt_id_name(logfmt_id));
       if (cmd->cmd_class == CL_CONNECT) {
         int val = TRUE;
-        res = pr_jot_parse_on_meta(p, ctx, LOGFMT_META_CONNECT, NULL, &val);
+        res = (on_meta)(p, ctx, LOGFMT_META_CONNECT, NULL, &val);
       }
 
       return res;
@@ -2771,7 +2359,7 @@ int pr_jot_resolve_logfmt_id(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
         (unsigned int) logfmt_id, pr_jot_get_logfmt_id_name(logfmt_id));
       if (cmd->cmd_class == CL_DISCONNECT) {
         int val = TRUE;
-        res = pr_jot_parse_on_meta(p, ctx, LOGFMT_META_DISCONNECT, NULL, &val);
+        res = (on_meta)(p, ctx, LOGFMT_META_DISCONNECT, NULL, &val);
       }
       return res;
     }
@@ -2780,8 +2368,8 @@ int pr_jot_resolve_logfmt_id(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
       break;
   }
 
-  res = resolve_logfmt_id(p, logfmt_id, logfmt_data, ctx, cmd, on_meta,on_meta_signature,
-    on_default, on_default_signature);
+  res = resolve_logfmt_id(p, logfmt_id, logfmt_data, ctx, cmd, on_meta,
+    on_default);
   return res;
 }
 
@@ -2789,11 +2377,8 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
     unsigned char *logfmt, pr_jot_ctx_t *ctx,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
       const void *),
-      int on_meta_signature,
     int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-    int on_default_signature,
-    int (*on_other)(pool *, pr_jot_ctx_t *, unsigned char *, size_t),
-    int on_other_signature) {
+    int (*on_other)(pool *, pr_jot_ctx_t *, unsigned char *, size_t)) {
   int jottable = FALSE, res;
   size_t text_len;
 
@@ -2842,7 +2427,7 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
     }
 
     if (text_len > 0) {
-      res = jot_resolve_on_other(p, ctx, logfmt - text_len, text_len);
+      res = (on_other)(p, ctx, logfmt - text_len, text_len);
       if (res < 0) {
         return -1;
       }
@@ -2859,7 +2444,7 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
           pr_trace_msg(trace_channel, 17, "resolving LogFormat ID %u (%s)",
             LOGFMT_META_CONNECT,
             pr_jot_get_logfmt_id_name(LOGFMT_META_CONNECT));
-          res = pr_jot_parse_on_meta(p, ctx, LOGFMT_META_CONNECT, NULL, &val);
+          res = (on_meta)(p, ctx, LOGFMT_META_CONNECT, NULL, &val);
         }
 
         /* Don't forget to advance past the META_START and META_CONNECT. */
@@ -2872,7 +2457,7 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
           pr_trace_msg(trace_channel, 17, "resolving LogFormat ID %u (%s)",
             LOGFMT_META_DISCONNECT,
             pr_jot_get_logfmt_id_name(LOGFMT_META_DISCONNECT));
-          res = pr_jot_parse_on_meta(p, ctx, LOGFMT_META_DISCONNECT, NULL, &val);
+          res = (on_meta)(p, ctx, LOGFMT_META_DISCONNECT, NULL, &val);
         }
 
         /* Don't forget to advance past the META_START and
@@ -2882,13 +2467,13 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
         break;
 
       default:
-        res = resolve_meta(p, &logfmt, ctx, cmd, on_meta, on_meta_signature, on_default, on_default_signature);
+        res = resolve_meta(p, &logfmt, ctx, cmd, on_meta, on_default);
     }
   }
 
   /* "Flush" any remaining non-variable text. */
   if (text_len > 0) {
-    res = jot_resolve_on_other(p, ctx, logfmt - text_len, text_len);
+    res = (on_other)(p, ctx, logfmt - text_len, text_len);
     if (res < 0) {
       return -1;
     }
@@ -3307,7 +2892,7 @@ static void jot_parsed_append_arg(pr_jot_parsed_t *parsed, const char *text,
 }
 
 int pr_jot_parse_on_meta(pool *p, pr_jot_ctx_t *jot_ctx,
-  unsigned char logfmt_id, const char *logfmt_data, size_t logfmt_datalen) {
+    unsigned char logfmt_id, const char *logfmt_data, size_t logfmt_datalen) {
   pr_jot_parsed_t *parsed;
 
   if (jot_ctx == NULL) {
@@ -3365,11 +2950,8 @@ int pr_jot_parse_on_other(pool *p, pr_jot_ctx_t *jot_ctx, char ch) {
 
 int pr_jot_parse_logfmt(pool *p, const char *text, pr_jot_ctx_t *ctx,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *, size_t),
-    int on_meta_signature,
     int (*on_unknown)(pool *, pr_jot_ctx_t *, const char *, size_t),
-    int on_unknown_signature,
-    int (*on_other)(pool *, pr_jot_ctx_t *, char),
-    int on_other_signature, int flags) {
+    int (*on_other)(pool *, pr_jot_ctx_t *, char), int flags) {
   int res = 0;
   const char *ptr;
 
@@ -3403,21 +2985,21 @@ int pr_jot_parse_logfmt(pool *p, const char *text, pr_jot_ctx_t *ctx,
     }
 
     if (*ptr != '%') {
-      res = pr_jot_parse_on_other(p, ctx, *ptr);
+      res = (on_other)(p, ctx, *ptr);
       ptr += 1;
       continue;
     }
 
     len = parse_short_id(ptr + 1, &logfmt_id);
     if (len > 0) {
-      res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, 0);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, 0);
       ptr += (len + 1);
       continue;
     }
 
     len = parse_long_id(ptr + 1, &logfmt_id, &logfmt_data, &logfmt_datalen);
     if (len > 0) {
-      res = pr_jot_parse_on_meta(p, ctx, logfmt_id, logfmt_data, logfmt_datalen);
+      res = (on_meta)(p, ctx, logfmt_id, logfmt_data, logfmt_datalen);
       ptr += (len + 1);
       continue;
     }
@@ -3428,18 +3010,18 @@ int pr_jot_parse_logfmt(pool *p, const char *text, pr_jot_ctx_t *ctx,
         pr_trace_msg(trace_channel, 19,
           "handling unknown variable '%.*s' as CUSTOM", (int) logfmt_datalen,
           logfmt_data);
-        res = pr_jot_parse_on_meta(p, ctx, LOGFMT_META_CUSTOM, logfmt_data,
+        res = (on_meta)(p, ctx, LOGFMT_META_CUSTOM, logfmt_data,
           logfmt_datalen);
 
       } else {
-        res = jot_parse_on_unknown(p, ctx, logfmt_data, logfmt_datalen);
+        res = (on_unknown)(p, ctx, logfmt_data, logfmt_datalen);
       }
 
       ptr += (len + 1);
       continue;
     }
 
-    res = pr_jot_parse_on_other(p, ctx, *ptr);
+    res = (on_other)(p, ctx, *ptr);
     ptr += 1;
   }
 
@@ -3448,8 +3030,7 @@ int pr_jot_parse_logfmt(pool *p, const char *text, pr_jot_ctx_t *ctx,
 
 static int scan_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
-      size_t),
-      int on_meta_signature) {
+      size_t)) {
   int res = 0;
   unsigned char *ptr, logfmt_id;
   const char *logfmt_data = NULL;
@@ -3469,7 +3050,7 @@ static int scan_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
         size_t logfmt_datalen = 0;
 
         logfmt_data = get_meta_arg(p, (ptr + 3), &logfmt_datalen);
-        res = pr_jot_parse_on_meta(p, ctx, logfmt_id, logfmt_data, logfmt_datalen);
+        res = (on_meta)(p, ctx, logfmt_id, logfmt_data, logfmt_datalen);
 
         /* Skip past the META_START, META_ARG, META_ARG_END, and the data. */
         consumed_bytes += (3 + logfmt_datalen);
@@ -3478,7 +3059,7 @@ static int scan_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
     }
 
     default:
-      res = pr_jot_parse_on_meta(p, ctx, logfmt_id, NULL, 0);
+      res = (on_meta)(p, ctx, logfmt_id, NULL, 0);
       consumed_bytes += 1;
   }
 
@@ -3494,7 +3075,6 @@ static int scan_meta(pool *p, unsigned char **logfmt, pr_jot_ctx_t *ctx,
 int pr_jot_scan_logfmt(pool *p, unsigned char *logfmt, unsigned char logfmt_id,
     pr_jot_ctx_t *ctx,
     int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *, size_t),
-    int on_meta_signature,
     int flags) {
   int res = 0;
 
@@ -3518,7 +3098,7 @@ int pr_jot_scan_logfmt(pool *p, unsigned char *logfmt, unsigned char logfmt_id,
     }
 
     if (*logfmt == logfmt_id) {
-      res = scan_meta(p, &logfmt, ctx, on_meta, on_meta_signature);
+      res = scan_meta(p, &logfmt, ctx, on_meta);
       continue;
     }
 

@@ -1,6 +1,6 @@
 /*
  * ProFTPD - FTP server daemon
- * Copyright (c) 2004-2023 The ProFTPD Project team
+ * Copyright (c) 2004-2025 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,7 +91,7 @@ static struct config_src *add_config_source(pr_fh_t *fh) {
   return cs;
 }
 
-static char *get_config_word(pool *p, char *word) {
+static char *get_config_word(pool *p, char *word, int *resolved_var) {
   size_t wordlen;
 
   /* Should this word be replaced with a value from the environment?
@@ -154,6 +154,10 @@ static char *get_config_word(pool *p, char *word) {
 
       word = (char *) sreplace(p, word, var, env, NULL);
       ptr = strstr(word, "%{env:");
+
+      if (resolved_var != NULL) {
+        *resolved_var = TRUE;
+      }
     }
 
   } else {
@@ -508,7 +512,7 @@ int pr_parser_parse_file(pool *p, const char *path, config_rec *start,
           "dispatching directive '%s' to module mod_%s", conftab->directive,
           conftab->m->name);
 
-        mr = pr_module_call(conftab->m, conftab->handler, conftab->handler_signature, cmd);
+        mr = pr_module_call(conftab->m, conftab->handler, cmd);
         if (mr != NULL) {
           if (MODRET_ISERROR(mr)) {
             if (!(flags & PR_PARSER_FL_DYNAMIC_CONFIG)) {
@@ -668,11 +672,30 @@ cmd_rec *pr_parser_parse_line(pool *p, const char *text, size_t text_len) {
   arr = make_array(cmd->pool, 4, sizeof(char **));
   while ((word = pr_str_get_word(&ptr, 0)) != NULL) {
     char *ptr2;
+    int resolved_var = FALSE;
 
     pr_signals_handle();
-    ptr2 = get_config_word(cmd->pool, word);
-    *((char **) push_array(arr)) = ptr2;
-    cmd->argc++;
+    ptr2 = get_config_word(cmd->pool, word, &resolved_var);
+
+    /* What if the retrieved word is a resolved variable, which itself
+     * separated by whitespace, as from an environment variable whose value
+     * contains multiple words (Issue #2002)?
+     */
+    if (resolved_var == TRUE &&
+        strchr(ptr2, ' ') != NULL) {
+      char *word2 = NULL;
+
+      while ((word2 = pr_str_get_word(&ptr2, 0)) != NULL) {
+        pr_signals_handle();
+
+        *((char **) push_array(arr)) = pstrdup(cmd->pool, word2);
+        cmd->argc++;
+      }
+
+    } else {
+      *((char **) push_array(arr)) = ptr2;
+      cmd->argc++;
+    }
   }
 
   /* Terminate the array with a NULL. */

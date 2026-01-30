@@ -1,1 +1,0 @@
-void snmp_ssh2_sftp_sess_opened_ev(const void *event_data , void *user_data);

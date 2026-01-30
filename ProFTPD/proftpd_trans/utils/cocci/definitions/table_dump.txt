@@ -1,1 +1,0 @@
-void table_dump(const char *fmt);

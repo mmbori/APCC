@@ -1,1 +1,0 @@
-void shaper_sigusr2_ev(const void *, void *);

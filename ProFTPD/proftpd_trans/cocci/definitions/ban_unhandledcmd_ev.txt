@@ -1,1 +1,0 @@
-void ban_unhandledcmd_ev(const void *, void *);

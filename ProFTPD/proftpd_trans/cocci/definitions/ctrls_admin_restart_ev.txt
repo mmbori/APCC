@@ -1,1 +1,0 @@
-void ctrls_admin_restart_ev(const void *event_data , void *user_data);

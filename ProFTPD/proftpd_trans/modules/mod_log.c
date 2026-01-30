@@ -134,7 +134,7 @@ static const char *trace_channel = "extlog";
 
 /* Necessary prototypes */
 static int log_sess_init(void);
-void log_xfer_stalled_ev(const void *, void *);
+static void log_xfer_stalled_ev(const void *, void *);
 
 static void parse_logformat(const char *directive, char *fmt_name,
     char *fmt_text) {
@@ -160,12 +160,7 @@ static void parse_logformat(const char *directive, char *fmt_name,
   jot_ctx->log = jot_parsed;
 
   res = pr_jot_parse_logfmt(tmp_pool, fmt_text, jot_ctx, pr_jot_parse_on_meta,
-                            on_meta_signatures[on_meta_pr_jot_parse_on_meta],
-                            pr_jot_parse_on_unknown,
-                            on_unknown_signatures[on_unknown_pr_jot_parse_on_unknown],
-                            pr_jot_parse_on_other,
-                            on_other_signatures[on_other_pr_jot_parse_on_other],
-                            0);
+    pr_jot_parse_on_unknown, pr_jot_parse_on_other, 0);
   if (res < 0) {
     pr_log_pri(PR_LOG_NOTICE, MOD_LOG_VERSION
       ": error parsing LogFormat '%s': %s", fmt_text, strerror(errno));
@@ -499,8 +494,8 @@ static void extlog_buffer_append(struct extlog_buffer *log, const char *text,
   log->buflen -= text_len;
 }
 
-int resolve_on_meta(pool *p, pr_jot_ctx_t *jot_ctx, unsigned char logfmt_id,
-                    const char *jot_hint, const void *val) {
+static int resolve_on_meta(pool *p, pr_jot_ctx_t *jot_ctx,
+    unsigned char logfmt_id, const char *jot_hint, const void *val) {
   struct extlog_buffer *log;
 
   log = jot_ctx->log;
@@ -688,8 +683,8 @@ int resolve_on_meta(pool *p, pr_jot_ctx_t *jot_ctx, unsigned char logfmt_id,
   return 0;
 }
 
-int resolve_on_default(pool *p, pr_jot_ctx_t *jot_ctx,
-                       unsigned char logfmt_id) {
+static int resolve_on_default(pool *p, pr_jot_ctx_t *jot_ctx,
+    unsigned char logfmt_id) {
   struct extlog_buffer *log;
 
   log = jot_ctx->log;
@@ -748,8 +743,8 @@ int resolve_on_default(pool *p, pr_jot_ctx_t *jot_ctx,
   return 0;
 }
 
-int resolve_on_other(pool *p, pr_jot_ctx_t *jot_ctx, unsigned char *text,
-                     size_t text_len) {
+static int resolve_on_other(pool *p, pr_jot_ctx_t *jot_ctx,
+    unsigned char *text, size_t text_len) {
   struct extlog_buffer *log;
 
   log = jot_ctx->log;
@@ -789,12 +784,7 @@ static void log_event(cmd_rec *cmd, logfile_t *lf) {
   jot_ctx->log = log;
 
   res = pr_jot_resolve_logfmt(tmp_pool, cmd, lf->lf_jot_filters, f, jot_ctx,
-                              resolve_on_meta,
-                              on_meta_signatures[on_meta_resolve_on_meta],
-                              resolve_on_default,
-                              on_default_signatures[on_default_resolve_on_default],
-                              resolve_on_other,
-                              on_other_signatures[on_other_resolve_on_other]);
+    resolve_on_meta, resolve_on_default, resolve_on_other);
   if (res < 0) {
     /* EPERM indicates that the event was filtered, thus is not necessarily
      * an unexpected condition.
@@ -862,7 +852,7 @@ MODRET log_any(cmd_rec *cmd) {
 /* Event handlers
  */
 
-void log_exit_ev(const void *event_data, void *user_data) {
+static void log_exit_ev(const void *event_data, void *user_data) {
   pool *tmp_pool;
   cmd_rec *cmd;
   int responses_blocked;
@@ -883,7 +873,7 @@ void log_exit_ev(const void *event_data, void *user_data) {
   destroy_pool(tmp_pool);
 }
 
-void log_postparse_ev(const void *event_data, void *user_data) {
+static void log_postparse_ev(const void *event_data, void *user_data) {
   config_rec *c;
 
   c = find_config(main_server->conf, CONF_PARAM, "SystemLog", FALSE);
@@ -936,7 +926,7 @@ void log_postparse_ev(const void *event_data, void *user_data) {
   }
 }
 
-void log_restart_ev(const void *event_data, void *user_data) {
+static void log_restart_ev(const void *event_data, void *user_data) {
   destroy_pool(log_pool);
 
   formats = NULL;
@@ -950,19 +940,15 @@ void log_restart_ev(const void *event_data, void *user_data) {
   parse_logformat(NULL, "", "%h %l %u %t \"%r\" %s %b");
 }
 
-void log_sess_reinit_ev(const void *event_data, void *user_data) {
+static void log_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
   logfile_t *lf = NULL;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
-  pr_event_unregister(&log_module, "core.exit", log_exit_ev,
-                      cb_signatures[cb_log_exit_ev]);
-  pr_event_unregister(&log_module, "core.session-reinit", log_sess_reinit_ev,
-                      cb_signatures[cb_log_sess_reinit_ev]);
-  pr_event_unregister(&log_module, "core.timeout-stalled",
-                      log_xfer_stalled_ev,
-                      cb_signatures[cb_log_xfer_stalled_ev]);
+  pr_event_unregister(&log_module, "core.exit", log_exit_ev);
+  pr_event_unregister(&log_module, "core.session-reinit", log_sess_reinit_ev);
+  pr_event_unregister(&log_module, "core.timeout-stalled", log_xfer_stalled_ev);
 
   /* XXX If ServerLog configured, close/reopen syslog? */
 
@@ -988,7 +974,7 @@ void log_sess_reinit_ev(const void *event_data, void *user_data) {
   }
 }
 
-void log_xfer_stalled_ev(const void *event_data, void *user_data) {
+static void log_xfer_stalled_ev(const void *event_data, void *user_data) {
   if (session.curr_cmd_rec != NULL) {
     /* Automatically dispatch the current command, at the LOG_CMD_ERR phase,
      * so that the ExtendedLog entry for the command gets written out.  This
@@ -1008,10 +994,8 @@ static int log_init(void) {
   /* Add the "default" extendedlog format */
   parse_logformat(NULL, "", "%h %l %u %t \"%r\" %s %b");
 
-  pr_event_register(&log_module, "core.postparse", log_postparse_ev,
-                    cb_signatures[cb_log_postparse_ev], NULL);
-  pr_event_register(&log_module, "core.restart", log_restart_ev,
-                    cb_signatures[cb_log_restart_ev], NULL);
+  pr_event_register(&log_module, "core.postparse", log_postparse_ev, NULL);
+  pr_event_register(&log_module, "core.restart", log_restart_ev, NULL);
 
   return 0;
 }
@@ -1222,7 +1206,7 @@ static int log_sess_init(void) {
   logfile_t *lf = NULL;
 
   pr_event_register(&log_module, "core.session-reinit", log_sess_reinit_ev,
-                    cb_signatures[cb_log_sess_reinit_ev], NULL);
+    NULL);
 
   c = find_config(main_server->conf, CONF_PARAM, "LogOptions", FALSE);
   if (c != NULL) {
@@ -1362,10 +1346,9 @@ static int log_sess_init(void) {
   }
 
   /* Register event handlers for the session. */
-  pr_event_register(&log_module, "core.exit", log_exit_ev,
-                    cb_signatures[cb_log_exit_ev], NULL);
+  pr_event_register(&log_module, "core.exit", log_exit_ev, NULL);
   pr_event_register(&log_module, "core.timeout-stalled", log_xfer_stalled_ev,
-                    cb_signatures[cb_log_xfer_stalled_ev], NULL);
+    NULL);
 
   /* Have we send our CONNECT event yet? */
   if (dispatched_connect == FALSE) {
@@ -1396,21 +1379,21 @@ static int log_sess_init(void) {
 /* Module API tables
  */
 
-conftable log_conftab[] = {
-  { "AllowLogSymlinks",	set_allowlogsymlinks, sig_set_allowlogsymlinks,			NULL },
-  { "ExtendedLog",	set_extendedlog, sig_set_extendedlog,			NULL },
-  { "LogFormat",	set_logformat, sig_set_logformat,				NULL },
-  { "LogOptions",	set_logoptions, sig_set_logoptions,				NULL },
-  { "ServerLog",	set_serverlog, sig_set_serverlog,				NULL },
-  { "SystemLog",	set_systemlog, sig_set_systemlog,				NULL },
+static conftable log_conftab[] = {
+  { "AllowLogSymlinks",	set_allowlogsymlinks,			NULL },
+  { "ExtendedLog",	set_extendedlog,			NULL },
+  { "LogFormat",	set_logformat,				NULL },
+  { "LogOptions",	set_logoptions,				NULL },
+  { "ServerLog",	set_serverlog,				NULL },
+  { "SystemLog",	set_systemlog,				NULL },
   { NULL,		NULL,					NULL }
 };
 
-cmdtable log_cmdtab[] = {
-  { PRE_CMD,		C_DELE,	G_NONE,	log_pre_dele, sig_log_pre_dele,	FALSE, FALSE },
-  { LOG_CMD,		C_ANY,	G_NONE,	log_any, sig_log_any,	FALSE, FALSE },
-  { LOG_CMD_ERR,	C_ANY,	G_NONE,	log_any, sig_log_any,	FALSE, FALSE },
-  { POST_CMD,		C_PASS,	G_NONE,	log_post_pass, sig_log_post_pass,	FALSE, FALSE },
+static cmdtable log_cmdtab[] = {
+  { PRE_CMD,		C_DELE,	G_NONE,	log_pre_dele,	FALSE, FALSE },
+  { LOG_CMD,		C_ANY,	G_NONE,	log_any,	FALSE, FALSE },
+  { LOG_CMD_ERR,	C_ANY,	G_NONE,	log_any,	FALSE, FALSE },
+  { POST_CMD,		C_PASS,	G_NONE,	log_post_pass,	FALSE, FALSE },
   { 0, NULL }
 };
 

@@ -185,8 +185,8 @@ static void tpl_byteswap(void *word, int len);
 static int tpl_serlen(tpl_node *r, tpl_node *n, void *dv, size_t *serlen);
 static int tpl_unpackA0(tpl_node *r);
 static int tpl_oops(const char *fmt, ...);
-static int tpl_gather_mem( char *buf, size_t len, tpl_gather_t **gs, tpl_gather_cb *cb, void *data);
-static int tpl_gather_nonblocking( int fd, tpl_gather_t **gs, tpl_gather_cb *cb, void *data);
+static int tpl_gather_mem( char *buf, size_t len, tpl_gather_t **gs, int (*cb)(void *img, size_t sz, void *data), void *data);
+static int tpl_gather_nonblocking( int fd, tpl_gather_t **gs, int (*cb)(void *img, size_t sz, void *data), void *data);
 static int tpl_gather_blocking(int fd, void **img, size_t *sz);
 static tpl_node *tpl_map_va(char *fmt, va_list ap);
 
@@ -2173,7 +2173,7 @@ TPL_API int tpl_gather(int mode, ...) {
     size_t *szp,sz;
     void **img,*addr,*data;
     tpl_gather_t **gs;
-    tpl_gather_cb *cb;
+    int (*cb)(void *img, size_t sz, void *data);
 
     va_start(ap,mode);
     switch (mode) {
@@ -2280,7 +2280,7 @@ static int tpl_gather_blocking(int fd, void **img, size_t *sz) {
 
 /* Used by select()-driven apps which want to gather tpl images piecemeal */
 /* the file descriptor must be non-blocking for this functino to work. */
-static int tpl_gather_nonblocking( int fd, tpl_gather_t **gs, tpl_gather_cb *cb, void *data) {
+static int tpl_gather_nonblocking( int fd, tpl_gather_t **gs, int (*cb)(void *img, size_t sz, void *data), void *data) {
     char buf[TPL_GATHER_BUFLEN], *img, *tpl;
     int rc, keep_looping, cbrc=0;
     size_t catlen;
@@ -2388,7 +2388,7 @@ static int tpl_gather_nonblocking( int fd, tpl_gather_t **gs, tpl_gather_cb *cb,
 }
 
 /* gather tpl piecemeal from memory buffer (not fd) e.g., from a lower-level api */
-static int tpl_gather_mem( char *buf, size_t len, tpl_gather_t **gs, tpl_gather_cb *cb, void *data) {
+static int tpl_gather_mem( char *buf, size_t len, tpl_gather_t **gs, int (*cb)(void *img, size_t sz, void *data), void *data) {
     char *img, *tpl;
     int keep_looping, cbrc=0;
     size_t catlen;

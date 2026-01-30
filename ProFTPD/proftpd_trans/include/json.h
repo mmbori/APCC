@@ -56,8 +56,7 @@ int pr_json_object_free(pr_json_object_t *json);
  */
 int pr_json_object_foreach(pool *p, const pr_json_object_t *json,
   int (*cb)(const char *key, int val_type, const void *val, size_t valsz,
-  void *cb_data),
-  int cb_signature, void *user_data);
+  void *cb_data), void *user_data);
 
 pr_json_object_t *pr_json_object_from_text(pool *p, const char *text);
 
@@ -117,7 +116,6 @@ int pr_json_array_free(pr_json_array_t *json);
  */
 int pr_json_array_foreach(pool *p, const pr_json_array_t *json,
   int (*cb)(int val_type, const void *val, size_t valsz, void *cb_data),
-  int cb_signature,
   void *user_data);
 
 pr_json_array_t *pr_json_array_from_text(pool *p, const char *text);

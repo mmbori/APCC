@@ -1954,14 +1954,13 @@ MODRET set_authuserfile(cmd_rec *cmd) {
 /* Event listeners
  */
 
-void authfile_sess_reinit_ev(const void *event_data, void *user_data) {
+static void authfile_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
   pr_event_unregister(&auth_file_module, "core.session-reinit",
-                      authfile_sess_reinit_ev,
-                      cb_signatures[cb_authfile_sess_reinit_ev]);
+    authfile_sess_reinit_ev);
 
   af_user_file = NULL;
   af_group_file = NULL;
@@ -2010,8 +2009,7 @@ static int authfile_sess_init(void) {
   config_rec *c = NULL;
 
   pr_event_register(&auth_file_module, "core.session-reinit",
-                    authfile_sess_reinit_ev,
-                    cb_signatures[cb_authfile_sess_reinit_ev], NULL);
+    authfile_sess_reinit_ev, NULL);
 
   c = find_config(main_server->conf, CONF_PARAM, "AuthUserFile", FALSE);
   if (c != NULL) {
@@ -2029,37 +2027,37 @@ static int authfile_sess_init(void) {
 /* Module API tables
  */
 
-conftable authfile_conftab[] = {
-  { "AuthFileOptions",	set_authfileoptions, sig_set_authfileoptions,	NULL },
-  { "AuthGroupFile",	set_authgroupfile, sig_set_authgroupfile,	NULL },
-  { "AuthUserFile",	set_authuserfile, sig_set_authuserfile,	NULL },
+static conftable authfile_conftab[] = {
+  { "AuthFileOptions",	set_authfileoptions,	NULL },
+  { "AuthGroupFile",	set_authgroupfile,	NULL },
+  { "AuthUserFile",	set_authuserfile,	NULL },
   { NULL }
 };
 
-authtable authfile_authtab[] = {
+static authtable authfile_authtab[] = {
 
   /* User information callbacks */
-  { 0, "endpwent",	authfile_endpwent, sig_authfile_endpwent },
-  { 0, "getpwent",	authfile_getpwent, sig_authfile_getpwent },
-  { 0, "getpwnam",	authfile_getpwnam, sig_authfile_getpwnam },
-  { 0, "getpwuid",	authfile_getpwuid, sig_authfile_getpwuid },
-  { 0, "name2uid",	authfile_name2uid, sig_authfile_name2uid },
-  { 0, "setpwent",	authfile_setpwent, sig_authfile_setpwent },
-  { 0, "uid2name",	authfile_uid2name, sig_authfile_uid2name },
+  { 0, "endpwent",	authfile_endpwent },
+  { 0, "getpwent",	authfile_getpwent },
+  { 0, "getpwnam",	authfile_getpwnam },
+  { 0, "getpwuid",	authfile_getpwuid },
+  { 0, "name2uid",	authfile_name2uid },
+  { 0, "setpwent",	authfile_setpwent },
+  { 0, "uid2name",	authfile_uid2name },
 
   /* Group information callbacks */
-  { 0, "endgrent",	authfile_endgrent, sig_authfile_endgrent },
-  { 0, "getgrent",	authfile_getgrent, sig_authfile_getgrent },
-  { 0, "getgrgid",	authfile_getgrgid, sig_authfile_getgrgid },
-  { 0, "getgrnam",	authfile_getgrnam, sig_authfile_getgrnam },
-  { 0, "getgroups",	authfile_getgroups, sig_authfile_getgroups },
-  { 0, "gid2name",	authfile_gid2name, sig_authfile_gid2name },
-  { 0, "name2gid",	authfile_name2gid, sig_authfile_name2gid },
-  { 0, "setgrent",	authfile_setgrent, sig_authfile_setgrent },
+  { 0, "endgrent",	authfile_endgrent },
+  { 0, "getgrent",	authfile_getgrent },
+  { 0, "getgrgid",	authfile_getgrgid },
+  { 0, "getgrnam",	authfile_getgrnam },
+  { 0, "getgroups",	authfile_getgroups },
+  { 0, "gid2name",	authfile_gid2name },
+  { 0, "name2gid",	authfile_name2gid },
+  { 0, "setgrent",	authfile_setgrent },
 
   /* Miscellaneous callbacks */
-  { 0, "auth",		authfile_auth, sig_authfile_auth },
-  { 0, "check",		authfile_chkpass, sig_authfile_chkpass },
+  { 0, "auth",		authfile_auth },
+  { 0, "check",		authfile_chkpass },
 
   { 0, NULL, NULL }
 };

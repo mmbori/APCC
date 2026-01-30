@@ -1,1 +1,0 @@
-int delay_handle_delay(pr_ctrls_t *ctrl , int reqargc , char **reqargv);

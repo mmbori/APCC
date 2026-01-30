@@ -2,7 +2,7 @@
  * ProFTPD - FTP server daemon
  * Copyright (c) 1997, 1998 Public Flood Software
  * Copyright (c) 1999, 2000 MacGyver aka Habeeb J. Dihu <macgyver@tos.net>
- * Copyright (c) 2001-2025 The ProFTPD Project team
+ * Copyright (c) 2001-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,8 +61,8 @@ static const char *trace_log = NULL;
 #endif /* PR_USE_TRACE */
 
 /* Necessary prototypes. */
-void core_chroot_ev(const void *, void *);
-void core_exit_ev(const void *, void *);
+static void core_chroot_ev(const void *, void *);
+static void core_exit_ev(const void *, void *);
 static int core_sess_init(void);
 static void reset_server_auth_order(void);
 
@@ -123,7 +123,7 @@ static unsigned long core_exceeded_cmd_rate(cmd_rec *cmd) {
   return res;
 }
 
-int core_idle_timeout_cb(CALLBACK_FRAME) {
+static int core_idle_timeout_cb(CALLBACK_FRAME) {
   int timeout;
 
   timeout = pr_data_get_timeout(PR_DATA_TIMEOUT_IDLE);
@@ -184,7 +184,7 @@ static void core_handle_locale_env(const char *env_name) {
 #endif /* PR_USE_NLS and HAVE_LOCALE_H */
 }
 
-int core_scrub_scoreboard_cb(CALLBACK_FRAME) {
+static int core_scrub_scoreboard_cb(CALLBACK_FRAME) {
   /* Always return 1 when leaving this function, to make sure the timer
    * gets called again.
    */
@@ -4919,11 +4919,13 @@ MODRET core_help(cmd_rec *cmd) {
     char *cp;
 
     for (cp = cmd->argv[1]; *cp; cp++) {
-      *cp = toupper((int) *cp);
+      if (PR_ISALPHA((int) *cp)) {
+        *cp = toupper((int) *cp);
+      }
     }
 
     if (strcasecmp(cmd->argv[1], C_SITE) == 0) {
-      return pr_module_call(&site_module, site_dispatch, sig_site_dispatch, cmd);
+      return pr_module_call(&site_module, site_dispatch, cmd);
     }
 
     if (pr_help_add_response(cmd, cmd->argv[1]) == 0) {
@@ -5349,8 +5351,7 @@ MODRET core_post_host(cmd_rec *cmd) {
     pr_proctitle_set_static_str(NULL);
 
     /* Unregister any event listeners. */
-    pr_event_unregister(&core_module, "core.chroot", core_chroot_ev,
-                        cb_signatures[cb_core_chroot_ev]);
+    pr_event_unregister(&core_module, "core.chroot", core_chroot_ev);
 
     res = core_sess_init();
     if (res < 0) {
@@ -6743,7 +6744,7 @@ MODRET core_post_pass(cmd_rec *cmd) {
       pr_timer_remove(PR_TIMER_IDLE, &core_module);
 
       if (timeout > 0) {
-        pr_timer_add(timeout, PR_TIMER_IDLE, &core_module, core_idle_timeout_cb, callback_signatures[callback_core_idle_timeout_cb], 
+        pr_timer_add(timeout, PR_TIMER_IDLE, &core_module, core_idle_timeout_cb,
           "TimeoutIdle");
       }
     }
@@ -6855,8 +6856,7 @@ MODRET core_post_pass(cmd_rec *cmd) {
   }
 
   /* Register an exit handler here, for clearing the statcache. */
-  pr_event_register(&core_module, "core.exit", core_exit_ev,
-                    cb_signatures[cb_core_exit_ev], NULL);
+  pr_event_register(&core_module, "core.exit", core_exit_ev, NULL);
 
   /* Note: we MUST return HANDLED here, not DECLINED, to indicate that at
    * least one POST_CMD handler of the PASS command succeeded.  Since
@@ -6925,7 +6925,7 @@ static const char *core_get_xfer_bytes_str(void *data, size_t datasz) {
 /* Event handlers
  */
 
-void core_chroot_ev(const void *event_data, void *user_data) {
+static void core_chroot_ev(const void *event_data, void *user_data) {
   config_rec *c;
 
   /* Look for any configured DisplayChdir directives that use absolute
@@ -6956,15 +6956,15 @@ void core_chroot_ev(const void *event_data, void *user_data) {
   }
 }
 
-void core_connected_ev(const void *event_data, void *user_data) {
+static void core_connected_ev(const void *event_data, void *user_data) {
   session_set_connected();
 }
 
-void core_exit_ev(const void *event_data, void *user_data) {
+static void core_exit_ev(const void *event_data, void *user_data) {
   pr_fs_statcache_free();
 }
 
-void core_postparse_ev(const void *event_data, void *user_data) {
+static void core_postparse_ev(const void *event_data, void *user_data) {
   server_rec *s;
   cmd_rec *cmd;
   int res;
@@ -7020,7 +7020,7 @@ void core_postparse_ev(const void *event_data, void *user_data) {
   }
 }
 
-void core_restart_ev(const void *event_data, void *user_data) {
+static void core_restart_ev(const void *event_data, void *user_data) {
   pr_fs_statcache_reset();
   pr_scoreboard_scrub();
 
@@ -7033,7 +7033,7 @@ void core_restart_ev(const void *event_data, void *user_data) {
 #endif /* PR_USE_TRACE */
 }
 
-void core_startup_ev(const void *event_data, void *user_data) {
+static void core_startup_ev(const void *event_data, void *user_data) {
 
   /* Add a scoreboard-scrubbing timer.
    *
@@ -7061,7 +7061,7 @@ void core_startup_ev(const void *event_data, void *user_data) {
 
     if (scrub_scoreboard) {
       core_scrub_timer_id = pr_timer_add(scrub_interval, -1,
-        &core_module, core_scrub_scoreboard_cb, callback_signatures[callback_core_scrub_scoreboard_cb], "scoreboard scrubbing");
+        &core_module, core_scrub_scoreboard_cb, "scoreboard scrubbing");
     }
   }
 }
@@ -7071,7 +7071,7 @@ void core_startup_ev(const void *event_data, void *user_data) {
 
 static int core_init(void) {
   /* Set the default (i.e. FTP) command handler. */
-  pr_cmd_set_handler(NULL, handler_signatures[handler_NULL]);
+  pr_cmd_set_handler(NULL);
 
   /* Add the commands handled by this module to the HELP list. */
   pr_help_add(C_CWD,  _("<sp> pathname"), TRUE);
@@ -7121,14 +7121,10 @@ static int core_init(void) {
   pr_feat_add(C_SIZE);
   pr_feat_add(C_HOST);
 
-  pr_event_register(&core_module, "core.connected", core_connected_ev,
-                    cb_signatures[cb_core_connected_ev], NULL);
-  pr_event_register(&core_module, "core.postparse", core_postparse_ev,
-                    cb_signatures[cb_core_postparse_ev], NULL);
-  pr_event_register(&core_module, "core.restart", core_restart_ev,
-                    cb_signatures[cb_core_restart_ev], NULL);
-  pr_event_register(&core_module, "core.startup", core_startup_ev,
-                    cb_signatures[cb_core_startup_ev], NULL);
+  pr_event_register(&core_module, "core.connected", core_connected_ev, NULL);
+  pr_event_register(&core_module, "core.postparse", core_postparse_ev, NULL);
+  pr_event_register(&core_module, "core.restart", core_restart_ev, NULL);
+  pr_event_register(&core_module, "core.startup", core_startup_ev, NULL);
 
   return 0;
 }
@@ -7281,7 +7277,7 @@ static int core_sess_init(void) {
   timeout_idle = pr_data_get_timeout(PR_DATA_TIMEOUT_IDLE);
   if (timeout_idle) {
     pr_timer_add(timeout_idle, PR_TIMER_IDLE, &core_module,
-      core_idle_timeout_cb, callback_signatures[callback_core_idle_timeout_cb], "TimeoutIdle");
+      core_idle_timeout_cb, "TimeoutIdle");
   }
 
   /* Check for a server-specific TimeoutLinger */
@@ -7496,8 +7492,7 @@ static int core_sess_init(void) {
   }
 
   /* Register our event listeners. */
-  pr_event_register(&core_module, "core.chroot", core_chroot_ev,
-                    cb_signatures[cb_core_chroot_ev], NULL);
+  pr_event_register(&core_module, "core.chroot", core_chroot_ev, NULL);
 
   /* Look for a DisplayQuit file which has an absolute path.  If we
    * find one, open a filehandle, such that that file can be displayed
@@ -7551,148 +7546,148 @@ static int core_sess_init(void) {
 /* Module API tables
  */
 
-conftable core_conftab[] = {
-  { "<Anonymous>",		add_anonymous, sig_add_anonymous,			NULL },
-  { "</Anonymous>",		end_anonymous, sig_end_anonymous,			NULL },
-  { "<Class>",			add_class, sig_add_class,			NULL },
-  { "</Class>",			end_class, sig_end_class,			NULL },
-  { "<Directory>",		add_directory, sig_add_directory,			NULL },
-  { "</Directory>",		end_directory, sig_end_directory,			NULL },
-  { "<Global>",			add_global, sig_add_global,			NULL },
-  { "</Global>",		end_global, sig_end_global,			NULL },
-  { "<IfDefine>",		start_ifdefine, sig_start_ifdefine,			NULL },
-  { "</IfDefine>",		end_ifdefine, sig_end_ifdefine,			NULL },
-  { "<IfModule>",		start_ifmodule, sig_start_ifmodule,			NULL },
-  { "</IfModule>",		end_ifmodule, sig_end_ifmodule,			NULL },
-  { "<Limit>",			add_limit, sig_add_limit,			NULL },
-  { "</Limit>", 		end_limit, sig_end_limit, 			NULL },
-  { "<VirtualHost>",		add_virtualhost, sig_add_virtualhost,		NULL },
-  { "</VirtualHost>",		end_virtualhost, sig_end_virtualhost,		NULL },
-  { "Allow",			set_allowdeny, sig_set_allowdeny,			NULL },
-  { "AllowAll",			set_allowall, sig_set_allowall,			NULL },
-  { "AllowClass",		set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "AllowFilter",		set_allowdenyfilter, sig_set_allowdenyfilter,		NULL },
-  { "AllowForeignAddress",	set_allowforeignaddress, sig_set_allowforeignaddress,	NULL },
-  { "AllowGroup",		set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "AllowOverride",		set_allowoverride, sig_set_allowoverride,		NULL },
-  { "AllowUser",		set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "AuthOrder",		set_authorder, sig_set_authorder,			NULL },
-  { "CDPath",			set_cdpath, sig_set_cdpath,			NULL },
-  { "CommandBufferSize",	set_commandbuffersize, sig_set_commandbuffersize,		NULL },
-  { "DebugLevel",		set_debuglevel, sig_set_debuglevel,			NULL },
-  { "DefaultAddress",		set_defaultaddress, sig_set_defaultaddress,		NULL },
-  { "DefaultServer",		set_defaultserver, sig_set_defaultserver,		NULL },
-  { "DeferWelcome",		set_deferwelcome, sig_set_deferwelcome,		NULL },
-  { "Define",			set_define, sig_set_define,			NULL },
-  { "Deny",			set_allowdeny, sig_set_allowdeny,			NULL },
-  { "DenyAll",			set_denyall, sig_set_denyall,			NULL },
-  { "DenyClass",		set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "DenyFilter",		set_allowdenyfilter, sig_set_allowdenyfilter,		NULL },
-  { "DenyGroup",		set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "DenyUser",			set_allowdenyusergroupclass, sig_set_allowdenyusergroupclass,	NULL },
-  { "DisplayChdir",		set_displaychdir, sig_set_displaychdir,		NULL },
-  { "DisplayConnect",		set_displayconnect, sig_set_displayconnect,		NULL },
-  { "DisplayQuit",		set_displayquit, sig_set_displayquit,		NULL },
-  { "From",			add_from, sig_add_from,			NULL },
-  { "FSCachePolicy",		set_fscachepolicy, sig_set_fscachepolicy,		NULL },
-  { "FSOptions",		set_fsoptions, sig_set_fsoptions,			NULL },
-  { "Group",			set_group, sig_set_group, 			NULL },
-  { "GroupOwner",		add_groupowner, sig_add_groupowner,			NULL },
-  { "HideFiles",		set_hidefiles, sig_set_hidefiles,			NULL },
-  { "HideGroup",		set_hidegroup, sig_set_hidegroup,			NULL },
-  { "HideNoAccess",		set_hidenoaccess, sig_set_hidenoaccess,		NULL },
-  { "HideUser",			set_hideuser, sig_set_hideuser,			NULL },
-  { "IgnoreHidden",		set_ignorehidden, sig_set_ignorehidden,		NULL },
-  { "Include",			set_include, sig_set_include,	 		NULL },
-  { "IncludeOptions",		set_includeoptions, sig_set_includeoptions, 		NULL },
-  { "MasqueradeAddress",	set_masqueradeaddress, sig_set_masqueradeaddress,		NULL },
-  { "MaxCommandRate",		set_maxcommandrate, sig_set_maxcommandrate,		NULL },
-  { "MaxConnectionRate",	set_maxconnrate, sig_set_maxconnrate,		NULL },
-  { "MaxInstances",		set_maxinstances, sig_set_maxinstances,		NULL },
-  { "MultilineRFC2228",		set_multilinerfc2228, sig_set_multilinerfc2228,		NULL },
-  { "Order",			set_order, sig_set_order,			NULL },
-  { "PassivePorts",		set_passiveports, sig_set_passiveports,		NULL },
-  { "PathAllowFilter",		set_pathallowfilter, sig_set_pathallowfilter,		NULL },
-  { "PathDenyFilter",		set_pathdenyfilter, sig_set_pathdenyfilter,		NULL },
-  { "PidFile",			set_pidfile, sig_set_pidfile,	 		NULL },
-  { "Port",			set_port, sig_set_port, 			NULL },
-  { "ProcessTitles",		set_processtitles, sig_set_processtitles,		NULL },
-  { "Protocols",		set_protocols, sig_set_protocols,			NULL },
-  { "RegexOptions",		set_regexoptions, sig_set_regexoptions,		NULL },
-  { "Satisfy",			set_satisfy, sig_set_satisfy,			NULL },
-  { "ScoreboardFile",		set_scoreboardfile, sig_set_scoreboardfile,		NULL },
-  { "ScoreboardMutex",		set_scoreboardmutex, sig_set_scoreboardmutex,		NULL },
-  { "ScoreboardOptions",	set_scoreboardoptions, sig_set_scoreboardoptions,		NULL },
-  { "ScoreboardScrub",		set_scoreboardscrub, sig_set_scoreboardscrub,		NULL },
-  { "ServerAdmin",		set_serveradmin, sig_set_serveradmin,		NULL },
-  { "ServerAlias",		set_serveralias, sig_set_serveralias,		NULL },
-  { "ServerIdent",		set_serverident, sig_set_serverident,		NULL },
-  { "ServerName",		set_servername, sig_set_servername, 		NULL },
-  { "ServerType",		set_servertype, sig_set_servertype,			NULL },
-  { "SetEnv",			set_setenv, sig_set_setenv,			NULL },
-  { "SocketBindTight",		set_socketbindtight, sig_set_socketbindtight,		NULL },
-  { "SocketOptions",		set_socketoptions, sig_set_socketoptions,		NULL },
-  { "SyslogFacility",		set_syslogfacility, sig_set_syslogfacility,		NULL },
-  { "SyslogLevel",		set_sysloglevel, sig_set_sysloglevel,		NULL },
-  { "TimeoutIdle",		set_timeoutidle, sig_set_timeoutidle,		NULL },
-  { "TimeoutLinger",		set_timeoutlinger, sig_set_timeoutlinger,		NULL },
-  { "TimesGMT",			set_timesgmt, sig_set_timesgmt,			NULL },
-  { "Trace",			set_trace, sig_set_trace,			NULL },
-  { "TraceLog",			set_tracelog, sig_set_tracelog,			NULL },
-  { "TraceOptions",		set_traceoptions, sig_set_traceoptions,		NULL },
-  { "TransferLog",		add_transferlog, sig_add_transferlog,		NULL },
-  { "Umask",			set_umask, sig_set_umask,			NULL },
-  { "UnsetEnv",			set_unsetenv, sig_set_unsetenv,			NULL },
-  { "UseIPv6",			set_useipv6, sig_set_useipv6,			NULL },
-  { "UseReverseDNS",		set_usereversedns, sig_set_usereversedns,		NULL },
-  { "User",			set_user, sig_set_user,			NULL },
-  { "UserOwner",		add_userowner, sig_add_userowner,			NULL },
-  { "TCPBackLog",		set_tcpbacklog, sig_set_tcpbacklog,			NULL },
-  { "TCPNoDelay",		set_tcpnodelay, sig_set_tcpnodelay,			NULL },
+static conftable core_conftab[] = {
+  { "<Anonymous>",		add_anonymous,			NULL },
+  { "</Anonymous>",		end_anonymous,			NULL },
+  { "<Class>",			add_class,			NULL },
+  { "</Class>",			end_class,			NULL },
+  { "<Directory>",		add_directory,			NULL },
+  { "</Directory>",		end_directory,			NULL },
+  { "<Global>",			add_global,			NULL },
+  { "</Global>",		end_global,			NULL },
+  { "<IfDefine>",		start_ifdefine,			NULL },
+  { "</IfDefine>",		end_ifdefine,			NULL },
+  { "<IfModule>",		start_ifmodule,			NULL },
+  { "</IfModule>",		end_ifmodule,			NULL },
+  { "<Limit>",			add_limit,			NULL },
+  { "</Limit>", 		end_limit, 			NULL },
+  { "<VirtualHost>",		add_virtualhost,		NULL },
+  { "</VirtualHost>",		end_virtualhost,		NULL },
+  { "Allow",			set_allowdeny,			NULL },
+  { "AllowAll",			set_allowall,			NULL },
+  { "AllowClass",		set_allowdenyusergroupclass,	NULL },
+  { "AllowFilter",		set_allowdenyfilter,		NULL },
+  { "AllowForeignAddress",	set_allowforeignaddress,	NULL },
+  { "AllowGroup",		set_allowdenyusergroupclass,	NULL },
+  { "AllowOverride",		set_allowoverride,		NULL },
+  { "AllowUser",		set_allowdenyusergroupclass,	NULL },
+  { "AuthOrder",		set_authorder,			NULL },
+  { "CDPath",			set_cdpath,			NULL },
+  { "CommandBufferSize",	set_commandbuffersize,		NULL },
+  { "DebugLevel",		set_debuglevel,			NULL },
+  { "DefaultAddress",		set_defaultaddress,		NULL },
+  { "DefaultServer",		set_defaultserver,		NULL },
+  { "DeferWelcome",		set_deferwelcome,		NULL },
+  { "Define",			set_define,			NULL },
+  { "Deny",			set_allowdeny,			NULL },
+  { "DenyAll",			set_denyall,			NULL },
+  { "DenyClass",		set_allowdenyusergroupclass,	NULL },
+  { "DenyFilter",		set_allowdenyfilter,		NULL },
+  { "DenyGroup",		set_allowdenyusergroupclass,	NULL },
+  { "DenyUser",			set_allowdenyusergroupclass,	NULL },
+  { "DisplayChdir",		set_displaychdir,		NULL },
+  { "DisplayConnect",		set_displayconnect,		NULL },
+  { "DisplayQuit",		set_displayquit,		NULL },
+  { "From",			add_from,			NULL },
+  { "FSCachePolicy",		set_fscachepolicy,		NULL },
+  { "FSOptions",		set_fsoptions,			NULL },
+  { "Group",			set_group, 			NULL },
+  { "GroupOwner",		add_groupowner,			NULL },
+  { "HideFiles",		set_hidefiles,			NULL },
+  { "HideGroup",		set_hidegroup,			NULL },
+  { "HideNoAccess",		set_hidenoaccess,		NULL },
+  { "HideUser",			set_hideuser,			NULL },
+  { "IgnoreHidden",		set_ignorehidden,		NULL },
+  { "Include",			set_include,	 		NULL },
+  { "IncludeOptions",		set_includeoptions, 		NULL },
+  { "MasqueradeAddress",	set_masqueradeaddress,		NULL },
+  { "MaxCommandRate",		set_maxcommandrate,		NULL },
+  { "MaxConnectionRate",	set_maxconnrate,		NULL },
+  { "MaxInstances",		set_maxinstances,		NULL },
+  { "MultilineRFC2228",		set_multilinerfc2228,		NULL },
+  { "Order",			set_order,			NULL },
+  { "PassivePorts",		set_passiveports,		NULL },
+  { "PathAllowFilter",		set_pathallowfilter,		NULL },
+  { "PathDenyFilter",		set_pathdenyfilter,		NULL },
+  { "PidFile",			set_pidfile,	 		NULL },
+  { "Port",			set_port, 			NULL },
+  { "ProcessTitles",		set_processtitles,		NULL },
+  { "Protocols",		set_protocols,			NULL },
+  { "RegexOptions",		set_regexoptions,		NULL },
+  { "Satisfy",			set_satisfy,			NULL },
+  { "ScoreboardFile",		set_scoreboardfile,		NULL },
+  { "ScoreboardMutex",		set_scoreboardmutex,		NULL },
+  { "ScoreboardOptions",	set_scoreboardoptions,		NULL },
+  { "ScoreboardScrub",		set_scoreboardscrub,		NULL },
+  { "ServerAdmin",		set_serveradmin,		NULL },
+  { "ServerAlias",		set_serveralias,		NULL },
+  { "ServerIdent",		set_serverident,		NULL },
+  { "ServerName",		set_servername, 		NULL },
+  { "ServerType",		set_servertype,			NULL },
+  { "SetEnv",			set_setenv,			NULL },
+  { "SocketBindTight",		set_socketbindtight,		NULL },
+  { "SocketOptions",		set_socketoptions,		NULL },
+  { "SyslogFacility",		set_syslogfacility,		NULL },
+  { "SyslogLevel",		set_sysloglevel,		NULL },
+  { "TimeoutIdle",		set_timeoutidle,		NULL },
+  { "TimeoutLinger",		set_timeoutlinger,		NULL },
+  { "TimesGMT",			set_timesgmt,			NULL },
+  { "Trace",			set_trace,			NULL },
+  { "TraceLog",			set_tracelog,			NULL },
+  { "TraceOptions",		set_traceoptions,		NULL },
+  { "TransferLog",		add_transferlog,		NULL },
+  { "Umask",			set_umask,			NULL },
+  { "UnsetEnv",			set_unsetenv,			NULL },
+  { "UseIPv6",			set_useipv6,			NULL },
+  { "UseReverseDNS",		set_usereversedns,		NULL },
+  { "User",			set_user,			NULL },
+  { "UserOwner",		add_userowner,			NULL },
+  { "TCPBackLog",		set_tcpbacklog,			NULL },
+  { "TCPNoDelay",		set_tcpnodelay,			NULL },
 
   { NULL, NULL, NULL }
 };
 
-cmdtable core_cmdtab[] = {
+static cmdtable core_cmdtab[] = {
 #ifdef PR_USE_REGEX
-  { PRE_CMD, C_ANY, G_NONE,  regex_filters, sig_regex_filters, FALSE, FALSE, CL_NONE },
+  { PRE_CMD, C_ANY, G_NONE,  regex_filters, FALSE, FALSE, CL_NONE },
 #endif
-  { PRE_CMD, C_ANY, G_NONE, core_pre_any, sig_core_pre_any,FALSE, FALSE, CL_NONE },
-  { CMD, C_HELP, G_NONE,  core_help, sig_core_help,	FALSE,	FALSE, CL_INFO },
-  { CMD, C_PORT, G_NONE,  core_port, sig_core_port,	TRUE,	FALSE, CL_MISC },
-  { CMD, C_PASV, G_NONE,  core_pasv, sig_core_pasv,	TRUE,	FALSE, CL_MISC },
-  { CMD, C_EPRT, G_NONE,  core_eprt, sig_core_eprt,    TRUE,	FALSE, CL_MISC },
-  { CMD, C_EPSV, G_NONE,  core_epsv, sig_core_epsv,	TRUE,	FALSE, CL_MISC },
-  { CMD, C_SYST, G_NONE,  core_syst, sig_core_syst,	FALSE,	FALSE, CL_INFO },
-  { CMD, C_PWD,	 G_DIRS,  core_pwd, sig_core_pwd,	TRUE,	FALSE, CL_INFO|CL_DIRS },
-  { CMD, C_XPWD, G_DIRS,  core_pwd, sig_core_pwd,	TRUE,	FALSE, CL_INFO|CL_DIRS },
-  { CMD, C_CWD,	 G_DIRS,  core_cwd, sig_core_cwd,	TRUE,	FALSE, CL_DIRS },
-  { CMD, C_XCWD, G_DIRS,  core_cwd, sig_core_cwd,	TRUE,	FALSE, CL_DIRS },
-  { CMD, C_MKD,	 G_WRITE, core_mkd, sig_core_mkd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
-  { CMD, C_XMKD, G_WRITE, core_mkd, sig_core_mkd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
-  { CMD, C_RMD,	 G_WRITE, core_rmd, sig_core_rmd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
-  { CMD, C_XRMD, G_WRITE, core_rmd, sig_core_rmd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
-  { CMD, C_CDUP, G_DIRS,  core_cdup, sig_core_cdup,	TRUE,	FALSE, CL_DIRS },
-  { CMD, C_XCUP, G_DIRS,  core_cdup, sig_core_cdup,	TRUE,	FALSE, CL_DIRS },
-  { CMD, C_DELE, G_WRITE, core_dele, sig_core_dele,	TRUE,	FALSE, CL_WRITE },
-  { CMD, C_MDTM, G_DIRS,  core_mdtm, sig_core_mdtm,	TRUE,	FALSE, CL_INFO|CL_DIRS },
-  { CMD, C_RNFR, G_WRITE, core_rnfr, sig_core_rnfr,	TRUE,	FALSE, CL_MISC|CL_WRITE },
-  { CMD, C_RNTO, G_WRITE, core_rnto, sig_core_rnto,	TRUE,	FALSE, CL_MISC|CL_WRITE },
-  { LOG_CMD,     C_RNTO, G_NONE, core_rnto_cleanup, sig_core_rnto_cleanup, TRUE, FALSE, CL_NONE },
-  { LOG_CMD_ERR, C_RNTO, G_NONE, core_rnto_cleanup, sig_core_rnto_cleanup, TRUE, FALSE, CL_NONE },
-  { CMD, C_SIZE, G_READ,  core_size, sig_core_size,	TRUE,	FALSE, CL_INFO },
-  { CMD, C_QUIT, G_NONE,  core_quit, sig_core_quit,	FALSE,	FALSE,  CL_INFO },
-  { LOG_CMD, 	 C_QUIT, G_NONE, core_log_quit, sig_core_log_quit, FALSE, FALSE },
-  { LOG_CMD_ERR, C_QUIT, G_NONE, core_log_quit, sig_core_log_quit, FALSE, FALSE },
-  { CMD, C_NOOP, G_NONE,  core_noop, sig_core_noop,	FALSE,	FALSE,  CL_MISC },
-  { CMD, C_FEAT, G_NONE,  core_feat, sig_core_feat,	FALSE,	FALSE,  CL_INFO },
-  { CMD, C_OPTS, G_NONE,  core_opts, sig_core_opts,    FALSE,	FALSE,	CL_MISC },
-  { CMD, C_HOST, G_NONE,  core_host, sig_core_host,    FALSE,	FALSE,	CL_MISC },
-  { POST_CMD, C_PASS, G_NONE, core_post_pass, sig_core_post_pass, FALSE, FALSE },
-  { CMD, C_HOST, G_NONE,  core_host, sig_core_host,	FALSE,	FALSE,	CL_AUTH },
-  { POST_CMD, C_HOST, G_NONE, core_post_host, sig_core_post_host, FALSE, FALSE },
-  { CMD, C_CLNT, G_NONE,  core_clnt, sig_core_clnt,	FALSE,	FALSE,	CL_INFO },
-  { CMD, C_CSID, G_NONE,  core_csid, sig_core_csid,	TRUE,	FALSE,	CL_INFO },
+  { PRE_CMD, C_ANY, G_NONE, core_pre_any,FALSE, FALSE, CL_NONE },
+  { CMD, C_HELP, G_NONE,  core_help,	FALSE,	FALSE, CL_INFO },
+  { CMD, C_PORT, G_NONE,  core_port,	TRUE,	FALSE, CL_MISC },
+  { CMD, C_PASV, G_NONE,  core_pasv,	TRUE,	FALSE, CL_MISC },
+  { CMD, C_EPRT, G_NONE,  core_eprt,    TRUE,	FALSE, CL_MISC },
+  { CMD, C_EPSV, G_NONE,  core_epsv,	TRUE,	FALSE, CL_MISC },
+  { CMD, C_SYST, G_NONE,  core_syst,	FALSE,	FALSE, CL_INFO },
+  { CMD, C_PWD,	 G_DIRS,  core_pwd,	TRUE,	FALSE, CL_INFO|CL_DIRS },
+  { CMD, C_XPWD, G_DIRS,  core_pwd,	TRUE,	FALSE, CL_INFO|CL_DIRS },
+  { CMD, C_CWD,	 G_DIRS,  core_cwd,	TRUE,	FALSE, CL_DIRS },
+  { CMD, C_XCWD, G_DIRS,  core_cwd,	TRUE,	FALSE, CL_DIRS },
+  { CMD, C_MKD,	 G_WRITE, core_mkd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
+  { CMD, C_XMKD, G_WRITE, core_mkd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
+  { CMD, C_RMD,	 G_WRITE, core_rmd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
+  { CMD, C_XRMD, G_WRITE, core_rmd,	TRUE,	FALSE, CL_DIRS|CL_WRITE },
+  { CMD, C_CDUP, G_DIRS,  core_cdup,	TRUE,	FALSE, CL_DIRS },
+  { CMD, C_XCUP, G_DIRS,  core_cdup,	TRUE,	FALSE, CL_DIRS },
+  { CMD, C_DELE, G_WRITE, core_dele,	TRUE,	FALSE, CL_WRITE },
+  { CMD, C_MDTM, G_DIRS,  core_mdtm,	TRUE,	FALSE, CL_INFO|CL_DIRS },
+  { CMD, C_RNFR, G_WRITE, core_rnfr,	TRUE,	FALSE, CL_MISC|CL_WRITE },
+  { CMD, C_RNTO, G_WRITE, core_rnto,	TRUE,	FALSE, CL_MISC|CL_WRITE },
+  { LOG_CMD,     C_RNTO, G_NONE, core_rnto_cleanup, TRUE, FALSE, CL_NONE },
+  { LOG_CMD_ERR, C_RNTO, G_NONE, core_rnto_cleanup, TRUE, FALSE, CL_NONE },
+  { CMD, C_SIZE, G_READ,  core_size,	TRUE,	FALSE, CL_INFO },
+  { CMD, C_QUIT, G_NONE,  core_quit,	FALSE,	FALSE,  CL_INFO },
+  { LOG_CMD, 	 C_QUIT, G_NONE, core_log_quit, FALSE, FALSE },
+  { LOG_CMD_ERR, C_QUIT, G_NONE, core_log_quit, FALSE, FALSE },
+  { CMD, C_NOOP, G_NONE,  core_noop,	FALSE,	FALSE,  CL_MISC },
+  { CMD, C_FEAT, G_NONE,  core_feat,	FALSE,	FALSE,  CL_INFO },
+  { CMD, C_OPTS, G_NONE,  core_opts,    FALSE,	FALSE,	CL_MISC },
+  { CMD, C_HOST, G_NONE,  core_host,    FALSE,	FALSE,	CL_MISC },
+  { POST_CMD, C_PASS, G_NONE, core_post_pass, FALSE, FALSE },
+  { CMD, C_HOST, G_NONE,  core_host,	FALSE,	FALSE,	CL_AUTH },
+  { POST_CMD, C_HOST, G_NONE, core_post_host, FALSE, FALSE },
+  { CMD, C_CLNT, G_NONE,  core_clnt,	FALSE,	FALSE,	CL_INFO },
+  { CMD, C_CSID, G_NONE,  core_csid,	TRUE,	FALSE,	CL_INFO },
 
   { 0, NULL }
 };

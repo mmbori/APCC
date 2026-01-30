@@ -1,1 +1,0 @@
-void copy_progress_cb(int nwritten);

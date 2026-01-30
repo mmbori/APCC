@@ -141,11 +141,8 @@ const char *pr_jot_get_logfmt_id_name(unsigned char logfmt_id);
  */
 int pr_jot_parse_logfmt(pool *p, const char *text, pr_jot_ctx_t *ctx,
   int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *, size_t),
-  int on_meta_signature,
   int (*on_unknown)(pool *, pr_jot_ctx_t *, const char *, size_t),
-  int on_unknown_signature,
-  int (*on_other)(pool *, pr_jot_ctx_t *, char),
-  int on_other_signature, int flags);
+  int (*on_other)(pool *, pr_jot_ctx_t *, char), int flags);
 
 /* The following are the conventional callbacks to use for
  * pr_jot_parse_logfmt.  Note that they ASSUME the use of `pr_jot_parsed_t`,
@@ -177,9 +174,7 @@ int pr_jot_resolve_logfmt_id(pool *p, cmd_rec *cmd, pr_jot_filters_t *filter,
   pr_jot_ctx_t *ctx,
   int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
     const void *),
-    int on_meta_signature,
-  int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-  int on_default_signature);
+  int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char));
 
 /* Given a LogFormat buffer, resolve each of the variables (i.e. "meta") to
  * their respective values.  For each resolved variable, the `on_meta` callback
@@ -191,11 +186,8 @@ int pr_jot_resolve_logfmt(pool *p, cmd_rec *cmd, pr_jot_filters_t *filters,
   unsigned char *logfmt, pr_jot_ctx_t *ctx,
   int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *,
     const void *),
-    int on_meta_signature,
   int (*on_default)(pool *, pr_jot_ctx_t *, unsigned char),
-  int on_default_signature,
-  int (*on_other)(pool *, pr_jot_ctx_t *, unsigned char *, size_t),
-  int on_other_signature);
+  int (*on_other)(pool *, pr_jot_ctx_t *, unsigned char *, size_t));
 
 /* Canned `on_meta` callback to use when resolving LogFormat strings into
  * JSON objects.
@@ -209,7 +201,6 @@ int pr_jot_on_json(pool *p, pr_jot_ctx_t *ctx, unsigned char logfmt_id,
 int pr_jot_scan_logfmt(pool *p, unsigned char *logfmt, unsigned char logfmt_id,
   pr_jot_ctx_t *ctx,
   int (*on_meta)(pool *, pr_jot_ctx_t *, unsigned char, const char *, size_t),
-  int on_meta_signature,
   int flags);
 
 /* For internal use only. */

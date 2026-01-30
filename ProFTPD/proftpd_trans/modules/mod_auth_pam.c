@@ -63,7 +63,7 @@
 #endif /* HAVE_PAM_PAM_APPL_H */
 
 module auth_pam_module;
-authtable auth_pam_authtab[2];
+static authtable auth_pam_authtab[2];
 
 static pam_handle_t *	pamh			= NULL;
 static char *		pamconfig		= "ftp";
@@ -173,7 +173,7 @@ static struct pam_conv pam_conv = {
   NULL
 };
 
-void auth_pam_exit_ev(const void *event_data, void *user_data) {
+static void auth_pam_exit_ev(const void *event_data, void *user_data) {
   int res, disable_id_switching;
 
   /* Sanity check. */
@@ -591,8 +591,7 @@ MODRET pam_auth(cmd_rec *cmd) {
   }
 
   session.auth_mech = "mod_auth_pam.c";
-  pr_event_register(&auth_pam_module, "core.exit", auth_pam_exit_ev,
-                    cb_signatures[cb_auth_pam_exit_ev], NULL);
+  pr_event_register(&auth_pam_module, "core.exit", auth_pam_exit_ev, NULL);
   return PR_HANDLED(cmd);
 }
 
@@ -673,15 +672,15 @@ static int auth_pam_sess_init(void) {
   return 0;
 }
 
-authtable auth_pam_authtab[] = {
-  { 0, "auth", pam_auth, sig_pam_auth },
+static authtable auth_pam_authtab[] = {
+  { 0, "auth", pam_auth },
   { 0, NULL, NULL }
 };
 
-conftable auth_pam_conftab[] = {
-  { "AuthPAM",			set_authpam, sig_set_authpam,			NULL },
-  { "AuthPAMConfig",		set_authpamconfig, sig_set_authpamconfig,		NULL },
-  { "AuthPAMOptions",		set_authpamoptions, sig_set_authpamoptions,		NULL },
+static conftable auth_pam_conftab[] = {
+  { "AuthPAM",			set_authpam,			NULL },
+  { "AuthPAMConfig",		set_authpamconfig,		NULL },
+  { "AuthPAMOptions",		set_authpamoptions,		NULL },
   { NULL, NULL, NULL }
 };
 

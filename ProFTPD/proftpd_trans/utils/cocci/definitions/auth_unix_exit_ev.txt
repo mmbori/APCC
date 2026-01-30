@@ -1,1 +1,0 @@
-void auth_unix_exit_ev(const void *, void *);

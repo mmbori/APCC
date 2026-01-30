@@ -134,6 +134,6 @@ int pr_cmd_dispatch_phase(cmd_rec *cmd, int, int);
 #define PR_CMD_DISPATCH_FL_SEND_RESPONSE	0x001
 #define PR_CMD_DISPATCH_FL_CLEAR_RESPONSE	0x002
 
-void pr_cmd_set_handler(void (*)(server_rec *s, conn_t *conn), int);
+void pr_cmd_set_handler(void (*)(server_rec *s, conn_t *conn));
 
 #endif /* PR_CMD_H */

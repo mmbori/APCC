@@ -890,7 +890,7 @@ glob_limited (unsigned int depth, const char *pattern, int flags,
       /* Return the directory if we don't check for error or if it exists.  */
       if ((flags & GLOB_NOCHECK)
 	  || (((flags & GLOB_ALTDIRFUNC)
-	       ? (pr_fsio_stat(dirname, &st) == 0
+	       ? ((*pglob->gl_stat) (dirname, &st) == 0
 		  && S_ISDIR (st.st_mode))
 	       : (__stat64 (dirname, &st64) == 0 && S_ISDIR (st64.st_mode)))))
 	{
@@ -1043,7 +1043,7 @@ glob_limited (unsigned int depth, const char *pattern, int flags,
 
 		  /* First check whether this really is a directory.  */
 		  if (((flags & GLOB_ALTDIRFUNC)
-		       ? (pr_fsio_stat(dir, &st) != 0
+		       ? ((*pglob->gl_stat) (dir, &st) != 0
 			  || !S_ISDIR (st.st_mode))
 		       : (__stat64 (dir, &st64) != 0
 			  || !S_ISDIR (st64.st_mode))))
@@ -1125,7 +1125,7 @@ glob_limited (unsigned int depth, const char *pattern, int flags,
 
       for (i = oldcount; i < pglob->gl_pathc + pglob->gl_offs; ++i)
 	if ((((flags & GLOB_ALTDIRFUNC) && (pglob->gl_pathv != NULL))
-	     ? (pr_fsio_stat(pglob->gl_pathv[i], &st) == 0
+	     ? ((*pglob->gl_stat) (pglob->gl_pathv[i], &st) == 0
 		&& S_ISDIR (st.st_mode))
 	     : (__stat64 (pglob->gl_pathv[i], &st64) == 0
 		&& S_ISDIR (st64.st_mode))))
@@ -1351,7 +1351,7 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
       memcpy (&fullname[dirlen + 1], pattern, patlen + 1);
 # endif
       if (((flags & GLOB_ALTDIRFUNC)
-	   ? pr_fsio_stat(fullname, &st)
+	   ? (*pglob->gl_stat) (fullname, &st)
 	   : __stat64 (fullname, &st64)) == 0)
 	/* We found this file to be existing.  Now tell the rest
 	   of the function to copy this name into the result.  */
@@ -1377,14 +1377,14 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
       else
 	{
 	  stream = ((flags & GLOB_ALTDIRFUNC)
-		    ? pr_fsio_opendir(directory)
+		    ? (*pglob->gl_opendir) (directory)
 		    : (__ptr_t) opendir (directory));
 	  if (stream == NULL)
 	    {
-	    //   if (errno != ENOTDIR
-		//   && ((errfunc != NULL && (*errfunc) (directory, errno))
-		//       || (flags & GLOB_ERR)))
-		// return GLOB_ABORTED;
+	      if (errno != ENOTDIR
+		  && ((errfunc != NULL && (*errfunc) (directory, errno))
+		      || (flags & GLOB_ERR)))
+		return GLOB_ABORTED;
 	      nfound = 0;
 	      meta = 0;
 	    }
@@ -1409,7 +1409,7 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
 
 		  if (flags & GLOB_ALTDIRFUNC)
 		    {
-		      struct dirent *d32 = pr_fsio_readdir(stream);
+		      struct dirent *d32 = (*pglob->gl_readdir) (stream);
 		      if (d32 != NULL)
 			{
 			  CONVERT_DIRENT_DIRENT64 (&d64, d32);
@@ -1423,7 +1423,7 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
 #else
 		  struct dirent *d = ((flags & GLOB_ALTDIRFUNC)
 				      ? ((struct dirent *)
-					 pr_fsio_readdir(stream))
+					 (*pglob->gl_readdir) (stream))
 				      : __readdir ((DIR *) stream));
 #endif
 		  if (d == NULL)
@@ -1510,7 +1510,7 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
   if (stream != NULL)
     {
       if (flags & GLOB_ALTDIRFUNC)
-	pr_fsio_closedir (stream);
+	(*pglob->gl_closedir) (stream);
       else
 	closedir ((DIR *) stream);
     }
@@ -1522,7 +1522,7 @@ glob_in_dir (const char *pattern, const char *directory, int flags,
   {
     int my_save = errno;
     if (flags & GLOB_ALTDIRFUNC)
-      pr_fsio_closedir (stream);
+      (*pglob->gl_closedir) (stream);
     else
       closedir ((DIR *) stream);
     __set_errno (my_save);

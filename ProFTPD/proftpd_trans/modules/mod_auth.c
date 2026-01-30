@@ -74,7 +74,7 @@ static int auth_sess_init(void);
  */
 static int auth_have_authenticated = FALSE;
 
-int auth_cmd_chk_cb(cmd_rec *cmd) {
+static int auth_cmd_chk_cb(cmd_rec *cmd) {
   if (auth_have_authenticated == FALSE) {
     unsigned char *authd;
 
@@ -82,7 +82,22 @@ int auth_cmd_chk_cb(cmd_rec *cmd) {
 
     if (authd == NULL ||
         *authd == FALSE) {
-      pr_response_send(R_530, _("Please login with USER and PASS"));
+      const void *already_checked = NULL;
+
+      /* Note that the core dispatching routines could check the same
+       * unauthenticated cmd_rec multiple times (see Issue #2003).  We thus
+       * only want to add the error response once per cmd_rec, and avoid
+       * desynchronizing the client with multiple duplicate error responses.
+       */
+
+      already_checked = pr_table_get(cmd->notes, "mod_auth.checked-auth", NULL);
+      if (already_checked == NULL) {
+        int checked = TRUE;
+
+        pr_response_add_err(R_530, _("Please login with USER and PASS"));
+        pr_table_add(cmd->notes, "mod_auth.checked-auth", &checked, 0);
+      }
+
       return FALSE;
     }
 
@@ -92,7 +107,7 @@ int auth_cmd_chk_cb(cmd_rec *cmd) {
   return TRUE;
 }
 
-int auth_login_timeout_cb(CALLBACK_FRAME) {
+static int auth_login_timeout_cb(CALLBACK_FRAME) {
   pr_response_send_async(R_421,
     _("Login timeout (%d %s): closing control connection"), TimeoutLogin,
     TimeoutLogin != 1 ? "seconds" : "second");
@@ -112,7 +127,7 @@ int auth_login_timeout_cb(CALLBACK_FRAME) {
   return 0;
 }
 
-int auth_session_timeout_cb(CALLBACK_FRAME) {
+static int auth_session_timeout_cb(CALLBACK_FRAME) {
   pr_event_generate("core.timeout-session", NULL);
   pr_response_send_async(R_421,
     _("Session Timeout (%d seconds): closing control connection"),
@@ -129,23 +144,20 @@ int auth_session_timeout_cb(CALLBACK_FRAME) {
 /* Event listeners
  */
 
-void auth_exit_ev(const void *event_data, void *user_data) {
+static void auth_exit_ev(const void *event_data, void *user_data) {
   pr_auth_cache_clear();
 
   /* Close the scoreboard descriptor that we opened. */
   (void) pr_close_scoreboard(FALSE);
 }
 
-void auth_sess_reinit_ev(const void *event_data, void *user_data) {
+static void auth_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
-  pr_event_unregister(&auth_module, "core.exit", auth_exit_ev,
-                      cb_signatures[cb_auth_exit_ev]);
-  pr_event_unregister(&auth_module, "core.session-reinit",
-                      auth_sess_reinit_ev,
-                      cb_signatures[cb_auth_sess_reinit_ev]);
+  pr_event_unregister(&auth_module, "core.exit", auth_exit_ev);
+  pr_event_unregister(&auth_module, "core.session-reinit", auth_sess_reinit_ev);
 
   pr_timer_remove(PR_TIMER_LOGIN, &auth_module);
 
@@ -178,7 +190,7 @@ static int auth_init(void) {
   pr_help_add(C_REIN, _("is not implemented"), FALSE);
 
   /* By default, enable auth checking */
-  set_auth_check(auth_cmd_chk_cb, ck_signatures[ck_auth_cmd_chk_cb]);
+  set_auth_check(auth_cmd_chk_cb);
 
   return 0;
 }
@@ -188,7 +200,7 @@ static int auth_sess_init(void) {
   unsigned char *tmp = NULL;
 
   pr_event_register(&auth_module, "core.session-reinit", auth_sess_reinit_ev,
-                    cb_signatures[cb_auth_sess_reinit_ev], NULL);
+    NULL);
 
   /* Check for any MaxPasswordSize. */
   c = find_config(main_server->conf, CONF_PARAM, "MaxPasswordSize", FALSE);
@@ -209,7 +221,7 @@ static int auth_sess_init(void) {
   if (TimeoutLogin) {
     pr_timer_remove(PR_TIMER_LOGIN, &auth_module);
     pr_timer_add(TimeoutLogin, PR_TIMER_LOGIN, &auth_module,
-      auth_login_timeout_cb, callback_signatures[callback_auth_login_timeout_cb], "TimeoutLogin");
+      auth_login_timeout_cb, "TimeoutLogin");
   }
 
   if (auth_client_connected == FALSE) {
@@ -242,8 +254,7 @@ static int auth_sess_init(void) {
     }
   }
 
-  pr_event_register(&auth_module, "core.exit", auth_exit_ev,
-                    cb_signatures[cb_auth_exit_ev], NULL);
+  pr_event_register(&auth_module, "core.exit", auth_exit_ev, NULL);
 
   if (auth_client_connected == FALSE) {
     unsigned int scoreboard_opts = 0UL;
@@ -668,7 +679,7 @@ MODRET auth_post_pass(cmd_rec *cmd) {
       have_user_timeout ? "user" : have_group_timeout ? "group" :
       have_class_timeout ? "class" : "all");
     pr_timer_add(TimeoutSession, PR_TIMER_SESSION, &auth_module,
-      auth_session_timeout_cb, callback_signatures[callback_auth_session_timeout_cb], "TimeoutSession");
+      auth_session_timeout_cb, "TimeoutSession");
   }
 
   /* Handle a DisplayLogin file. */
@@ -1036,7 +1047,7 @@ static void ensure_open_passwd(pool *p) {
 /* Next function (the biggie) handles all authentication, setting
  * up chroot() jail, etc.
  */
-int setup_env_mode(pool *p, cmd_rec *cmd, const char *user, char *pass) {
+static int setup_env(pool *p, cmd_rec *cmd, const char *user, char *pass) {
   struct passwd *pw;
   config_rec *c, *tmpc;
   const char *defchdir = NULL, *defroot = NULL, *origuser, *sess_ttyname;
@@ -2681,7 +2692,7 @@ MODRET auth_pass(cmd_rec *cmd) {
   session.anon_config = NULL;
   session.dir_config = NULL;
 
-  res = setup_env_mode(cmd->tmp_pool, cmd, user, cmd->arg);
+  res = setup_env(cmd->tmp_pool, cmd, user, cmd->arg);
   if (res == 1) {
     config_rec *c = NULL;
 
@@ -2689,7 +2700,7 @@ MODRET auth_pass(cmd_rec *cmd) {
     c->argv[0] = pcalloc(c->pool, sizeof(unsigned char));
     *((unsigned char *) c->argv[0]) = TRUE;
 
-    set_auth_check(NULL, ck_signatures[ck_NULL]);
+    set_auth_check(NULL);
 
     (void) pr_table_remove(session.notes, "mod_auth.anon-passwd", NULL);
 
@@ -2771,13 +2782,13 @@ MODRET auth_pass(cmd_rec *cmd) {
 }
 
 MODRET auth_acct(cmd_rec *cmd) {
-  pr_response_add(R_502, _("ACCT command not implemented"));
-  return PR_HANDLED(cmd);
+  pr_response_add_err(R_502, _("ACCT command not implemented"));
+  return PR_ERROR(cmd);
 }
 
 MODRET auth_rein(cmd_rec *cmd) {
-  pr_response_add(R_502, _("REIN command not implemented"));
-  return PR_HANDLED(cmd);
+  pr_response_add_err(R_502, _("REIN command not implemented"));
+  return PR_ERROR(cmd);
 }
 
 /* FSIO callbacks for providing a fake robots.txt file, for the AnonAllowRobots
@@ -2787,7 +2798,7 @@ MODRET auth_rein(cmd_rec *cmd) {
 #define AUTH_ROBOTS_TXT			"User-agent: *\nDisallow: /\n"
 #define AUTH_ROBOTS_TXT_FD		6742
 
-int robots_fsio_stat(pr_fs_t *fs, const char *path, struct stat *st) {
+static int robots_fsio_stat(pr_fs_t *fs, const char *path, struct stat *st) {
   st->st_dev = (dev_t) 0;
   st->st_ino = (ino_t) 0;
   st->st_mode = (S_IFREG|S_IRUSR|S_IRGRP|S_IROTH);
@@ -2804,7 +2815,7 @@ int robots_fsio_stat(pr_fs_t *fs, const char *path, struct stat *st) {
   return 0;
 }
 
-int robots_fsio_fstat(pr_fh_t *fh, int fd, struct stat *st) {
+static int robots_fsio_fstat(pr_fh_t *fh, int fd, struct stat *st) {
   if (fd != AUTH_ROBOTS_TXT_FD) {
     errno = EINVAL;
     return -1;
@@ -2813,15 +2824,15 @@ int robots_fsio_fstat(pr_fh_t *fh, int fd, struct stat *st) {
   return robots_fsio_stat(NULL, NULL, st);
 }
 
-int robots_fsio_lstat(pr_fs_t *fs, const char *path, struct stat *st) {
+static int robots_fsio_lstat(pr_fs_t *fs, const char *path, struct stat *st) {
   return robots_fsio_stat(fs, path, st);
 }
 
-int robots_fsio_unlink(pr_fs_t *fs, const char *path) {
+static int robots_fsio_unlink(pr_fs_t *fs, const char *path) {
   return 0;
 }
 
-int robots_fsio_open(pr_fh_t *fh, const char *path, int flags) {
+static int robots_fsio_open(pr_fh_t *fh, const char *path, int flags) {
   if (flags != O_RDONLY) {
     errno = EINVAL;
     return -1;
@@ -2830,7 +2841,7 @@ int robots_fsio_open(pr_fh_t *fh, const char *path, int flags) {
   return AUTH_ROBOTS_TXT_FD;
 }
 
-int robots_fsio_close(pr_fh_t *fh, int fd) {
+static int robots_fsio_close(pr_fh_t *fh, int fd) {
   if (fd != AUTH_ROBOTS_TXT_FD) {
     errno = EINVAL;
     return -1;
@@ -2839,7 +2850,7 @@ int robots_fsio_close(pr_fh_t *fh, int fd) {
   return 0;
 }
 
-int robots_fsio_read(pr_fh_t *fh, int fd, char *buf, size_t bufsz) {
+static int robots_fsio_read(pr_fh_t *fh, int fd, char *buf, size_t bufsz) {
   size_t robots_len;
 
   if (fd != AUTH_ROBOTS_TXT_FD) {
@@ -2858,7 +2869,8 @@ int robots_fsio_read(pr_fh_t *fh, int fd, char *buf, size_t bufsz) {
   return (int) robots_len;
 }
 
-int robots_fsio_write(pr_fh_t *fh, int fd, const char *buf, size_t bufsz) {
+static int robots_fsio_write(pr_fh_t *fh, int fd, const char *buf,
+    size_t bufsz) {
   if (fd != AUTH_ROBOTS_TXT_FD) {
     errno = EINVAL;
     return -1;
@@ -2867,8 +2879,8 @@ int robots_fsio_write(pr_fh_t *fh, int fd, const char *buf, size_t bufsz) {
   return (int) bufsz;
 }
 
-int robots_fsio_access(pr_fs_t *fs, const char *path, int mode, uid_t uid,
-                       gid_t gid, array_header *suppl_gids) {
+static int robots_fsio_access(pr_fs_t *fs, const char *path, int mode,
+    uid_t uid, gid_t gid, array_header *suppl_gids) {
   if (mode != R_OK) {
     errno = EACCES;
     return -1;
@@ -2877,8 +2889,8 @@ int robots_fsio_access(pr_fs_t *fs, const char *path, int mode, uid_t uid,
   return 0;
 }
 
-int robots_fsio_faccess(pr_fh_t *fh, int mode, uid_t uid, gid_t gid,
-                        array_header *suppl_gids) {
+static int robots_fsio_faccess(pr_fh_t *fh, int mode, uid_t uid, gid_t gid,
+    array_header *suppl_gids) {
 
   if (fh->fh_fd != AUTH_ROBOTS_TXT_FD) {
     errno = EINVAL;
@@ -2949,25 +2961,15 @@ MODRET auth_pre_retr(cmd_rec *cmd) {
      * a fake "robots.txt" file.
      */
     robots_fs->stat = robots_fsio_stat;
-    robots_fs->stat_signature = stat_signatures[stat_robots_fsio_stat];
     robots_fs->fstat = robots_fsio_fstat;
-    robots_fs->fstat_signature = fstat_signatures[fstat_robots_fsio_fstat];
     robots_fs->lstat = robots_fsio_lstat;
-    robots_fs->lstat_signature = lstat_signatures[lstat_robots_fsio_lstat];
     robots_fs->unlink = robots_fsio_unlink;
-    robots_fs->unlink_signature = unlink_signatures[unlink_robots_fsio_unlink];
     robots_fs->open = robots_fsio_open;
-    robots_fs->open_signature = open_signatures[open_robots_fsio_open];
     robots_fs->close = robots_fsio_close;
-    robots_fs->close_signature = close_signatures[close_robots_fsio_close];
     robots_fs->read = robots_fsio_read;
-    robots_fs->read_signature = read_signatures[read_robots_fsio_read];
     robots_fs->write = robots_fsio_write;
-    robots_fs->write_signature = write_signatures[write_robots_fsio_write];
     robots_fs->access = robots_fsio_access;
-    robots_fs->access_signature = access_signatures[access_robots_fsio_access];
     robots_fs->faccess = robots_fsio_faccess;
-    robots_fs->faccess_signature = faccess_signatures[faccess_robots_fsio_faccess];
 
     /* For all other FSIO callbacks, use the underlying FS. */
     robots_fs->rename = curr_fs->rename;
@@ -4189,59 +4191,59 @@ MODRET set_wtmplog(cmd_rec *cmd) {
 /* Module API tables
  */
 
-conftable auth_conftab[] = {
-  { "AccessDenyMsg",		set_accessdenymsg, sig_set_accessdenymsg,		NULL },
-  { "AccessGrantMsg",		set_accessgrantmsg, sig_set_accessgrantmsg,		NULL },
-  { "AllowChrootSymlinks",	set_allowchrootsymlinks, sig_set_allowchrootsymlinks,	NULL },
-  { "AllowEmptyPasswords",	set_allowemptypasswords, sig_set_allowemptypasswords,	NULL },
-  { "AnonAllowRobots",		set_anonallowrobots, sig_set_anonallowrobots,		NULL },
-  { "AnonRequirePassword",	set_anonrequirepassword, sig_set_anonrequirepassword,	NULL },
-  { "AnonRejectPasswords",	set_anonrejectpasswords, sig_set_anonrejectpasswords,	NULL },
-  { "AuthAliasOnly",		set_authaliasonly, sig_set_authaliasonly,		NULL },
-  { "AuthUsingAlias",		set_authusingalias, sig_set_authusingalias,		NULL },
-  { "CreateHome",		set_createhome, sig_set_createhome,			NULL },
-  { "DefaultChdir",		add_defaultchdir, sig_add_defaultchdir,		NULL },
-  { "DefaultRoot",		add_defaultroot, sig_add_defaultroot,		NULL },
-  { "DisplayLogin",		set_displaylogin, sig_set_displaylogin,		NULL },
-  { "MaxClients",		set_maxclients, sig_set_maxclients,			NULL },
-  { "MaxClientsPerClass",	set_maxclientsclass, sig_set_maxclientsclass,		NULL },
-  { "MaxClientsPerHost",	set_maxhostclients, sig_set_maxhostclients,		NULL },
-  { "MaxClientsPerUser",	set_maxuserclients, sig_set_maxuserclients,		NULL },
-  { "MaxConnectionsPerHost",	set_maxconnectsperhost, sig_set_maxconnectsperhost,		NULL },
-  { "MaxHostsPerUser",		set_maxhostsperuser, sig_set_maxhostsperuser,		NULL },
-  { "MaxLoginAttempts",		set_maxloginattempts, sig_set_maxloginattempts,		NULL },
-  { "MaxPasswordSize",		set_maxpasswordsize, sig_set_maxpasswordsize,		NULL },
-  { "RequireValidShell",	set_requirevalidshell, sig_set_requirevalidshell,		NULL },
-  { "RewriteHome",		set_rewritehome, sig_set_rewritehome,		NULL },
-  { "RootLogin",		set_rootlogin, sig_set_rootlogin,			NULL },
-  { "RootRevoke",		set_rootrevoke, sig_set_rootrevoke,			NULL },
-  { "TimeoutLogin",		set_timeoutlogin, sig_set_timeoutlogin,		NULL },
-  { "TimeoutSession",		set_timeoutsession, sig_set_timeoutsession,		NULL },
-  { "UseFtpUsers",		set_useftpusers, sig_set_useftpusers,		NULL },
-  { "UseLastlog",		set_uselastlog, sig_set_uselastlog,			NULL },
-  { "UserAlias",		set_useralias, sig_set_useralias,			NULL },
-  { "UserDirRoot",		set_userdirroot, sig_set_userdirroot,		NULL },
-  { "UserPassword",		set_userpassword, sig_set_userpassword,		NULL },
-  { "WtmpLog",			set_wtmplog, sig_set_wtmplog,			NULL },
+static conftable auth_conftab[] = {
+  { "AccessDenyMsg",		set_accessdenymsg,		NULL },
+  { "AccessGrantMsg",		set_accessgrantmsg,		NULL },
+  { "AllowChrootSymlinks",	set_allowchrootsymlinks,	NULL },
+  { "AllowEmptyPasswords",	set_allowemptypasswords,	NULL },
+  { "AnonAllowRobots",		set_anonallowrobots,		NULL },
+  { "AnonRequirePassword",	set_anonrequirepassword,	NULL },
+  { "AnonRejectPasswords",	set_anonrejectpasswords,	NULL },
+  { "AuthAliasOnly",		set_authaliasonly,		NULL },
+  { "AuthUsingAlias",		set_authusingalias,		NULL },
+  { "CreateHome",		set_createhome,			NULL },
+  { "DefaultChdir",		add_defaultchdir,		NULL },
+  { "DefaultRoot",		add_defaultroot,		NULL },
+  { "DisplayLogin",		set_displaylogin,		NULL },
+  { "MaxClients",		set_maxclients,			NULL },
+  { "MaxClientsPerClass",	set_maxclientsclass,		NULL },
+  { "MaxClientsPerHost",	set_maxhostclients,		NULL },
+  { "MaxClientsPerUser",	set_maxuserclients,		NULL },
+  { "MaxConnectionsPerHost",	set_maxconnectsperhost,		NULL },
+  { "MaxHostsPerUser",		set_maxhostsperuser,		NULL },
+  { "MaxLoginAttempts",		set_maxloginattempts,		NULL },
+  { "MaxPasswordSize",		set_maxpasswordsize,		NULL },
+  { "RequireValidShell",	set_requirevalidshell,		NULL },
+  { "RewriteHome",		set_rewritehome,		NULL },
+  { "RootLogin",		set_rootlogin,			NULL },
+  { "RootRevoke",		set_rootrevoke,			NULL },
+  { "TimeoutLogin",		set_timeoutlogin,		NULL },
+  { "TimeoutSession",		set_timeoutsession,		NULL },
+  { "UseFtpUsers",		set_useftpusers,		NULL },
+  { "UseLastlog",		set_uselastlog,			NULL },
+  { "UserAlias",		set_useralias,			NULL },
+  { "UserDirRoot",		set_userdirroot,		NULL },
+  { "UserPassword",		set_userpassword,		NULL },
+  { "WtmpLog",			set_wtmplog,			NULL },
 
   { NULL,			NULL,				NULL }
 };
 
-cmdtable auth_cmdtab[] = {
-  { PRE_CMD,	C_USER,	G_NONE,	auth_pre_user, sig_auth_pre_user,	FALSE,	FALSE,	CL_AUTH },
-  { CMD,	C_USER,	G_NONE,	auth_user, sig_auth_user,	FALSE,	FALSE,	CL_AUTH },
-  { PRE_CMD,	C_PASS,	G_NONE,	auth_pre_pass, sig_auth_pre_pass,	FALSE,	FALSE,	CL_AUTH },
-  { CMD,	C_PASS,	G_NONE,	auth_pass, sig_auth_pass,	FALSE,	FALSE,	CL_AUTH },
-  { POST_CMD,	C_PASS,	G_NONE,	auth_post_pass, sig_auth_post_pass,	FALSE,	FALSE,	CL_AUTH },
-  { LOG_CMD,	C_PASS,	G_NONE,	auth_log_pass, sig_auth_log_pass,  FALSE,  FALSE },
-  { LOG_CMD_ERR,C_PASS,	G_NONE,	auth_err_pass, sig_auth_err_pass,  FALSE,  FALSE },
-  { CMD,	C_ACCT,	G_NONE,	auth_acct, sig_auth_acct,	FALSE,	FALSE,	CL_AUTH },
-  { CMD,	C_REIN,	G_NONE,	auth_rein, sig_auth_rein,	FALSE,	FALSE,	CL_AUTH },
+static cmdtable auth_cmdtab[] = {
+  { PRE_CMD,	C_USER,	G_NONE,	auth_pre_user,	FALSE,	FALSE,	CL_AUTH },
+  { CMD,	C_USER,	G_NONE,	auth_user,	FALSE,	FALSE,	CL_AUTH },
+  { PRE_CMD,	C_PASS,	G_NONE,	auth_pre_pass,	FALSE,	FALSE,	CL_AUTH },
+  { CMD,	C_PASS,	G_NONE,	auth_pass,	FALSE,	FALSE,	CL_AUTH },
+  { POST_CMD,	C_PASS,	G_NONE,	auth_post_pass,	FALSE,	FALSE,	CL_AUTH },
+  { LOG_CMD,	C_PASS,	G_NONE,	auth_log_pass,  FALSE,  FALSE },
+  { LOG_CMD_ERR,C_PASS,	G_NONE,	auth_err_pass,  FALSE,  FALSE },
+  { CMD,	C_ACCT,	G_NONE,	auth_acct,	FALSE,	FALSE,	CL_AUTH },
+  { CMD,	C_REIN,	G_NONE,	auth_rein,	FALSE,	FALSE,	CL_AUTH },
 
   /* For the automatic robots.txt handling */
-  { PRE_CMD,	C_RETR,	G_NONE,	auth_pre_retr, sig_auth_pre_retr,	FALSE,	FALSE },
-  { POST_CMD,	C_RETR,	G_NONE,	auth_post_retr, sig_auth_post_retr,	FALSE,	FALSE },
-  { POST_CMD_ERR,C_RETR,G_NONE,	auth_post_retr, sig_auth_post_retr,	FALSE,	FALSE },
+  { PRE_CMD,	C_RETR,	G_NONE,	auth_pre_retr,	FALSE,	FALSE },
+  { POST_CMD,	C_RETR,	G_NONE,	auth_post_retr,	FALSE,	FALSE },
+  { POST_CMD_ERR,C_RETR,G_NONE,	auth_post_retr,	FALSE,	FALSE },
 
   { 0, NULL }
 };

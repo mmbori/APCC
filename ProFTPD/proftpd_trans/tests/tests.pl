@@ -73,8 +73,11 @@ if (scalar(@ARGV) > 0) {
     t/commands/size.t
     t/commands/mode.t
     t/commands/stru.t
+    t/commands/acct.t
     t/commands/allo.t
     t/commands/noop.t
+    t/commands/rein.t
+    t/commands/smnt.t
     t/commands/feat.t
     t/commands/help.t
     t/commands/quit.t

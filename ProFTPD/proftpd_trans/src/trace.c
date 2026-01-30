@@ -76,7 +76,7 @@ static const char *trace_channels[] = {
   NULL
 };
 
-void trace_restart_ev(const void *event_data, void *user_data) {
+static void trace_restart_ev(const void *event_data, void *user_data) {
   trace_opts = PR_TRACE_OPT_DEFAULT;
 
   (void) close(trace_logfd);
@@ -87,7 +87,7 @@ void trace_restart_ev(const void *event_data, void *user_data) {
     trace_pool = NULL;
     trace_tab = NULL;
 
-    pr_event_unregister(NULL, "core.restart", trace_restart_ev, cb_signatures[cb_trace_restart_ev]);
+    pr_event_unregister(NULL, "core.restart", trace_restart_ev);
   }
 }
 
@@ -432,7 +432,7 @@ int pr_trace_set_levels(const char *channel, int min_level, int max_level) {
     trace_tab = pr_table_alloc(trace_pool, 0);
 
     /* Register a handler for churning the log pool during HUP. */
-    pr_event_register(NULL, "core.restart", trace_restart_ev, cb_signatures[cb_trace_restart_ev], NULL);
+    pr_event_register(NULL, "core.restart", trace_restart_ev, NULL);
   }
 
   if (min_level >= 0) {

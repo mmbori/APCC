@@ -68,7 +68,7 @@ static const char *trace_channel = "pool";
 static int debug_flags = 0;
 
 #ifdef PR_USE_DEVEL
-void oom_printf(const char *fmt, ...) {
+static void oom_printf(const char *fmt, ...) {
   char buf[PR_TUNABLE_BUFFER_SIZE];
   va_list msg;
 
@@ -89,9 +89,9 @@ void oom_printf(const char *fmt, ...) {
 static void null_alloc(void) {
   pr_log_pri(PR_LOG_ALERT, "Out of memory!");
 #ifdef PR_USE_DEVEL
-  // if (debug_flags & PR_POOL_DEBUG_FL_OOM_DUMP_POOLS) {
-  //   pr_pool_debug_memory(oom_printf, debugf_signatures[debugf_oom_printf]);
-  // }
+  if (debug_flags & PR_POOL_DEBUG_FL_OOM_DUMP_POOLS) {
+    pr_pool_debug_memory(oom_printf);
+  }
 #endif
 
   exit(1);
@@ -290,8 +290,7 @@ static unsigned int subpools_in_pool(pool *p) {
  * hierarchy.
  */
 static unsigned long visit_pools(pool *p, unsigned long level,
-    void (*visit)(const pr_pool_info_t *, void *),
-    int visit_signature, void *user_data) {
+    void (*visit)(const pr_pool_info_t *, void *), void *user_data) {
   unsigned long total_bytes = 0;
 
   if (p == NULL) {
@@ -318,29 +317,18 @@ static unsigned long visit_pools(pool *p, unsigned long level,
     pinfo.subpool_count = subpool_count;
     pinfo.level = level;
 
-    // // fp(args);
-    // if (visit_signature == visit_signatures[visit_NULL]) {
-    //   NULL;
-    // }
-    // else
-    //   if (visit_signature == visit_signatures[visit_pool_visitf]) {
-    //     pool_visitf(&pinfo, user_data);
-    //   }
-    // else
-    //   if (visit_signature == visit_signatures[visit_test_visitf]) {
-    //     test_visitf(&pinfo, user_data);
-    //   }
+    visit(&pinfo, user_data);
 
     /* Recurse */
     if (p->sub_pools) {
-      total_bytes += visit_pools(p->sub_pools, level + 1, visit, visit_signature, user_data);
+      total_bytes += visit_pools(p->sub_pools, level + 1, visit, user_data);
     }
   }
 
   return total_bytes;
 }
 
-void pool_printf(const char *fmt, ...) {
+static void pool_printf(const char *fmt, ...) {
   char buf[PR_TUNABLE_BUFFER_SIZE];
   va_list msg;
 
@@ -354,7 +342,7 @@ void pool_printf(const char *fmt, ...) {
   pr_trace_msg(trace_channel, 5, "%s", buf);
 }
 
-void pool_visitf(const pr_pool_info_t *pinfo, void *user_data) {
+static void pool_visitf(const pr_pool_info_t *pinfo, void *user_data) {
   void (*debugf)(const char *, ...) = user_data;
 
   if (pinfo->have_pool_info) {
@@ -368,7 +356,7 @@ void pool_visitf(const pr_pool_info_t *pinfo, void *user_data) {
      */
 
     if (pinfo->level == 0) {
-      pool_printf("%s [%p] (%lu B, %lu L, %u P)",
+      debugf("%s [%p] (%lu B, %lu L, %u P)",
         pinfo->tag ? pinfo->tag : "<unnamed>", pinfo->ptr,
         pinfo->byte_count, pinfo->block_count, pinfo->subpool_count);
 
@@ -386,50 +374,33 @@ void pool_visitf(const pr_pool_info_t *pinfo, void *user_data) {
         }
       }
 
-      pool_printf("%s + %s [%p] (%lu B, %lu L, %u P)", indent_text,
+      debugf("%s + %s [%p] (%lu B, %lu L, %u P)", indent_text,
         pinfo->tag ? pinfo->tag : "<unnamed>", pinfo->ptr,
         pinfo->byte_count, pinfo->block_count, pinfo->subpool_count);
     }
   }
 
   if (pinfo->have_freelist_info) {
-    pool_printf("Free block list: %lu bytes", pinfo->freelist_byte_count);
+    debugf("Free block list: %lu bytes", pinfo->freelist_byte_count);
   }
 
   if (pinfo->have_total_info) {
-    pool_printf("Total %lu bytes allocated", pinfo->total_byte_count);
-    pool_printf("%lu blocks allocated", pinfo->total_blocks_allocated);
-    pool_printf("%lu blocks reused", pinfo->total_blocks_reused);
+    debugf("Total %lu bytes allocated", pinfo->total_byte_count);
+    debugf("%lu blocks allocated", pinfo->total_blocks_allocated);
+    debugf("%lu blocks reused", pinfo->total_blocks_reused);
   }
 }
 
-void pr_pool_debug_memory(void (*debugf)(const char *, ...),
-int debugf_signature) {
+void pr_pool_debug_memory(void (*debugf)(const char *, ...)) {
   if (debugf == NULL) {
     debugf = pool_printf;
   }
 
-  // fp(args);
-  if (debugf_signature == debugf_signatures[debugf_NULL]) {
-    NULL;
-  }
-  // else
-  //   if (debugf_signature == debugf_signatures[debugf_mem_printf]) {
-  //     mem_printf("Memory pool allocation:");
-  //   }
-  // else
-  //   if (debugf_signature == debugf_signatures[debugf_oom_printf]) {
-  //     oom_printf("Memory pool allocation:");
-  //   }
-  // else
-  //   if (debugf_signature == debugf_signatures[debugf_pool_printf]) {
-  //     pool_printf("Memory pool allocation:");
-  //   }
-  // pr_pool_debug_memory2(pool_visitf, visit_signatures[visit_pool_visitf],debugf);
+  debugf("Memory pool allocation:");
+  pr_pool_debug_memory2(pool_visitf, debugf);
 }
 
 void pr_pool_debug_memory2(void (*visit)(const pr_pool_info_t *, void *),
-int visit_signature,
     void *user_data) {
   unsigned long freelist_byte_count = 0, freelist_block_count = 0,
     total_byte_count = 0;
@@ -440,7 +411,7 @@ int visit_signature,
   }
 
   /* Per pool */
-  total_byte_count = visit_pools(permanent_pool, 0, visit, visit_signature, user_data);
+  total_byte_count = visit_pools(permanent_pool, 0, visit, user_data);
 
   /* Free list */
   if (block_freelist) {
@@ -453,18 +424,7 @@ int visit_signature,
   pinfo.freelist_byte_count = freelist_byte_count;
   pinfo.freelist_block_count = freelist_block_count;
 
-  // // fp(args);
-  // if (visit_signature == visit_signatures[visit_NULL]) {
-  //   NULL;
-  // }
-  // else
-  //   if (visit_signature == visit_signatures[visit_pool_visitf]) {
-  //     pool_visitf(&pinfo, user_data);
-  //   }
-  // else
-  //   if (visit_signature == visit_signatures[visit_test_visitf]) {
-  //     test_visitf(&pinfo, user_data);
-  //   }
+  visit(&pinfo, user_data);
 
   /* Totals */
   memset(&pinfo, 0, sizeof(pinfo));
@@ -473,18 +433,7 @@ int visit_signature,
   pinfo.total_blocks_allocated = stat_malloc;
   pinfo.total_blocks_reused = stat_freehit;
 
-  // // fp(args);
-  // if (visit_signature == visit_signatures[visit_NULL]) {
-  //   NULL;
-  // }
-  // else
-  //   if (visit_signature == visit_signatures[visit_pool_visitf]) {
-  //     pool_visitf(&pinfo, user_data);
-  //   }
-  // else
-  //   if (visit_signature == visit_signatures[visit_test_visitf]) {
-  //     test_visitf(&pinfo, user_data);
-  //   }
+  visit(&pinfo, user_data);
 }
 
 int pr_pool_debug_set_flags(int flags) {
@@ -945,12 +894,9 @@ typedef struct cleanup {
   void (*cleanup_cb)(void *);
   struct cleanup *next;
 
-
-  int cleanup_cb_signature;
 } cleanup_t;
 
-void register_cleanup2(pool *p, void *user_data, void (*cleanup_cb)(void*),
-int cleanup_cb_signature) {
+void register_cleanup2(pool *p, void *user_data, void (*cleanup_cb)(void*)) {
   cleanup_t *c;
 
   if (p == NULL) {
@@ -960,7 +906,6 @@ int cleanup_cb_signature) {
   c = pcalloc(p, sizeof(cleanup_t));
   c->user_data = user_data;
   c->cleanup_cb = cleanup_cb;
-  c->cleanup_cb_signature = cleanup_cb_signature;
 
   /* Add this cleanup to the given pool's list of cleanups. */
   c->next = p->cleanups;
@@ -968,15 +913,12 @@ int cleanup_cb_signature) {
 }
 
 void register_cleanup(pool *p, void *user_data, void (*plain_cleanup_cb)(void*),
-int plain_cleanup_cb_signature,
-    void (*child_cleanup_cb)(void *),
-    int child_cleanup_cb_signature) {
+    void (*child_cleanup_cb)(void *)) {
   (void) child_cleanup_cb;
-  register_cleanup2(p, user_data, plain_cleanup_cb, plain_cleanup_cb_signature);
+  register_cleanup2(p, user_data, plain_cleanup_cb);
 }
 
-void unregister_cleanup(pool *p, void *user_data, void (*cleanup_cb)(void *),
-int cleanup_cb_signature) {
+void unregister_cleanup(pool *p, void *user_data, void (*cleanup_cb)(void *)) {
   cleanup_t *c, **lastp;
 
   if (p == NULL) {

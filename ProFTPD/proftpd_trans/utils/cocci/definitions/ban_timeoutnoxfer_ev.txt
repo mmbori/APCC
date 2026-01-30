@@ -1,1 +1,0 @@
-void ban_timeoutnoxfer_ev(const void *, void *);

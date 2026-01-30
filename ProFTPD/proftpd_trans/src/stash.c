@@ -845,8 +845,7 @@ static void stash_dumpf(const char *fmt, ...) {
 
 #ifdef PR_USE_DEVEL
 static unsigned int stash_dump_syms(xaset_t **symbol_table, const char *type,
-    void (*dumpf)(const char *, ...),
-    int dumpf_signature) {
+    void (*dumpf)(const char *, ...)) {
   register unsigned int i;
   unsigned int count = 0;
 
@@ -866,77 +865,17 @@ static unsigned int stash_dump_syms(xaset_t **symbol_table, const char *type,
       nrow_syms++;
     }
 
-    // fp(args);
-    if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-      NULL;
-    }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-    //     event_dump("%s stab index %u: %u symbols", type, i, nrow_syms);
-    //   }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-    //     stash_dump("%s stab index %u: %u symbols", type, i, nrow_syms);
-    //   }
-    else
-      if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-        statcache_dumpf("%s stab index %u: %u symbols", type, i, nrow_syms);
-      }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-    //     table_dump("%s stab index %u: %u symbols", type, i, nrow_syms);
-    //   }
+    dumpf("%s stab index %u: %u symbols", type, i, nrow_syms);
 
     for (sym = (struct stash *) syms->xas_list; sym; sym = sym->next) {
       count++;
 
       if (sym->sym_module != NULL) {
-        // fp(args);
-        if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-          NULL;
-        }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-        //     event_dump(" + %s symbol: %s (mod_%s.c)", type, sym->sym_name,
-        //                sym->sym_module->name);
-        //   }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-        //     stash_dump(" + %s symbol: %s (mod_%s.c)", type, sym->sym_name,
-        //                sym->sym_module->name);
-        //   }
-        else
-          if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-            statcache_dumpf(" + %s symbol: %s (mod_%s.c)", type,
-                            sym->sym_name, sym->sym_module->name);
-          }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-        //     table_dump(" + %s symbol: %s (mod_%s.c)", type, sym->sym_name,
-        //                sym->sym_module->name);
-        //   }
+        dumpf(" + %s symbol: %s (mod_%s.c)", type, sym->sym_name,
+          sym->sym_module->name);
 
       } else {
-        // fp(args);
-        if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-          NULL;
-        }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-        //     event_dump(" + %s symbol: %s (core)", type, sym->sym_name);
-        //   }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-        //     stash_dump(" + %s symbol: %s (core)", type, sym->sym_name);
-        //   }
-        else
-          if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-            statcache_dumpf(" + %s symbol: %s (core)", type, sym->sym_name);
-          }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-        //     table_dump(" + %s symbol: %s (core)", type, sym->sym_name);
-        //   }
+        dumpf(" + %s symbol: %s (core)", type, sym->sym_name);
       }
     }
   }
@@ -945,8 +884,7 @@ static unsigned int stash_dump_syms(xaset_t **symbol_table, const char *type,
 }
 #endif /* PR_USE_DEVEL */
 
-void pr_stash_dump(void (*dumpf)(const char *, ...),
-int dumpf_signature) {
+void pr_stash_dump(void (*dumpf)(const char *, ...)) {
 #ifdef PR_USE_DEVEL
   unsigned int nsyms = 0, nconf_syms = 0, ncmd_syms = 0, nauth_syms = 0,
     nhook_syms = 0;
@@ -955,15 +893,14 @@ int dumpf_signature) {
     dumpf = stash_dumpf;
   }
 
-  nconf_syms = stash_dump_syms(conf_symbol_table, "CONF", dumpf, dumpf_signature);
-  ncmd_syms = stash_dump_syms(cmd_symbol_table, "CMD", dumpf, dumpf_signature);
-  nauth_syms = stash_dump_syms(auth_symbol_table, "AUTH", dumpf, dumpf_signature);
-  nhook_syms = stash_dump_syms(hook_symbol_table, "HOOK", dumpf, dumpf_signature);
+  nconf_syms = stash_dump_syms(conf_symbol_table, "CONF", dumpf);
+  ncmd_syms = stash_dump_syms(cmd_symbol_table, "CMD", dumpf);
+  nauth_syms = stash_dump_syms(auth_symbol_table, "AUTH", dumpf);
+  nhook_syms = stash_dump_syms(hook_symbol_table, "HOOK", dumpf);
   nsyms = nconf_syms + ncmd_syms + nauth_syms + nhook_syms;
 
-  // fp(args);
-  // stash_dump("stab: %u total symbols: %u CONF, %u CMD, %u AUTH, %u HOOK",
-  //            nsyms, nconf_syms, ncmd_syms, nauth_syms, nhook_syms);
+  dumpf("stab: %u total symbols: %u CONF, %u CMD, %u AUTH, %u HOOK", nsyms,
+    nconf_syms, ncmd_syms, nauth_syms, nhook_syms);
 #endif /* PR_USE_DEVEL */
 }
 

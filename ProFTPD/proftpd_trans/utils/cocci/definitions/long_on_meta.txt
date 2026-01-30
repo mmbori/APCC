@@ -1,1 +1,0 @@
-int long_on_meta(pool *jot_pool , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id , const char *text , size_t text_len);

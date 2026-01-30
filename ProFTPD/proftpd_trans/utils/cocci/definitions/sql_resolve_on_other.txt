@@ -1,1 +1,0 @@
-int sql_resolve_on_other(pool *p , pr_jot_ctx_t *jot_ctx , unsigned char *text , size_t text_len);

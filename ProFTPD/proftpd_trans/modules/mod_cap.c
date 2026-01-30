@@ -544,13 +544,12 @@ MODRET cap_post_pass(cmd_rec *cmd) {
 /* Event listeners
  */
 
-void cap_sess_reinit_ev(const void *event_data, void *user_data) {
+static void cap_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
-  pr_event_unregister(&cap_module, "core.session-reinit", cap_sess_reinit_ev,
-                      cb_signatures[cb_cap_sess_reinit_ev]);
+  pr_event_unregister(&cap_module, "core.session-reinit", cap_sess_reinit_ev);
 
   have_capabilities = FALSE;
   use_capabilities = TRUE;
@@ -568,7 +567,7 @@ void cap_sess_reinit_ev(const void *event_data, void *user_data) {
 
 static int cap_sess_init(void) {
   pr_event_register(&cap_module, "core.session-reinit", cap_sess_reinit_ev,
-                    cb_signatures[cb_cap_sess_reinit_ev], NULL);
+    NULL);
 
   /* Check to see if the lowering of capabilities has been disabled in the
    * configuration file.
@@ -671,15 +670,15 @@ static int cap_module_init(void) {
 /* Module API tables
  */
 
-conftable cap_conftab[] = {
-  { "CapabilitiesEngine",	set_capengine, sig_set_capengine,		NULL },
-  { "CapabilitiesRootRevoke",	set_caprootrevoke, sig_set_caprootrevoke,	NULL },
-  { "CapabilitiesSet",		set_caps, sig_set_caps,		NULL },
+static conftable cap_conftab[] = {
+  { "CapabilitiesEngine",	set_capengine,		NULL },
+  { "CapabilitiesRootRevoke",	set_caprootrevoke,	NULL },
+  { "CapabilitiesSet",		set_caps,		NULL },
   { NULL, NULL, NULL }
 };
 
-cmdtable cap_cmdtab[] = {
-  { POST_CMD,	C_PASS,	G_NONE,	cap_post_pass, sig_cap_post_pass,	FALSE, FALSE },
+static cmdtable cap_cmdtab[] = {
+  { POST_CMD,	C_PASS,	G_NONE,	cap_post_pass,	FALSE, FALSE },
   { 0, NULL }
 };
 

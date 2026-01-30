@@ -2,7 +2,7 @@
  * ProFTPD - FTP server daemon
  * Copyright (c) 1997, 1998 Public Flood Software
  * Copyright (c) 1999, 2000 MacGyver aka Habeeb J. Dihu <macgyver@tos.net>
- * Copyright (c) 2001-2025 The ProFTPD Project team
+ * Copyright (c) 2001-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,10 +67,10 @@ static int xfer_check_limit(cmd_rec *);
 #define PR_XFER_OPT_ALLOW_SYMLINK_UPLOAD	0x0004
 static unsigned long xfer_opts = PR_XFER_OPT_HANDLE_ALLO;
 
-void xfer_exit_ev(const void *, void *);
-void xfer_sigusr2_ev(const void *, void *);
-void xfer_timeout_session_ev(const void *, void *);
-void xfer_timeout_stalled_ev(const void *, void *);
+static void xfer_exit_ev(const void *, void *);
+static void xfer_sigusr2_ev(const void *, void *);
+static void xfer_timeout_session_ev(const void *, void *);
+static void xfer_timeout_stalled_ev(const void *, void *);
 static int xfer_sess_init(void);
 
 /* Used for MaxTransfersPerHost and TransferRate */
@@ -3175,7 +3175,9 @@ MODRET xfer_type(cmd_rec *cmd) {
   }
 
   type = pstrdup(cmd->tmp_pool, cmd->argv[1]);
-  type[0] = toupper((int) type[0]);
+  if (PR_ISALPHA((int) type[0])) {
+    type[0] = toupper((int) type[0]);
+  }
 
   if (strcmp(type, "A") == 0 ||
       (cmd->argc == 3 &&
@@ -3231,7 +3233,9 @@ MODRET xfer_stru(cmd_rec *cmd) {
   }
 
   stru = cmd->argv[1];
-  stru[0] = toupper((int) stru[0]);
+  if (PR_ISALPHA((int) stru[0])) {
+    stru[0] = toupper((int) stru[0]);
+  }
 
   switch ((int) stru[0]) {
     case 'F':
@@ -3285,7 +3289,9 @@ MODRET xfer_mode(cmd_rec *cmd) {
   }
 
   mode = cmd->argv[1];
-  mode[0] = toupper((int) mode[0]);
+  if (PR_ISALPHA((int) mode[0])) {
+    mode[0] = toupper((int) mode[0]);
+  }
 
   switch ((int) mode[0]) {
     case 'S':
@@ -3395,8 +3401,8 @@ MODRET xfer_allo(cmd_rec *cmd) {
 }
 
 MODRET xfer_smnt(cmd_rec *cmd) {
-  pr_response_add(R_502, _("SMNT command not implemented"));
-  return PR_HANDLED(cmd);
+  pr_response_add_err(R_502, _("SMNT command not implemented"));
+  return PR_ERROR(cmd);
 }
 
 MODRET xfer_err_cleanup(cmd_rec *cmd) {
@@ -3463,7 +3469,7 @@ MODRET xfer_log_retr(cmd_rec *cmd) {
   return PR_DECLINED(cmd);
 }
 
-int noxfer_timeout_cb(CALLBACK_FRAME) {
+static int noxfer_timeout_cb(CALLBACK_FRAME) {
   int timeout;
   const char *proto;
 
@@ -3534,7 +3540,7 @@ MODRET xfer_post_pass(cmd_rec *cmd) {
 
     /* Setup timer */
     if (timeout > 0) {
-      pr_timer_add(timeout, PR_TIMER_NOXFER, &xfer_module, noxfer_timeout_cb, callback_signatures[callback_noxfer_timeout_cb], 
+      pr_timer_add(timeout, PR_TIMER_NOXFER, &xfer_module, noxfer_timeout_cb,
         "TimeoutNoTransfer");
     }
   }
@@ -4270,7 +4276,7 @@ MODRET set_usesendfile(cmd_rec *cmd) {
 /* Event handlers
  */
 
-void xfer_exit_ev(const void *event_data, void *user_data) {
+static void xfer_exit_ev(const void *event_data, void *user_data) {
 
   if (stor_fh != NULL) {
      /* An upload is occurring... */
@@ -4298,21 +4304,16 @@ void xfer_exit_ev(const void *event_data, void *user_data) {
   }
 }
 
-void xfer_sess_reinit_ev(const void *event_data, void *user_data) {
+static void xfer_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
-  pr_event_unregister(&xfer_module, "core.exit", xfer_exit_ev,
-                      cb_signatures[cb_xfer_exit_ev]);
-  pr_event_unregister(&xfer_module, "core.session-reinit",
-                      xfer_sess_reinit_ev,
-                      cb_signatures[cb_xfer_sess_reinit_ev]);
-  pr_event_unregister(&xfer_module, "core.signal.USR2", xfer_sigusr2_ev,
-                      cb_signatures[cb_xfer_sigusr2_ev]);
+  pr_event_unregister(&xfer_module, "core.exit", xfer_exit_ev);
+  pr_event_unregister(&xfer_module, "core.session-reinit", xfer_sess_reinit_ev);
+  pr_event_unregister(&xfer_module, "core.signal.USR2", xfer_sigusr2_ev);
   pr_event_unregister(&xfer_module, "core.timeout-stalled",
-                      xfer_timeout_stalled_ev,
-                      cb_signatures[cb_xfer_timeout_stalled_ev]);
+    xfer_timeout_stalled_ev);
 
   if (displayfilexfer_fh != NULL) {
     (void) pr_fsio_close(displayfilexfer_fh);
@@ -4326,7 +4327,7 @@ void xfer_sess_reinit_ev(const void *event_data, void *user_data) {
   }
 }
 
-void xfer_sigusr2_ev(const void *event_data, void *user_data) {
+static void xfer_sigusr2_ev(const void *event_data, void *user_data) {
 
   if (pr_module_exists("mod_shaper.c")) {
     /* Only do this if we're currently involved in a data transfer.
@@ -4366,11 +4367,11 @@ static void xfer_timedout(const char *reason) {
   }
 }
 
-void xfer_timeout_session_ev(const void *event_data, void *user_data) {
+static void xfer_timeout_session_ev(const void *event_data, void *user_data) {
   xfer_timedout("session timeout");
 }
 
-void xfer_timeout_stalled_ev(const void *event_data, void *user_data) {
+static void xfer_timeout_stalled_ev(const void *event_data, void *user_data) {
   /* In this event handler, the "else" case, for a stalled transfer, will
    * be handled by the 'core.exit' event handler above.  For in that
    * scenario, a data transfer WILL have actually been in progress,
@@ -4412,18 +4413,15 @@ static int xfer_sess_init(void) {
   char *displayfilexfer = NULL;
 
   /* Exit handlers for HiddenStores cleanup */
-  pr_event_register(&xfer_module, "core.exit", xfer_exit_ev,
-                    cb_signatures[cb_xfer_exit_ev], NULL);
+  pr_event_register(&xfer_module, "core.exit", xfer_exit_ev, NULL);
   pr_event_register(&xfer_module, "core.session-reinit", xfer_sess_reinit_ev,
-                    cb_signatures[cb_xfer_sess_reinit_ev], NULL);
+    NULL);
   pr_event_register(&xfer_module, "core.signal.USR2", xfer_sigusr2_ev,
-                    cb_signatures[cb_xfer_sigusr2_ev], NULL);
+    NULL);
   pr_event_register(&xfer_module, "core.timeout-session",
-                    xfer_timeout_session_ev,
-                    cb_signatures[cb_xfer_timeout_session_ev], NULL);
+    xfer_timeout_session_ev, NULL);
   pr_event_register(&xfer_module, "core.timeout-stalled",
-                    xfer_timeout_stalled_ev,
-                    cb_signatures[cb_xfer_timeout_stalled_ev], NULL);
+    xfer_timeout_stalled_ev, NULL);
 
   have_type = FALSE;
 
@@ -4480,62 +4478,62 @@ static int xfer_sess_init(void) {
 /* Module API tables
  */
 
-conftable xfer_conftab[] = {
-  { "AllowOverwrite",		set_allowoverwrite, sig_set_allowoverwrite,		NULL },
-  { "AllowRetrieveRestart",	set_allowrestart, sig_set_allowrestart,		NULL },
-  { "AllowStoreRestart",	set_allowrestart, sig_set_allowrestart,		NULL },
-  { "DefaultTransferMode",	set_defaulttransfermode, sig_set_defaulttransfermode,	NULL },
-  { "DeleteAbortedStores",	set_deleteabortedstores, sig_set_deleteabortedstores,	NULL },
-  { "DisplayFileTransfer",	set_displayfiletransfer, sig_set_displayfiletransfer,	NULL },
-  { "HiddenStores",		set_hiddenstores, sig_set_hiddenstores,		NULL },
-  { "MaxRetrieveFileSize",	set_maxfilesize, sig_set_maxfilesize,		NULL },
-  { "MaxStoreFileSize",		set_maxfilesize, sig_set_maxfilesize,		NULL },
-  { "MaxTransfersPerHost",	set_maxtransfersperhost, sig_set_maxtransfersperhost,	NULL },
-  { "MaxTransfersPerUser",	set_maxtransfersperuser, sig_set_maxtransfersperuser,	NULL },
-  { "StoreUniquePrefix",	set_storeuniqueprefix, sig_set_storeuniqueprefix,		NULL },
-  { "TimeoutNoTransfer",	set_timeoutnoxfer, sig_set_timeoutnoxfer,		NULL },
-  { "TimeoutStalled",		set_timeoutstalled, sig_set_timeoutstalled,		NULL },
-  { "TransferOptions",		set_transferoptions, sig_set_transferoptions,		NULL },
-  { "TransferRate",		set_transferrate, sig_set_transferrate,		NULL },
-  { "UseSendfile",		set_usesendfile, sig_set_usesendfile,		NULL },
+static conftable xfer_conftab[] = {
+  { "AllowOverwrite",		set_allowoverwrite,		NULL },
+  { "AllowRetrieveRestart",	set_allowrestart,		NULL },
+  { "AllowStoreRestart",	set_allowrestart,		NULL },
+  { "DefaultTransferMode",	set_defaulttransfermode,	NULL },
+  { "DeleteAbortedStores",	set_deleteabortedstores,	NULL },
+  { "DisplayFileTransfer",	set_displayfiletransfer,	NULL },
+  { "HiddenStores",		set_hiddenstores,		NULL },
+  { "MaxRetrieveFileSize",	set_maxfilesize,		NULL },
+  { "MaxStoreFileSize",		set_maxfilesize,		NULL },
+  { "MaxTransfersPerHost",	set_maxtransfersperhost,	NULL },
+  { "MaxTransfersPerUser",	set_maxtransfersperuser,	NULL },
+  { "StoreUniquePrefix",	set_storeuniqueprefix,		NULL },
+  { "TimeoutNoTransfer",	set_timeoutnoxfer,		NULL },
+  { "TimeoutStalled",		set_timeoutstalled,		NULL },
+  { "TransferOptions",		set_transferoptions,		NULL },
+  { "TransferRate",		set_transferrate,		NULL },
+  { "UseSendfile",		set_usesendfile,		NULL },
 
   { NULL }
 };
 
-cmdtable xfer_cmdtab[] = {
-  { CMD,     C_TYPE,	G_NONE,	 xfer_type, sig_xfer_type,	FALSE,	FALSE, CL_MISC },
-  { CMD,     C_STRU,	G_NONE,	 xfer_stru, sig_xfer_stru,	TRUE,	FALSE, CL_MISC },
-  { CMD,     C_MODE,	G_NONE,	 xfer_mode, sig_xfer_mode,	TRUE,	FALSE, CL_MISC },
-  { POST_CMD,C_MODE,	G_NONE,  xfer_post_mode, sig_xfer_post_mode,FALSE,	FALSE },
-  { CMD,     C_ALLO,	G_NONE,	 xfer_allo, sig_xfer_allo,	TRUE,	FALSE, CL_MISC },
-  { CMD,     C_SMNT,	G_NONE,	 xfer_smnt, sig_xfer_smnt,	TRUE,	FALSE, CL_MISC },
-  { PRE_CMD, C_RETR,	G_READ,	 xfer_pre_retr, sig_xfer_pre_retr,	TRUE,	FALSE },
-  { CMD,     C_RETR,	G_READ,	 xfer_retr, sig_xfer_retr,	TRUE,	FALSE, CL_READ },
-  { POST_CMD,C_RETR,	G_NONE,  xfer_post_retr, sig_xfer_post_retr,FALSE,	FALSE },
-  { LOG_CMD, C_RETR,	G_NONE,	 xfer_log_retr, sig_xfer_log_retr,	FALSE,  FALSE },
-  { LOG_CMD_ERR, C_RETR,G_NONE,  xfer_err_cleanup, sig_xfer_err_cleanup,  FALSE,  FALSE },
-  { PRE_CMD, C_STOR,	G_WRITE, xfer_pre_stor, sig_xfer_pre_stor,	TRUE,	FALSE },
-  { CMD,     C_STOR,	G_WRITE, xfer_stor, sig_xfer_stor,	TRUE,	FALSE, CL_WRITE },
-  { POST_CMD,C_STOR,	G_NONE,  xfer_post_stor, sig_xfer_post_stor,FALSE,	FALSE },
-  { LOG_CMD, C_STOR,    G_NONE,	 xfer_log_stor, sig_xfer_log_stor,	FALSE,  FALSE },
-  { LOG_CMD_ERR, C_STOR,G_NONE,  xfer_err_cleanup, sig_xfer_err_cleanup,  FALSE,  FALSE },
-  { PRE_CMD, C_STOU,	G_WRITE, xfer_pre_stou, sig_xfer_pre_stou,	TRUE,	FALSE },
-  { CMD,     C_STOU,	G_WRITE, xfer_stor, sig_xfer_stor,	TRUE,	FALSE, CL_WRITE },
-  { POST_CMD,C_STOU,	G_WRITE, xfer_post_stou, sig_xfer_post_stou,FALSE,	FALSE },
-  { LOG_CMD, C_STOU,	G_NONE,  xfer_log_stor, sig_xfer_log_stor,	FALSE,	FALSE },
-  { LOG_CMD_ERR, C_STOU,G_NONE,  xfer_err_cleanup, sig_xfer_err_cleanup,  FALSE,  FALSE },
-  { PRE_CMD, C_APPE,	G_WRITE, xfer_pre_appe, sig_xfer_pre_appe,	TRUE,	FALSE },
-  { CMD,     C_APPE,	G_WRITE, xfer_stor, sig_xfer_stor,	TRUE,	FALSE, CL_WRITE },
-  { POST_CMD,C_APPE,	G_NONE,  xfer_post_stor, sig_xfer_post_stor,FALSE,	FALSE },
-  { LOG_CMD, C_APPE,	G_NONE,  xfer_log_stor, sig_xfer_log_stor,	FALSE,  FALSE },
-  { LOG_CMD_ERR, C_APPE,G_NONE,  xfer_err_cleanup, sig_xfer_err_cleanup,  FALSE,  FALSE },
-  { CMD,     C_ABOR,	G_NONE,	 xfer_abor, sig_xfer_abor,	TRUE,	TRUE,  CL_MISC  },
-  { LOG_CMD, C_ABOR,	G_NONE,	 xfer_log_abor, sig_xfer_log_abor,	TRUE,	TRUE,  CL_MISC  },
+static cmdtable xfer_cmdtab[] = {
+  { CMD,     C_TYPE,	G_NONE,	 xfer_type,	FALSE,	FALSE, CL_MISC },
+  { CMD,     C_STRU,	G_NONE,	 xfer_stru,	TRUE,	FALSE, CL_MISC },
+  { CMD,     C_MODE,	G_NONE,	 xfer_mode,	TRUE,	FALSE, CL_MISC },
+  { POST_CMD,C_MODE,	G_NONE,  xfer_post_mode,FALSE,	FALSE },
+  { CMD,     C_ALLO,	G_NONE,	 xfer_allo,	TRUE,	FALSE, CL_MISC },
+  { CMD,     C_SMNT,	G_NONE,	 xfer_smnt,	TRUE,	FALSE, CL_MISC },
+  { PRE_CMD, C_RETR,	G_READ,	 xfer_pre_retr,	TRUE,	FALSE },
+  { CMD,     C_RETR,	G_READ,	 xfer_retr,	TRUE,	FALSE, CL_READ },
+  { POST_CMD,C_RETR,	G_NONE,  xfer_post_retr,FALSE,	FALSE },
+  { LOG_CMD, C_RETR,	G_NONE,	 xfer_log_retr,	FALSE,  FALSE },
+  { LOG_CMD_ERR, C_RETR,G_NONE,  xfer_err_cleanup,  FALSE,  FALSE },
+  { PRE_CMD, C_STOR,	G_WRITE, xfer_pre_stor,	TRUE,	FALSE },
+  { CMD,     C_STOR,	G_WRITE, xfer_stor,	TRUE,	FALSE, CL_WRITE },
+  { POST_CMD,C_STOR,	G_NONE,  xfer_post_stor,FALSE,	FALSE },
+  { LOG_CMD, C_STOR,    G_NONE,	 xfer_log_stor,	FALSE,  FALSE },
+  { LOG_CMD_ERR, C_STOR,G_NONE,  xfer_err_cleanup,  FALSE,  FALSE },
+  { PRE_CMD, C_STOU,	G_WRITE, xfer_pre_stou,	TRUE,	FALSE },
+  { CMD,     C_STOU,	G_WRITE, xfer_stor,	TRUE,	FALSE, CL_WRITE },
+  { POST_CMD,C_STOU,	G_WRITE, xfer_post_stou,FALSE,	FALSE },
+  { LOG_CMD, C_STOU,	G_NONE,  xfer_log_stor,	FALSE,	FALSE },
+  { LOG_CMD_ERR, C_STOU,G_NONE,  xfer_err_cleanup,  FALSE,  FALSE },
+  { PRE_CMD, C_APPE,	G_WRITE, xfer_pre_appe,	TRUE,	FALSE },
+  { CMD,     C_APPE,	G_WRITE, xfer_stor,	TRUE,	FALSE, CL_WRITE },
+  { POST_CMD,C_APPE,	G_NONE,  xfer_post_stor,FALSE,	FALSE },
+  { LOG_CMD, C_APPE,	G_NONE,  xfer_log_stor,	FALSE,  FALSE },
+  { LOG_CMD_ERR, C_APPE,G_NONE,  xfer_err_cleanup,  FALSE,  FALSE },
+  { CMD,     C_ABOR,	G_NONE,	 xfer_abor,	TRUE,	TRUE,  CL_MISC  },
+  { LOG_CMD, C_ABOR,	G_NONE,	 xfer_log_abor,	TRUE,	TRUE,  CL_MISC  },
   { CMD,     C_OPTS "_REST", G_NONE, xfer_opts_rest, FALSE, FALSE },
-  { CMD,     C_REST,	G_NONE,	 xfer_rest, sig_xfer_rest,	TRUE,	FALSE, CL_MISC  },
-  { CMD,     C_RANG,	G_NONE,	 xfer_rang, sig_xfer_rang,	TRUE,	FALSE, CL_MISC  },
-  { POST_CMD,C_PROT,	G_NONE,  xfer_post_prot, sig_xfer_post_prot,	FALSE,	FALSE },
-  { POST_CMD,C_PASS,	G_NONE,	 xfer_post_pass, sig_xfer_post_pass,	FALSE, FALSE },
+  { CMD,     C_REST,	G_NONE,	 xfer_rest,	TRUE,	FALSE, CL_MISC  },
+  { CMD,     C_RANG,	G_NONE,	 xfer_rang,	TRUE,	FALSE, CL_MISC  },
+  { POST_CMD,C_PROT,	G_NONE,  xfer_post_prot,	FALSE,	FALSE },
+  { POST_CMD,C_PASS,	G_NONE,	 xfer_post_pass,	FALSE, FALSE },
   { 0, NULL }
 };
 

@@ -325,14 +325,14 @@ unsigned char dir_hide_file(const char *path) {
   return FALSE;	
 }
 
-void define_restart_ev(const void *event_data, void *user_data) {
+static void define_restart_ev(const void *event_data, void *user_data) {
   if (defines_pool != NULL) {
     destroy_pool(defines_pool);
     defines_pool = NULL;
     defines_list = NULL;
   }
 
-  pr_event_unregister(NULL, "core.restart", define_restart_ev, cb_signatures[cb_define_restart_ev]);
+  pr_event_unregister(NULL, "core.restart", define_restart_ev);
 }
 
 /* The 'survive_restarts' boolean indicates whether this Define is to be
@@ -354,8 +354,7 @@ int pr_define_add(const char *definition, int survive_restarts) {
     if (defines_pool == NULL) {
       defines_pool = make_sub_pool(permanent_pool);
       pr_pool_tag(defines_pool, "Defines Pool");
-      pr_event_register(NULL, "core.restart", define_restart_ev, cb_signatures[cb_define_restart_ev], 
-NULL);
+      pr_event_register(NULL, "core.restart", define_restart_ev, NULL);
     }
 
     if (!defines_list) {
@@ -2302,8 +2301,7 @@ static void reorder_dirs(xaset_t *set, int flags) {
 }
 
 #ifdef PR_USE_DEVEL
-void pr_dirs_dump(void (*dumpf)(const char *, ...),
-int dumpf_signature, xaset_t *s, char *indent) {
+void pr_dirs_dump(void (*dumpf)(const char *, ...), xaset_t *s, char *indent) {
   config_rec *c;
 
   if (s == NULL) {
@@ -2321,29 +2319,10 @@ int dumpf_signature, xaset_t *s, char *indent) {
       continue;
     }
 
-    // fp(args);
-    if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-      NULL;
-    }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-    //     event_dump("%s<Directory %s>", indent, c->name);
-    //   }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-    //     stash_dump("%s<Directory %s>", indent, c->name);
-    //   }
-    else
-      if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-        statcache_dumpf("%s<Directory %s>", indent, c->name);
-      }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-    //     table_dump("%s<Directory %s>", indent, c->name);
-    //   }
+    dumpf("%s<Directory %s>", indent, c->name);
 
     if (c->subset) {
-      pr_dirs_dump(dumpf, dumpf_signature, c->subset, pstrcat(c->pool, indent, " ", NULL));
+      pr_dirs_dump(dumpf, c->subset, pstrcat(c->pool, indent, " ", NULL));
     }
   }
 
@@ -2556,7 +2535,7 @@ void fixup_dirs(server_rec *s, int flags) {
   if (!(flags & CF_SILENT)) {
     pr_log_debug(DEBUG5, "%s", "");
     pr_log_debug(DEBUG5, "Config for %s:", s->ServerName);
-    pr_config_dump(NULL, dumpf_signatures[dumpf_NULL], s->conf, NULL);
+    pr_config_dump(NULL, s->conf, NULL);
   }
 }
 

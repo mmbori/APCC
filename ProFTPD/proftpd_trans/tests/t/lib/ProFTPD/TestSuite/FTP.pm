@@ -299,6 +299,77 @@ sub pass {
   }
 }
 
+sub acct {
+  my $self = shift;
+  my $code;
+
+  $code = $self->{ftp}->quot('ACCT');
+  unless ($code) {
+    croak("ACCT command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  if ($code == 4 || $code == 5) {
+    croak("ACCT command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  my $msg = $self->response_msg();
+  if (wantarray()) {
+    return ($self->{ftp}->code, $msg);
+  }
+
+  return $msg;
+}
+
+sub rein {
+  my $self = shift;
+  my $code;
+
+  $code = $self->{ftp}->quot('REIN');
+  unless ($code) {
+    croak("REIN command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  if ($code == 4 || $code == 5) {
+    croak("REIN command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  my $msg = $self->response_msg();
+  if (wantarray()) {
+    return ($self->{ftp}->code, $msg);
+  }
+
+  return $msg;
+}
+
+sub smnt {
+  my $self = shift;
+  my $arg = shift;
+  $arg = '' unless $arg;
+  my $code;
+
+  $code = $self->{ftp}->quot('SMNT', $arg);
+  unless ($code) {
+    croak("SMNT command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  if ($code == 4 || $code == 5) {
+    croak("SMNT command failed: " .  $self->{ftp}->code . ' ' .
+      $self->response_msg());
+  }
+
+  my $msg = $self->response_msg();
+  if (wantarray()) {
+    return ($self->{ftp}->code, $msg);
+  }
+
+  return $msg;
+}
+
 sub pwd {
   my $self = shift;
 

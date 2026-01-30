@@ -343,7 +343,7 @@ static int set_conn_options(pr_redis_t *redis) {
   return 0;
 }
 
-void sess_redis_cleanup(void *data) {
+static void sess_redis_cleanup(void *data) {
   sess_redis = NULL;
 }
 
@@ -655,9 +655,7 @@ pr_redis_t *pr_redis_conn_new(pool *p, module *m, unsigned long flags) {
     /* Register a cleanup on this redis, so that when it is destroyed, we
      * clear this sess_redis pointer, lest it remaining dangling.
      */
-    register_cleanup2(redis->pool, NULL,
-                      sess_redis_cleanup,
-                      cleanup_cb_signatures[cleanup_cb_sess_redis_cleanup]);
+    register_cleanup2(redis->pool, NULL, sess_redis_cleanup);
   }
 
   return redis;

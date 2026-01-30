@@ -1,1 +1,0 @@
-void digest_data_xfer_ev(const void *event_data , void *user_data);

@@ -129,7 +129,6 @@ int sftp_ssh2_packet_set_poll_timeout(int);
 int sftp_ssh2_packet_set_version(const char *);
 
 int sftp_ssh2_packet_set_client_alive(unsigned int, unsigned int);
-void sftp_ssh2_packet_set_handler(int (*handler)(void *),
-int handler_signature);
+void sftp_ssh2_packet_set_handler(int (*handler)(void *));
 
 #endif /* MOD_SFTP_PACKET_H */

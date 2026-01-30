@@ -139,7 +139,7 @@ void *get_param_ptr(xaset_t *, const char *, int);
 void *get_param_ptr_next(const char *, int);
 
 void pr_config_merge_down(xaset_t *, int);
-void pr_config_dump(void (*)(const char *, ...), int, xaset_t *, char *);
+void pr_config_dump(void (*)(const char *, ...), xaset_t *, char *);
 
 /* Internal use only. */
 void init_config(void);

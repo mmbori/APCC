@@ -1,1 +1,0 @@
-void sftp_cmd_loop(server_rec *s , conn_t *conn);

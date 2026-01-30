@@ -79,11 +79,11 @@ typedef void (tpl_free_fcn)(void *ptr);
 typedef void (tpl_fatal_fcn)(char *fmt, ...);
 
 typedef struct tpl_hook_t {
-    tpl_print_fcn *oops;
-    tpl_malloc_fcn *malloc;
-    tpl_realloc_fcn *realloc;
-    tpl_free_fcn *free;
-    tpl_fatal_fcn *fatal;
+    int (*oops)(const char *fmt, ...);
+    void * (*malloc)(size_t sz);
+    void * (*realloc)(void *ptr, size_t sz);
+    void (*free)(void *ptr);
+    void (*fatal)(char *fmt, ...);
     size_t gather_max;
 } tpl_hook_t;
 

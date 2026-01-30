@@ -427,7 +427,7 @@ static modret_t *dispatch_auth(cmd_rec *cmd, char *match, module **m) {
       "dispatching auth request \"%s\" to module mod_%s",
       match, iter_tab->m->name);
 
-    mr = pr_module_call(iter_tab->m, iter_tab->handler, iter_tab->handler_signature, cmd);
+    mr = pr_module_call(iter_tab->m, iter_tab->handler, cmd);
 
     /* Return a pointer, if requested, to the module which answered the
      * auth request.  This is used, for example, by auth_getpwnam() for

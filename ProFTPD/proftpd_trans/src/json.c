@@ -26,8 +26,6 @@
 
 #include "json.h"
 #include "ccan-json.h"
-#include "conf.h"
-#include "proftpd_signatures_header.h"
 
 struct json_list_st {
   pool *pool;
@@ -464,8 +462,7 @@ static int set_member(pool *p, pr_json_object_t *json, const char *key,
 
 int pr_json_object_foreach(pool *p, const pr_json_object_t *json,
     int (*cb)(const char *key, int val_type, const void *val, size_t valsz,
-    void *cb_data),
-    int cb_signature, void *user_data) {
+    void *cb_data), void *user_data) {
   JsonNode *iter;
 
   if (p == NULL ||
@@ -543,7 +540,7 @@ int pr_json_object_foreach(pool *p, const pr_json_object_t *json,
         break;
     }
 
-    // res = (cb)(iter->key, val_type, val, valsz, user_data);
+    res = (cb)(iter->key, val_type, val, valsz, user_data);
     xerrno = errno;
 
     switch (val_type) {
@@ -721,7 +718,6 @@ int pr_json_array_free(pr_json_array_t *json) {
 
 int pr_json_array_foreach(pool *p, const pr_json_array_t *json,
     int (*cb)(int val_type, const void *val, size_t valsz, void *cb_data),
-    int cb_signature,
     void *user_data) {
   JsonNode *iter;
 
@@ -800,7 +796,7 @@ int pr_json_array_foreach(pool *p, const pr_json_array_t *json,
         break;
     }
 
-    // res = (cb)(val_type, val, valsz, user_data);
+    res = (cb)(val_type, val, valsz, user_data);
     xerrno = errno;
 
     switch (val_type) {
@@ -1138,19 +1134,19 @@ const char *pr_json_type_name(unsigned int json_type) {
   return name;
 }
 
-void json_oom(void) {
+static void json_oom(void) {
   pr_log_pri(PR_LOG_ALERT, "%s", "Out of memory!");
   exit(1);
 }
 
 
 int init_json(void) {
-  // json_set_oom(json_oom, oom_signatures[oom_json_oom]);
+  json_set_oom(json_oom);
   return 0;
 }
 
 int finish_json(void) {
-  // json_set_oom(NULL, oom_signatures[oom_NULL]);
+  json_set_oom(NULL);
   return 0;
 }
 

@@ -41,8 +41,7 @@
  * of it.
  */
 int pr_event_register(module *m, const char *event,
-  void (*cb)(const void *, void *),
-  int cb_signature, void *user_data);
+  void (*cb)(const void *, void *), void *user_data);
 
 /* Remove the given event handler from the event registration lists.  The
  * return value is zero if successful, and -1 if there was an error (in
@@ -68,8 +67,7 @@ int pr_event_register(module *m, const char *event,
  *  pr_event_unregister(&my_module, NULL, NULL);
  */
 int pr_event_unregister(module *m, const char *event,
-  void (*cb)(const void *, void *),
-  int cb_signature);
+  void (*cb)(const void *, void *));
 
 /* Generate an event.  The named event is dispatched to any handlers that
  * have registered an interest in handling this event.  Any event-specific
@@ -83,6 +81,6 @@ void pr_event_generate(const char *event, const void *event_data);
 int pr_event_listening(const char *event);
 
 /* Dump Events information. */
-void pr_event_dump(void (*)(const char *, ...), int);
+void pr_event_dump(void (*)(const char *, ...));
 
 #endif /* PR_EVENT_H */

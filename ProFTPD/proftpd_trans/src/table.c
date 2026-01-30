@@ -25,7 +25,6 @@
 /* Table API implementation */
 
 #include "conf.h"
-#include "proftpd_signatures_header.h"
 
 #ifdef PR_USE_OPENSSL
 #include <openssl/rand.h>
@@ -91,11 +90,6 @@ struct table_rec {
   unsigned int (*keyhash)(const void *, size_t);
   void (*entinsert)(pr_table_entry_t **, pr_table_entry_t *);
   void (*entremove)(pr_table_entry_t **, pr_table_entry_t *);
-
-  int keycmp_signature;
-  int keyhash_signature;
-  int entinsert_signature;
-  int entremove_signature;
 };
 
 static int handling_signal = FALSE;
@@ -105,7 +99,8 @@ static const char *trace_channel = "table";
 /* Default table callbacks
  */
 
-int key_cmp(const void *key1, size_t keysz1, const void *key2, size_t keysz2) {
+static int key_cmp(const void *key1, size_t keysz1, const void *key2,
+    size_t keysz2) {
   const char *k1, *k2;
 
   if (keysz1 != keysz2) {
@@ -140,7 +135,7 @@ int key_cmp(const void *key1, size_t keysz1, const void *key2, size_t keysz2) {
  *
  *  http://www.perl.com/pub/2002/10/01/hashes.html
  */
-unsigned int key_hash(const void *key, size_t keysz) {
+static unsigned int key_hash(const void *key, size_t keysz) {
   unsigned int i = 0;
   size_t sz = !keysz ? strlen((const char *) key) : keysz;
 
@@ -164,7 +159,7 @@ unsigned int key_hash(const void *key, size_t keysz) {
 /* Default insertion is simply to add the given entry to the end of the
  * chain.
  */
-void entry_insert(pr_table_entry_t **h, pr_table_entry_t *e) {
+static void entry_insert(pr_table_entry_t **h, pr_table_entry_t *e) {
   pr_table_entry_t *ei;
 
   if (*h == NULL) {
@@ -180,7 +175,7 @@ void entry_insert(pr_table_entry_t **h, pr_table_entry_t *e) {
 }
 
 /* Default removal is simply to remove the entry from the chain. */
-void entry_remove(pr_table_entry_t **h, pr_table_entry_t *e) {
+static void entry_remove(pr_table_entry_t **h, pr_table_entry_t *e) {
 
   if (e->next) {
     e->next->prev = e->prev;
@@ -297,8 +292,7 @@ static void tab_entry_insert(pr_table_t *tab, pr_table_entry_t *e) {
      * the given entry.  There is an edge case when the entry being added
      * is the head of a new chain.
      */
-    // E->FP_NAME(args);
-    entry_insert(&h, e);
+    tab->entinsert(&h, e);
     tab->chains[e->idx] = h;
   }
 
@@ -349,8 +343,7 @@ static void tab_entry_remove(pr_table_t *tab, pr_table_entry_t *e) {
   pr_table_entry_t *h = NULL;
 
   h = tab->chains[e->idx];
-  // E->FP_NAME(args);
-  entry_remove(&h, e);
+  tab->entremove(&h, e);
   tab->chains[e->idx] = h;
 
   e->key->nents--;
@@ -417,7 +410,7 @@ int pr_table_kadd(pr_table_t *tab, const void *key_data, size_t key_datasz,
   }
 
   /* Don't forget to add in the random seed data. */
-  h = key_hash(key_data, key_datasz) + tab->seed;
+  h = tab->keyhash(key_data, key_datasz) + tab->seed;
 
   /* The index of the chain to use is the hash value modulo the number
    * of chains.
@@ -449,7 +442,7 @@ int pr_table_kadd(pr_table_t *tab, const void *key_data, size_t key_datasz,
        * is identical.  If so, we have multiple values for the same key.
        */
 
-      if (key_cmp(ei->key->key_data, ei->key->key_datasz,
+      if (tab->keycmp(ei->key->key_data, ei->key->key_datasz,
           key_data, key_datasz) == 0) {
 
         /* Check if this table allows multivalues. */
@@ -513,7 +506,7 @@ int pr_table_kexists(pr_table_t *tab, const void *key_data, size_t key_datasz) {
   }
 
   /* Don't forget to add in the random seed data. */
-  h = key_hash(key_data, key_datasz) + tab->seed;
+  h = tab->keyhash(key_data, key_datasz) + tab->seed;
 
   idx = h % tab->nchains;
   head = tab->chains[idx];
@@ -529,7 +522,7 @@ int pr_table_kexists(pr_table_t *tab, const void *key_data, size_t key_datasz) {
     }
 
     /* Matching hashes.  Now to see if the keys themselves match. */
-    if (key_cmp(ent->key->key_data, ent->key->key_datasz,
+    if (tab->keycmp(ent->key->key_data, ent->key->key_datasz,
         key_data, key_datasz) == 0) {
 
       if (tab->flags & PR_TABLE_FL_USE_CACHE) {
@@ -574,7 +567,7 @@ const void *pr_table_kget(pr_table_t *tab, const void *key_data,
   }
 
   /* Don't forget to add in the random seed data. */
-  h = key_hash(key_data, key_datasz) + tab->seed;
+  h = tab->keyhash(key_data, key_datasz) + tab->seed;
 
   /* Has the caller already looked up this same key previously?
    * If so, continue the lookup where we left off.  In this case,
@@ -611,7 +604,7 @@ const void *pr_table_kget(pr_table_t *tab, const void *key_data,
     }
 
     /* Matching hashes.  Now to see if the keys themselves match. */
-    if (key_cmp(ent->key->key_data, ent->key->key_datasz,
+    if (tab->keycmp(ent->key->key_data, ent->key->key_datasz,
         key_data, key_datasz) == 0) {
 
       if (tab->flags & PR_TABLE_FL_USE_CACHE) {
@@ -675,7 +668,7 @@ const void *pr_table_kremove(pr_table_t *tab, const void *key_data,
   }
 
   /* Don't forget to add in the random seed data. */
-  h = key_hash(key_data, key_datasz) + tab->seed;
+  h = tab->keyhash(key_data, key_datasz) + tab->seed;
 
   idx = h % tab->nchains;
   head = tab->chains[idx];
@@ -693,7 +686,7 @@ const void *pr_table_kremove(pr_table_t *tab, const void *key_data,
     }
 
     /* Matching hashes.  Now to see if the keys themselves match. */
-    if (key_cmp(ent->key->key_data, ent->key->key_datasz,
+    if (tab->keycmp(ent->key->key_data, ent->key->key_datasz,
         key_data, key_datasz) == 0) {
       const void *value_data;
 
@@ -736,7 +729,7 @@ int pr_table_kset(pr_table_t *tab, const void *key_data, size_t key_datasz,
   }
 
   /* Don't forget to add in the random seed data. */
-  h = key_hash(key_data, key_datasz) + tab->seed;
+  h = tab->keyhash(key_data, key_datasz) + tab->seed;
 
   /* Has the caller already looked up this same key previously?
    * If so, continue the lookup where we left off.  In this case,
@@ -773,7 +766,7 @@ int pr_table_kset(pr_table_t *tab, const void *key_data, size_t key_datasz,
     }
 
     /* Matching hashes.  Now to see if the keys themselves match. */
-    if (key_cmp(ent->key->key_data, ent->key->key_datasz,
+    if (tab->keycmp(ent->key->key_data, ent->key->key_datasz,
         key_data, key_datasz) == 0) {
 
       if (ent->value_data == value_data) {
@@ -872,13 +865,9 @@ pr_table_t *pr_table_nalloc(pool *p, int flags, unsigned int nchains) {
     sizeof(pr_table_entry_t *) * tab->nchains);
 
   tab->keycmp = key_cmp;
-  tab->keycmp_signature = keycmp_signatures[keycmp_key_cmp];
   tab->keyhash = key_hash;
-  tab->keyhash_signature = keyhash_signatures[keyhash_key_hash];
   tab->entinsert = entry_insert;
-  tab->entinsert_signature = entinsert_signatures[entinsert_entry_insert];
   tab->entremove = entry_remove;
-  tab->entremove_signature = entremove_signatures[entremove_entry_remove];
 
   tab->seed = tab_get_seed();
   tab->nmaxents = PR_TABLE_DEFAULT_MAX_ENTS;
@@ -901,8 +890,7 @@ int pr_table_count(pr_table_t *tab) {
 
 int pr_table_do(pr_table_t *tab, int (*cb)(const void *key_data,
     size_t key_datasz, const void *value_data, size_t value_datasz,
-    void *user_data),
-    int cb_signature, void *user_data, int flags) {
+    void *user_data), void *user_data, int flags) {
   register unsigned int i;
 
   if (tab == NULL ||
@@ -929,32 +917,8 @@ int pr_table_do(pr_table_t *tab, int (*cb)(const void *key_data,
         pr_signals_handle();
       }
 
-      // E = fp(args);
-      if (cb_signature == cb_signatures[cb_NULL]) {
-        res = NULL;
-      }
-      // else
-      //   if (cb_signature == cb_signatures[cb_do_cb]) {
-      //     res = do_cb(ent->key->key_data, ent->key->key_datasz,
-      //                 ent->value_data, ent->value_datasz, user_data);
-      //   }
-      // else
-      //   if (cb_signature == cb_signatures[cb_do_with_remove_cb]) {
-      //     res = do_with_remove_cb(ent->key->key_data, ent->key->key_datasz,
-      //                             ent->value_data, ent->value_datasz,
-      //                             user_data);
-      //   }
-      // else
-      //   if (cb_signature == cb_signatures[cb_fxp_handle_abort]) {
-      //     res = fxp_handle_abort(ent->key->key_data, ent->key->key_datasz,
-      //                            ent->value_data, ent->value_datasz,
-      //                            user_data);
-      //   }
-      else
-        if (cb_signature == cb_signatures[cb_tab_copy_cb]) {
-          res = tab_copy_cb(ent->key->key_data, ent->key->key_datasz,
-                            ent->value_data, ent->value_datasz, user_data);
-        }
+      res = cb(ent->key->key_data, ent->key->key_datasz, ent->value_data,
+        ent->value_datasz, user_data);
       if (res < 0 &&
           !(flags & PR_TABLE_DO_FL_ALL)) {
         errno = EPERM;
@@ -1260,8 +1224,8 @@ float pr_table_load(pr_table_t *tab) {
   return load_factor;
 }
 
-int tab_copy_cb(const void *key_data, size_t key_datasz,
-                const void *value_data, size_t value_datasz, void *user_data) {
+static int tab_copy_cb(const void *key_data, size_t key_datasz,
+    const void *value_data, size_t value_datasz, void *user_data) {
   int res;
   pr_table_t *dst_tab;
 
@@ -1292,13 +1256,11 @@ int pr_table_copy(pr_table_t *dst_tab, pr_table_t *src_tab, int flags) {
   /* Future flags may support a DEEP_COPY flag, which would use the
    * dst_tab->pool.
    */
-  res = pr_table_do(src_tab, tab_copy_cb, cb_signatures[cb_tab_copy_cb],
-                    dst_tab, PR_TABLE_DO_FL_ALL);
+  res = pr_table_do(src_tab, tab_copy_cb, dst_tab, PR_TABLE_DO_FL_ALL);
   return res;
 }
 
-void pr_table_dump(void (*dumpf)(const char *fmt, ...),
-int dumpf_signature, pr_table_t *tab) {
+void pr_table_dump(void (*dumpf)(const char *fmt, ...), pr_table_t *tab) {
   register unsigned int i;
 
   if (tab == NULL) {
@@ -1310,105 +1272,30 @@ int dumpf_signature, pr_table_t *tab) {
   }
 
   if (tab->flags == 0) {
-    // fp(args);
-    if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-      NULL;
-    }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-    //     event_dump("%s", "[table flags]: None");
-    //   }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_stash_dump]) {
-    //     stash_dump("%s", "[table flags]: None");
-    //   }
-    else
-      if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-        statcache_dumpf("%s", "[table flags]: None");
-      }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-    //     table_dump("%s", "[table flags]: None");
-    //   }
-  
+    dumpf("%s", "[table flags]: None");
 
   } else {
     if ((tab->flags & PR_TABLE_FL_MULTI_VALUE) &&
         (tab->flags & PR_TABLE_FL_USE_CACHE)) {
-      // fp(args);
-      if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-        NULL;
-      }
-      else
-        if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-          statcache_dumpf("%s", "[table flags]: MultiValue, UseCache");
-        }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-      //     table_dump("%s", "[table flags]: MultiValue, UseCache");
-      //   }
+      dumpf("%s", "[table flags]: MultiValue, UseCache");
 
     } else {
       if (tab->flags & PR_TABLE_FL_MULTI_VALUE) {
-        // fp(args);
-        if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-          NULL;
-        }
-        else
-          if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-            statcache_dumpf("%s", "[table flags]: MultiValue");
-          }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-        //     table_dump("%s", "[table flags]: MultiValue");
-        //   }
+        dumpf("%s", "[table flags]: MultiValue");
       }
 
       if (tab->flags & PR_TABLE_FL_USE_CACHE) {
-        // fp(args);
-        if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-          NULL;
-        }
-        else
-          if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-            statcache_dumpf("%s", "[table flags]: UseCache");
-          }
-        // else
-        //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-        //     table_dump("%s", "[table flags]: UseCache");
-        //   }
+        dumpf("%s", "[table flags]: UseCache");
       }
     }
   }
 
   if (tab->nents == 0) {
-    // fp(args);
-    if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-      NULL;
-    }
-    else
-      if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-        statcache_dumpf("[empty table]");
-      }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-    //     table_dump("[empty table]");
-    //   }
+    dumpf("[empty table]");
     return;
   }
 
-  // fp(args);
-  if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-    NULL;
-  }
-  else
-    if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-      statcache_dumpf("[table count]: %u", tab->nents);
-    }
-  // else
-  //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-  //     table_dump("[table count]: %u", tab->nents);
-  //   }
+  dumpf("[table count]: %u", tab->nents);
   for (i = 0; i < tab->nchains; i++) {
     register unsigned int j = 0;
     pr_table_entry_t *ent = tab->chains[i];
@@ -1418,23 +1305,9 @@ int dumpf_signature, pr_table_t *tab) {
         pr_signals_handle();
       }
 
-      // fp(args);
-      if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-        NULL;
-      }
-      else
-        if (dumpf_signature == dumpf_signatures[dumpf_statcache_dumpf]) {
-          statcache_dumpf("[hash %u (%u chains) chain %u#%u] '%s' => '%s' (%u)",
-                          ent->key->hash, tab->nchains, i, j++,
-                          ent->key->key_data, ent->value_data,
-                          ent->value_datasz);
-        }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_table_dump]) {
-      //     table_dump("[hash %u (%u chains) chain %u#%u] '%s' => '%s' (%u)",
-      //                ent->key->hash, tab->nchains, i, j++, ent->key->key_data,
-      //                ent->value_data, ent->value_datasz);
-      //   }
+      dumpf("[hash %u (%u chains) chain %u#%u] '%s' => '%s' (%u)",
+        ent->key->hash, tab->nchains, i, j++, ent->key->key_data,
+        ent->value_data, ent->value_datasz);
       ent = ent->next;
     }
   }

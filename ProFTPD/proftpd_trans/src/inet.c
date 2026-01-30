@@ -90,7 +90,7 @@ int pr_inet_getservport(pool *p, const char *serv, const char *proto) {
   return ntohs(servent->s_port);
 }
 
-void conn_cleanup_cb(void *cv) {
+static void conn_cleanup_cb(void *cv) {
   conn_t *c = (conn_t *) cv;
 
   /* XXX These closes' return values should be checked, ideally. Do
@@ -186,8 +186,7 @@ conn_t *pr_inet_copy_conn(pool *p, conn_t *c) {
 
   res->use_nodelay = c->use_nodelay;
 
-  register_cleanup2(res->pool, (void *)res, conn_cleanup_cb,
-                    cleanup_cb_signatures[cleanup_cb_conn_cleanup_cb]);
+  register_cleanup2(res->pool, (void *) res, conn_cleanup_cb);
   return res;
 }
 
@@ -579,8 +578,7 @@ static conn_t *init_conn(pool *p, int fd, const pr_netaddr_t *bind_addr,
   }
 
   c->listen_fd = fd;
-  register_cleanup2(c->pool, (void *)c, conn_cleanup_cb,
-                    cleanup_cb_signatures[cleanup_cb_conn_cleanup_cb]);
+  register_cleanup2(c->pool, (void *) c, conn_cleanup_cb);
 
   pr_trace_msg("binding", 4, "bound address %s, port %d to socket fd %d",
     pr_netaddr_get_ipstr(&na), c->local_port, fd);

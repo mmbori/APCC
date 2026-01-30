@@ -1,1 +1,0 @@
-int sql_resolve_on_default(pool *p , pr_jot_ctx_t *jot_ctx , unsigned char logfmt_id);

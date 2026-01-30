@@ -249,9 +249,6 @@ typedef struct kbdint_st {
    */
   int (*close)(struct kbdint_st *driver);
 
-
-  int open_signature;
-  int close_signature;
 } sftp_kbdint_driver_t;
 
 int sftp_kbdint_register_driver(const char *name, sftp_kbdint_driver_t *driver);
@@ -326,15 +323,10 @@ const char *sftp_crypto_get_errors(void);
  */
 int sftp_channel_register_exec_handler(module *, const char *,
   int (*set_params)(pool *, uint32_t, array_header *),
-  int set_params_signature,
   int (*prep_chan)(uint32_t),
-  int prep_chan_signature,
   int (*postopen_chan)(uint32_t),
-  int postopen_chan_signature,
   int (*handle_pkt)(pool *, void *, uint32_t, unsigned char *, uint32_t),
-  int handle_pkt_signature,
   int (*finish_chan)(uint32_t),
-  int finish_chan_signature,
   int (**write_data)(pool *, uint32_t, unsigned char *, uint32_t));
 
 #endif

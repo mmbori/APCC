@@ -800,7 +800,7 @@ static int rlimit_set_memory(int scope) {
 
 /* Event listeners */
 
-void rlimit_chroot_ev(const void *event_data, void *user_data) {
+static void rlimit_chroot_ev(const void *event_data, void *user_data) {
   const char *path;
   size_t path_len;
 
@@ -816,7 +816,7 @@ void rlimit_chroot_ev(const void *event_data, void *user_data) {
   }
 }
 
-void rlimit_postparse_ev(const void *event_data, void *user_data) {
+static void rlimit_postparse_ev(const void *event_data, void *user_data) {
   /* Since we're the parent process, we do not want to set the process
    * resource limits; we would prevent future session processes.
    */
@@ -830,7 +830,7 @@ void rlimit_postparse_ev(const void *event_data, void *user_data) {
 /* Module initialization */
 static int rlimit_init(void) {
   pr_event_register(&rlimit_module, "core.postparse", rlimit_postparse_ev,
-                    cb_signatures[cb_rlimit_postparse_ev], NULL);
+    NULL);
 
   return 0;
 }
@@ -853,8 +853,7 @@ static int rlimit_sess_init(void) {
      * can set the switch (if necessary) for guarding against attacks like
      * "Roaring Beast" when we are chrooted.
      */
-    pr_event_register(&rlimit_module, "core.chroot", rlimit_chroot_ev,
-                      cb_signatures[cb_rlimit_chroot_ev], NULL);
+    pr_event_register(&rlimit_module, "core.chroot", rlimit_chroot_ev, NULL);
   }
 
   return 0;
@@ -863,17 +862,17 @@ static int rlimit_sess_init(void) {
 /* Module API tables
  */
 
-conftable rlimit_conftab[] = {
-  { "RLimitChroot",		set_rlimitchroot, sig_set_rlimitchroot,		NULL },
-  { "RLimitCPU",		set_rlimitcpu, sig_set_rlimitcpu,			NULL },
-  { "RLimitMemory",		set_rlimitmemory, sig_set_rlimitmemory,		NULL },
-  { "RLimitOpenFiles",		set_rlimitopenfiles, sig_set_rlimitopenfiles,		NULL },
+static conftable rlimit_conftab[] = {
+  { "RLimitChroot",		set_rlimitchroot,		NULL },
+  { "RLimitCPU",		set_rlimitcpu,			NULL },
+  { "RLimitMemory",		set_rlimitmemory,		NULL },
+  { "RLimitOpenFiles",		set_rlimitopenfiles,		NULL },
 
   { NULL, NULL, NULL }
 };
 
-cmdtable rlimit_cmdtab[] = {
-  { POST_CMD,	C_PASS,	G_NONE,	rlimit_post_pass, sig_rlimit_post_pass, FALSE, FALSE,	CL_AUTH },
+static cmdtable rlimit_cmdtab[] = {
+  { POST_CMD,	C_PASS,	G_NONE,	rlimit_post_pass, FALSE, FALSE,	CL_AUTH },
   { 0, NULL }
 };
 

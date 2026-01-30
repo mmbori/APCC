@@ -170,11 +170,11 @@ static void regexp_cleanup(void) {
   }
 }
 
-void regexp_exit_ev(const void *event_data, void *user_data) {
+static void regexp_exit_ev(const void *event_data, void *user_data) {
   regexp_cleanup();
 }
 
-void regexp_restart_ev(const void *event_data, void *user_data) {
+static void regexp_restart_ev(const void *event_data, void *user_data) {
   regexp_cleanup();
 }
 
@@ -973,8 +973,8 @@ void init_regexp(void) {
    *
    * This registration is done here so that it only happens once.
    */
-  pr_event_register(NULL, "core.restart", regexp_restart_ev, cb_signatures[cb_regexp_restart_ev], NULL);
-  pr_event_register(NULL, "core.exit", regexp_exit_ev, cb_signatures[cb_regexp_exit_ev], NULL);
+  pr_event_register(NULL, "core.restart", regexp_restart_ev, NULL);
+  pr_event_register(NULL, "core.exit", regexp_exit_ev, NULL);
 
 #if defined(PR_USE_PCRE2)
   pr_log_debug(DEBUG2, "using PCRE2 %d.%d", PCRE2_MAJOR, PCRE2_MINOR);

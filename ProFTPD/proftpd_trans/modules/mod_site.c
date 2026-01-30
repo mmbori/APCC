@@ -1,7 +1,7 @@
 /*
  * ProFTPD - FTP server daemon
  * Copyright (c) 1997, 1998 Public Flood Software
- * Copyright (c) 2001-2021 The ProFTPD Project team
+ * Copyright (c) 2001-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -517,7 +517,9 @@ MODRET site_help(cmd_rec *cmd) {
 
     arg = cmd->argv[1];
     for (cp = arg; *cp; cp++) {
-      *cp = toupper((int) *cp);
+      if (PR_ISALPHA((int) *cp)) {
+        *cp = toupper((int) *cp);
+      }
     }
 
     for (i = 0; _help[i].cmd; i++) {
@@ -541,10 +543,10 @@ MODRET site_help(cmd_rec *cmd) {
  * module.
  */
 
-cmdtable site_commands[] = {
-  { CMD, "HELP",	G_NONE,		site_help, sig_site_help,	FALSE,	FALSE },
-  { CMD, "CHGRP",	G_NONE,		site_chgrp, sig_site_chgrp,	TRUE,	FALSE },
-  { CMD, "CHMOD",	G_NONE,		site_chmod, sig_site_chmod,	TRUE,	FALSE },
+static cmdtable site_commands[] = {
+  { CMD, "HELP",	G_NONE,		site_help,	FALSE,	FALSE },
+  { CMD, "CHGRP",	G_NONE,		site_chgrp,	TRUE,	FALSE },
+  { CMD, "CHMOD",	G_NONE,		site_chmod,	TRUE,	FALSE },
   { 0, NULL }
 };
 
@@ -608,7 +610,9 @@ MODRET site_cmd(cmd_rec *cmd) {
 
   if (tmpcmd->argc) {
     for (cp = tmpcmd->argv[0]; *cp; cp++) {
-      *cp = toupper((int) *cp);
+      if (PR_ISALPHA((int) *cp)) {
+        *cp = toupper((int) *cp);
+      }
     }
   }
 
@@ -640,10 +644,10 @@ static int site_init(void) {
 /* Module API tables
  */
 
-cmdtable site_cmdtab[] = {
-  { PRE_CMD,  C_SITE, G_NONE, site_pre_cmd, sig_site_pre_cmd,   FALSE,  FALSE },
-  { CMD,      C_SITE, G_NONE, site_cmd, sig_site_cmd,       FALSE,  FALSE,  CL_MISC },
-  { POST_CMD, C_SITE, G_NONE, site_post_cmd, sig_site_post_cmd,  FALSE,  FALSE },
+static cmdtable site_cmdtab[] = {
+  { PRE_CMD,  C_SITE, G_NONE, site_pre_cmd,   FALSE,  FALSE },
+  { CMD,      C_SITE, G_NONE, site_cmd,       FALSE,  FALSE,  CL_MISC },
+  { POST_CMD, C_SITE, G_NONE, site_post_cmd,  FALSE,  FALSE },
   { 0, NULL }
 };
 

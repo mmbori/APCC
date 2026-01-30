@@ -51,7 +51,7 @@ static void init_ipbind_table(void) {
 }
 
 /* Server cleanup callback function */
-void server_cleanup_cb(void *conn) {
+static void server_cleanup_cb(void *conn) {
   *((conn_t **) conn) = NULL;
 }
 
@@ -1342,8 +1342,7 @@ static int init_inetd_bindings(void) {
      */
 
     serv->listen = main_server->listen;
-    register_cleanup2(serv->listen->pool, &serv->listen, server_cleanup_cb,
-                      cleanup_cb_signatures[cleanup_cb_server_cleanup_cb]);
+    register_cleanup2(serv->listen->pool, &serv->listen, server_cleanup_cb);
 
     is_default = FALSE;
     default_server = get_param_ptr(serv->conf, "DefaultServer", FALSE);
@@ -1751,8 +1750,7 @@ static int init_standalone_bindings(void) {
       }
 
       serv->listen = main_server->listen;
-      register_cleanup2(serv->listen->pool, &serv->listen, server_cleanup_cb,
-                        cleanup_cb_signatures[cleanup_cb_server_cleanup_cb]);
+      register_cleanup2(serv->listen->pool, &serv->listen, server_cleanup_cb);
 
       res = pr_ipbind_create(serv, serv->addr, serv->ServerPort);
       if (res < 0) {

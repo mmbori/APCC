@@ -1,1 +1,0 @@
-void ban_maxclientsperuser_ev(const void *, void *);

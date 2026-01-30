@@ -1,1 +1,0 @@
-unsigned char wrap2_match_client(char *tok , wrap2_conn_t *conn);

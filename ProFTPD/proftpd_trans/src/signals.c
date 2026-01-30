@@ -79,8 +79,8 @@ static void finish_terminate(int signo) {
      * pr_session_end() call (outside the root privs condition) does not call
      * the exit handlers for the master process again.
      */
-    pr_event_unregister(NULL, "core.exit", NULL, cb_signatures[cb_NULL]);
-    pr_event_unregister(NULL, "core.shutdown", NULL, cb_signatures[cb_NULL]);
+    pr_event_unregister(NULL, "core.exit", NULL);
+    pr_event_unregister(NULL, "core.shutdown", NULL);
 
     PRIVS_RELINQUISH
 
@@ -507,7 +507,7 @@ static void handle_signals(int delay_on_eintr) {
       pr_trace_msg(trace_channel, 9, "handling SIGHUP (signal %d)", SIGHUP);
 
       /* NOTE: should this be done here, rather than using a schedule? */
-      schedule(restart_daemon, cb_signatures[cb_restart_daemon], 0, NULL, NULL, NULL, NULL);
+      schedule(restart_daemon, 0, NULL, NULL, NULL, NULL);
     }
 
     if (recvd_signal_flags & RECEIVED_SIG_EXIT) {
@@ -522,7 +522,7 @@ static void handle_signals(int delay_on_eintr) {
       pr_trace_msg(trace_channel, 9, "handling SIGUSR1 (signal %d)", SIGUSR1);
 
       /* NOTE: should this be done here, rather than using a schedule? */
-      schedule(shutdown_end_session, cb_signatures[cb_shutdown_end_session], 0, NULL, NULL, NULL, NULL);
+      schedule(shutdown_end_session, 0, NULL, NULL, NULL, NULL);
     }
   }
 

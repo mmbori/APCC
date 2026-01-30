@@ -1,1 +1,0 @@
-unsigned char wrap2_match_daemon(char *tok , wrap2_conn_t *conn);

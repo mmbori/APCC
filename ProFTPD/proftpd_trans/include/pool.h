@@ -76,9 +76,8 @@ void *pcallocsz(struct pool_rec *, size_t);
 void pr_pool_tag(struct pool_rec *, const char *);
 const char *pr_pool_get_tag(struct pool_rec *);
 
-void pr_pool_debug_memory(void (*)(const char *, ...), int);
-void pr_pool_debug_memory2(void (*visit)(const pr_pool_info_t *, void *),
-int cb_signature,
+void pr_pool_debug_memory(void (*)(const char *, ...));
+void pr_pool_debug_memory2(void (*cb)(const pr_pool_info_t *, void *),
   void *user_data);
 
 int pr_pool_debug_set_flags(int);
@@ -115,10 +114,10 @@ array_header *copy_array_hdr(pool *, const array_header *);
 extern void pr_alarms_block(void);
 extern void pr_alarms_unblock(void);
 
-void register_cleanup(pool *, void *, void (*)(void *), int, void (*)(void *), int);
-void register_cleanup2(pool *, void *, void (*)(void *), int);
+void register_cleanup(pool *, void *, void (*)(void *), void (*)(void *));
+void register_cleanup2(pool *, void *, void (*)(void *));
 
-void unregister_cleanup(pool *, void *, void (*)(void *), int);
+void unregister_cleanup(pool *, void *, void (*)(void *));
 
 /* minimum free bytes in a new block pool */
 #define BLOCK_MINFREE		PR_TUNABLE_NEW_POOL_SIZE

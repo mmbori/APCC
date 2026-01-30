@@ -1,1 +1,0 @@
-void snmp_ssh2_sftp_proto_version_ev(const void *event_data , void *user_data);

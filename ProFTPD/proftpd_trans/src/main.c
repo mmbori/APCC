@@ -2,7 +2,7 @@
  * ProFTPD - FTP server daemon
  * Copyright (c) 1997, 1998 Public Flood Software
  * Copyright (c) 1999, 2000 MacGyver aka Habeeb J. Dihu <macgyver@tos.net>
- * Copyright (c) 2001-2025 The ProFTPD Project team
+ * Copyright (c) 2001-2026 The ProFTPD Project team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -115,13 +115,11 @@ static int semaphore_fds(fd_set *rfd, int maxfd) {
   return maxfd;
 }
 
-void set_auth_check(int (*chk)(cmd_rec*),
-int chk_signature) {
+void set_auth_check(int (*chk)(cmd_rec*)) {
   cmd_auth_chk = chk;
 }
 
-void pr_cmd_set_handler(void (*handler)(server_rec *, conn_t *),
-int handler_signature) {
+void pr_cmd_set_handler(void (*handler)(server_rec *, conn_t *)) {
   if (handler == NULL) {
     cmd_handler = cmd_loop;
 
@@ -274,7 +272,7 @@ static int dispatch_cmd(cmd_rec *cmd, int cmd_type, int validate, char *match) {
     session.curr_phase = cmd_type;
 
     if (c->cmd_type == cmd_type) {
-      if (c->group) {
+      if (c->group != NULL) {
         cmd->group = pstrdup(cmd->pool, c->group);
       }
 
@@ -298,7 +296,7 @@ static int dispatch_cmd(cmd_rec *cmd, int cmd_type, int validate, char *match) {
       if (cmd_type == CMD) {
 
         /* The client has successfully authenticated... */
-        if (session.user) {
+        if (session.user != NULL) {
           char *args = NULL;
 
           /* Be defensive, and check whether cmdargstrlen has a value.
@@ -365,7 +363,7 @@ static int dispatch_cmd(cmd_rec *cmd, int cmd_type, int validate, char *match) {
         kludge_disable_umask();
       }
 
-      mr = pr_module_call(c->m, c->handler, c->handler_signature, cmd);
+      mr = pr_module_call(c->m, c->handler, cmd);
       kludge_enable_umask();
 
       if (MODRET_ISHANDLED(mr)) {
@@ -659,7 +657,9 @@ int pr_cmd_dispatch_phase(cmd_rec *cmd, int phase, int flags) {
   pr_response_set_pool(cmd->pool);
 
   for (cp = cmd->argv[0]; *cp; cp++) {
-    *cp = toupper((int) *cp);
+    if (PR_ISALPHA((int) *cp)) {
+      *cp = toupper((int) *cp);
+    }
   }
 
   if (cmd->cmd_class == 0) {
@@ -2440,9 +2440,6 @@ int main(int argc, char *argv[], char **envp) {
   mode_t *main_umask = NULL;
   socklen_t peerlen;
   struct sockaddr peer;
-
-  init_all_fp_signatures();
-  
 #if defined(PR_USE_NLS) && defined(HAVE_LOCALE_H)
   const char *env_lang = NULL, *env_locale = NULL;
 #endif
@@ -2457,7 +2454,6 @@ int main(int argc, char *argv[], char **envp) {
   tzset();
 #endif
 
-  
   memset(&session, 0, sizeof(session));
 
   pr_fs_close_extra_fds();
@@ -2576,8 +2572,7 @@ int main(int argc, char *argv[], char **envp) {
       break;
 
     case 'l':
-      modules_list2(NULL, listf_signatures[listf_NULL],
-                    PR_MODULES_LIST_FL_SHOW_STATIC);
+      modules_list2(NULL, PR_MODULES_LIST_FL_SHOW_STATIC);
       exit(0);
       break;
 
@@ -2760,8 +2755,7 @@ int main(int argc, char *argv[], char **envp) {
     printf("  Scoreboard Version: %08x\n", PR_SCOREBOARD_VERSION);
     printf("  Built: %s\n\n", BUILD_STAMP);
 
-    modules_list2(NULL, listf_signatures[listf_NULL],
-                  PR_MODULES_LIST_FL_SHOW_VERSION);
+    modules_list2(NULL, PR_MODULES_LIST_FL_SHOW_VERSION);
 
     if (show_version >= 3) {
       printf("\n");

@@ -238,7 +238,7 @@ const char *get_full_cmd(cmd_rec *);
 void init_dirtree(void);
 
 #ifdef PR_USE_DEVEL
-void pr_dirs_dump(void (*)(const char *, ...), int, xaset_t *, char *);
+void pr_dirs_dump(void (*)(const char *, ...), xaset_t *, char *);
 #endif /* PR_USE_DEVEL */
 
 #endif /* PR_DIRTREE_H */

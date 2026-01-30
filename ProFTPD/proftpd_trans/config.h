@@ -12,10 +12,10 @@
  *************************************************************************/
 
 /* Define to be the build options. */
-#define PR_BUILD_OPTS " '--enable-devel' '--enable-static' 'CFLAGS=-g -O0 -fno-omit-frame-pointer' 'LDFLAGS=-static -w'"
+#define PR_BUILD_OPTS " '--enable-devel' '--enable-static' 'CFLAGS=-g -O2 -fno-omit-frame-pointer' 'LDFLAGS=-static -w'"
 
 /* Define to be the build CFLAGS.  */
-#define PR_BUILD_CFLAGS "-g2 -g -O0 -fno-omit-frame-pointer -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wdangling-else -Wextra -Werror=implicit-function-declaration -Winit-self -Wno-missing-field-initializers -Wno-unused-parameter -Wnull-dereference -fdelete-null-pointer-checks -g3 -O0 -Wcast-align -Wchar-subscripts -Winline -Wstrict-prototypes -Wmissing-declarations -Wnested-externs -Wpointer-arith -Wshadow -Wundef -Wcomment -Wdangling-else -Wdeclaration-after-statement -Wduplicated-branches -Wfloat-equal -Wformat -Wformat-security -Wimplicit-function-declaration -Wmaybe-uninitialized -Wmissing-braces -Wparentheses -Wpointer-to-int-cast -Wreturn-local-addr -Wstack-protector -Wstrict-overflow -Wswitch -Wunreachable-code -Wunused-variable -fstack-protector -fstack-protector-all -fno-common"
+#define PR_BUILD_CFLAGS "-g2 -g  -fno-omit-frame-pointer -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wdangling-else -Wextra -Werror=implicit-function-declaration -Winit-self -Wno-missing-field-initializers -Wno-unused-parameter -Wnull-dereference -fdelete-null-pointer-checks -g3 -O0 -Wcast-align -Wchar-subscripts -Winline -Wstrict-prototypes -Wmissing-declarations -Wnested-externs -Wpointer-arith -Wshadow -Wundef -Wcomment -Wdangling-else -Wdeclaration-after-statement -Wduplicated-branches -Wfloat-equal -Wformat -Wformat-security -Wimplicit-function-declaration -Wmaybe-uninitialized -Wmissing-braces -Wparentheses -Wpointer-to-int-cast -Wreturn-local-addr -Wstack-protector -Wstrict-overflow -Wswitch -Wunreachable-code -Wunused-variable -fstack-protector -fstack-protector-all -fno-common"
 
 /* Define to be the build LDLAGS.  */
 #define PR_BUILD_LDFLAGS "-Wl,-L$(top_srcdir)/lib,-L$(top_builddir)/lib -static -w -rdynamic "
@@ -591,6 +591,9 @@
 
 /* Define if you have the setsid function.  */
 #define HAVE_SETSID 1
+
+/* Define if you have the sigaction function.  */
+#define HAVE_SIGACTION 1
 
 /* Define if you have the siginterrupt function.  */
 #define HAVE_SIGINTERRUPT 1

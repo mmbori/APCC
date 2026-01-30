@@ -37,8 +37,6 @@ struct event_handler {
   void (*cb)(const void *, void *);
   void *user_data;
   unsigned long flags;
-
-  int cb_signature;
 };
 
 struct event_list {
@@ -75,7 +73,7 @@ static const char *trace_channel = "event";
 
 #define EVENT_POOL_SZ	256
 
-void event_cleanup_cb(void *user_data) {
+static void event_cleanup_cb(void *user_data) {
   event_pool = NULL;
   events = NULL;
 
@@ -85,8 +83,7 @@ void event_cleanup_cb(void *user_data) {
 }
 
 int pr_event_register(module *m, const char *event,
-    void (*cb)(const void *, void *),
-    int cb_signature, void *user_data) {
+    void (*cb)(const void *, void *), void *user_data) {
   register unsigned int i;
   struct event_handler *evh;
   struct event_list *evl;
@@ -103,9 +100,7 @@ int pr_event_register(module *m, const char *event,
     event_pool = make_sub_pool(permanent_pool);
     pr_pool_tag(event_pool, "Event Pool");
 
-    register_cleanup2(event_pool, NULL,
-                      event_cleanup_cb,
-                      cleanup_cb_signatures[cleanup_cb_event_cleanup_cb]);
+    register_cleanup2(event_pool, NULL, event_cleanup_cb);
   }
 
   pr_trace_msg(trace_channel, 3,
@@ -116,7 +111,6 @@ int pr_event_register(module *m, const char *event,
 
   evh->module = m;
   evh->cb = cb;
-  evh->cb_signature = cb_signature;
   evh->user_data = user_data;
 
   /* Is this an untraced event? */
@@ -209,8 +203,7 @@ int pr_event_register(module *m, const char *event,
 }
 
 int pr_event_unregister(module *m, const char *event,
-    void (*cb)(const void *, void *),
-    int cb_signature) {
+    void (*cb)(const void *, void *)) {
   struct event_list *evl;
   int unregistered = FALSE;
 
@@ -375,206 +368,7 @@ void pr_event_generate(const char *event, const void *event_data) {
           }
         }
 
-        // E->FP_NAME(args);
-        if (evh->cb_signature == cb_signatures[cb_NULL]) {
-          NULL;
-        }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_array_item_fail]) {
-        //     array_item_fail(event_data, evh->user_data);
-        //   }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_array_item_ok]) {
-        //     array_item_ok(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_auth_exit_ev]) {
-            auth_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_auth_pam_exit_ev]) {
-            auth_pam_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_auth_sess_reinit_ev]) {
-            auth_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_auth_unix_exit_ev]) {
-            auth_unix_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_auth_unix_sess_reinit_ev]) {
-            auth_unix_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_authfile_sess_reinit_ev]) {
-            authfile_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_cap_sess_reinit_ev]) {
-            cap_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_chroot_ev]) {
-            core_chroot_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_connected_ev]) {
-            core_connected_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_exit_ev]) {
-            core_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_postparse_ev]) {
-            core_postparse_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_restart_ev]) {
-            core_restart_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_core_startup_ev]) {
-            core_startup_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_ctrls_test2_cb]) {
-        //     ctrls_test2_cb(event_data, evh->user_data);
-        //   }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_ctrls_test_cb]) {
-        //     ctrls_test_cb(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_define_restart_ev]) {
-            define_restart_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_delay_connect_ev]) {
-            delay_connect_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_delay_handle_delay]) {
-        //     delay_handle_delay(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_delay_postparse_ev]) {
-            delay_postparse_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_delay_restart_ev]) {
-            delay_restart_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_delay_sess_reinit_ev]) {
-            delay_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_delay_shutdown_ev]) {
-            delay_shutdown_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_do_cb]) {
-        //     do_cb(event_data, evh->user_data);
-        //   }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_do_with_remove_cb]) {
-        //     do_with_remove_cb(event_data, evh->user_data);
-        //   }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_dynmasq_handle_dynmasq]) {
-        //     dynmasq_handle_dynmasq(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_facts_sess_reinit_ev]) {
-            facts_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_log_exit_ev]) {
-            log_exit_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_log_fmt_extra_iter_cb]) {
-        //     log_fmt_extra_iter_cb(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_log_postparse_ev]) {
-            log_postparse_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_log_restart_ev]) {
-            log_restart_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_log_sess_reinit_ev]) {
-            log_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_log_xfer_stalled_ev]) {
-            log_xfer_stalled_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_object_item_fail]) {
-        //     object_item_fail(event_data, evh->user_data);
-        //   }
-        // else
-          // if (evh->cb_signature == cb_signatures[cb_object_item_ok]) {
-          //   object_item_ok(event_data, evh->user_data);
-          // }
-        else
-          if (evh->cb_signature == cb_signatures[cb_pool_visitf]) {
-            pool_visitf(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_regexp_exit_ev]) {
-            regexp_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_regexp_restart_ev]) {
-            regexp_restart_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_restart_daemon]) {
-        //     restart_daemon(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_rlimit_chroot_ev]) {
-            rlimit_chroot_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_rlimit_postparse_ev]) {
-            rlimit_postparse_ev(event_data, evh->user_data);
-          }
-        // else
-        //   if (evh->cb_signature == cb_signatures[cb_schedule_cb]) {
-        //     schedule_cb(event_data, evh->user_data);
-        //   }
-        else
-          if (evh->cb_signature == cb_signatures[cb_trace_restart_ev]) {
-            trace_restart_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_xfer_exit_ev]) {
-            xfer_exit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_xfer_sess_reinit_ev]) {
-            xfer_sess_reinit_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_xfer_sigusr2_ev]) {
-            xfer_sigusr2_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_xfer_timeout_session_ev]) {
-            xfer_timeout_session_ev(event_data, evh->user_data);
-          }
-        else
-          if (evh->cb_signature == cb_signatures[cb_xfer_timeout_stalled_ev]) {
-            xfer_timeout_stalled_ev(event_data, evh->user_data);
-          }
+        evh->cb(event_data, evh->user_data);
       }
 
       break;
@@ -589,8 +383,7 @@ void pr_event_generate(const char *event, const void *event_data) {
   curr_evh = NULL;
 }
 
-void pr_event_dump(void (*dumpf)(const char *, ...),
-int dumpf_signature) {
+void pr_event_dump(void (*dumpf)(const char *, ...)) {
   struct event_list *evl;
 
   if (dumpf == NULL) {
@@ -598,14 +391,7 @@ int dumpf_signature) {
   }
 
   if (events == NULL) {
-    // fp(args);
-    if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-      NULL;
-    }
-    // else
-    //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-    //     event_dump("%s", "No events registered");
-    //   }
+    dumpf("%s", "No events registered");
     return;
   }
 
@@ -613,46 +399,18 @@ int dumpf_signature) {
     pr_signals_handle();
 
     if (evl->handlers == NULL) {
-      // fp(args);
-      if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-        NULL;
-      }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-      //     event_dump("No handlers registered for '%s'", evl->event);
-      //   }
+      dumpf("No handlers registered for '%s'", evl->event);
 
     } else {
       struct event_handler *evh;
 
-      // fp(args);
-      if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-        NULL;
-      }
-      // else
-      //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-      //     event_dump("Registered for '%s':", evl->event);
-      //   }
+      dumpf("Registered for '%s':", evl->event);
       for (evh = evl->handlers; evh; evh = evh->next) {
         if (evh->module != NULL) {
-          // fp(args);
-          if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-            NULL;
-          }
-          // else
-          //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-          //     event_dump("  mod_%s.c", evh->module->name);
-          //   }
+          dumpf("  mod_%s.c", evh->module->name);
 
         } else {
-          // fp(args);
-          if (dumpf_signature == dumpf_signatures[dumpf_NULL]) {
-            NULL;
-          }
-          // else
-          //   if (dumpf_signature == dumpf_signatures[dumpf_event_dump]) {
-          //     event_dump("  (core)");
-          //   }
+          dumpf("  (core)");
         }
       }
     }

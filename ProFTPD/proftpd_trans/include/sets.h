@@ -41,7 +41,7 @@ struct XAsetmember {
 struct XAset {
   xasetmember_t *xas_list;
   struct pool_rec *pool;
-  XASET_COMPARE xas_compare;
+  int (*xas_compare)(xasetmember_t *v1, xasetmember_t *v2);
 };
 
 /* Prototypes */

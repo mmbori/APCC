@@ -51,7 +51,7 @@ int pr_stash_remove_cmd(const char *cmd_name, module *m,
 int pr_stash_remove_auth(const char *api_name, module *m);
 int pr_stash_remove_hook(const char *hook_name, module *m);
 
-void pr_stash_dump(void (*)(const char *, ...), int);
+void pr_stash_dump(void (*)(const char *, ...));
 
 /* Internal use only */
 int init_stash(void);

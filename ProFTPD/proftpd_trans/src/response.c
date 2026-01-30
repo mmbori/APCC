@@ -42,11 +42,18 @@ static const char *trace_channel = "response";
 
 #define RESPONSE_WRITE_NUM_STR(strm, fmt, numeric, msg) \
   pr_trace_msg(trace_channel, 1, (fmt), (numeric), (msg)); \
-  pr_netio_printf((strm), (fmt), (numeric), (msg));
+  if (resp_handler_cb) \
+    pr_netio_printf((strm), "%s", resp_handler_cb(resp_pool, (fmt), (numeric), \
+      (msg))); \
+  else \
+    pr_netio_printf((strm), (fmt), (numeric), (msg));
 
 #define RESPONSE_WRITE_STR(strm, fmt, msg) \
   pr_trace_msg(trace_channel, 1, (fmt), (msg)); \
-  pr_netio_printf((strm), (fmt), (msg));
+  if (resp_handler_cb) \
+    pr_netio_printf((strm), "%s", resp_handler_cb(resp_pool, (fmt), (msg))); \
+  else \
+    pr_netio_printf((strm), (fmt), (msg));
 
 pool *pr_response_get_pool(void) {
   return resp_pool;

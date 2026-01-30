@@ -134,7 +134,7 @@ static const char *trace_channel = "auth.unix";
 static unsigned long auth_unix_opts = 0UL;
 
 /* Necessary prototypes */
-void auth_unix_exit_ev(const void *, void *);
+static void auth_unix_exit_ev(const void *, void *);
 static int auth_unix_sess_init(void);
 
 static void p_setpwent(void) {
@@ -1297,7 +1297,7 @@ static int get_groups_by_getgrouplist(const char *user, gid_t primary_gid,
   for (i = 0; i < ngroups; i++) {
     struct group *gr;
 
-    gr = p_getgrgid(group_ids[i]);
+    gr = my_getgrgid(group_ids[i]);
     if (gr != NULL) {
       if (gids != NULL &&
           primary_gid != gr->gr_gid) {
@@ -1433,7 +1433,7 @@ static int get_groups_by_initgroups(const char *user, gid_t primary_gid,
   for (i = 0; i < ngroups; i++) {
     struct group *gr;
 
-    gr = p_getgrgid(group_ids[i]);
+    gr = my_getgrgid(group_ids[i]);
     if (gr != NULL) {
       if (gids != NULL &&
           primary_gid != gr->gr_gid) {
@@ -1501,7 +1501,7 @@ MODRET pw_getgroups(cmd_rec *cmd) {
 
   /* Retrieve the necessary info. */
   if (name == NULL ||
-      !(pw = p_getpwnam(name))) {
+      !(pw = my_getpwnam(name))) {
     return PR_DECLINED(cmd);
   }
 
@@ -1511,7 +1511,7 @@ MODRET pw_getgroups(cmd_rec *cmd) {
   }
 
   if (groups != NULL &&
-      (gr = p_getgrgid(pw->pw_gid)) != NULL) {
+      (gr = my_getgrgid(pw->pw_gid)) != NULL) {
     *((char **) push_array(groups)) = pstrdup(session.pool, gr->gr_name);
   }
 
@@ -1620,21 +1620,19 @@ MODRET set_persistentpasswd(cmd_rec *cmd) {
 /* Events handlers
  */
 
-void auth_unix_exit_ev(const void *event_data, void *user_data) {
+static void auth_unix_exit_ev(const void *event_data, void *user_data) {
   pr_auth_endpwent(session.pool);
   pr_auth_endgrent(session.pool);
 }
 
-void auth_unix_sess_reinit_ev(const void *event_data, void *user_data) {
+static void auth_unix_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
-  pr_event_unregister(&auth_unix_module, "core.exit", auth_unix_exit_ev,
-                      cb_signatures[cb_auth_unix_exit_ev]);
+  pr_event_unregister(&auth_unix_module, "core.exit", auth_unix_exit_ev);
   pr_event_unregister(&auth_unix_module, "core.session-reinit",
-                      auth_unix_sess_reinit_ev,
-                      cb_signatures[cb_auth_unix_sess_reinit_ev]);
+    auth_unix_sess_reinit_ev);
   auth_unix_opts = 0UL;
   unix_persistent_passwd = FALSE;
 
@@ -1660,11 +1658,9 @@ static int auth_unix_init(void) {
 static int auth_unix_sess_init(void) {
   config_rec *c;
 
-  pr_event_register(&auth_unix_module, "core.exit", auth_unix_exit_ev,
-                    cb_signatures[cb_auth_unix_exit_ev], NULL);
+  pr_event_register(&auth_unix_module, "core.exit", auth_unix_exit_ev, NULL);
   pr_event_register(&auth_unix_module, "core.session-reinit",
-                    auth_unix_sess_reinit_ev,
-                    cb_signatures[cb_auth_unix_sess_reinit_ev], NULL);
+    auth_unix_sess_reinit_ev, NULL);
 
   c = find_config(main_server->conf, CONF_PARAM, "AuthUnixOptions", FALSE);
   if (c != NULL) {
@@ -1682,31 +1678,31 @@ static int auth_unix_sess_init(void) {
 /* Module API tables
  */
 
-conftable auth_unix_conftab[] = {
-  { "AuthUnixOptions",		set_authunixoptions, sig_set_authunixoptions,		NULL },
-  { "PersistentPasswd",		set_persistentpasswd, sig_set_persistentpasswd,		NULL },
+static conftable auth_unix_conftab[] = {
+  { "AuthUnixOptions",		set_authunixoptions,		NULL },
+  { "PersistentPasswd",		set_persistentpasswd,		NULL },
   { NULL,			NULL,				NULL }
 };
 
-authtable auth_unix_authtab[] = {
-  { 0,  "setpwent",	pw_setpwent, sig_pw_setpwent },
-  { 0,  "endpwent",	pw_endpwent, sig_pw_endpwent },
-  { 0,  "setgrent",     pw_setgrent, sig_pw_setgrent },
-  { 0,  "endgrent",	pw_endgrent, sig_pw_endgrent },
-  { 0,	"getpwent",	pw_getpwent, sig_pw_getpwent },
-  { 0,  "getgrent",	pw_getgrent, sig_pw_getgrent },
-  { 0,  "getpwnam",	pw_getpwnam, sig_pw_getpwnam },
-  { 0,	"getpwuid",	pw_getpwuid, sig_pw_getpwuid },
-  { 0,  "getgrnam",     pw_getgrnam, sig_pw_getgrnam },
-  { 0,  "getgrgid",     pw_getgrgid, sig_pw_getgrgid },
-  { 0,  "auth",         pw_auth, sig_pw_auth	},
-  { 0,  "authorize",	pw_authz, sig_pw_authz },
-  { 0,  "check",	pw_check, sig_pw_check },
-  { 0,  "uid2name",	pw_uid2name, sig_pw_uid2name },
-  { 0,  "gid2name",	pw_gid2name, sig_pw_gid2name },
-  { 0,  "name2uid",	pw_name2uid, sig_pw_name2uid },
-  { 0,  "name2gid",	pw_name2gid, sig_pw_name2gid },
-  { 0,  "getgroups",	pw_getgroups, sig_pw_getgroups },
+static authtable auth_unix_authtab[] = {
+  { 0,  "setpwent",	pw_setpwent },
+  { 0,  "endpwent",	pw_endpwent },
+  { 0,  "setgrent",     pw_setgrent },
+  { 0,  "endgrent",	pw_endgrent },
+  { 0,	"getpwent",	pw_getpwent },
+  { 0,  "getgrent",	pw_getgrent },
+  { 0,  "getpwnam",	pw_getpwnam },
+  { 0,	"getpwuid",	pw_getpwuid },
+  { 0,  "getgrnam",     pw_getgrnam },
+  { 0,  "getgrgid",     pw_getgrgid },
+  { 0,  "auth",         pw_auth	},
+  { 0,  "authorize",	pw_authz },
+  { 0,  "check",	pw_check },
+  { 0,  "uid2name",	pw_uid2name },
+  { 0,  "gid2name",	pw_gid2name },
+  { 0,  "name2uid",	pw_name2uid },
+  { 0,  "name2gid",	pw_name2gid },
+  { 0,  "getgroups",	pw_getgroups },
   { 0,  NULL }
 };
 

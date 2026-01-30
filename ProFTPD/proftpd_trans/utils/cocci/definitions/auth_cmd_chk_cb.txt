@@ -1,1 +1,0 @@
-int auth_cmd_chk_cb(cmd_rec *cmd);

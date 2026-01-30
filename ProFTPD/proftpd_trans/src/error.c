@@ -1061,8 +1061,8 @@ int pr_error_explain_accept(pr_error_t *err, int fd, struct sockaddr *addr,
   (void) pr_error_set_why(err, what);
 
   if (error_explainer->explainer->explain_accept != NULL) {
-    // explained = (error_explainer->explainer->explain_accept)(err->err_pool,
-    //   err->err_errno, fd, addr, addr_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_accept)(err->err_pool,
+      err->err_errno, fd, addr, addr_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1088,8 +1088,8 @@ int pr_error_explain_bind(pr_error_t *err, int fd, const struct sockaddr *addr,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_bind != NULL) {
-    // explained = (error_explainer->explainer->explain_bind)(err->err_pool,
-    //   err->err_errno, fd, addr, addr_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_bind)(err->err_pool,
+      err->err_errno, fd, addr, addr_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1114,8 +1114,8 @@ int pr_error_explain_chdir(pr_error_t *err, const char *path) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_chdir != NULL) {
-    // explained = (error_explainer->explainer->explain_chdir)(err->err_pool,
-    //   err->err_errno, path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_chdir)(err->err_pool,
+      err->err_errno, path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1140,8 +1140,8 @@ int pr_error_explain_chmod(pr_error_t *err, const char *path, mode_t mode) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_chmod != NULL) {
-    // explained = (error_explainer->explainer->explain_chmod)(err->err_pool,
-    //   err->err_errno, path, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_chmod)(err->err_pool,
+      err->err_errno, path, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1167,8 +1167,8 @@ int pr_error_explain_chown(pr_error_t *err, const char *path, uid_t uid,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_chown != NULL) {
-    // explained = (error_explainer->explainer->explain_chown)(err->err_pool,
-    //   err->err_errno, path, uid, gid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_chown)(err->err_pool,
+      err->err_errno, path, uid, gid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1193,8 +1193,8 @@ int pr_error_explain_chroot(pr_error_t *err, const char *path) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_chroot != NULL) {
-    // explained = (error_explainer->explainer->explain_chroot)(err->err_pool,
-    //   err->err_errno, path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_chroot)(err->err_pool,
+      err->err_errno, path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1219,8 +1219,8 @@ int pr_error_explain_close(pr_error_t *err, int fd) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_close != NULL) {
-    // explained = (error_explainer->explainer->explain_close)(err->err_pool,
-    //   err->err_errno, fd, &(err->err_args));
+    explained = (error_explainer->explainer->explain_close)(err->err_pool,
+      err->err_errno, fd, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1245,8 +1245,8 @@ int pr_error_explain_closedir(pr_error_t *err, void *dirh) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_closedir != NULL) {
-    // explained = (error_explainer->explainer->explain_closedir)(err->err_pool,
-    //   err->err_errno, dirh, &(err->err_args));
+    explained = (error_explainer->explainer->explain_closedir)(err->err_pool,
+      err->err_errno, dirh, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1272,8 +1272,8 @@ int pr_error_explain_connect(pr_error_t *err, int fd,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_connect != NULL) {
-    // explained = (error_explainer->explainer->explain_connect)(err->err_pool,
-    //   err->err_errno, fd, addr, addr_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_connect)(err->err_pool,
+      err->err_errno, fd, addr, addr_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1298,8 +1298,8 @@ int pr_error_explain_fchmod(pr_error_t *err, int fd, mode_t mode) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fchmod != NULL) {
-    // explained = (error_explainer->explainer->explain_fchmod)(err->err_pool,
-    //   err->err_errno, fd, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fchmod)(err->err_pool,
+      err->err_errno, fd, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1324,8 +1324,8 @@ int pr_error_explain_fchown(pr_error_t *err, int fd, uid_t uid, gid_t gid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fchown != NULL) {
-    // explained = (error_explainer->explainer->explain_fchown)(err->err_pool,
-    //   err->err_errno, fd, uid, gid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fchown)(err->err_pool,
+      err->err_errno, fd, uid, gid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1350,8 +1350,8 @@ int pr_error_explain_fclose(pr_error_t *err, FILE *fh) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fclose != NULL) {
-    // explained = (error_explainer->explainer->explain_fclose)(err->err_pool,
-    //   err->err_errno, fh, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fclose)(err->err_pool,
+      err->err_errno, fh, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1376,8 +1376,8 @@ int pr_error_explain_fcntl(pr_error_t *err, int fd, int op, long arg) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fcntl != NULL) {
-    // explained = (error_explainer->explainer->explain_fcntl)(err->err_pool,
-    //   err->err_errno, fd, op, arg, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fcntl)(err->err_pool,
+      err->err_errno, fd, op, arg, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1402,8 +1402,8 @@ int pr_error_explain_fdopen(pr_error_t *err, int fd, const char *mode) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fdopen != NULL) {
-    // explained = (error_explainer->explainer->explain_fdopen)(err->err_pool,
-    //   err->err_errno, fd, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fdopen)(err->err_pool,
+      err->err_errno, fd, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1428,8 +1428,8 @@ int pr_error_explain_flock(pr_error_t *err, int fd, int op) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_flock != NULL) {
-    // explained = (error_explainer->explainer->explain_flock)(err->err_pool,
-    //   err->err_errno, fd, op, &(err->err_args));
+    explained = (error_explainer->explainer->explain_flock)(err->err_pool,
+      err->err_errno, fd, op, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1455,8 +1455,8 @@ int pr_error_explain_fopen(pr_error_t *err, const char *path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fopen != NULL) {
-    // explained = (error_explainer->explainer->explain_fopen)(err->err_pool,
-    //   err->err_errno, path, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fopen)(err->err_pool,
+      err->err_errno, path, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1481,8 +1481,8 @@ int pr_error_explain_fork(pr_error_t *err) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fork != NULL) {
-    // explained = (error_explainer->explainer->explain_fork)(err->err_pool,
-    //   err->err_errno, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fork)(err->err_pool,
+      err->err_errno, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1507,8 +1507,8 @@ int pr_error_explain_fstat(pr_error_t *err, int fd, struct stat *st) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fstat != NULL) {
-    // explained = (error_explainer->explainer->explain_fstat)(err->err_pool,
-    //   err->err_errno, fd, st, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fstat)(err->err_pool,
+      err->err_errno, fd, st, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1533,8 +1533,8 @@ int pr_error_explain_fstatfs(pr_error_t *err, int fd, void *stfs) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fstatfs != NULL) {
-    // explained = (error_explainer->explainer->explain_fstatfs)(err->err_pool,
-    //   err->err_errno, fd, stfs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fstatfs)(err->err_pool,
+      err->err_errno, fd, stfs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1559,8 +1559,8 @@ int pr_error_explain_fstatvfs(pr_error_t *err, int fd, void *stfs) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fstatvfs != NULL) {
-    // explained = (error_explainer->explainer->explain_fstatvfs)(err->err_pool,
-    //   err->err_errno, fd, stfs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fstatvfs)(err->err_pool,
+      err->err_errno, fd, stfs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1585,8 +1585,8 @@ int pr_error_explain_fsync(pr_error_t *err, int fd) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_fsync != NULL) {
-    // explained = (error_explainer->explainer->explain_fsync)(err->err_pool,
-    //   err->err_errno, fd, &(err->err_args));
+    explained = (error_explainer->explainer->explain_fsync)(err->err_pool,
+      err->err_errno, fd, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1611,8 +1611,8 @@ int pr_error_explain_ftruncate(pr_error_t *err, int fd, off_t len) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_ftruncate != NULL) {
-    // explained = (error_explainer->explainer->explain_ftruncate)(
-    //   err->err_pool, err->err_errno, fd, len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_ftruncate)(
+      err->err_pool, err->err_errno, fd, len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1638,8 +1638,8 @@ int pr_error_explain_futimes(pr_error_t *err, int fd,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_futimes != NULL) {
-    // explained = (error_explainer->explainer->explain_futimes)(err->err_pool,
-    //   err->err_errno, fd, tvs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_futimes)(err->err_pool,
+      err->err_errno, fd, tvs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1665,9 +1665,9 @@ int pr_error_explain_getaddrinfo(pr_error_t *err, const char *name,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getaddrinfo != NULL) {
-    // explained = (error_explainer->explainer->explain_getaddrinfo)(
-    //   err->err_pool, err->err_errno, name, service, hints, res,
-      // &(err->err_args));
+    explained = (error_explainer->explainer->explain_getaddrinfo)(
+      err->err_pool, err->err_errno, name, service, hints, res,
+      &(err->err_args));
     xerrno = errno;
   }
 
@@ -1692,8 +1692,8 @@ int pr_error_explain_gethostbyname(pr_error_t *err, const char *name) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_gethostbyname != NULL) {
-    // explained = (error_explainer->explainer->explain_gethostbyname)(
-    //   err->err_pool, err->err_errno, name, &(err->err_args));
+    explained = (error_explainer->explainer->explain_gethostbyname)(
+      err->err_pool, err->err_errno, name, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1719,8 +1719,8 @@ int pr_error_explain_gethostbyname2(pr_error_t *err, const char *name,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_gethostbyname2 != NULL) {
-    // explained = (error_explainer->explainer->explain_gethostbyname2)(
-    //   err->err_pool, err->err_errno, name, family, &(err->err_args));
+    explained = (error_explainer->explainer->explain_gethostbyname2)(
+      err->err_pool, err->err_errno, name, family, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1745,8 +1745,8 @@ int pr_error_explain_gethostname(pr_error_t *err, char *buf, size_t sz) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_gethostname != NULL) {
-    // explained = (error_explainer->explainer->explain_gethostname)(
-    //   err->err_pool, err->err_errno, buf, sz, &(err->err_args));
+    explained = (error_explainer->explainer->explain_gethostname)(
+      err->err_pool, err->err_errno, buf, sz, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1773,9 +1773,9 @@ int pr_error_explain_getnameinfo(pr_error_t *err, const struct sockaddr *addr,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getnameinfo != NULL) {
-    // explained = (error_explainer->explainer->explain_getnameinfo)(
-    //   err->err_pool, err->err_errno, addr, addr_len, host, host_len, service,
-    //   service_len, flags, &(err->err_args));
+    explained = (error_explainer->explainer->explain_getnameinfo)(
+      err->err_pool, err->err_errno, addr, addr_len, host, host_len, service,
+      service_len, flags, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1801,8 +1801,8 @@ int pr_error_explain_getpeername(pr_error_t *err, int fd, struct sockaddr *addr,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getpeername != NULL) {
-    // explained = (error_explainer->explainer->explain_getpeername)(
-    //   err->err_pool, err->err_errno, fd, addr, addr_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_getpeername)(
+      err->err_pool, err->err_errno, fd, addr, addr_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1828,8 +1828,8 @@ int pr_error_explain_getrlimit(pr_error_t *err, int resource,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getrlimit != NULL) {
-    // explained = (error_explainer->explainer->explain_getrlimit)(
-    //   err->err_pool, err->err_errno, resource, rlim, &(err->err_args));
+    explained = (error_explainer->explainer->explain_getrlimit)(
+      err->err_pool, err->err_errno, resource, rlim, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1855,8 +1855,8 @@ int pr_error_explain_getsockname(pr_error_t *err, int fd, struct sockaddr *addr,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getsockname != NULL) {
-    // explained = (error_explainer->explainer->explain_getsockname)(
-    //   err->err_pool, err->err_errno, fd, addr, addr_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_getsockname)(
+      err->err_pool, err->err_errno, fd, addr, addr_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1882,9 +1882,9 @@ int pr_error_explain_getsockopt(pr_error_t *err, int fd, int level, int option,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_getsockopt != NULL) {
-    // explained = (error_explainer->explainer->explain_getsockopt)(
-    //   err->err_pool, err->err_errno, fd, level, option, val, valsz,
-    //   &(err->err_args));
+    explained = (error_explainer->explainer->explain_getsockopt)(
+      err->err_pool, err->err_errno, fd, level, option, val, valsz,
+      &(err->err_args));
     xerrno = errno;
   }
 
@@ -1910,8 +1910,8 @@ int pr_error_explain_lchown(pr_error_t *err, const char *path, uid_t uid,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_lchown != NULL) {
-    // explained = (error_explainer->explainer->explain_lchown)(err->err_pool,
-    //   err->err_errno, path, uid, gid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_lchown)(err->err_pool,
+      err->err_errno, path, uid, gid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1937,8 +1937,8 @@ int pr_error_explain_link(pr_error_t *err, const char *target_path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_link != NULL) {
-    // explained = (error_explainer->explainer->explain_link)(err->err_pool,
-    //   err->err_errno, target_path, link_path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_link)(err->err_pool,
+      err->err_errno, target_path, link_path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1963,8 +1963,8 @@ int pr_error_explain_listen(pr_error_t *err, int fd, int backlog) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_listen != NULL) {
-    // explained = (error_explainer->explainer->explain_listen)(err->err_pool,
-    //   err->err_errno, fd, backlog, &(err->err_args));
+    explained = (error_explainer->explainer->explain_listen)(err->err_pool,
+      err->err_errno, fd, backlog, &(err->err_args));
     xerrno = errno;
   }
 
@@ -1989,8 +1989,8 @@ int pr_error_explain_lseek(pr_error_t *err, int fd, off_t offset, int whence) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_lseek != NULL) {
-    // explained = (error_explainer->explainer->explain_lseek)(err->err_pool,
-    //   err->err_errno, fd, offset, whence, &(err->err_args));
+    explained = (error_explainer->explainer->explain_lseek)(err->err_pool,
+      err->err_errno, fd, offset, whence, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2016,8 +2016,8 @@ int pr_error_explain_lstat(pr_error_t *err, const char *path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_lstat != NULL) {
-    // explained = (error_explainer->explainer->explain_lstat)(err->err_pool,
-    //   err->err_errno, path, st, &(err->err_args));
+    explained = (error_explainer->explainer->explain_lstat)(err->err_pool,
+      err->err_errno, path, st, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2042,8 +2042,8 @@ int pr_error_explain_mkdir(pr_error_t *err, const char *path, mode_t mode) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_mkdir != NULL) {
-    // explained = (error_explainer->explainer->explain_mkdir)(err->err_pool,
-    //   err->err_errno, path, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_mkdir)(err->err_pool,
+      err->err_errno, path, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2068,8 +2068,8 @@ int pr_error_explain_mkdtemp(pr_error_t *err, char *tmpl) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_mkdtemp != NULL) {
-    // explained = (error_explainer->explainer->explain_mkdtemp)(err->err_pool,
-    //   err->err_errno, tmpl, &(err->err_args));
+    explained = (error_explainer->explainer->explain_mkdtemp)(err->err_pool,
+      err->err_errno, tmpl, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2094,8 +2094,8 @@ int pr_error_explain_mkstemp(pr_error_t *err, char *tmpl) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_mkstemp != NULL) {
-    // explained = (error_explainer->explainer->explain_mkstemp)(err->err_pool,
-    //   err->err_errno, tmpl, &(err->err_args));
+    explained = (error_explainer->explainer->explain_mkstemp)(err->err_pool,
+      err->err_errno, tmpl, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2121,8 +2121,8 @@ int pr_error_explain_open(pr_error_t *err, const char *path, int flags,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_open != NULL) {
-    // explained = (error_explainer->explainer->explain_open)(err->err_pool,
-    //   err->err_errno, path, flags, mode, &(err->err_args));
+    explained = (error_explainer->explainer->explain_open)(err->err_pool,
+      err->err_errno, path, flags, mode, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2147,8 +2147,8 @@ int pr_error_explain_opendir(pr_error_t *err, const char *path) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_opendir != NULL) {
-    // explained = (error_explainer->explainer->explain_opendir)(err->err_pool,
-    //   err->err_errno, path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_opendir)(err->err_pool,
+      err->err_errno, path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2173,8 +2173,8 @@ int pr_error_explain_read(pr_error_t *err, int fd, void *buf, size_t sz) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_read != NULL) {
-    // explained = (error_explainer->explainer->explain_read)(err->err_pool,
-    //   err->err_errno, fd, buf, sz, &(err->err_args));
+    explained = (error_explainer->explainer->explain_read)(err->err_pool,
+      err->err_errno, fd, buf, sz, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2199,8 +2199,8 @@ int pr_error_explain_readdir(pr_error_t *err, void *dirh) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_readdir != NULL) {
-    // explained = (error_explainer->explainer->explain_readdir)(err->err_pool,
-    //   err->err_errno, dirh, &(err->err_args));
+    explained = (error_explainer->explainer->explain_readdir)(err->err_pool,
+      err->err_errno, dirh, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2226,8 +2226,8 @@ int pr_error_explain_readlink(pr_error_t *err, const char *path, char *buf,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_readlink != NULL) {
-    // explained = (error_explainer->explainer->explain_readlink)(err->err_pool,
-    //   err->err_errno, path, buf, sz, &(err->err_args));
+    explained = (error_explainer->explainer->explain_readlink)(err->err_pool,
+      err->err_errno, path, buf, sz, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2253,8 +2253,8 @@ int pr_error_explain_readv(pr_error_t *err, int fd, const struct iovec *iov,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_readv != NULL) {
-    // explained = (error_explainer->explainer->explain_readv)(err->err_pool,
-    //   err->err_errno, fd, iov, iov_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_readv)(err->err_pool,
+      err->err_errno, fd, iov, iov_len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2280,8 +2280,8 @@ int pr_error_explain_rename(pr_error_t *err, const char *old_path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_rename != NULL) {
-    // explained = (error_explainer->explainer->explain_rename)(err->err_pool,
-    //   err->err_errno, old_path, new_path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_rename)(err->err_pool,
+      err->err_errno, old_path, new_path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2306,8 +2306,8 @@ int pr_error_explain_rmdir(pr_error_t *err, const char *path) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_rmdir != NULL) {
-    // explained = (error_explainer->explainer->explain_rmdir)(err->err_pool,
-    //   err->err_errno, path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_rmdir)(err->err_pool,
+      err->err_errno, path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2332,8 +2332,8 @@ int pr_error_explain_setegid(pr_error_t *err, gid_t gid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setegid != NULL) {
-    // explained = (error_explainer->explainer->explain_setegid)(err->err_pool,
-    //   err->err_errno, gid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setegid)(err->err_pool,
+      err->err_errno, gid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2358,8 +2358,8 @@ int pr_error_explain_seteuid(pr_error_t *err, uid_t uid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_seteuid != NULL) {
-    // explained = (error_explainer->explainer->explain_seteuid)(err->err_pool,
-    //   err->err_errno, uid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_seteuid)(err->err_pool,
+      err->err_errno, uid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2384,8 +2384,8 @@ int pr_error_explain_setgid(pr_error_t *err, gid_t gid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setgid != NULL) {
-    // explained = (error_explainer->explainer->explain_setgid)(err->err_pool,
-    //   err->err_errno, gid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setgid)(err->err_pool,
+      err->err_errno, gid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2410,8 +2410,8 @@ int pr_error_explain_setregid(pr_error_t *err, gid_t rgid, gid_t egid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setregid != NULL) {
-    // explained = (error_explainer->explainer->explain_setregid)(err->err_pool,
-    //   err->err_errno, rgid, egid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setregid)(err->err_pool,
+      err->err_errno, rgid, egid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2437,8 +2437,8 @@ int pr_error_explain_setresgid(pr_error_t *err, gid_t rgid, gid_t egid,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setresgid != NULL) {
-    // explained = (error_explainer->explainer->explain_setresgid)(
-    //   err->err_pool, err->err_errno, rgid, egid, sgid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setresgid)(
+      err->err_pool, err->err_errno, rgid, egid, sgid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2464,8 +2464,8 @@ int pr_error_explain_setresuid(pr_error_t *err, uid_t ruid, uid_t euid,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setresuid != NULL) {
-    // explained = (error_explainer->explainer->explain_setresuid)(
-    //   err->err_pool, err->err_errno, ruid, euid, suid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setresuid)(
+      err->err_pool, err->err_errno, ruid, euid, suid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2490,8 +2490,8 @@ int pr_error_explain_setreuid(pr_error_t *err, uid_t ruid, uid_t euid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setreuid != NULL) {
-    // explained = (error_explainer->explainer->explain_setreuid)(err->err_pool,
-    //   err->err_errno, ruid, euid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setreuid)(err->err_pool,
+      err->err_errno, ruid, euid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2517,8 +2517,8 @@ int pr_error_explain_setrlimit(pr_error_t *err, int resource,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setrlimit != NULL) {
-    // explained = (error_explainer->explainer->explain_setrlimit)(
-    //   err->err_pool, err->err_errno, resource, rlim, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setrlimit)(
+      err->err_pool, err->err_errno, resource, rlim, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2544,9 +2544,9 @@ int pr_error_explain_setsockopt(pr_error_t *err, int fd, int level, int option,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setsockopt != NULL) {
-    // explained = (error_explainer->explainer->explain_setsockopt)(
-    //   err->err_pool, err->err_errno, fd, level, option, val, valsz,
-    //   &(err->err_args));
+    explained = (error_explainer->explainer->explain_setsockopt)(
+      err->err_pool, err->err_errno, fd, level, option, val, valsz,
+      &(err->err_args));
     xerrno = errno;
   }
 
@@ -2571,8 +2571,8 @@ int pr_error_explain_setuid(pr_error_t *err, uid_t uid) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_setuid != NULL) {
-    // explained = (error_explainer->explainer->explain_setuid)(err->err_pool,
-    //   err->err_errno, uid, &(err->err_args));
+    explained = (error_explainer->explainer->explain_setuid)(err->err_pool,
+      err->err_errno, uid, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2597,8 +2597,8 @@ int pr_error_explain_socket(pr_error_t *err, int domain, int type, int proto) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_socket != NULL) {
-    // explained = (error_explainer->explainer->explain_socket)(err->err_pool,
-    //   err->err_errno, domain, type, proto, &(err->err_args));
+    explained = (error_explainer->explainer->explain_socket)(err->err_pool,
+      err->err_errno, domain, type, proto, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2623,8 +2623,8 @@ int pr_error_explain_stat(pr_error_t *err, const char *path, struct stat *st) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_stat != NULL) {
-    // explained = (error_explainer->explainer->explain_stat)(err->err_pool,
-    //   err->err_errno, path, st, &(err->err_args));
+    explained = (error_explainer->explainer->explain_stat)(err->err_pool,
+      err->err_errno, path, st, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2649,8 +2649,8 @@ int pr_error_explain_statfs(pr_error_t *err, const char *path, void *stfs) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_statfs != NULL) {
-    // explained = (error_explainer->explainer->explain_statfs)(err->err_pool,
-    //   err->err_errno, path, stfs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_statfs)(err->err_pool,
+      err->err_errno, path, stfs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2675,8 +2675,8 @@ int pr_error_explain_statvfs(pr_error_t *err, const char *path, void *stfs) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_statvfs != NULL) {
-    // explained = (error_explainer->explainer->explain_statvfs)(err->err_pool,
-    //   err->err_errno, path, stfs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_statvfs)(err->err_pool,
+      err->err_errno, path, stfs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2702,8 +2702,8 @@ int pr_error_explain_symlink(pr_error_t *err, const char *target_path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_symlink != NULL) {
-    // explained = (error_explainer->explainer->explain_symlink)(err->err_pool,
-    //   err->err_errno, target_path, link_path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_symlink)(err->err_pool,
+      err->err_errno, target_path, link_path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2728,8 +2728,8 @@ int pr_error_explain_truncate(pr_error_t *err, const char *path, off_t len) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_truncate != NULL) {
-    // explained = (error_explainer->explainer->explain_truncate)(err->err_pool,
-    //   err->err_errno, path, len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_truncate)(err->err_pool,
+      err->err_errno, path, len, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2754,8 +2754,8 @@ int pr_error_explain_unlink(pr_error_t *err, const char *path) {
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_unlink != NULL) {
-    // explained = (error_explainer->explainer->explain_unlink)(err->err_pool,
-    //   err->err_errno, path, &(err->err_args));
+    explained = (error_explainer->explainer->explain_unlink)(err->err_pool,
+      err->err_errno, path, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2781,8 +2781,8 @@ int pr_error_explain_utimes(pr_error_t *err, const char *path,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_utimes != NULL) {
-    // explained = (error_explainer->explainer->explain_utimes)(err->err_pool,
-    //   err->err_errno, path, tvs, &(err->err_args));
+    explained = (error_explainer->explainer->explain_utimes)(err->err_pool,
+      err->err_errno, path, tvs, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2808,8 +2808,8 @@ int pr_error_explain_write(pr_error_t *err, int fd, const void *buf,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_write != NULL) {
-    // explained = (error_explainer->explainer->explain_write)(err->err_pool,
-    //   err->err_errno, fd, buf, sz, &(err->err_args));
+    explained = (error_explainer->explainer->explain_write)(err->err_pool,
+      err->err_errno, fd, buf, sz, &(err->err_args));
     xerrno = errno;
   }
 
@@ -2835,8 +2835,8 @@ int pr_error_explain_writev(pr_error_t *err, int fd,
   (void) pr_error_set_what(err, what);
 
   if (error_explainer->explainer->explain_writev != NULL) {
-    // explained = (error_explainer->explainer->explain_writev)(err->err_pool,
-    //   err->err_errno, fd, iov, iov_len, &(err->err_args));
+    explained = (error_explainer->explainer->explain_writev)(err->err_pool,
+      err->err_errno, fd, iov, iov_len, &(err->err_args));
     xerrno = errno;
   }
 

@@ -1,1 +1,0 @@
-void statcache_fs_statcache_clear_ev(const void *event_data , void *user_data);

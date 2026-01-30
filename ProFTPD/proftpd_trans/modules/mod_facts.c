@@ -285,7 +285,7 @@ static const char *facts_mime_type(struct mlinfo *info) {
   }
 
   cmd = pr_cmd_alloc(info->pool, 1, info->real_path);
-  res = pr_module_call(cmdtab->m, cmdtab->handler, cmdtab->handler_signature, cmd);
+  res = pr_module_call(cmdtab->m, cmdtab->handler, cmd);
   if (MODRET_ISHANDLED(res) &&
       MODRET_HASDATA(res)) {
     return res->data;
@@ -2089,14 +2089,13 @@ MODRET set_factsoptions(cmd_rec *cmd) {
 /* Event listeners
  */
 
-void facts_sess_reinit_ev(const void *event_data, void *user_data) {
+static void facts_sess_reinit_ev(const void *event_data, void *user_data) {
   int res;
 
   /* A HOST command changed the main_server pointer, reinitialize ourselves. */
 
   pr_event_unregister(&facts_module, "core.session-reinit",
-                      facts_sess_reinit_ev,
-                      cb_signatures[cb_facts_sess_reinit_ev]);
+    facts_sess_reinit_ev);
 
   facts_opts = 0;
   facts_mlinfo_opts = 0;
@@ -2128,8 +2127,7 @@ static int facts_sess_init(void) {
   int advertise = TRUE;
 
   pr_event_register(&facts_module, "core.session-reinit",
-                    facts_sess_reinit_ev,
-                    cb_signatures[cb_facts_sess_reinit_ev], NULL);
+    facts_sess_reinit_ev, NULL);
 
   facts_opts = FACTS_OPT_SHOW_DEFAULT;
 
@@ -2188,20 +2186,20 @@ static int facts_sess_init(void) {
 /* Module API tables
  */
 
-conftable facts_conftab[] = {
-  { "FactsAdvertise",	set_factsadvertise, sig_set_factsadvertise,	NULL },
-  { "FactsDefault",	set_factsdefault, sig_set_factsdefault,	NULL },
-  { "FactsOptions",	set_factsoptions, sig_set_factsoptions,	NULL },
+static conftable facts_conftab[] = {
+  { "FactsAdvertise",	set_factsadvertise,	NULL },
+  { "FactsDefault",	set_factsdefault,	NULL },
+  { "FactsOptions",	set_factsoptions,	NULL },
   { NULL }
 };
 
-cmdtable facts_cmdtab[] = {
-  { CMD,	C_MFF,		G_WRITE,facts_mff, sig_facts_mff,  TRUE, FALSE, CL_WRITE },
-  { CMD,	C_MFMT,		G_WRITE,facts_mfmt, sig_facts_mfmt, TRUE, FALSE, CL_WRITE },
-  { CMD,	C_MLSD,		G_DIRS,	facts_mlsd, sig_facts_mlsd, TRUE, FALSE, CL_DIRS },
-  { LOG_CMD,	C_MLSD,		G_NONE,	facts_mlsd_cleanup, sig_facts_mlsd_cleanup, FALSE, FALSE },
-  { LOG_CMD_ERR,C_MLSD,		G_NONE,	facts_mlsd_cleanup, sig_facts_mlsd_cleanup, FALSE, FALSE },
-  { CMD,	C_MLST,		G_DIRS,	facts_mlst, sig_facts_mlst, TRUE, FALSE, CL_DIRS },
+static cmdtable facts_cmdtab[] = {
+  { CMD,	C_MFF,		G_WRITE,facts_mff,  TRUE, FALSE, CL_WRITE },
+  { CMD,	C_MFMT,		G_WRITE,facts_mfmt, TRUE, FALSE, CL_WRITE },
+  { CMD,	C_MLSD,		G_DIRS,	facts_mlsd, TRUE, FALSE, CL_DIRS },
+  { LOG_CMD,	C_MLSD,		G_NONE,	facts_mlsd_cleanup, FALSE, FALSE },
+  { LOG_CMD_ERR,C_MLSD,		G_NONE,	facts_mlsd_cleanup, FALSE, FALSE },
+  { CMD,	C_MLST,		G_DIRS,	facts_mlst, TRUE, FALSE, CL_DIRS },
   { CMD,	C_OPTS "_MLST", G_NONE, facts_opts_mlst, FALSE, FALSE },
   { 0, NULL }
 };

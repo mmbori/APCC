@@ -70,8 +70,6 @@ typedef struct table_obj {
   array_header *(*tab_fetch_daemons)(struct table_obj *, const char *);
   array_header *(*tab_fetch_options)(struct table_obj *, const char *);
 
-
-  int tab_close_signature;
 } wrap2_table_t;
 
 /* Function prototypes necessary for wrap sub-modules */

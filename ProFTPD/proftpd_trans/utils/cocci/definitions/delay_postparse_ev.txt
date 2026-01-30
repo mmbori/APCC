@@ -1,1 +1,0 @@
-void delay_postparse_ev(const void *event_data , void *user_data);

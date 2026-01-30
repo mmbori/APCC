@@ -1,1 +1,0 @@
-void sftp_wrap_conn_denied_ev(const void *event_data , void *user_data);

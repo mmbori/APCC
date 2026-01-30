@@ -1,1 +1,0 @@
-void wrap2_exit_ev(const void *event_data , void *user_data);

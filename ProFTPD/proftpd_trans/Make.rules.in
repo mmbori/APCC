@@ -63,7 +63,7 @@ DEFINES=$(PLATFORM)
 # options.
 MODULE_LIBS_FILE=$(top_builddir)/module-libs.txt
 
-SRCS=main.c proftpd_signatures_impl.c timers.c sets.c pool.c privs.c str.c table.c regexp.c configdb.c \
+SRCS=main.c timers.c sets.c pool.c privs.c str.c table.c regexp.c configdb.c \
   dirtree.c expr.c signals.c support.c netaddr.c inet.c child.c parser.c \
   log.c lastlog.c xferlog.c bindings.c netacl.c class.c scoreboard.c help.c \
   feat.c netio.c cmd.c response.c ascii.c data.c modules.c stash.c \
@@ -71,14 +71,15 @@ SRCS=main.c proftpd_signatures_impl.c timers.c sets.c pool.c privs.c str.c table
   session.c trace.c encode.c proctitle.c filter.c pidfile.c env.c random.c \
   version.c rlimit.c wtmp.c json.c jot.c memcache.c redis.c error.c
 
-OBJS=main.o proftpd_signatures_impl.o timers.o sets.o pool.o privs.o str.o table.o regexp.o configdb.o \
+OBJS=main.o timers.o sets.o pool.o privs.o str.o table.o regexp.o configdb.o \
   dirtree.o expr.o signals.o support.o netaddr.o inet.o child.o parser.o \
   log.o lastlog.o xferlog.o bindings.o netacl.o class.o scoreboard.o help.o \
   feat.o netio.o cmd.o response.o ascii.o data.o modules.o stash.o \
   display.o auth.o fsio.o mkhome.o ctrls.o event.o var.o throttle.o \
   session.o trace.o encode.o proctitle.o filter.o pidfile.o env.o random.o \
-  version.o rlimit.o wtmp.o json.o jot.o memcache.o redis.o error.o 
-BUILD_OBJS=src/main.o src/proftpd_signatures_impl.o src/timers.o src/sets.o src/pool.o src/privs.o src/str.o \
+  version.o rlimit.o wtmp.o json.o jot.o memcache.o redis.o error.o
+
+BUILD_OBJS=src/main.o src/timers.o src/sets.o src/pool.o src/privs.o src/str.o \
   src/table.o src/regexp.o src/configdb.o src/dirtree.o src/expr.o \
   src/signals.o src/support.o src/netaddr.o src/inet.o src/child.o \
   src/parser.o src/log.o src/lastlog.o src/xferlog.o src/bindings.o \
@@ -90,6 +91,7 @@ BUILD_OBJS=src/main.o src/proftpd_signatures_impl.o src/timers.o src/sets.o src/
   src/pidfile.o src/env.o src/random.o src/version.o src/rlimit.o \
   src/wtmp.o src/json.o src/jot.o src/memcache.o src/redis.o \
   src/error.o
+
 SHARED_MODULE_DIRS=@SHARED_MODULE_DIRS@
 SHARED_MODULE_LIBS=@SHARED_MODULE_LIBS@
 SHARED_MODULE_OBJS=@SHARED_MODULE_OBJS@

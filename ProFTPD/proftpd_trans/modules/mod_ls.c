@@ -2046,8 +2046,7 @@ static int dolist(cmd_rec *cmd, const char *opt, const char *resp_code,
 
       if (use_globbing == TRUE &&
           pr_str_is_fnmatch(target)) {
-        a = pr_fs_glob(target, glob_flags, NULL,
-                       errfunc_signatures[errfunc_NULL], &g);
+        a = pr_fs_glob(target, glob_flags, NULL, &g);
         if (a == 0) {
           pr_log_debug(DEBUG8, "LIST: glob(3) returned %lu %s",
             (unsigned long) g.gl_pathc, g.gl_pathc != 1 ? "paths" : "path");
@@ -3135,8 +3134,7 @@ MODRET ls_nlst(cmd_rec *cmd) {
     /* Make sure the glob_t is initialized */
     memset(&g, '\0', sizeof(glob_t));
 
-    res = pr_fs_glob(target, glob_flags, NULL,
-                     errfunc_signatures[errfunc_NULL], &g);
+    res = pr_fs_glob(target, glob_flags, NULL, &g);
     if (res == 0) {
       pr_log_debug(DEBUG8, "NLST: glob(3) returned %lu %s",
         (unsigned long) g.gl_pathc, g.gl_pathc != 1 ? "paths" : "path");
@@ -3714,26 +3712,26 @@ static int ls_init(void) {
 /* Module API tables
  */
 
-conftable ls_conftab[] = {
-  { "DirFakeUser",	set_dirfakeusergroup, sig_set_dirfakeusergroup,			NULL },
-  { "DirFakeGroup",	set_dirfakeusergroup, sig_set_dirfakeusergroup,			NULL },
-  { "DirFakeMode",	set_dirfakemode, sig_set_dirfakemode,			NULL },
-  { "ListOptions",	set_listoptions, sig_set_listoptions,			NULL },
-  { "ListStyle",	set_liststyle, sig_set_liststyle,				NULL },
-  { "ShowSymlinks",	set_showsymlinks, sig_set_showsymlinks,			NULL },
-  { "UseGlobbing",	set_useglobbing, sig_set_useglobbing,			NULL },
+static conftable ls_conftab[] = {
+  { "DirFakeUser",	set_dirfakeusergroup,			NULL },
+  { "DirFakeGroup",	set_dirfakeusergroup,			NULL },
+  { "DirFakeMode",	set_dirfakemode,			NULL },
+  { "ListOptions",	set_listoptions,			NULL },
+  { "ListStyle",	set_liststyle,				NULL },
+  { "ShowSymlinks",	set_showsymlinks,			NULL },
+  { "UseGlobbing",	set_useglobbing,			NULL },
   { NULL,		NULL,					NULL }
 };
 
-cmdtable ls_cmdtab[] = {
-  { CMD,  	C_NLST,	G_DIRS,	ls_nlst, sig_ls_nlst,	TRUE, FALSE, CL_DIRS },
-  { CMD,	C_LIST,	G_DIRS,	ls_list, sig_ls_list,	TRUE, FALSE, CL_DIRS },
-  { CMD, 	C_STAT,	G_DIRS,	ls_stat, sig_ls_stat,	TRUE, FALSE, CL_INFO },
-  { POST_CMD,	C_PASS,	G_NONE,	ls_post_pass, sig_ls_post_pass,	FALSE, FALSE },
-  { LOG_CMD,	C_LIST,	G_NONE,	ls_log_nlst, sig_ls_log_nlst,	FALSE, FALSE },
-  { LOG_CMD,	C_NLST, G_NONE,	ls_log_nlst, sig_ls_log_nlst,	FALSE, FALSE },
-  { LOG_CMD_ERR,C_LIST, G_NONE, ls_err_nlst, sig_ls_err_nlst,   FALSE, FALSE },
-  { LOG_CMD_ERR,C_NLST, G_NONE, ls_err_nlst, sig_ls_err_nlst,   FALSE, FALSE },
+static cmdtable ls_cmdtab[] = {
+  { CMD,  	C_NLST,	G_DIRS,	ls_nlst,	TRUE, FALSE, CL_DIRS },
+  { CMD,	C_LIST,	G_DIRS,	ls_list,	TRUE, FALSE, CL_DIRS },
+  { CMD, 	C_STAT,	G_DIRS,	ls_stat,	TRUE, FALSE, CL_INFO },
+  { POST_CMD,	C_PASS,	G_NONE,	ls_post_pass,	FALSE, FALSE },
+  { LOG_CMD,	C_LIST,	G_NONE,	ls_log_nlst,	FALSE, FALSE },
+  { LOG_CMD,	C_NLST, G_NONE,	ls_log_nlst,	FALSE, FALSE },
+  { LOG_CMD_ERR,C_LIST, G_NONE, ls_err_nlst,   FALSE, FALSE },
+  { LOG_CMD_ERR,C_NLST, G_NONE, ls_err_nlst,   FALSE, FALSE },
   { 0, NULL }
 };
 

@@ -91,7 +91,7 @@ int pr_table_count(pr_table_t *tab);
  */
 int pr_table_do(pr_table_t *tab, int cb(const void *key_data,
   size_t key_datasz, const void *value_data, size_t value_datasz,
-  void *user_data), int, void *user_data, int flags);
+  void *user_data), void *user_data, int flags);
 #define PR_TABLE_DO_FL_ALL			0x0010
 
 /* Remove all entries from the table, emptying it.
@@ -242,7 +242,7 @@ float pr_table_load(pr_table_t *tab);
 int pr_table_copy(pr_table_t *dst_tab, pr_table_t *src_tab, int flags);
 
 /* Dump table information. */
-void pr_table_dump(void (*)(const char *, ...), int, pr_table_t *tab);
+void pr_table_dump(void (*)(const char *, ...), pr_table_t *tab);
 
 /* Same as pr_table_add(), except that the key data to use is treated as
  * an opaque memory region of size key_datasz.  This function should be

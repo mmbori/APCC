@@ -38,8 +38,7 @@ struct timer {
 
   int timerno;                  /* Caller dependent timer number */
   module *mod;                  /* Module owning this timer */
-  callback_t callback;          /* Function to callback */
-  int callback_signature;
+  int (*callback)(CALLBACK_FRAME);          /* Function to callback */
   char remove;                  /* Internal use */
 
   const char *desc;		/* Description of timer, provided by caller */
@@ -138,31 +137,8 @@ static int process_timers(int elapsed) {
           t->desc ? t->desc : "<unknown>",
           t->mod ? t->mod->name : "<none>", t->callback);
 
-        int tmp;
-        if (t->callback_signature == callback_signatures[callback_auth_login_timeout_cb]) {
-          tmp = auth_login_timeout_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_auth_session_timeout_cb]) {
-            tmp = auth_session_timeout_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_core_idle_timeout_cb]) {
-            tmp = core_idle_timeout_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_core_scrub_scoreboard_cb]) {
-            tmp = core_scrub_scoreboard_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_noxfer_timeout_cb]) {
-            tmp = noxfer_timeout_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_stalled_timeout_cb]) {
-            tmp = stalled_timeout_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-        else if (t->callback_signature == callback_signatures[callback_sleep_cb]) {
-            tmp = sleep_cb(t->interval, t->timerno, t->interval - t->count, t->mod);
-        }
-
-        // if (t->callback(t->interval, t->timerno, t->interval - t->count, t->mod) == 0) {
-        if (tmp == 0) {
+        if (t->callback(t->interval, t->timerno, t->interval - t->count,
+            t->mod) == 0) {
 
           /* A return value of zero means this timer is done, and can be
            * removed.
@@ -220,15 +196,19 @@ static int process_timers(int elapsed) {
 }
 
 static RETSIGTYPE sig_alarm(int signo) {
+#if defined(HAVE_SIGACTION)
   struct sigaction act;
 
   act.sa_handler = sig_alarm;
   sigemptyset(&act.sa_mask);
   act.sa_flags = 0;
 
-#ifdef SA_INTERRUPT
+# if defined(SA_INTERRUPT)
   act.sa_flags |= SA_INTERRUPT;
-#endif
+#endif /* SA_INTERRUPT */
+# if defined(SA_RESTART)
+  act.sa_flags &= SA_RESTART;
+#endif /* SA_RESTART */
 
   /* Install this handler for SIGALRM. */
   if (sigaction(SIGALRM, &act, NULL) < 0) {
@@ -237,12 +217,12 @@ static RETSIGTYPE sig_alarm(int signo) {
       strerror(errno));
   }
 
-#ifdef HAVE_SIGINTERRUPT
+#elif defined(HAVE_SIGINTERRUPT)
   if (siginterrupt(SIGALRM, 1) < 0) {
     pr_log_pri(PR_LOG_WARNING,
       "unable to allow SIGALRM to interrupt system calls: %s", strerror(errno));
   }
-#endif
+#endif /* HAVE_SIGACTION or HAVE_SIGINTERRUPT */
 
   recvd_signal_flags |= RECEIVED_SIG_ALRM;
   nalarms++;
@@ -256,14 +236,19 @@ static RETSIGTYPE sig_alarm(int signo) {
 }
 
 static void set_sig_alarm(void) {
+#if defined(HAVE_SIGACTION)
   struct sigaction act;
 
   act.sa_handler = sig_alarm;
   sigemptyset(&act.sa_mask);
   act.sa_flags = 0;
-#ifdef SA_INTERRUPT
+
+# if defined(SA_INTERRUPT)
   act.sa_flags |= SA_INTERRUPT;
-#endif
+# endif /* SA_INTERRUPT */
+# if defined(SA_RESTART)
+  act.sa_flags &= SA_RESTART;
+# endif /* SA_RESTART */
 
   /* Install this handler for SIGALRM. */
   if (sigaction(SIGALRM, &act, NULL) < 0) {
@@ -272,12 +257,12 @@ static void set_sig_alarm(void) {
       strerror(errno));
   }
 
-#ifdef HAVE_SIGINTERRUPT
+#elif defined(HAVE_SIGINTERRUPT)
   if (siginterrupt(SIGALRM, 1) < 0) {
     pr_log_pri(PR_LOG_WARNING,
       "unable to allow SIGALRM to interrupt system calls: %s", strerror(errno));
   }
-#endif
+#endif /* HAVE_SIGACTION or HAVE_SIGINTERRUPT */
 }
 
 void handle_alarm(void) {
@@ -432,7 +417,7 @@ int pr_timer_remove(int timerno, module *mod) {
   return nremoved;
 }
 
-int pr_timer_add(int seconds, int timerno, module *mod, callback_t cb, int cb_signature,
+int pr_timer_add(int seconds, int timerno, module *mod, int (*cb)(CALLBACK_FRAME),
     const char *desc) {
   struct timer *t = NULL;
 
@@ -489,7 +474,6 @@ int pr_timer_add(int seconds, int timerno, module *mod, callback_t cb, int cb_si
   t->timerno = timerno;
   t->count = t->interval = seconds;
   t->callback = cb;
-  t->callback_signature = cb_signature;
   t->mod = mod;
   t->remove = 0;
   t->desc = desc;
@@ -544,7 +528,7 @@ void pr_alarms_unblock(void) {
   }
 }
 
-int sleep_cb(CALLBACK_FRAME) {
+static int sleep_cb(CALLBACK_FRAME) {
   sleep_sem++;
   return 0;
 }
@@ -561,7 +545,7 @@ int pr_timer_sleep(int seconds) {
     return -1;
   }
 
-  timerno = pr_timer_add(seconds, -1, NULL, sleep_cb, callback_signatures[callback_sleep_cb], "sleep");
+  timerno = pr_timer_add(seconds, -1, NULL, sleep_cb, "sleep");
   if (timerno == -1) {
     return -1;
   }

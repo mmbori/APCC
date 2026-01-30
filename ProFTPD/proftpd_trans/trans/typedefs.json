@@ -1,0 +1,80 @@
+{
+  "function_pointer_templates": {
+    "callback_t": "int (*callback_t)(CALLBACK_FRAME)",
+    "XASET_COMPARE": "int (*XASET_COMPARE)(xasetmember_t *v1, xasetmember_t *v2)",
+    "XASET_MCOPY": "xasetmember_t* (*XASET_MCOPY)(xasetmember_t *mem)",
+    "val_func": "unsigned int (*val_func)(const void *)",
+    "cmp_func": "int (*cmp_func)(const void *, const void *)",
+    "var_vstr_cb": "const char * (*var_vstr_cb)(void *, size_t)"
+  },
+  "function_type_templates": {
+    "tpl_print_fcn": {
+      "return_type": "int",
+      "params": "const char *fmt, ..."
+    },
+    "tpl_malloc_fcn": {
+      "return_type": "void *",
+      "params": "size_t sz"
+    },
+    "tpl_realloc_fcn": {
+      "return_type": "void *",
+      "params": "void *ptr, size_t sz"
+    },
+    "tpl_free_fcn": {
+      "return_type": "void",
+      "params": "void *ptr"
+    },
+    "tpl_fatal_fcn": {
+      "return_type": "void",
+      "params": "char *fmt, ..."
+    },
+    "tpl_gather_cb": {
+      "return_type": "int",
+      "params": "void *img, size_t sz, void *data"
+    },
+    "lt_dlpreload_callback_func": {
+      "return_type": "int",
+      "params": "lt_dlhandle handle"
+    },
+    "lt_dlhandle_interface": {
+      "return_type": "int",
+      "params": "lt_dlhandle handle, const char *id_string"
+    },
+    "foreach_callback_func": {
+      "return_type": "int",
+      "params": "char *filename, void *data1, void *data2"
+    },
+    "file_worker_func": {
+      "return_type": "int",
+      "params": "const char *filename, void *data"
+    },
+    "SListCallback": {
+      "return_type": "void *",
+      "params": "SList *item, void *userdata"
+    },
+    "SListCompare": {
+      "return_type": "int",
+      "params": "const SList *item1, const SList *item2, void *userdata"
+    },
+    "lt_module_open": {
+      "return_type": "lt_module",
+      "params": "lt_user_data data, const char *filename, lt_dladvise advise"
+    },
+    "lt_module_close": {
+      "return_type": "int",
+      "params": "lt_user_data data, lt_module module"
+    },
+    "lt_find_sym": {
+      "return_type": "void *",
+      "params": "lt_user_data data, lt_module module, const char *symbolname"
+    },
+    "lt_dlloader_init": {
+      "return_type": "int",
+      "params": "lt_user_data data"
+    },
+    "lt_dlloader_exit": {
+      "return_type": "int",
+      "params": "lt_user_data data"
+    }
+  }
+}

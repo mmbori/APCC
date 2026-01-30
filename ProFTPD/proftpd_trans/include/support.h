@@ -72,8 +72,7 @@ char *dir_canonical_vpath(pool *, const char *);
 char *dir_best_path(pool *, const char *);
 
 /* Schedulables. */
-void schedule(void (*f)(void *, void *, void *, void *),
-int f_signature, int, void *, void *,
+void schedule(void (*f)(void *, void *, void *, void *), int, void *, void *,
   void *, void *);
 void run_schedule(void);
 void restart_daemon(void *, void *, void *, void *);

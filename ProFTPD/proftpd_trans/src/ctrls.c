@@ -57,8 +57,6 @@ typedef struct ctrls_act_obj {
   const module *module;
   volatile unsigned int flags;
   int (*action_cb)(pr_ctrls_t *, int, char **);
-
-  int action_cb_signature;
 } ctrls_action_t;
 
 static unsigned char ctrls_blocked = FALSE;
@@ -199,8 +197,7 @@ int pr_ctrls_free(pr_ctrls_t *ctrl) {
 }
 
 int pr_ctrls_register(const module *mod, const char *action,
-    const char *desc, int (*cb)(pr_ctrls_t *, int, char **),
-    int cb_signature) {
+    const char *desc, int (*cb)(pr_ctrls_t *, int, char **)) {
   ctrls_action_t *act = NULL, *acti = NULL;
   unsigned int act_id = 0;
 
@@ -1842,8 +1839,9 @@ int pr_run_ctrls(module *mod, const char *action) {
     }
 
     pr_unblock_ctrls();
-    // E1 = E2->FP_NAME(args);
-    res = NULL;
+    res = ctrl->ctrls_cb(ctrl,
+      (ctrl->ctrls_cb_args ? ctrl->ctrls_cb_args->nelts : 0),
+      (ctrl->ctrls_cb_args ? (char **) ctrl->ctrls_cb_args->elts : NULL));
     pr_block_ctrls();
 
     pr_trace_msg(trace_channel, 19,
@@ -2414,7 +2412,7 @@ int pr_ctrls_log(const char *module_version, const char *fmt, ...) {
   return res;
 }
 
-void ctrls_cleanup_cb(void *user_data) {
+static void ctrls_cleanup_cb(void *user_data) {
   ctrls_pool = NULL;
   ctrls_action_list = NULL;
   ctrls_active_list = NULL;
@@ -2438,8 +2436,7 @@ int init_ctrls2(const char *socket_path) {
 
   ctrls_pool = make_sub_pool(permanent_pool);
   pr_pool_tag(ctrls_pool, "Controls Pool");
-  register_cleanup2(ctrls_pool, NULL, ctrls_cleanup_cb,
-                    cleanup_cb_signatures[cleanup_cb_ctrls_cleanup_cb]);
+  register_cleanup2(ctrls_pool, NULL, ctrls_cleanup_cb);
 
   /* Make sure all of the lists are zero'd out. */
   ctrls_action_list = NULL;

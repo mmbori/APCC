@@ -121,8 +121,6 @@ typedef struct ctrls_obj {
   /* For internal use */
   volatile unsigned long ctrls_flags;
 
-
-  int ctrls_cb_signature;
 } pr_ctrls_t;
 
 #define PR_CTRLS_FL_REQUESTED		0x00001
@@ -159,8 +157,7 @@ typedef struct ctrls_obj {
  * handler, or -1 if there was an error.
  */
 int pr_ctrls_register(const module *mod, const char *action,
-  const char *desc, int (*ctrls_cb)(pr_ctrls_t *, int, char **),
-  int ctrls_cb_signature);
+  const char *desc, int (*ctrls_cb)(pr_ctrls_t *, int, char **));
 
 /* Unregisters any control handlers that match the given module/action pair.
  * If the module argument is null, then the specified action for all modules
